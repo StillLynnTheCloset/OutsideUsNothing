@@ -1,0 +1,13 @@
+package com.stilllynnthecloset.outsideusnothing.desktop
+
+import com.stilllynnthecloset.outsideusnothing.Platform
+import com.stilllynnthecloset.outsideusnothing.theme.ImagePainter
+
+/**
+ * PlatformDesktop - TODO: Documentation
+ *
+ * Created by Lynn on 3/25/23
+ */
+data class PlatformDesktop constructor(
+    override val imagePainter: ImagePainter = ImagePainterDesktop,
+) : Platform
