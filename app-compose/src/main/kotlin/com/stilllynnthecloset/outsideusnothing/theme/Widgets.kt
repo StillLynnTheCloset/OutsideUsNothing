@@ -503,13 +503,16 @@ public fun <T : NavigationTab> navigationBarContainer(
                                 ),
                                 contentDescription = "Open ${tab.label}",
                                 modifier = Modifier
-                                    .height(16.dp)
-                                    .width(16.dp)
+                                    .height(24.dp)
+                                    .width(24.dp)
                                     .align(CenterVertically),
                             )
                         },
                         label = {
-                            Text(text = tab.label)
+                            Text(
+                                text = tab.label,
+                                modifier = Modifier.padding(top = 10.dp)
+                            )
                         },
                     )
                 }

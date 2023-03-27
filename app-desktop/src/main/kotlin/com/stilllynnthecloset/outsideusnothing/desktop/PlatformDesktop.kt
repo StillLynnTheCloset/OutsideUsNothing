@@ -8,6 +8,6 @@ import com.stilllynnthecloset.outsideusnothing.theme.ImagePainter
  *
  * Created by Lynn on 3/25/23
  */
-data class PlatformDesktop constructor(
+internal data class PlatformDesktop constructor(
     override val imagePainter: ImagePainter = ImagePainterDesktop,
 ) : Platform

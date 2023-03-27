@@ -37,11 +37,3 @@ public fun applicationContents(windowSize: DpSize, dataModel: MainDataModel, pla
         }
     }
 }
-
-internal enum class NavigationTabImpl constructor(
-    override val description: String,
-    override val imageReference: ImageReference,
-    override val label: String,
-) : NavigationTab {
-    DiceRoller("DiceRoller", ImageReference.Dice5, "Dice"),
-}
