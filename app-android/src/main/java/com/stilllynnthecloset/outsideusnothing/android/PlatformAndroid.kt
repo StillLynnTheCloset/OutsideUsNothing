@@ -2,7 +2,6 @@ package com.stilllynnthecloset.outsideusnothing.android
 
 import com.stilllynnthecloset.outsideusnothing.Platform
 import com.stilllynnthecloset.outsideusnothing.theme.ImagePainter
-import com.stilllynnthecloset.outsideusnothing.theme.ImagePainterAndroid
 
 /**
  * PlatformAndroid - TODO: Documentation

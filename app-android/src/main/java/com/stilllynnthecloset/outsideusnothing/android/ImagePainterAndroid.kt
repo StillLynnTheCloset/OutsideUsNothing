@@ -1,9 +1,10 @@
-package com.stilllynnthecloset.outsideusnothing.theme
+package com.stilllynnthecloset.outsideusnothing.android
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
-import com.stilllynnthecloset.outsideusnothing.android.R
+import com.stilllynnthecloset.outsideusnothing.theme.ImagePainter
+import com.stilllynnthecloset.outsideusnothing.theme.ImageReference
 
 /**
  * ImagePainter - TODO: Documentation
