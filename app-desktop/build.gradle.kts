@@ -61,7 +61,7 @@ compose.desktop {
         nativeDistributions {
             targetFormats(Dmg, Msi, Deb, Rpm, Exe)
             outputBaseDir.set(project.buildDir.resolve("packages"))
-            packageName = "Outside us, Nothing"
+            packageName = "outside-us-nothing"
             packageVersion = "$major.$minor.$patch"
             description = "Outside us, Nothing"
             copyright = "© 2023 Lynn"
@@ -74,11 +74,12 @@ compose.desktop {
                 // https://github.com/JetBrains/compose-jb/blob/master/tutorials/Signing_and_notarization_on_macOS/README.md
                 // For details on how to make this work on macOS.
 
-                iconFile.set(project.file("icons/ic_launcher_prod.icns"))
+                iconFile.set(project.file("icons/ic_launcher.icns"))
             }
             linux {
-                iconFile.set(project.file("icons/ic_launcher_prod.png"))
+                iconFile.set(project.file("icons/ic_launcher.png"))
                 packageName = "outside-us-nothing"
+                packageVersion = "$major.$minor.$patch"
                 debMaintainer = "lynn"
                 menuGroup = "games"
                 appRelease = "1"
@@ -88,8 +89,9 @@ compose.desktop {
 //                rpmPackageVersion = "RPM_VERSION"
             }
             windows {
-                iconFile.set(project.file("icons/ic_launcher_prod.ico"))
-                console = false
+                iconFile.set(project.file("icons/ic_launcher.ico"))
+                packageVersion = "$major.$minor.$patch"
+                console = true
                 dirChooser = true
                 perUserInstall = true
                 menuGroup = "games"
