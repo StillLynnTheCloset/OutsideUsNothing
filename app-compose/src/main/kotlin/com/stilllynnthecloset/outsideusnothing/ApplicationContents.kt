@@ -13,22 +13,22 @@ import com.stilllynnthecloset.outsideusnothing.theme.navigationContainer
 
 @Composable
 @ExperimentalComposeUiApi
-public fun applicationContents(windowSize: DpSize, dataModel: MainDataModel, platform: Platform) {
+public fun applicationContents(windowSize: DpSize, dataModel: MainDataModel, windowDataModel: WindowDataModel, platform: Platform) {
     navigationContainer(
         windowSize = windowSize,
         currentTab = NavigationTabImpl.values()
-            .find { it.description == dataModel.currentScreen.description },
+            .find { it.description == windowDataModel.currentScreen.description },
         tabs = NavigationTabImpl.values().toList(),
-        isThereBackButton = dataModel.isThereBackstack(),
-        onNavigationClick = { dataModel.updateCurrentTab(it) },
-        onBackClick = { dataModel.popBackStack() },
+        isThereBackButton = windowDataModel.isThereBackstack(),
+        onNavigationClick = { windowDataModel.updateCurrentTab(it) },
+        onBackClick = { windowDataModel.popBackStack() },
         platform = platform,
     ) { bottomPadding ->
         Column(
             modifier = Modifier
                 .padding(bottom = bottomPadding),
         ) {
-            when (val currentScreen = dataModel.currentScreen) {
+            when (val currentScreen = windowDataModel.currentScreen) {
                 is NavigationDestination.DiceRoller -> DiceRollerScreen(
                     dataModel = currentScreen.dataModel,
                     platform = platform,

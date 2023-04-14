@@ -59,6 +59,7 @@ public val appBarHeight: Dp = 64.dp
 public fun appWindowTitleBar(
     currentIsDarkTheme: Boolean,
     onDarkThemeChanged: (Boolean) -> Unit,
+    onOpenWindow: (() -> Unit)? = null,
     platform: Platform,
 ): Unit =
     Box(
@@ -81,6 +82,18 @@ public fun appWindowTitleBar(
                 modifier = Modifier
                     .weight(1.0f),
             )
+
+            if (onOpenWindow != null) {
+                Image(
+                    painter = platform.imagePainter.getPainter(ImageReference.Plus),
+                    contentDescription = "Open New Window",
+                    colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
+                    modifier = Modifier
+                        .padding(end = 16.dp)
+                        .width(26.dp)
+                        .clickable { onOpenWindow() },
+                )
+            }
 
             Image(
                 painter = platform.imagePainter.getPainter(if (currentIsDarkTheme) ImageReference.Sun else ImageReference.Moon),
