@@ -26,5 +26,7 @@ internal object ImagePainterAndroid : ImagePainter {
         ImageReference.ChevronRight -> painterResource(id = R.drawable.ic_chevron_right)
         ImageReference.Plus -> painterResource(id = R.drawable.ic_plus)
         ImageReference.Minus -> painterResource(id = R.drawable.ic_minus)
+        ImageReference.Book -> painterResource(id = R.drawable.ic_book)
+        ImageReference.Gas -> painterResource(id = R.drawable.ic_gas)
     }
 }

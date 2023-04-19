@@ -7,8 +7,8 @@ package com.stilllynnthecloset.liboun.model
  */
 public data class PlaySheet constructor(
     val name: String,
-    val choices: List<PlaySheetChoice>,
+    val choices: List<PlaySheetChoiceSpecification>,
     val actions: List<Action>,
 ) {
-    public fun withRandomChoices(): PlaySheet = this.copy(choices = choices.map { it.withRandomAnswers() })
+//    public fun withRandomChoices(): PlaySheet = this.copy(choices = choices.map { it.withRandomAnswers() })
 }

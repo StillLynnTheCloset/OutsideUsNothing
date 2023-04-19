@@ -7,6 +7,7 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.DpSize
 import com.stilllynnthecloset.outsideusnothing.dice.DiceRollerScreen
+import com.stilllynnthecloset.outsideusnothing.organizer.OrganizerScreen
 import com.stilllynnthecloset.outsideusnothing.theme.ImageReference
 import com.stilllynnthecloset.outsideusnothing.theme.NavigationTab
 import com.stilllynnthecloset.outsideusnothing.theme.navigationContainer
@@ -30,6 +31,10 @@ public fun applicationContents(windowSize: DpSize, dataModel: MainDataModel, win
         ) {
             when (val currentScreen = windowDataModel.currentScreen) {
                 is NavigationDestination.DiceRoller -> DiceRollerScreen(
+                    dataModel = currentScreen.dataModel,
+                    platform = platform,
+                )
+                is NavigationDestination.Organizer -> OrganizerScreen(
                     dataModel = currentScreen.dataModel,
                     platform = platform,
                 )

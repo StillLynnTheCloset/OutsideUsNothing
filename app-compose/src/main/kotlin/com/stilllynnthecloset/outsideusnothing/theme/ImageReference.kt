@@ -18,4 +18,6 @@ public enum class ImageReference {
     ChevronRight,
     Minus,
     Plus,
+    Book,
+    Gas,
 }

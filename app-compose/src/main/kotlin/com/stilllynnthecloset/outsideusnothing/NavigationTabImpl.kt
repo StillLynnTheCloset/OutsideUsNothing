@@ -14,4 +14,5 @@ internal enum class NavigationTabImpl constructor(
     override val label: String,
 ) : NavigationTab {
     DiceRoller("DiceRoller", ImageReference.Dice5, "Dice"),
+    Organizer("Organizer", ImageReference.Book, "GM"),
 }

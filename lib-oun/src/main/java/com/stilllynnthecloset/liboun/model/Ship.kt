@@ -10,13 +10,13 @@ public data class Ship constructor(
     val fuel: Int = 4,
     val supplies: Int = 8,
     val condition: HealthCondition = HealthCondition.HEALTHY,
-    val playSheet: PlaySheet = basePlaySheet.withRandomChoices(),
+    val playSheet: PlaySheet,
 ) {
     public companion object {
         public val basePlaySheet: PlaySheet = PlaySheet(
             name = "Your Ship",
             choices = listOf(
-                PlaySheetChoice(
+                PlaySheetChoiceSpecification(
                     question = "Choose one material our ship is made of",
                     options = setOf(
                         "cold metal",
@@ -32,7 +32,7 @@ public data class Ship constructor(
                     numberOfPositiveSelections = 1,
                     numberOfNegativeSelections = 0,
                 ),
-                PlaySheetChoice(
+                PlaySheetChoiceSpecification(
                     question = "Choose three things our ship is and one it is decidedly not",
                     options = setOf(
                         "was just bought or remodeled",
@@ -68,11 +68,5 @@ public data class Ship constructor(
             ),
             actions = emptyList(),
         )
-    }
-
-    public fun niceToString(): String {
-        val properties = playSheet.choices[1].positiveSelections.orEmpty().joinToString()
-        val notProperty = playSheet.choices[1].negativeSelections.orEmpty().joinToString()
-        return "The $name is made of ${playSheet.choices[0].positiveSelections?.firstOrNull()} and it $properties, but not $notProperty"
     }
 }

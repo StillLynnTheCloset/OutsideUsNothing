@@ -4,6 +4,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import com.stilllynnthecloset.outsideusnothing.dice.DiceRollerDataModel
+import com.stilllynnthecloset.outsideusnothing.organizer.OrganizerDataModel
 
 /**
  * WindowDataModel - TODO: Documentation
@@ -30,6 +31,7 @@ public class WindowDataModel {
         backstack.clear()
         currentScreen = when (newTab) {
             NavigationTabImpl.DiceRoller -> NavigationDestination.DiceRoller(DiceRollerDataModel())
+            NavigationTabImpl.Organizer -> NavigationDestination.Organizer(OrganizerDataModel())
         }
     }
 

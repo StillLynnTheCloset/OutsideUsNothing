@@ -2,10 +2,12 @@ package com.stilllynnthecloset.liboun
 
 import com.stilllynnthecloset.liboun.model.ContractQuality
 import com.stilllynnthecloset.liboun.model.Ship
+import com.stilllynnthecloset.liboun.playbook.portWeightings
 import java.math.BigDecimal
 import java.math.BigInteger
 import kotlin.math.pow
 import kotlin.random.Random
+import kotlin.time.Duration.Companion.milliseconds
 
 // region Probability
 
@@ -71,7 +73,7 @@ public fun rollDice(diceUsed: Int, diceSides: Int = 6): List<Int> {
 
 private val random: Random = Random.Default
 
-private fun rollDie(diceSides: Int): Int {
+public fun rollDie(diceSides: Int): Int {
     return random.nextInt(diceSides) + 1
 }
 
@@ -83,6 +85,23 @@ public fun simulateOdds(simulations: Int, actionCost: Int, actionDifficulty: Int
     return (0 until simulations).count {
         checkSuccess(actionCost, actionDifficulty, rollDice(diceUsed, diceSides))
     } / simulations.toDouble()
+}
+
+public fun <T> Set<T>.pickN(count: Int): Set<T> {
+    val results = mutableSetOf<T>()
+    repeat(count) {
+        results.add(this.minus(results).random())
+    }
+    return results
+}
+
+public fun <T> Set<T>.pickAtLeastN(minCount: Int): Set<T> {
+    val count = random.nextInt(minCount, this.size)
+    val results = mutableSetOf<T>()
+    repeat(count) {
+        results.add(this.minus(results).random())
+    }
+    return results
 }
 
 // endregion Simulation
@@ -136,18 +155,18 @@ internal fun demo(actionCost: Int, actionDifficulty: Int, diceUsed: Int, probabi
 //    repeat(20) {
 //        generateRandomPlayer("Lynn")
 //    }
-    repeat(20) {
-        println(generateRandomShip("Vivipary").niceToString())
-    }
-    println(Ship(
-        name = "Vivipary",
-        playSheet = Ship.basePlaySheet.copy(
-            choices = listOf(
-                Ship.basePlaySheet.choices[0].copy(),
-                Ship.basePlaySheet.choices[1],
-            ),
-        ),
-    ).niceToString())
+//    repeat(20) {
+//        println(generateRandomShip("Vivipary").niceToString())
+//    }
+//    println(Ship(
+//        name = "Vivipary",
+//        playSheet = Ship.basePlaySheet.copy(
+//            choices = listOf(
+//                Ship.basePlaySheet.choices[0].copy(),
+//                Ship.basePlaySheet.choices[1],
+//            ),
+//        ),
+//    ).niceToString())
 
 //    repeat(30) {
 //        println(getOddsOfAtLeast(6, 4, it + 1))
@@ -155,6 +174,34 @@ internal fun demo(actionCost: Int, actionDifficulty: Int, diceUsed: Int, probabi
 
 //    rollForRewards(JobQuality.EXCELLENT)
 
+
+//    weightedListOfPorts.forEachIndexed { index, s ->
+//        println("${index + 1} - $s")
+//    }
+    repeat(5) {
+        val port = portWeightings.generateWeightedList().random().randomize()
+        println(port.specification.name)
+        println(port.specification.description)
+        port.customizations.forEach { playSheetChoice ->
+            println("    ${playSheetChoice.specification.question}:")
+            if (playSheetChoice.positiveSelections.isNotEmpty()) {
+                println("        ${playSheetChoice.positiveSelections}")
+            }
+            if (playSheetChoice.negativeSelections.isNotEmpty()) {
+                println("        But not: ${playSheetChoice.negativeSelections}")
+            }
+        }
+        println("    Contracts:")
+        port.contracts.forEach {
+            println("        ${it.contractSpecification.description}")
+            println("            ${it.fuelReward} fuel")
+            println("            ${it.suppliesReward} supplies")
+            if (it.itemReward) {
+                println("            And an item")
+            }
+        }
+        println("It has ${rollDie(6)} connected points")
+    }
 }
 
 internal fun main() {
@@ -165,6 +212,8 @@ internal fun main() {
         diceSides = 6,
         probabilitiesToFind = listOf(0.50, 0.75, 0.90, 0.95, 0.99),
     )
+
+    printTimeStuff()
 }
 
 private fun rollForRewards(jobQuality: ContractQuality) {
@@ -310,9 +359,7 @@ public fun generateRandomPlayer(name: String) {
     println("$name is a ${backgrounds.random()} ${aliens.random()}, and is the ship's ${roles.random()}")
 }
 
-public fun generateRandomShip(name: String): Ship = Ship(name)
-
-
+//public fun generateRandomShip(name: String): Ship = Ship(name)
 
 public val aliens: Set<String> = setOf(
     "Terre",
@@ -391,3 +438,35 @@ public val shipProperties: Set<String> = setOf(
     "A piece of unique technology",
     "Home",
 )
+
+public fun <T> Map<T, Int>.generateWeightedList(): List<T> = this.flatMap { weighting -> List(weighting.value) { weighting.key } }
+
+
+public fun printTimeStuff() {
+    println("1 nanoperiod = ${NANO_PERIOD.milliseconds}")
+    println("1 microperiod = ${MICRO_PERIOD.milliseconds}")
+    println("1 milliperiod = ${MILLI_PERIOD.milliseconds}")
+    println("1 centiperiod = ${CENTI_PERIOD.milliseconds}")
+    println("1 deciperiod = ${DECI_PERIOD.milliseconds}")
+    println("1 period = ${PERIOD.milliseconds}")
+    println("1 decaperiod = ${DECA_PERIOD.milliseconds}")
+    println("1 hectoperiod = ${HECTO_PERIOD.milliseconds.inWholeDays / 365}y")
+    println("1 kiloperiod = ${KILO_PERIOD.milliseconds.inWholeDays / 365}y")
+    println("1 megaperiod = ${MEGA_PERIOD.milliseconds.inWholeDays / 365}y")
+    println("1 gigaperiod = ${GIGA_PERIOD.milliseconds.inWholeDays / 365}y")
+    println()
+    println("1 yoctolightperiod = ${YOCTO_LIGHT_PERIOD * NANOMETER_PER_MILE} nanometers")
+    println("1 femtolightperiod = ${FEMTO_LIGHT_PERIOD * 5280} feet")
+    println("1 picolightperiod = $PICO_LIGHT_PERIOD miles")
+    println("1 nanolightperiod = $NANO_LIGHT_PERIOD miles")
+    println("1 microlightperiod = $MICRO_LIGHT_PERIOD miles")
+    println("1 millilightperiod = $MILLI_LIGHT_PERIOD miles = ${MILLI_LIGHT_PERIOD / ASTRONOMICAL_UNIT} AU")
+    println()
+
+
+
+    val nanometerPerYocto = (YOCTO_LIGHT_PERIOD * NANOMETER_PER_MILE)
+    println(nanometerPerYocto)
+    println(402.39712051787154 / nanometerPerYocto)
+    println(555 * nanometerPerYocto)
+}

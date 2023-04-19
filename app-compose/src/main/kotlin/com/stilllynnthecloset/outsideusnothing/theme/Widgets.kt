@@ -24,6 +24,7 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -470,8 +471,8 @@ public fun <T : NavigationTab> navigationRailContainer(
                             ),
                             contentDescription = "Open ${tab.label}",
                             modifier = Modifier
-                                .height(16.dp)
-                                .width(16.dp)
+                                .height(24.dp)
+                                .width(24.dp)
                                 .align(CenterHorizontally),
                         )
                     },
@@ -506,25 +507,20 @@ public fun <T : NavigationTab> navigationBarContainer(
                     val isSelected = currentTab?.description == tab.description
                     NavigationBarItem(
                         selected = isSelected,
-                        modifier = Modifier.padding(top = 8.dp, bottom = 8.dp),
                         onClick = { onClick(tab) },
                         icon = {
-                            Image(
+                            Icon(
                                 painter = platform.imagePainter.getPainter(tab.imageReference),
-                                colorFilter = ColorFilter.tint(
-                                    if (isSelected) MaterialTheme.colorScheme.onSecondaryContainer else MaterialTheme.colorScheme.onSurfaceVariant,
-                                ),
+                                tint = if (isSelected) MaterialTheme.colorScheme.onSecondaryContainer else MaterialTheme.colorScheme.onSurfaceVariant,
                                 contentDescription = "Open ${tab.label}",
                                 modifier = Modifier
                                     .height(24.dp)
-                                    .width(24.dp)
-                                    .align(CenterVertically),
+                                    .width(24.dp),
                             )
                         },
                         label = {
                             Text(
                                 text = tab.label,
-                                modifier = Modifier.padding(top = 10.dp)
                             )
                         },
                     )
