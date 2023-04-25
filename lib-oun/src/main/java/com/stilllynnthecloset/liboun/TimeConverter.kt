@@ -6,7 +6,7 @@ package com.stilllynnthecloset.liboun
  * Created by Lynn on 4/8/23
  */
 
-internal const val PERIOD: Long = 2_419_200_000L // Milli-seconds
+internal const val PERIOD: Long = 28 * 24 * 60 * 60 * 1000L // Milli-seconds
 internal const val NANO_PERIOD: Long = PERIOD / 1_000_000_000
 internal const val MICRO_PERIOD: Long = PERIOD / 1_000_000
 internal const val MILLI_PERIOD: Long = PERIOD / 1000
