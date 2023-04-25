@@ -20,4 +20,6 @@ public enum class ImageReference {
     Plus,
     Book,
     Gas,
+    Food,
+    Swords,
 }

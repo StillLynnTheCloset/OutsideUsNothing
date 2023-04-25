@@ -1,6 +1,7 @@
 package com.stilllynnthecloset.liboun.model
 
 import com.stilllynnthecloset.liboun.pickAtLeastN
+import com.stilllynnthecloset.liboun.rollDie
 
 /**
  * PortOfCallSpecification - TODO: Documentation
@@ -12,13 +13,14 @@ public data class PortOfCallSpecification constructor(
     val description: String,
     val customizations: Set<PlaySheetChoiceSpecification>,
     val contracts: Set<ContractSpecification>,
-    val minContracts: Int
+    val minContracts: Int,
 ) {
     public fun randomize(): PortOfCall {
         return PortOfCall(
             specification = this,
             customizations = customizations.map { it.randomize() },
             contracts = contracts.pickAtLeastN(minContracts).map { it.randomize() },
+            connectionDistances = (0 until  rollDie(6)).map { rollDie(6) },
         )
     }
 }

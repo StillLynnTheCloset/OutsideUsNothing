@@ -223,7 +223,7 @@ private fun rollForRewards(jobQuality: ContractQuality) {
 }
 
 private fun oddsOfRewards(diceToRoll: Int, sides: Int): List<Int> {
-    return getOddsArray(sides, diceToRoll).map { it }
+    return getOddsArray(sides, diceToRoll)
 }
 
 /**
