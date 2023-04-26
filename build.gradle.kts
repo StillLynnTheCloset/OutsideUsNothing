@@ -31,6 +31,7 @@ buildscript {
 tasks.withType<KotlinCompile>().all {
     kotlinOptions.jvmTarget = "17"
 }
+
 tasks.withType<JavaCompile>().all {
     targetCompatibility = "17"
     sourceCompatibility = "17"
