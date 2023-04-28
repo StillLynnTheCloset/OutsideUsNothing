@@ -25,6 +25,7 @@ dependencyResolutionManagement {
 }
 rootProject.name = "OutsideUsNothing"
 include(":lib-oun")
+include(":lib-hexgrid-compose")
 include(":app-compose")
 include(":app-android")
 include(":app-desktop")
