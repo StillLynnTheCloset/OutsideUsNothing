@@ -7,6 +7,7 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.DpSize
 import com.stilllynnthecloset.outsideusnothing.dice.DiceRollerScreen
+import com.stilllynnthecloset.outsideusnothing.map.MapScreen
 import com.stilllynnthecloset.outsideusnothing.organizer.OrganizerScreen
 import com.stilllynnthecloset.outsideusnothing.theme.navigationContainer
 
@@ -33,6 +34,10 @@ public fun applicationContents(windowSize: DpSize, dataModel: MainDataModel, win
                     platform = platform,
                 )
                 is NavigationDestination.Organizer -> OrganizerScreen(
+                    dataModel = currentScreen.dataModel,
+                    platform = platform,
+                )
+                is NavigationDestination.Map -> MapScreen(
                     dataModel = currentScreen.dataModel,
                     platform = platform,
                 )

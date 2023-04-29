@@ -22,4 +22,5 @@ public enum class ImageReference {
     Gas,
     Food,
     Swords,
+    Map,
 }

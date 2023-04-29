@@ -27,6 +27,7 @@ dependencies {
     implementation(kotlin("stdlib"))
 
     implementation(project(":lib-oun"))
+    implementation(project(":lib-hexgrid-compose"))
 
     implementation(AndroidX.annotation)
 

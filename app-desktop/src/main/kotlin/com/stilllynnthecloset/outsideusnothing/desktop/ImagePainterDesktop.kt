@@ -30,5 +30,6 @@ internal object ImagePainterDesktop : ImagePainter {
         ImageReference.Gas -> painterResource("image/menu/gas.svg")
         ImageReference.Food -> painterResource("image/menu/food.svg")
         ImageReference.Swords -> painterResource("image/menu/swords.svg")
+        ImageReference.Map -> painterResource("image/menu/map.svg")
     }
 }

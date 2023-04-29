@@ -15,4 +15,5 @@ internal enum class NavigationTabImpl constructor(
 ) : NavigationTab {
     DiceRoller("DiceRoller", ImageReference.Dice5, "Dice"),
     Organizer("Organizer", ImageReference.Book, "GM"),
+    Map("Map", ImageReference.Map, "Map"),
 }

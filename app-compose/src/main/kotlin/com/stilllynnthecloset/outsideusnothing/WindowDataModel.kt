@@ -4,6 +4,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import com.stilllynnthecloset.outsideusnothing.dice.DiceRollerDataModel
+import com.stilllynnthecloset.outsideusnothing.map.MapDataModel
 import com.stilllynnthecloset.outsideusnothing.organizer.OrganizerDataModel
 
 /**
@@ -31,6 +32,7 @@ public class WindowDataModel {
         currentScreen = when (newTab) {
             NavigationTabImpl.DiceRoller -> NavigationDestination.DiceRoller(DiceRollerDataModel())
             NavigationTabImpl.Organizer -> NavigationDestination.Organizer(OrganizerDataModel())
+            NavigationTabImpl.Map -> NavigationDestination.Map(MapDataModel())
         }
     }
 
