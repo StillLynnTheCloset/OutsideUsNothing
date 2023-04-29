@@ -1,7 +1,6 @@
 package com.stilllynnthecloset.liboun
 
 import com.stilllynnthecloset.liboun.model.ContractQuality
-import com.stilllynnthecloset.liboun.model.Ship
 import com.stilllynnthecloset.liboun.playbook.portWeightings
 import java.math.BigDecimal
 import java.math.BigInteger
@@ -174,7 +173,6 @@ internal fun demo(actionCost: Int, actionDifficulty: Int, diceUsed: Int, probabi
 
 //    rollForRewards(JobQuality.EXCELLENT)
 
-
 //    weightedListOfPorts.forEachIndexed { index, s ->
 //        println("${index + 1} - $s")
 //    }
@@ -230,10 +228,10 @@ private fun oddsOfRewards(diceToRoll: Int, sides: Int): List<Int> {
  * countRollPermutations - Computes the total number of possible permutations
  *                         of the values of the given dice.
  *
- * @param  sides The number of sides on the dice.
- * @param  dice  The number of dice that are rolled.
+ * @param sides The number of sides on the dice.
+ * @param dice  The number of dice that are rolled.
  *
- * @return       The number of possible outcomes of rolling the given dice.
+ * @return The number of possible outcomes of rolling the given dice.
  */
 public fun countRollPermutations(sides: Int, dice: Int): Int {
     return sides.toDouble().pow(dice).toInt()
@@ -243,10 +241,10 @@ public fun countRollPermutations(sides: Int, dice: Int): Int {
  * getMinimumRollSum - Computes the minimum possible sum that can be rolled with
  *                     the given dice.
  *
- * @param  sides The number of sides on the dice.
- * @param  dice  The number of dice that are rolled.
+ * @param sides The number of sides on the dice.
+ * @param dice  The number of dice that are rolled.
  *
- * @return       The smallest possible sum on the given dice.
+ * @return The smallest possible sum on the given dice.
  */
 public fun getMinimumRollSum(sides: Int, dice: Int): Int {
     return dice
@@ -256,10 +254,10 @@ public fun getMinimumRollSum(sides: Int, dice: Int): Int {
  * getMaximumRollSum - Computes the maximum sum that could be rolled on the
  *                     given dice.
  *
- * @param  sides The number of sides on the dice.
- * @param  dice  The number of dice that are rolled.
+ * @param sides The number of sides on the dice.
+ * @param dice  The number of dice that are rolled.
  *
- * @return       The largest possible sum of the given dice.
+ * @return The largest possible sum of the given dice.
  */
 public fun getMaximumRollSum(sides: Int, dice: Int): Int {
     return sides * dice
@@ -269,10 +267,10 @@ public fun getMaximumRollSum(sides: Int, dice: Int): Int {
  * countRollOutcomes - Computes the number of possible sums that could result
  *                     from rolling the given dice.
  *
- * @param  sides The number of sides on the dice.
- * @param  dice  The number of dice that are rolled.
+ * @param sides The number of sides on the dice.
+ * @param dice  The number of dice that are rolled.
  *
- * @return       The total number of possible sums from the given dice.
+ * @return The total number of possible sums from the given dice.
  */
 public fun countRollOutcomes(sides: Int, dice: Int): Int {
     // Add one for an inclusive set.
@@ -323,8 +321,8 @@ public fun countRollOutcomes(sides: Int, dice: Int): Int {
  *                ----------------------------------------------------
  *               [0, 0, 1, 2, 6,10,15,21,25,27,27,25,21,15,10, 6, 2, 1]
  *
- * @param sides       The number of sides on the dice.
- * @param dice        The number of dice that are rolled.
+ * @param sides The number of sides on the dice.
+ * @param dice The number of dice that are rolled.
  */
 public fun getOddsArray(sides: Int, dice: Int): List<Int> {
     // Base case, odds of one for everything.
@@ -342,7 +340,7 @@ public fun getOddsArray(sides: Int, dice: Int): List<Int> {
         // Do the shift and sum thing shown above
         repeat(sides) { i ->
             repeat(prevSize) { j ->
-                sumArray[i+j+1] += prevOddsArray[j]
+                sumArray[i + j + 1] += prevOddsArray[j]
             }
         }
 
@@ -359,7 +357,7 @@ public fun generateRandomPlayer(name: String) {
     println("$name is a ${backgrounds.random()} ${aliens.random()}, and is the ship's ${roles.random()}")
 }
 
-//public fun generateRandomShip(name: String): Ship = Ship(name)
+// public fun generateRandomShip(name: String): Ship = Ship(name)
 
 public val aliens: Set<String> = setOf(
     "Terre",
@@ -441,7 +439,6 @@ public val shipProperties: Set<String> = setOf(
 
 public fun <T> Map<T, Int>.generateWeightedList(): List<T> = this.flatMap { weighting -> List(weighting.value) { weighting.key } }
 
-
 public fun printTimeStuff() {
     println("1 nanoperiod = ${NANO_PERIOD.milliseconds}")
     println("1 microperiod = ${MICRO_PERIOD.milliseconds}")
@@ -462,8 +459,6 @@ public fun printTimeStuff() {
     println("1 microlightperiod = $MICRO_LIGHT_PERIOD miles")
     println("1 millilightperiod = $MILLI_LIGHT_PERIOD miles = ${MILLI_LIGHT_PERIOD / ASTRONOMICAL_UNIT} AU")
     println()
-
-
 
     val nanometerPerYocto = (YOCTO_LIGHT_PERIOD * NANOMETER_PER_MILE)
     println(nanometerPerYocto)

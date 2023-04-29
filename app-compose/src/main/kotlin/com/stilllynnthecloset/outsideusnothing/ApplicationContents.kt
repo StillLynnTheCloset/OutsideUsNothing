@@ -8,8 +8,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.DpSize
 import com.stilllynnthecloset.outsideusnothing.dice.DiceRollerScreen
 import com.stilllynnthecloset.outsideusnothing.organizer.OrganizerScreen
-import com.stilllynnthecloset.outsideusnothing.theme.ImageReference
-import com.stilllynnthecloset.outsideusnothing.theme.NavigationTab
 import com.stilllynnthecloset.outsideusnothing.theme.navigationContainer
 
 @Composable

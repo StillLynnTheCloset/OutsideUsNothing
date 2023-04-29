@@ -20,7 +20,7 @@ public data class PortOfCallSpecification constructor(
             specification = this,
             customizations = customizations.map { it.randomize() },
             contracts = contracts.pickAtLeastN(minContracts).map { it.randomize() },
-            connectionDistances = (0 until  rollDie(6)).map { rollDie(6) },
+            connectionDistances = (0 until rollDie(6)).map { rollDie(6) },
         )
     }
 }

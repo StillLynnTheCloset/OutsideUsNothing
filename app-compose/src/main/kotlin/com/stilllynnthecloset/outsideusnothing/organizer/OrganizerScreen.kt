@@ -1,8 +1,6 @@
 package com.stilllynnthecloset.outsideusnothing.organizer
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.gestures.Orientation
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -16,21 +14,15 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.stilllynnthecloset.liboun.generateWeightedList
 import com.stilllynnthecloset.liboun.model.Contract
 import com.stilllynnthecloset.liboun.model.PlaySheetChoice
 import com.stilllynnthecloset.liboun.model.PortOfCall
-import com.stilllynnthecloset.liboun.playbook.portWeightings
-import com.stilllynnthecloset.liboun.rollDie
 import com.stilllynnthecloset.outsideusnothing.Platform
 import com.stilllynnthecloset.outsideusnothing.theme.ImageReference
 
@@ -42,8 +34,6 @@ import com.stilllynnthecloset.outsideusnothing.theme.ImageReference
 
 @Composable
 internal fun OrganizerScreen(dataModel: OrganizerDataModel, platform: Platform) {
-    val scrollState = rememberScrollState()
-
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -88,7 +78,7 @@ internal fun displayPortOfCall(port: PortOfCall, platform: Platform) {
             modifier = Modifier.height(startPadding),
         )
         Text(
-            text ="Available Contracts:",
+            text = "Available Contracts:",
         )
         port.contracts.forEach { contract(it, platform) }
         Spacer(
@@ -102,10 +92,10 @@ internal fun displayPortOfCall(port: PortOfCall, platform: Platform) {
 
 @Composable
 internal fun customization(customization: PlaySheetChoice, platform: Platform) {
-    Column (
+    Column(
         modifier = Modifier
             .padding(top = 8.dp),
-    )  {
+    ) {
         Text("${customization.specification.question}:")
         if (customization.positiveSelections.isNotEmpty()) {
             Text(
@@ -158,15 +148,15 @@ internal fun contract(contract: Contract, platform: Platform) {
                 .align(Alignment.CenterVertically),
         )
 
-            Image(
-                painter = platform.imagePainter.getPainter(ImageReference.Swords),
-                colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
-                contentDescription = "Fuel",
-                modifier = Modifier
-                    .width(24.dp)
-                    .alpha(if (contract.itemReward) 1.0F else 0.0F)
-                    .align(Alignment.CenterVertically),
-            )
+        Image(
+            painter = platform.imagePainter.getPainter(ImageReference.Swords),
+            colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
+            contentDescription = "Fuel",
+            modifier = Modifier
+                .width(24.dp)
+                .alpha(if (contract.itemReward) 1.0F else 0.0F)
+                .align(Alignment.CenterVertically),
+        )
         Spacer(
             modifier = Modifier.width(startPadding),
         )

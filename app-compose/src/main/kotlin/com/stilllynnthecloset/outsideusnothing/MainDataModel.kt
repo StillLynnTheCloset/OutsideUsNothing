@@ -3,9 +3,6 @@ package com.stilllynnthecloset.outsideusnothing
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import com.stilllynnthecloset.outsideusnothing.NavigationAction.NavigateTo
-import com.stilllynnthecloset.outsideusnothing.NavigationAction.PopBackStack
-import com.stilllynnthecloset.outsideusnothing.dice.DiceRollerDataModel
 
 public class MainDataModel constructor() {
     public var isDarkTheme: Boolean by mutableStateOf(true)

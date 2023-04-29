@@ -16,7 +16,6 @@ public class WindowDataModel {
     internal var currentScreen: NavigationDestination by mutableStateOf<NavigationDestination>(NavigationDestination.DiceRoller(DiceRollerDataModel()))
         private set
 
-
     public fun popBackStack() {
         navigate(NavigationAction.PopBackStack)
     }

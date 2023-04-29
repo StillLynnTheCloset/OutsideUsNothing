@@ -32,7 +32,7 @@ public val companyPort: PortOfCallSpecification = PortOfCallSpecification(
             ),
             numberOfPositiveSelections = 2,
             numberOfNegativeSelections = 0,
-        )
+        ),
     ),
     contracts = setOf(
         ContractSpecification(
@@ -92,7 +92,7 @@ public val freePort: PortOfCallSpecification = PortOfCallSpecification(
             ),
             numberOfPositiveSelections = 1,
             numberOfNegativeSelections = 0,
-        )
+        ),
     ),
     contracts = setOf(
         ContractSpecification(
@@ -164,7 +164,7 @@ public val piratePort: PortOfCallSpecification = PortOfCallSpecification(
             ),
             numberOfPositiveSelections = 2,
             numberOfNegativeSelections = 0,
-        )
+        ),
     ),
     contracts = setOf(
         ContractSpecification(
@@ -198,7 +198,6 @@ public val piratePort: PortOfCallSpecification = PortOfCallSpecification(
     ),
     minContracts = 2,
 )
-
 
 public val militaryPort: PortOfCallSpecification = PortOfCallSpecification(
     name = "The Military Port",
@@ -516,12 +515,6 @@ public val darkMatterWell: PortOfCallSpecification = PortOfCallSpecification(
     minContracts = 1,
 )
 
-
-
-
-
-
-
 public val template: PortOfCallSpecification = PortOfCallSpecification(
     name = "Template",
     description = "Template",
@@ -544,7 +537,6 @@ public val template: PortOfCallSpecification = PortOfCallSpecification(
     minContracts = 0,
 )
 
-
 public val portWeightings: Map<PortOfCallSpecification, Int> = mapOf(
     companyPort to 5,
     freePort to 4,
@@ -556,8 +548,7 @@ public val portWeightings: Map<PortOfCallSpecification, Int> = mapOf(
     darkMatterWell to 3,
 )
 
-
-//public val listOfPorts: List<Pair<String, Int>> = listOf(
+// public val listOfPorts: List<Pair<String, Int>> = listOf(
 //    "Company Port" to 5,
 //    "Freeport" to 4,
 //    "Pirate Port" to 3,
@@ -583,8 +574,5 @@ public val portWeightings: Map<PortOfCallSpecification, Int> = mapOf(
 //    "Lonely Planet" to 1,
 //    "Anomaly" to 1,
 //    "Meeting" to 1,
-//)
-//
-//
-//
-//public val weightedListOfPorts: List<String> = listOfPorts.generateWeightedList()
+// )
+// public val weightedListOfPorts: List<String> = listOfPorts.generateWeightedList()

@@ -38,7 +38,7 @@ public fun main() {
             val windowState = windowStates[window] ?: WindowState(
                 placement = WindowPlacement.Floating,
                 size = DpSize(640.dp, 1080.dp),
-                position = WindowPosition.Aligned(Alignment.BottomStart)
+                position = WindowPosition.Aligned(Alignment.BottomStart),
             ).also { windowStates[window] = it }
             Window(
                 onCloseRequest = {
