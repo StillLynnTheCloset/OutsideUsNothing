@@ -47,11 +47,15 @@ public fun hexGrid(
     onOffsetChanged: (Offset) -> Unit,
     scale: Float,
     onScaleChanged: (Float) -> Unit,
+    selectedNode: Node?,
+    onNodeSelected: (Node) -> Unit,
 ) {
     val textMeasurer = rememberTextMeasurer()
     val textColor = MaterialTheme.colorScheme.onPrimary
     val gridColor = MaterialTheme.colorScheme.primary
+    val selectedColor = MaterialTheme.colorScheme.tertiary
     val unitDistance = (nodeSize + nodeSpacing) * scale
+
     Canvas(
         modifier = modifier
             .onPointerEvent(PointerEventType.Scroll) {
@@ -74,6 +78,31 @@ public fun hexGrid(
                     }
                 }
             }
+            .onPointerEvent(PointerEventType.Release) {
+                it.changes.firstOrNull()?.also { change ->
+                    val timeDelta = change.uptimeMillis - change.previousUptimeMillis
+                    println("timeDelta: $timeDelta")
+                    if (timeDelta in 1..300) {
+                        // Short click.
+                        println("Short click at ${change.position}")
+
+                        val viewCenter = this.size.let { Offset(it.width / 2f, it.height / 2f) }
+
+                        val nodesBounds = nodeScreenBounds(
+                            nodes,
+                            viewCenter + (offset * unitDistance),
+                            nodeSize,
+                            nodeSpacing,
+                        )
+
+                        val node = nodesBounds.firstOrNull { offsetInPolygon(change.position, it.second) }?.first
+                        if (node != null) {
+                            println("Click in node: $node")
+                            onNodeSelected(node)
+                        }
+                    }
+                }
+            }
             .clipToBounds(),
     ) {
         edges.forEach {
@@ -89,17 +118,27 @@ public fun hexGrid(
         }
 
         nodes.forEach {
+            val color = if (it == selectedNode) selectedColor else gridColor
             drawHexagon(
                 node = it,
                 offset = this.center + (offset * unitDistance),
                 textMeasurer = textMeasurer,
-                fillColor = gridColor,
+                fillColor = color,
                 textColor = textColor,
                 nodeSize = nodeSize * scale,
                 nodeSpacing = nodeSpacing * scale,
             )
         }
     }
+}
+
+private fun nodeScreenBounds(
+    nodes: List<Node>,
+    offset: Offset,
+    nodeSize: Float,
+    nodeSpacing: Float,
+): List<Pair<Node, List<Offset>>> {
+    return nodes.map { it to hexagonOffsets(offsetOfNode(offset, it, nodeSize, nodeSpacing), nodeSize) }
 }
 
 @OptIn(ExperimentalTextApi::class)
@@ -112,8 +151,8 @@ private fun DrawScope.drawHexagon(
     nodeSize: Float,
     nodeSpacing: Float,
 ) {
-    val center = screenCoordOfNode(offset, node, nodeSize, nodeSpacing)
-    val hexagonPoints = hexagonPoints(center, nodeSize)
+    val center = offsetOfNode(offset, node, nodeSize, nodeSpacing)
+    val hexagonPoints = hexagonOffsets(center, nodeSize)
     val path = Path()
     path.moveTo(hexagonPoints[0].x, hexagonPoints[0].y)
     hexagonPoints.forEach {
@@ -142,8 +181,8 @@ private fun DrawScope.drawEdge(
     nodeSize: Float,
     nodeSpacing: Float,
 ) {
-    val node1 = screenCoordOfNode(offset, edge.node1, nodeSize, nodeSpacing)
-    val node2 = screenCoordOfNode(offset, edge.node2, nodeSize, nodeSpacing)
+    val node1 = offsetOfNode(offset, edge.node1, nodeSize, nodeSpacing)
+    val node2 = offsetOfNode(offset, edge.node2, nodeSize, nodeSpacing)
 
     this.drawLine(edgeColor, node1, node2, strokeWidth = 16f)
 
@@ -161,10 +200,13 @@ private fun DrawScope.drawEdge(
     }
 }
 
-private fun hexagonPoints(center: Offset, r: Float): List<Offset> {
+private fun hexagonOffsets(center: Offset, size: Float): List<Offset> {
     return (0..6).map {
-        val angle = findAngle(it.toDouble() / 6)
-        Offset((center.x + cos(angle) * r).toFloat(), (center.y + sin(angle) * r).toFloat())
+        val angle = findAngle(it.toDouble() / 6.0)
+        Offset(
+            x = (center.x + cos(angle) * size).toFloat(),
+            y = (center.y + sin(angle) * size).toFloat(),
+        )
     }
 }
 
@@ -172,7 +214,7 @@ private fun findAngle(fraction: Double): Double {
     return fraction * Math.PI * 2 + Math.toRadians(270.0)
 }
 
-private fun screenCoordOfNode(screenOrigin: Offset, node: Node, nodeSize: Float, nodeSpacing: Float): Offset {
+private fun offsetOfNode(screenOrigin: Offset, node: Node, nodeSize: Float, nodeSpacing: Float): Offset {
     val ang30 = Math.toRadians(30.0)
     val rowOff = cos(ang30) * (nodeSize + nodeSpacing)
     val colOff = sin(ang30) * (nodeSize + nodeSpacing)
@@ -180,4 +222,19 @@ private fun screenCoordOfNode(screenOrigin: Offset, node: Node, nodeSize: Float,
     val x = (screenOrigin.x + (rowOff * (node.col * 2 + rowShift))).toFloat()
     val y = (screenOrigin.y + colOff * (node.row) * 3).toFloat()
     return Offset(x, y)
+}
+
+public fun offsetInPolygon(test: Offset, positions: List<Offset>): Boolean {
+    var result = false
+    var index1 = 0
+    var index2 = positions.size - 1
+    while (index1 < positions.size) {
+        if (positions[index1].x > test.x != positions[index2].x > test.x &&
+            test.y < (positions[index2].y - positions[index1].y) * (test.x - positions[index1].x) / (positions[index2].x - positions[index1].x) + positions[index1].y
+        ) {
+            result = !result
+        }
+        index2 = index1++
+    }
+    return result
 }

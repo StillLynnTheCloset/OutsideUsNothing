@@ -7,6 +7,7 @@ import androidx.compose.ui.graphics.Color
 internal object Colors {
     // primary
     private val niceMagenta = Color(0xFF690069)
+    private val fadedMagenta = Color(0xFF750d75)
 
     // secondary
     private val poppyRed = Color(0xFFFF5727)
@@ -32,7 +33,7 @@ internal object Colors {
         secondaryContainer = niceMagenta,
         onSecondaryContainer = marshmallow,
 
-        tertiary = niceMagenta,
+        tertiary = fadedMagenta,
         onTertiary = marshmallow,
 //        tertiaryContainer = ,
 //        onTertiaryContainer = ,
@@ -70,7 +71,7 @@ internal object Colors {
         secondaryContainer = niceMagenta,
         onSecondaryContainer = marshmallow,
 
-        tertiary = niceMagenta,
+        tertiary = fadedMagenta,
         onTertiary = marshmallow,
 //        tertiaryContainer = ,
 //        onTertiaryContainer = ,

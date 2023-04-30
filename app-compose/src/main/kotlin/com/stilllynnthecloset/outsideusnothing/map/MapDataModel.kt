@@ -68,4 +68,10 @@ public class MapDataModel {
     public fun onOffsetChanged(newOffset: Offset) {
         offset = newOffset
     }
+
+    public var selectedNode: Node? by mutableStateOf(null)
+
+    public fun onNodeSelected(node: Node?) {
+        selectedNode = node
+    }
 }
