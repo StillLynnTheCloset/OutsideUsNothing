@@ -81,12 +81,6 @@ internal fun displayPortOfCall(port: PortOfCall, platform: Platform) {
             text = "Available Contracts:",
         )
         port.contracts.forEach { contract(it, platform) }
-        Spacer(
-            modifier = Modifier.height(startPadding),
-        )
-        Text(
-            text = "Distances to neighboring ports are: ${port.connectionDistances.joinToString()}",
-        )
     }
 }
 

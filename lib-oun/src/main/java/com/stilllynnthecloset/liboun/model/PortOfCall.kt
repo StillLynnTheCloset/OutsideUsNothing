@@ -9,5 +9,4 @@ public data class PortOfCall constructor(
     val specification: PortOfCallSpecification,
     val customizations: List<PlaySheetChoice>,
     val contracts: List<Contract>,
-    val connectionDistances: List<Int>,
 )
