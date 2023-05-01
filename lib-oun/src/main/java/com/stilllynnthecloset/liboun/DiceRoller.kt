@@ -87,15 +87,15 @@ public fun simulateOdds(simulations: Int, actionCost: Int, actionDifficulty: Int
 }
 
 public fun <T> Set<T>.pickN(count: Int): Set<T> {
-    val results = mutableSetOf<T>()
-    repeat(count) {
-        results.add(this.minus(results).random())
-    }
-    return results
+    return pickNInRange(count, count)
 }
 
 public fun <T> Set<T>.pickAtLeastN(minCount: Int): Set<T> {
-    val count = random.nextInt(minCount, this.size)
+    return pickNInRange(minCount.coerceAtMost(this.size), this.size + 1)
+}
+
+public fun <T> Set<T>.pickNInRange(minCount: Int, maxCount: Int): Set<T> {
+    val count = random.nextInt(minCount.coerceAtMost(this.size), maxCount.coerceAtMost(this.size) + 1)
     val results = mutableSetOf<T>()
     repeat(count) {
         results.add(this.minus(results).random())
