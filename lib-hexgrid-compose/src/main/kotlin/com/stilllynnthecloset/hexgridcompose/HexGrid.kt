@@ -23,23 +23,28 @@ import androidx.compose.ui.text.style.TextAlign
 import kotlin.math.cos
 import kotlin.math.sin
 
-public data class Node constructor(
-    val row: Int,
-    val col: Int,
+public data class Node<T : Any> constructor(
+    val coordinate: GridCoordinate,
     val label: AnnotatedString,
+    val value: T?,
 )
 
 public data class Edge constructor(
-    val node1: Node,
-    val node2: Node,
+    val node1: GridCoordinate,
+    val node2: GridCoordinate,
     val cost: Int?,
+)
+
+public data class GridCoordinate constructor(
+    val row: Int,
+    val col: Int,
 )
 
 @Composable
 @OptIn(ExperimentalTextApi::class, ExperimentalComposeUiApi::class)
-public fun hexGrid(
+public fun <T : Any> hexGrid(
     modifier: Modifier,
-    nodes: List<Node>,
+    nodes: List<Node<T>>,
     edges: List<Edge>,
     nodeSize: Float,
     nodeSpacing: Float,
@@ -47,8 +52,8 @@ public fun hexGrid(
     onOffsetChanged: (Offset) -> Unit,
     scale: Float,
     onScaleChanged: (Float) -> Unit,
-    selectedNode: Node?,
-    onNodeSelected: (Node) -> Unit,
+    selectedNode: Node<T>?,
+    onNodeSelected: (Node<T>) -> Unit,
 ) {
     val textMeasurer = rememberTextMeasurer()
     val textColor = MaterialTheme.colorScheme.onPrimary
@@ -60,9 +65,7 @@ public fun hexGrid(
         modifier = modifier
             .onPointerEvent(PointerEventType.Scroll) {
                 val scrollChange = it.changes.firstOrNull()?.scrollDelta?.y ?: 0f
-                val newScale = (scale + scrollChange / 10f)
-                    .coerceAtLeast(0.1f)
-                    .coerceAtMost(5f)
+                val newScale = (scale + scrollChange / 10f).coerceAtLeast(0.1f).coerceAtMost(5f)
                 onScaleChanged(newScale)
             }
             .onPointerEvent(PointerEventType.Move) {
@@ -91,13 +94,14 @@ public fun hexGrid(
                         val nodesBounds = nodeScreenBounds(
                             nodes,
                             viewCenter + (offset * unitDistance),
-                            nodeSize,
-                            nodeSpacing,
+                            nodeSize * scale,
+                            nodeSpacing * scale,
                         )
 
                         val node = nodesBounds.firstOrNull { offsetInPolygon(change.position, it.second) }?.first
                         if (node != null) {
                             println("Click in node: $node")
+                            findAndCheckNeighbors(node, nodes, edges)
                             onNodeSelected(node)
                         }
                     }
@@ -132,18 +136,88 @@ public fun hexGrid(
     }
 }
 
-private fun nodeScreenBounds(
-    nodes: List<Node>,
+private val neighborDeltas = listOf(
+    // even rows
+    listOf(
+        listOf(1, 0),
+        listOf(0, -1),
+        listOf(-1, -1),
+        listOf(-1, 0),
+        listOf(-1, 1),
+        listOf(0, 1),
+    ),
+    // odd rows
+    listOf(
+        listOf(1, 0),
+        listOf(1, -1),
+        listOf(0, -1),
+        listOf(-1, 0),
+        listOf(0, 1),
+        listOf(1, 1),
+    ),
+)
+
+
+public fun <T: Any> findAndCheckNeighbors(node: Node<T>, allNodes: List<Node<T>>, allEdges: List<Edge>) {
+    println("Existing Connections:")
+    findExistingConnections(node, allNodes, allEdges).forEach {
+        println("    ${it.cost} fuel to ${if (it.node1 == node.coordinate) it.node2 else it.node1}")
+    }
+
+    println("Existing Neighbors:")
+    findExistingNeighbors(node, allNodes, allEdges).forEach {
+        println("    ${it.label.replace(Regex("\\s"), " ")}")
+    }
+
+    println("Empty Neighbors:")
+    findEmptyNeighbors(node, allNodes, allEdges).forEach {
+        println("    (${it.row}, ${it.col})")
+    }
+}
+
+public fun <T: Any> findExistingConnections(node: Node<T>, allNodes: List<Node<T>>, allEdges: List<Edge>): List<Edge> {
+    return allEdges.filter { it.node1 == node.coordinate || it.node2 == node.coordinate }
+}
+
+public fun <T: Any> findExistingNeighbors(node: Node<T>, allNodes: List<Node<T>>, allEdges: List<Edge>): List<Node<T>> {
+    val neighborCoords = findAllNeighborCoords(node)
+
+    return allNodes.filter { neighbor -> neighborCoords.any { it.row == neighbor.coordinate.row && it.col == neighbor.coordinate.col } }
+}
+public fun <T: Any> findEmptyNeighbors(node: Node<T>, allNodes: List<Node<T>>, allEdges: List<Edge>): List<GridCoordinate> {
+    val neighborCoords = findAllNeighborCoords(node)
+
+    return neighborCoords.filter { neighbor -> allNodes.none { it.coordinate.row == neighbor.row && it.coordinate.col == neighbor.col } }
+}
+
+
+public fun <T : Any> findAllNeighborCoords(node: Node<T>): List<GridCoordinate> {
+    return (0 until 6).map { direction ->
+        findNeighborCoords(node, direction)
+    }
+}
+
+/**
+ * [direction] is the selection of a neighbor, starting at 0 at 3:00, and going CCW
+ */
+public fun <T : Any> findNeighborCoords(node: Node<T>, direction: Int): GridCoordinate {
+    val parity = node.coordinate.row and 1 // 1 if odd, 0 if even
+    val diff = neighborDeltas[parity][direction]
+    return GridCoordinate(node.coordinate.row + diff[1], node.coordinate.col + diff[0])
+}
+
+private fun <T : Any> nodeScreenBounds(
+    nodes: List<Node<T>>,
     offset: Offset,
     nodeSize: Float,
     nodeSpacing: Float,
-): List<Pair<Node, List<Offset>>> {
-    return nodes.map { it to hexagonOffsets(offsetOfNode(offset, it, nodeSize, nodeSpacing), nodeSize) }
+): List<Pair<Node<T>, List<Offset>>> {
+    return nodes.map { it to hexagonOffsets(offsetOfNode(offset, it.coordinate, nodeSize, nodeSpacing), nodeSize) }
 }
 
 @OptIn(ExperimentalTextApi::class)
-private fun DrawScope.drawHexagon(
-    node: Node,
+private fun <T : Any> DrawScope.drawHexagon(
+    node: Node<T>,
     offset: Offset,
     textMeasurer: TextMeasurer,
     fillColor: Color,
@@ -151,7 +225,7 @@ private fun DrawScope.drawHexagon(
     nodeSize: Float,
     nodeSpacing: Float,
 ) {
-    val center = offsetOfNode(offset, node, nodeSize, nodeSpacing)
+    val center = offsetOfNode(offset, node.coordinate, nodeSize, nodeSpacing)
     val hexagonPoints = hexagonOffsets(center, nodeSize)
     val path = Path()
     path.moveTo(hexagonPoints[0].x, hexagonPoints[0].y)
@@ -214,13 +288,13 @@ private fun findAngle(fraction: Double): Double {
     return fraction * Math.PI * 2 + Math.toRadians(270.0)
 }
 
-private fun offsetOfNode(screenOrigin: Offset, node: Node, nodeSize: Float, nodeSpacing: Float): Offset {
+private fun offsetOfNode(screenOrigin: Offset, coordinate: GridCoordinate, nodeSize: Float, nodeSpacing: Float): Offset {
     val ang30 = Math.toRadians(30.0)
     val rowOff = cos(ang30) * (nodeSize + nodeSpacing)
     val colOff = sin(ang30) * (nodeSize + nodeSpacing)
-    val rowShift = if (node.row % 2 == 0) 0 else 1 // If the row is odd, shift it right by half of a row offset.
-    val x = (screenOrigin.x + (rowOff * (node.col * 2 + rowShift))).toFloat()
-    val y = (screenOrigin.y + colOff * (node.row) * 3).toFloat()
+    val rowShift = if (coordinate.row % 2 == 0) 0 else 1 // If the row is odd, shift it right by half of a row offset.
+    val x = (screenOrigin.x + (rowOff * (coordinate.col * 2 + rowShift))).toFloat()
+    val y = (screenOrigin.y + colOff * (coordinate.row) * 3).toFloat()
     return Offset(x, y)
 }
 
