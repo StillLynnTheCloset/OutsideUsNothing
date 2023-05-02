@@ -157,7 +157,6 @@ private val neighborDeltas = listOf(
     ),
 )
 
-
 public fun <T : Any> findAndCheckNeighbors(node: Node<T>, allNodes: List<Node<T>>, allEdges: List<Edge>) {
     println("Existing Connections:")
     findExistingConnections(node, allNodes, allEdges).forEach {
@@ -190,7 +189,6 @@ public fun <T : Any> findEmptyNeighbors(node: Node<T>, allNodes: List<Node<T>>, 
 
     return neighborCoords.filter { neighbor -> allNodes.none { it.coordinate.row == neighbor.row && it.coordinate.col == neighbor.col } }
 }
-
 
 public fun <T : Any> findAllNeighborCoords(node: Node<T>): List<GridCoordinate> {
     return (0 until 6).map { direction ->

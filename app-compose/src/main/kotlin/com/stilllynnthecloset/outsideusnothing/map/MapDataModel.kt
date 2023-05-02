@@ -18,7 +18,7 @@ import com.stilllynnthecloset.liboun.playbook.PortPlaybook
 import com.stilllynnthecloset.liboun.rollDie
 
 /**
- * OrganizerDataModel - TODO: Documentation
+ * MapDataModel - TODO: Documentation
  *
  * Created by Lynn on 4/14/23
  */
@@ -53,7 +53,7 @@ public class MapDataModel {
 //            b,
 //            c,
 //            d,
-        )
+        ),
     )
 
     public var edgeList: List<Edge> by mutableStateOf(
@@ -70,7 +70,7 @@ public class MapDataModel {
 //            Edge(harfast.coordinate, hesperion.coordinate, 4),
 //            Edge(harfast.coordinate, mirandumsHideout.coordinate, 6),
 //            Edge(harfast.coordinate, machineHeaven.coordinate, 2),
-        )
+        ),
     )
 
     public var zoomLevel: Float by mutableStateOf(1f)
@@ -112,7 +112,6 @@ public class MapDataModel {
         )
         nodeList = (nodeList - node) + newCopy
         selectedNode = newCopy
-
 
         // Three types of neighbor:
         // 1. Completely empty (create placeholder and edge)

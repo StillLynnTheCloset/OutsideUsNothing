@@ -1,7 +1,7 @@
 package com.stilllynnthecloset.liboun.model
 
 /**
- * PlaySheet - TODO: Documentation
+ * PlaySheetSpecification - TODO: Documentation
  *
  * Created by Lynn on 3/31/23
  */

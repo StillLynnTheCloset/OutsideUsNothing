@@ -1,7 +1,7 @@
 package com.stilllynnthecloset.liboun.model
 
 /**
- * PortOfCallSpecification - TODO: Documentation
+ * PortOfCall - TODO: Documentation
  *
  * Created by Lynn on 4/14/23
  */

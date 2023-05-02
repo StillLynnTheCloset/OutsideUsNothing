@@ -27,11 +27,10 @@ import com.stilllynnthecloset.outsideusnothing.theme.ImageReference
 import com.stilllynnthecloset.outsideusnothing.theme.textInputWidget
 
 /**
- * OrganizerScreen - TODO: Documentation
+ * MapScreen - TODO: Documentation
  *
  * Created by Lynn on 4/14/23
  */
-
 @Composable
 internal fun MapScreen(dataModel: MapDataModel, platform: Platform) {
     Column(
@@ -101,7 +100,7 @@ internal fun MapScreen(dataModel: MapDataModel, platform: Platform) {
                         },
                     ) {
                         Text(
-                            text = "Generate Port"
+                            text = "Generate Port",
                         )
                     }
                 } else {

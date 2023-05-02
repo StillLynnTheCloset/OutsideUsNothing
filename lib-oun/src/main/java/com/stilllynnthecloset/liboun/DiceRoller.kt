@@ -1,7 +1,6 @@
 package com.stilllynnthecloset.liboun
 
 import com.stilllynnthecloset.liboun.model.ContractQuality
-import com.stilllynnthecloset.liboun.playbook.PortPlaybook
 import java.math.BigDecimal
 import java.math.BigInteger
 import kotlin.math.pow
@@ -172,34 +171,6 @@ internal fun demo(actionCost: Int, actionDifficulty: Int, diceUsed: Int, probabi
 //    }
 
 //    rollForRewards(JobQuality.EXCELLENT)
-
-//    weightedListOfPorts.forEachIndexed { index, s ->
-//        println("${index + 1} - $s")
-//    }
-    repeat(5) {
-        val port = PortPlaybook.portWeightings.generateWeightedList().random().randomize()
-        println(port.specification.name)
-        println(port.specification.description)
-        port.choices.forEach { playSheetChoice ->
-            println("    ${playSheetChoice.specification.question}:")
-            if (playSheetChoice.positiveSelections.isNotEmpty()) {
-                println("        ${playSheetChoice.positiveSelections}")
-            }
-            if (playSheetChoice.negativeSelections.isNotEmpty()) {
-                println("        But not: ${playSheetChoice.negativeSelections}")
-            }
-        }
-        println("    Contracts:")
-        port.contracts.forEach {
-            println("        ${it.contractSpecification.description}")
-            println("            ${it.fuelReward} fuel")
-            println("            ${it.suppliesReward} supplies")
-            if (it.itemReward) {
-                println("            And an item")
-            }
-        }
-        println("It has ${rollDie(6)} connected points")
-    }
 }
 
 internal fun main() {

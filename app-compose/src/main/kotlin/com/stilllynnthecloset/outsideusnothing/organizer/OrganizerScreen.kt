@@ -20,7 +20,6 @@ import com.stilllynnthecloset.outsideusnothing.indentPadding
  *
  * Created by Lynn on 4/14/23
  */
-
 @Composable
 internal fun OrganizerScreen(dataModel: OrganizerDataModel, platform: Platform) {
     Column(
@@ -30,7 +29,7 @@ internal fun OrganizerScreen(dataModel: OrganizerDataModel, platform: Platform) 
             .padding(indentPadding),
     ) {
         Row(
-            modifier = Modifier.align(Alignment.CenterHorizontally)
+            modifier = Modifier.align(Alignment.CenterHorizontally),
         ) {
             Button(
                 onClick = dataModel::generatePort,
@@ -48,9 +47,8 @@ internal fun OrganizerScreen(dataModel: OrganizerDataModel, platform: Platform) 
 
         dataModel.generatedPort?.compose(platform)
 
-
         Row(
-            modifier = Modifier.align(Alignment.CenterHorizontally)
+            modifier = Modifier.align(Alignment.CenterHorizontally),
         ) {
             Button(
                 onClick = dataModel::generateBastard,
@@ -68,10 +66,8 @@ internal fun OrganizerScreen(dataModel: OrganizerDataModel, platform: Platform) 
 
         dataModel.generatedBastard?.compose(platform)
 
-
-
         Row(
-            modifier = Modifier.align(Alignment.CenterHorizontally)
+            modifier = Modifier.align(Alignment.CenterHorizontally),
         ) {
             Button(
                 onClick = dataModel::generateContractItem,
@@ -89,10 +85,8 @@ internal fun OrganizerScreen(dataModel: OrganizerDataModel, platform: Platform) 
 
         dataModel.generatedContractItem?.compose(platform)
 
-
-
         Row(
-            modifier = Modifier.align(Alignment.CenterHorizontally)
+            modifier = Modifier.align(Alignment.CenterHorizontally),
         ) {
             Button(
                 onClick = dataModel::generateEvent,
@@ -110,11 +104,8 @@ internal fun OrganizerScreen(dataModel: OrganizerDataModel, platform: Platform) 
 
         dataModel.generatedEvent?.compose(platform)
 
-
-
-
         Row(
-            modifier = Modifier.align(Alignment.CenterHorizontally)
+            modifier = Modifier.align(Alignment.CenterHorizontally),
         ) {
             Button(
                 onClick = dataModel::generateThreat,
@@ -132,11 +123,8 @@ internal fun OrganizerScreen(dataModel: OrganizerDataModel, platform: Platform) 
 
         dataModel.generatedThreat?.compose(platform)
 
-
-
-
         Row(
-            modifier = Modifier.align(Alignment.CenterHorizontally)
+            modifier = Modifier.align(Alignment.CenterHorizontally),
         ) {
             Button(
                 onClick = dataModel::generateUsefulItem,
@@ -154,9 +142,8 @@ internal fun OrganizerScreen(dataModel: OrganizerDataModel, platform: Platform) 
 
         dataModel.generatedUsefulItem?.compose(platform)
 
-
         Row(
-            modifier = Modifier.align(Alignment.CenterHorizontally)
+            modifier = Modifier.align(Alignment.CenterHorizontally),
         ) {
             Button(
                 onClick = dataModel::generateShip,
@@ -174,9 +161,8 @@ internal fun OrganizerScreen(dataModel: OrganizerDataModel, platform: Platform) 
 
         dataModel.generatedShip?.compose(platform)
 
-
         Row(
-            modifier = Modifier.align(Alignment.CenterHorizontally)
+            modifier = Modifier.align(Alignment.CenterHorizontally),
         ) {
             Button(
                 onClick = dataModel::generatePlayer,
