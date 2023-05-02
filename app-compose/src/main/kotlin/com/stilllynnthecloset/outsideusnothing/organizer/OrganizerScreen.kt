@@ -193,5 +193,24 @@ internal fun OrganizerScreen(dataModel: OrganizerDataModel, platform: Platform) 
         }
 
         dataModel.generatedPlayer?.compose(platform)
+
+        Row(
+            modifier = Modifier.align(Alignment.CenterHorizontally),
+        ) {
+            Button(
+                onClick = dataModel::generateFlavorText,
+                modifier = Modifier,
+            ) {
+                Text("Generate flavor text")
+            }
+            Button(
+                onClick = dataModel::clearFlavorText,
+                modifier = Modifier,
+            ) {
+                Text("Clear flavor text")
+            }
+        }
+
+        dataModel.generatedFlavorText?.compose(platform)
     }
 }

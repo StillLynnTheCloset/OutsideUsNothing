@@ -2,6 +2,7 @@ package com.stilllynnthecloset.liboun.playbook
 
 import com.stilllynnthecloset.liboun.model.Action
 import com.stilllynnthecloset.liboun.model.ChoiceSpecification
+import com.stilllynnthecloset.liboun.model.FlavorText
 import com.stilllynnthecloset.liboun.model.Option
 import com.stilllynnthecloset.liboun.model.PlaySheetSpecification
 import com.stilllynnthecloset.liboun.model.Question
@@ -15,9 +16,11 @@ public object BackgroundPlaybook {
     public val backgrounds: List<PlaySheetSpecification> = listOf(
         PlaySheetSpecification(
             name = "The Corporate Citoyen",
-            description = "“Relativation 189 DiemBucks per period, air 177 DiemBucks, food 480, water 230, medical 1060, heat 108, light 98. They have a station tax too, of course.”\n" +
-                    "\t-Resident quoting DiemCo policy for life on station Calypso Transcend\n" +
-                    "You used to be someone rich enough to afford citizenship from one of the big interstellar corporations. Life was different back then. You had healthcare. Knew where the next meal was coming from. And were always watched and controlled.\n",
+            description = "You used to be someone rich enough to afford citizenship from one of the big interstellar corporations. Life was different back then. You had healthcare. Knew where the next meal was coming from. And were always watched and controlled.",
+            flavorText = FlavorText(
+                text = "“Relativation 189 DiemBucks per period, air 177 DiemBucks, food 480, water 230, medical 1060, heat 108, light 98. They have a station tax too, of course.”",
+                attribution = "Resident quoting DiemCo policy for life on station Calypso Transcend",
+            ),
             choices = listOf(
                 ChoiceSpecification(
                     options = setOf(

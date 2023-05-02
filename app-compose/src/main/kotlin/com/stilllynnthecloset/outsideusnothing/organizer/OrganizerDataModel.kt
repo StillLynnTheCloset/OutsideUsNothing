@@ -7,6 +7,7 @@ import com.stilllynnthecloset.liboun.generateWeightedList
 import com.stilllynnthecloset.liboun.model.Bastard
 import com.stilllynnthecloset.liboun.model.ContractItem
 import com.stilllynnthecloset.liboun.model.Event
+import com.stilllynnthecloset.liboun.model.FlavorText
 import com.stilllynnthecloset.liboun.model.HealthCondition
 import com.stilllynnthecloset.liboun.model.Player
 import com.stilllynnthecloset.liboun.model.UsefulItem
@@ -18,6 +19,7 @@ import com.stilllynnthecloset.liboun.playbook.BackgroundPlaybook
 import com.stilllynnthecloset.liboun.playbook.BastardPlaybook
 import com.stilllynnthecloset.liboun.playbook.ContractItemPlaybook
 import com.stilllynnthecloset.liboun.playbook.EventPlaybook
+import com.stilllynnthecloset.liboun.playbook.FlavorTextPlaybook
 import com.stilllynnthecloset.liboun.playbook.PortPlaybook
 import com.stilllynnthecloset.liboun.playbook.RolePlaybook
 import com.stilllynnthecloset.liboun.playbook.ShipPlaybook
@@ -130,5 +132,16 @@ public class OrganizerDataModel {
 
     public fun clearPlayer() {
         generatedPlayer = null
+    }
+
+    public var generatedFlavorText: FlavorText? by mutableStateOf(null)
+        private set
+
+    public fun generateFlavorText() {
+        generatedFlavorText = FlavorTextPlaybook.flavorTexts.random()
+    }
+
+    public fun clearFlavorText() {
+        generatedFlavorText = null
     }
 }

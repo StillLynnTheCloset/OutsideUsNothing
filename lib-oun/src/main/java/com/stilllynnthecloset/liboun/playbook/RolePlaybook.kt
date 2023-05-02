@@ -2,12 +2,13 @@ package com.stilllynnthecloset.liboun.playbook
 
 import com.stilllynnthecloset.liboun.model.Action
 import com.stilllynnthecloset.liboun.model.ChoiceSpecification
+import com.stilllynnthecloset.liboun.model.FlavorText
 import com.stilllynnthecloset.liboun.model.Option
 import com.stilllynnthecloset.liboun.model.PlaySheetSpecification
 import com.stilllynnthecloset.liboun.model.Question
 
 /**
- * BackgroundPlaybook - TODO: Documentation
+ * RolePlaybook - TODO: Documentation
  *
  * Created by Lynn on 5/1/23
  */
@@ -15,9 +16,11 @@ public object RolePlaybook {
     public val roles: List<PlaySheetSpecification> = listOf(
         PlaySheetSpecification(
             name = "Space Wizard",
-            description = "“Wonder before the universe. Then understand it. And then, through understanding, master it.”\n" +
-                    "\t-Traditional Vomyodosoi saying\n" +
-                    "Wizards have long studied the many magics of the etheric sea. The all black everything. Space. And you are no different. Your mind explodes with arcane knowledge and anywhere in the universe will recognize your mastery of the art!\n",
+            description = "Wizards have long studied the many magics of the etheric sea. The all black everything. Space. And you are no different. Your mind explodes with arcane knowledge and anywhere in the universe will recognize your mastery of the art!",
+            flavorText = FlavorText(
+                text = "“Wonder before the universe. Then understand it. And then, through understanding, master it.”",
+                attribution = "Traditional Vomyodosoi saying",
+            ),
             choices = listOf(
                 ChoiceSpecification(
                     options = setOf(
@@ -94,9 +97,11 @@ public object RolePlaybook {
         ),
         PlaySheetSpecification(
             name = "Muscled Tough",
-            description = "“Yes, I fought on Winnipeg. Fought for SaintsCo when the Constabulary invaded, fought for the union when the Shrouds moved in, took over. Still fighting.”\n" +
-                    "\t-Former Syndicalist partisan, on a follow up interview\n" +
-                    "It’s all well and good to magic, fly, science, and talk your way out of problems but let’s be honest, the universe isn’t always going to play nice. You’re here for when it doesn’t, for when people would threaten you, your ship, and the people you love.",
+            description = "It’s all well and good to magic, fly, science, and talk your way out of problems but let’s be honest, the universe isn’t always going to play nice. You’re here for when it doesn’t, for when people would threaten you, your ship, and the people you love.",
+            flavorText = FlavorText(
+                text = "“Yes, I fought on Winnipeg. Fought for SaintsCo when the Constabulary invaded, fought for the union when the Shrouds moved in, took over. Still fighting.”",
+                attribution = "Former Syndicalist partisan, on a follow up interview",
+            ),
             choices = listOf(
                 ChoiceSpecification(
                     options = setOf(

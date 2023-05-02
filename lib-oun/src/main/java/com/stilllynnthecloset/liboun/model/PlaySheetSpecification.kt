@@ -8,6 +8,7 @@ package com.stilllynnthecloset.liboun.model
 public data class PlaySheetSpecification constructor(
     val name: String,
     val description: String,
+    val flavorText: FlavorText?,
     val choices: Collection<ChoiceSpecification>,
     val actions: Collection<Action>,
 ) {
