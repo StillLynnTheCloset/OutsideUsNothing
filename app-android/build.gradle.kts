@@ -1,8 +1,8 @@
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat.*
 
 plugins {
+    kotlin("android")
     id("com.android.application")
-    id("org.jetbrains.kotlin.android")
     id("org.jetbrains.compose")
 }
 
@@ -65,13 +65,6 @@ dependencies {
     implementation(compose.uiTooling)
     implementation(compose.preview)
     implementation(AndroidX.compose.material3)
-//    testImplementation(Testing.junit4)
-//    androidTestImplementation(AndroidX.test.ext.junit)
-//    androidTestImplementation(AndroidX.test.espresso.core)
-//    @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
-//    androidTestImplementation(compose.uiTestJUnit4)
-//    debugImplementation(compose.uiTooling)
-//    debugImplementation("androidx.compose.ui:ui-test-manifest:${rootProject.extra["compose_version"]}")
 
     ktlint("com.pinterest:ktlint:_")
 }
