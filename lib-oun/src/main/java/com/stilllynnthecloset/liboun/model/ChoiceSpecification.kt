@@ -8,18 +8,22 @@ import com.stilllynnthecloset.liboun.pickN
  * Created by Lynn on 3/26/23
  */
 public data class ChoiceSpecification constructor(
-    val question: String,
-    val options: Set<String>,
-    val numberOfPositiveSelections: Int,
-    val numberOfNegativeSelections: Int,
+    val options: Collection<Option>,
+    val questions: Collection<Question>,
 ) {
     public fun randomize(): Choice {
-        val positiveSelections = options.pickN(numberOfPositiveSelections)
-        val negativeSelections = options.minus(positiveSelections).pickN(numberOfNegativeSelections)
+        val accumulatedSelections = mutableSetOf<Option>()
+        val optionsSet = options.toSet()
         return Choice(
             specification = this,
-            positiveSelections = positiveSelections,
-            negativeSelections = negativeSelections,
+            answeredQuestions = questions.map {
+                val picks = optionsSet.minus(accumulatedSelections).pickN(it.answers)
+                accumulatedSelections.addAll(picks)
+                AnsweredQuestion(
+                    question = it,
+                    answers = picks,
+                )
+            },
         )
     }
 }

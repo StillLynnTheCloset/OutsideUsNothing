@@ -2,7 +2,9 @@ package com.stilllynnthecloset.liboun.playbook
 
 import com.stilllynnthecloset.liboun.model.Action
 import com.stilllynnthecloset.liboun.model.ChoiceSpecification
+import com.stilllynnthecloset.liboun.model.Option
 import com.stilllynnthecloset.liboun.model.PlaySheetSpecification
+import com.stilllynnthecloset.liboun.model.Question
 
 /**
  * AlienPlaybook - TODO: Documentation
@@ -18,18 +20,21 @@ public object AlienPlaybook {
                     "The terre are all people descended from humanity, and from us here and now. But after their long, long time traveling through the dark to this part of the universe, in vast generation ships, some have changed.\n",
             choices = listOf(
                 ChoiceSpecification(
-                    question = "Choose one your were and describe the way it has changed your life",
                     options = setOf(
-                        "Spaceborne, adapted for null-G, fragile yet nimble on the float",
-                        "Genehacked, altered cosmetically, a different atmosphere, or anything",
-                        "Cybernetically enhanced, an added limb, galvanic thoughts, or anything",
-                        "Raised among exoterre, aliens, of your choice, adapting their culture",
-                        "Vampiric, lycanthropic, or afflicted by other magical alteration",
-                        "Baseline human, after everything",
+                        Option("Spaceborne, adapted for null-G, fragile yet nimble on the float"),
+                        Option("Genehacked, altered cosmetically, a different atmosphere, or anything"),
+                        Option("Cybernetically enhanced, an added limb, galvanic thoughts, or anything"),
+                        Option("Raised among exoterre, aliens, of your choice, adapting their culture"),
+                        Option("Vampiric, lycanthropic, or afflicted by other magical alteration"),
+                        Option("Baseline human, after everything"),
                     ),
-                    numberOfPositiveSelections = 1,
-                    numberOfNegativeSelections = 0,
-                )
+                    questions = listOf(
+                        Question(
+                            question = "One your were and describe the way it has changed your life",
+                            answers = 1,
+                        ),
+                    ),
+                ),
             ),
             actions = listOf(
                 Action(
@@ -81,35 +86,41 @@ public object AlienPlaybook {
                     "Something from outside the universe wrote you into this universe’s skin alone and without instruction. As a being of pure energy you are indestructible. But to interact with everything else, to have an identity, most angels, including you, have commissioned carved bodies for themselves. Fragile and fallible bodies that now shelter and identify you.",
             choices = listOf(
                 ChoiceSpecification(
-                    question = "Choose two qualities of your physical body",
                     options = setOf(
-                        "It’s made of clay and stone",
-                        "It’s made of metal and plastic",
-                        "It’s made of glass and crystal",
-                        "It’s utterly unique in the universe",
-                        "It looks common and boring",
-                        "It looks almost organic",
-                        "It has multiple wings",
+                        Option("It’s made of clay and stone"),
+                        Option("It’s made of metal and plastic"),
+                        Option("It’s made of glass and crystal"),
+                        Option("It’s utterly unique in the universe"),
+                        Option("It looks common and boring"),
+                        Option("It looks almost organic"),
+                        Option("It has multiple wings"),
                     ),
-                    numberOfPositiveSelections = 2,
-                    numberOfNegativeSelections = 0,
+                    questions = listOf(
+                        Question(
+                            question = "Two qualities of your physical body",
+                            answers = 2,
+                        ),
+                    ),
                 ),
                 ChoiceSpecification(
-                    question = "Choose three limits given to you by your body, and decide if you love them or wish you could get rid of them:",
                     options = setOf(
-                        "You’re a man or masculine",
-                        "You’re a woman or feminine",
-                        "Your body will age and decay",
-                        "You’re bound to one location",
-                        "Your body’s mind can be wrong",
-                        "Your body cannot do some things",
-                        "Other people judge your body",
-                        "You have altered your body",
-                        "You have altered your body",
-                        "Your body cannot do some things",
+                        Option("You’re a man or masculine"),
+                        Option("You’re a woman or feminine"),
+                        Option("Your body will age and decay"),
+                        Option("You’re bound to one location"),
+                        Option("Your body’s mind can be wrong"),
+                        Option("Your body cannot do some things"),
+                        Option("Other people judge your body"),
+                        Option("You have altered your body"),
+                        Option("You have altered your body"),
+                        Option("Your body cannot do some things"),
                     ),
-                    numberOfPositiveSelections = 3,
-                    numberOfNegativeSelections = 0,
+                    questions = listOf(
+                        Question(
+                            question = "Three limits given to you by your body, and decide if you love them or wish you could get rid of them",
+                            answers = 3,
+                        ),
+                    ),
                 ),
             ),
             actions = listOf(

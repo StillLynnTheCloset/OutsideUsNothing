@@ -2,7 +2,9 @@ package com.stilllynnthecloset.liboun.playbook
 
 import com.stilllynnthecloset.liboun.model.Action
 import com.stilllynnthecloset.liboun.model.ChoiceSpecification
+import com.stilllynnthecloset.liboun.model.Option
 import com.stilllynnthecloset.liboun.model.PlaySheetSpecification
+import com.stilllynnthecloset.liboun.model.Question
 
 /**
  * BackgroundPlaybook - TODO: Documentation
@@ -18,31 +20,34 @@ public object RolePlaybook {
                     "Wizards have long studied the many magics of the etheric sea. The all black everything. Space. And you are no different. Your mind explodes with arcane knowledge and anywhere in the universe will recognize your mastery of the art!\n",
             choices = listOf(
                 ChoiceSpecification(
-                    question = "Choose two words that describe your magic",
                     options = setOf(
-                        "Dark",
-                        "Tentacular",
-                        "Gravitational",
-                        "Mechanical",
-                        "Frantic",
-                        "Stellar",
-                        "Distant",
-                        "Precise",
-                        "Crystalline",
-                        "Bloody",
-                        "Void",
-                        "Eldritch",
-                        "Fiery",
-                        "Contractual",
-                        "Mathematical",
-                        "Temporal",
-                        "Primal",
-                        "Cold",
-                        "Cursed",
+                        Option("Dark"),
+                        Option("Tentacular"),
+                        Option("Gravitational"),
+                        Option("Mechanical"),
+                        Option("Frantic"),
+                        Option("Stellar"),
+                        Option("Distant"),
+                        Option("Precise"),
+                        Option("Crystalline"),
+                        Option("Bloody"),
+                        Option("Void"),
+                        Option("Eldritch"),
+                        Option("Fiery"),
+                        Option("Contractual"),
+                        Option("Mathematical"),
+                        Option("Temporal"),
+                        Option("Primal"),
+                        Option("Cold"),
+                        Option("Cursed"),
                     ),
-                    numberOfPositiveSelections = 2,
-                    numberOfNegativeSelections = 0,
-                )
+                    questions = listOf(
+                        Question(
+                            question = "Two words that describe your magic",
+                            answers = 2,
+                        ),
+                    ),
+                ),
             ),
             actions = listOf(
                 Action(
@@ -94,26 +99,33 @@ public object RolePlaybook {
                     "It’s all well and good to magic, fly, science, and talk your way out of problems but let’s be honest, the universe isn’t always going to play nice. You’re here for when it doesn’t, for when people would threaten you, your ship, and the people you love.",
             choices = listOf(
                 ChoiceSpecification(
-                    question = "Choose two things you keep on you at all times, and two things that always scare you when you see them",
                     options = setOf(
-                        "A pistol",
-                        "A polearm",
-                        "Brass knuckles",
-                        "A head on a swivel",
-                        "A too-casual posture",
-                        "A knife",
-                        "A rifle",
-                        "Boots for kicking",
-                        "A defiant stare",
-                        "First aid at the ready",
-                        "A sword",
-                        "A shock-stick",
-                        "A steady hand",
-                        "A chip on a shoulder",
+                        Option("A pistol"),
+                        Option("A polearm"),
+                        Option("Brass knuckles"),
+                        Option("A head on a swivel"),
+                        Option("A too-casual posture"),
+                        Option("A knife"),
+                        Option("A rifle"),
+                        Option("Boots for kicking"),
+                        Option("A defiant stare"),
+                        Option("First aid at the ready"),
+                        Option("A sword"),
+                        Option("A shock-stick"),
+                        Option("A steady hand"),
+                        Option("A chip on a shoulder"),
                     ),
-                    numberOfPositiveSelections = 2,
-                    numberOfNegativeSelections = 2,
-                )
+                    questions = listOf(
+                        Question(
+                            question = "Two things you keep on you at all times",
+                            answers = 2,
+                        ),
+                        Question(
+                            question = "Two things that always scare you when you see them",
+                            answers = 2,
+                        ),
+                    ),
+                ),
             ),
             actions = listOf(
                 Action(

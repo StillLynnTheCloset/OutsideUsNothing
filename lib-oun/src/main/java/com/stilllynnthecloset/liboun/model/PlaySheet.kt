@@ -7,5 +7,5 @@ package com.stilllynnthecloset.liboun.model
  */
 public data class PlaySheet constructor(
     val specification: PlaySheetSpecification,
-    val choices: List<Choice>,
+    val choices: Collection<Choice>,
 )

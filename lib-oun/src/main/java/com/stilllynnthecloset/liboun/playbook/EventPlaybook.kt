@@ -1,8 +1,10 @@
 package com.stilllynnthecloset.liboun.playbook
 
+import com.stilllynnthecloset.liboun.model.ChoiceSpecification
 import com.stilllynnthecloset.liboun.model.Consequence
 import com.stilllynnthecloset.liboun.model.EventSpecification
-import com.stilllynnthecloset.liboun.model.ChoiceSpecification
+import com.stilllynnthecloset.liboun.model.Option
+import com.stilllynnthecloset.liboun.model.Question
 
 /**
  * EventPlaybook - TODO: Documentation
@@ -16,19 +18,22 @@ public object EventPlaybook {
             description = "“We were out in Deep Wild Dark, past the Pale, when the tech all stopped working and my memories started coming back. I rejected them.”\n\t-Maybe Xis\nSome of the big corporations deploy these deliberately, but out here in the black it’s probably natural. Your tech is barely working if at all. Good luck!",
             choices = setOf(
                 ChoiceSpecification(
-                    question = "From where is this field coming?",
                     options = setOf(
-                        "Corp tech",
-                        "Micro-dark matter well",
-                        "Black hole",
-                        "A kerama point",
-                        "A parallel universe",
-                        "Nowhere",
-                        "You don’t know",
-                        "A temporal anomaly",
+                        Option("Corp tech"),
+                        Option("Micro-dark matter well"),
+                        Option("Black hole"),
+                        Option("A kerama point"),
+                        Option("A parallel universe"),
+                        Option("Nowhere"),
+                        Option("You don’t know"),
+                        Option("A temporal anomaly"),
                     ),
-                    numberOfPositiveSelections = 1,
-                    numberOfNegativeSelections = 0,
+                    questions = listOf(
+                        Question(
+                            question = "From where is this field coming?",
+                            answers = 1,
+                        ),
+                    ),
                 ),
             ),
             consequences = listOf(
@@ -401,13 +406,16 @@ public object EventPlaybook {
         description = "asdf",
         choices = setOf(
             ChoiceSpecification(
-                question = "asdf",
                 options = setOf(
-                    "",
+                    Option(""),
                 ),
-                numberOfPositiveSelections = 1,
-                numberOfNegativeSelections = 0,
-            )
+                questions = listOf(
+                    Question(
+                        question = "asdf",
+                        answers = 1,
+                    ),
+                ),
+            ),
         ),
         consequences = listOf(
             Consequence(

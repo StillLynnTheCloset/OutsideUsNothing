@@ -8,8 +8,8 @@ package com.stilllynnthecloset.liboun.model
 public data class EventSpecification constructor(
     val name: String,
     val description: String,
-    val choices: Set<ChoiceSpecification>,
-    val consequences: List<Consequence>,
+    val choices: Collection<ChoiceSpecification>,
+    val consequences: Collection<Consequence>,
 ) {
     public fun randomize(): Event {
         return Event(

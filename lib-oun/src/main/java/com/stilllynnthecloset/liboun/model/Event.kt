@@ -7,5 +7,5 @@ package com.stilllynnthecloset.liboun.model
  */
 public data class Event constructor(
     val specification: EventSpecification,
-    val choices: List<Choice>,
+    val choices: Collection<Choice>,
 )

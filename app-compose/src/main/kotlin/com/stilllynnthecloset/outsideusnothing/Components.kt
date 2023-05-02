@@ -20,17 +20,18 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.stilllynnthecloset.liboun.model.Action
 import com.stilllynnthecloset.liboun.model.Bastard
+import com.stilllynnthecloset.liboun.model.Choice
 import com.stilllynnthecloset.liboun.model.Consequence
 import com.stilllynnthecloset.liboun.model.Contract
-import com.stilllynnthecloset.liboun.model.Event
-import com.stilllynnthecloset.liboun.model.UsefulItem
-import com.stilllynnthecloset.liboun.model.Choice
-import com.stilllynnthecloset.liboun.model.PortOfCall
 import com.stilllynnthecloset.liboun.model.ContractItem
+import com.stilllynnthecloset.liboun.model.Event
+import com.stilllynnthecloset.liboun.model.Option
 import com.stilllynnthecloset.liboun.model.PlaySheet
 import com.stilllynnthecloset.liboun.model.Player
+import com.stilllynnthecloset.liboun.model.PortOfCall
 import com.stilllynnthecloset.liboun.model.Ship
 import com.stilllynnthecloset.liboun.model.Threat
+import com.stilllynnthecloset.liboun.model.UsefulItem
 import com.stilllynnthecloset.outsideusnothing.theme.ImageReference
 
 public val indentPadding: Dp = 32.dp
@@ -69,28 +70,14 @@ internal fun Choice.compose(platform: Platform, modifier: Modifier = Modifier) {
     Column(
         modifier = modifier,
     ) {
-        Text("${specification.question}:")
-        if (positiveSelections.isNotEmpty()) {
+        answeredQuestions.forEach {
             Text(
-                text = "It is:",
-                modifier = Modifier.padding(start = indentPadding),
+                text = it.question.question,
             )
-            positiveSelections.forEach {
-                Text(
-                    text = it,
-                    modifier = Modifier.padding(start = indentPadding * 2)
-                )
-            }
-        }
-        if (negativeSelections.isNotEmpty()) {
-            Text(
-                text = "But not:",
-                modifier = Modifier.padding(start = indentPadding),
-            )
-            negativeSelections.forEach {
-                Text(
-                    text = it,
-                    modifier = Modifier.padding(start = indentPadding * 2)
+            it.answers.forEach {
+                it.compose(
+                    platform = platform,
+                    modifier = Modifier.padding(start = indentPadding),
                 )
             }
         }
@@ -247,7 +234,7 @@ internal fun UsefulItem.compose(platform: Platform, modifier: Modifier = Modifie
     Column(
         modifier = modifier,
     ) {
-        Text("${name}:")
+        Text("$name:")
         action.compose(platform, Modifier.padding(start = indentPadding))
     }
 }
@@ -257,23 +244,22 @@ internal fun Action.compose(platform: Platform, modifier: Modifier = Modifier) {
     Row(
         modifier = modifier,
     ) {
-
         if (diceOffset > 0) {
             Text(
-                text = "+${diceOffset} ",
-                color = Color.Green
+                text = "+$diceOffset ",
+                color = Color.Green,
             )
         } else if (diceOffset < 0) {
             Text(
-                text = "${diceOffset} ",
-                color = Color.Red
+                text = "$diceOffset ",
+                color = Color.Red,
             )
         } else {
-        Text(
-            text = " * ",
-            color = Color.White
-        )
-    }
+            Text(
+                text = " * ",
+                color = Color.White,
+            )
+        }
         Text(description)
     }
 }
@@ -324,7 +310,7 @@ internal fun PlaySheet.compose(platform: Platform, showActions: Boolean, modifie
         if (specification.actions.isNotEmpty() && showActions) {
             Text(
                 text = "Actions:",
-                Modifier.padding(top = separatorPadding)
+                Modifier.padding(top = separatorPadding),
             )
             specification.actions.forEach { it.compose(platform, Modifier.padding(start = indentPadding)) }
         }
@@ -361,5 +347,18 @@ internal fun Ship.compose(platform: Platform, modifier: Modifier = Modifier) {
             )
             playSheet.choices.forEach { it.compose(platform) }
         }
+    }
+}
+
+@Composable
+internal fun Option.compose(platform: Platform, modifier: Modifier = Modifier) {
+    Row(
+        modifier = modifier,
+    ) {
+        Text(
+            text = text,
+            modifier = Modifier
+                .align(Alignment.CenterVertically),
+        )
     }
 }

@@ -7,6 +7,5 @@ package com.stilllynnthecloset.liboun.model
  */
 public data class Choice constructor(
     val specification: ChoiceSpecification,
-    val positiveSelections: Set<String>,
-    val negativeSelections: Set<String>,
+    val answeredQuestions: Collection<AnsweredQuestion>,
 )

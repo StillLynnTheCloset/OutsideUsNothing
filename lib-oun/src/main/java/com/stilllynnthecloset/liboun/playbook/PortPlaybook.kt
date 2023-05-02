@@ -1,9 +1,11 @@
 package com.stilllynnthecloset.liboun.playbook
 
+import com.stilllynnthecloset.liboun.model.ChoiceSpecification
 import com.stilllynnthecloset.liboun.model.ContractQuality
 import com.stilllynnthecloset.liboun.model.ContractSpecification
-import com.stilllynnthecloset.liboun.model.ChoiceSpecification
+import com.stilllynnthecloset.liboun.model.Option
 import com.stilllynnthecloset.liboun.model.PortOfCallSpecification
+import com.stilllynnthecloset.liboun.model.Question
 
 /**
  * PortPlaybook - TODO: Documentation
@@ -17,22 +19,25 @@ public object PortPlaybook {
         description = "It’s the top of a space elevator, a station in the void, perhaps even (shockingly) on a planet itself. But wherever it is physically the construction is all the same. The brands the same. The shops the same. The floor utilitarian. The walls to clean. The people too quiet. The cops everywhere. Remember to pay your docking fee.",
         customizations = setOf(
             ChoiceSpecification(
-                question = "Two things you look for and can’t find here",
                 options = setOf(
-                    "Color",
-                    "Music",
-                    "Crowds",
-                    "Bars or dancing",
-                    "Religion",
-                    "Anything old",
-                    "A place to stay",
-                    "A place to serve you",
-                    "Other freetravelers",
-                    "Gambling",
-                    "Families",
+                    Option("Color"),
+                    Option("Music"),
+                    Option("Crowds"),
+                    Option("Bars or dancing"),
+                    Option("Religion"),
+                    Option("Anything old"),
+                    Option("A place to stay"),
+                    Option("A place to serve you"),
+                    Option("Other freetravelers"),
+                    Option("Gambling"),
+                    Option("Families"),
                 ),
-                numberOfPositiveSelections = 2,
-                numberOfNegativeSelections = 0,
+                questions = listOf(
+                    Question(
+                        question = "Two things you look for and can’t find here",
+                        answers = 2,
+                    ),
+                ),
             ),
         ),
         contracts = setOf(
@@ -80,19 +85,22 @@ public object PortPlaybook {
         description = "Some might consider it a smuggler hideout. To others an anti-corporate, post revolution haven. Or maybe it’s wherever was convenient. But, spinning around some frontier world, or mined into an asteroid, or simple a few dozen old ships lashed together, one thing will always be true. No taxes. Perfect for Freetravelers.",
         customizations = setOf(
             ChoiceSpecification(
-                question = "Who is keeping the lights on and the air breathable here",
                 options = setOf(
-                    "A powerful, ancient z-machine left behind by the builders",
-                    "A worker’s collective",
-                    "Some might call it a gang",
-                    "One rich family don, no one asks where they get their money",
-                    "Dumb a-machines still spinning",
-                    "Retired Freetravelers",
-                    "No one knows",
-                    "Everyone chips in",
+                    Option("A powerful, ancient z-machine left behind by the builders"),
+                    Option("A worker’s collective"),
+                    Option("Some might call it a gang"),
+                    Option("One rich family don, no one asks where they get their money"),
+                    Option("Dumb a-machines still spinning"),
+                    Option("Retired Freetravelers"),
+                    Option("No one knows"),
+                    Option("Everyone chips in"),
                 ),
-                numberOfPositiveSelections = 1,
-                numberOfNegativeSelections = 0,
+                questions = listOf(
+                    Question(
+                        question = "Who is keeping the lights on and the air breathable here",
+                        answers = 1,
+                    ),
+                ),
             ),
         ),
         contracts = setOf(
@@ -137,34 +145,40 @@ public object PortPlaybook {
         description = "The air smells wrong when the doors open. The lights flicker. No one has repaired the docking clamps. This place is the real Libertalia, and like all pirate havens across all history it won’t last. It doesn’t have to. It just needs to hold together for some dishonest wealth to be spent, unloaded, and traded back into the economy.",
         customizations = setOf(
             ChoiceSpecification(
-                question = "What was this place before the world moved on",
                 options = setOf(
-                    "An asteroid mine",
-                    "A corporate port",
-                    "A dark matter well",
-                    "A space elevator",
-                    "An exocolony",
-                    "A monastery",
-                    "A huge spacecraft",
-                    "A military outpost",
+                    Option("An asteroid mine"),
+                    Option("A corporate port"),
+                    Option("A dark matter well"),
+                    Option("A space elevator"),
+                    Option("An exocolony"),
+                    Option("A monastery"),
+                    Option("A huge spacecraft"),
+                    Option("A military outpost"),
                 ),
-                numberOfPositiveSelections = 1,
-                numberOfNegativeSelections = 0,
+                questions = listOf(
+                    Question(
+                        question = "What was this place before the world moved on",
+                        answers = 1,
+                    ),
+                ),
             ),
             ChoiceSpecification(
-                question = "Two goods that pass through here",
                 options = setOf(
-                    "Abandoned salvage",
-                    "Stolen tech",
-                    "Dangerous weapons",
-                    "Food and medicine meant for elsewhere",
-                    "Life-ruining drugs",
-                    "People",
-                    "Ships",
-                    "Forbidden magic",
+                    Option("Abandoned salvage"),
+                    Option("Stolen tech"),
+                    Option("Dangerous weapons"),
+                    Option("Food and medicine meant for elsewhere"),
+                    Option("Life-ruining drugs"),
+                    Option("People"),
+                    Option("Ships"),
+                    Option("Forbidden magic"),
                 ),
-                numberOfPositiveSelections = 2,
-                numberOfNegativeSelections = 0,
+                questions = listOf(
+                    Question(
+                        question = "Two goods that pass through here",
+                        answers = 2,
+                    ),
+                ),
             ),
         ),
         contracts = setOf(
@@ -205,34 +219,40 @@ public object PortPlaybook {
         description = "This is a port, yes, with docks and repairs and all the other expected things. But it’s quiet. Buttoned up. Not for you. Because this is here to repair and resupply a military fleet, to hold systems and worlds. You are not military, Freetraveler. Do your business and move on quickly.",
         customizations = setOf(
             ChoiceSpecification(
-                question = "Something about this place",
                 options = setOf(
-                    "This place is actively under fire",
-                    "This place is supplying the front",
-                    "This place has not seen action in decaperiods",
-                    "This place is secret",
-                    "This place is occupying captured territory",
-                    "This place is a prison",
+                    Option("This place is actively under fire"),
+                    Option("This place is supplying the front"),
+                    Option("This place has not seen action in decaperiods"),
+                    Option("This place is secret"),
+                    Option("This place is occupying captured territory"),
+                    Option("This place is a prison"),
                 ),
-                numberOfPositiveSelections = 1,
-                numberOfNegativeSelections = 0,
+                questions = listOf(
+                    Question(
+                        question = "Something about this place",
+                        answers = 1,
+                    ),
+                ),
             ),
             ChoiceSpecification(
-                question = "What military holds this port",
                 options = setOf(
-                    "Corporate security",
-                    "A fascist, expansionist cult",
-                    "Psmanthics",
-                    "Anti-company rebels",
-                    "An isolated force claimed to defend a species",
-                    "Synarch secret rulers",
-                    "An Angelic Kingdom",
-                    "Religious sects",
-                    "A single hivemind",
-                    "One of the devil factions",
+                    Option("Corporate security"),
+                    Option("A fascist, expansionist cult"),
+                    Option("Psmanthics"),
+                    Option("Anti-company rebels"),
+                    Option("An isolated force claimed to defend a species"),
+                    Option("Synarch secret rulers"),
+                    Option("An Angelic Kingdom"),
+                    Option("Religious sects"),
+                    Option("A single hivemind"),
+                    Option("One of the devil factions"),
                 ),
-                numberOfPositiveSelections = 1,
-                numberOfNegativeSelections = 0,
+                questions = listOf(
+                    Question(
+                        question = "What military holds this port",
+                        answers = 1,
+                    ),
+                ),
             ),
         ),
         contracts = setOf(
@@ -269,36 +289,42 @@ public object PortPlaybook {
         description = "Safe behind military lines and military ports comes a place far away from military ports. Clean. Quiet. Orderly. You are not welcome here far from corporate degeneracy. Dissident elements and division have no place within the rules that have been imposed here. Freetraveler, anarchist, syndicalist, scofflaw. Move on.",
         customizations = setOf(
             ChoiceSpecification(
-                question = "Whose fascist rule holds here",
                 options = setOf(
-                    "The Constabulary of Man",
-                    "A queerphobic splinter group",
-                    "The Psmanthic Choir",
-                    "A post-revolutionary police state",
-                    "One of the Angelic Kingdoms",
-                    "This place is a prison",
+                    Option("The Constabulary of Man"),
+                    Option("A queerphobic splinter group"),
+                    Option("The Psmanthic Choir"),
+                    Option("A post-revolutionary police state"),
+                    Option("One of the Angelic Kingdoms"),
+                    Option("This place is a prison"),
                 ),
-                numberOfPositiveSelections = 1,
-                numberOfNegativeSelections = 0,
+                questions = listOf(
+                    Question(
+                        question = "Whose fascist rule holds here",
+                        answers = 1,
+                    ),
+                ),
             ),
             ChoiceSpecification(
-                question = "Two ways this port is policed and controlled",
                 options = setOf(
-                    "Orbital defenses",
-                    "Omnipresent surveillance",
-                    "Police presence",
-                    "Drone swarms",
-                    "Magical limiters",
-                    "Mind control",
-                    "Regular purges",
-                    "Scapegoating aliens, others",
-                    "Hateful rallies",
-                    "Arresting Freetravelers and others strangers",
-                    "Liberal complacency",
-                    "Not-so-secret corporate sponsorship",
+                    Option("Orbital defenses"),
+                    Option("Omnipresent surveillance"),
+                    Option("Police presence"),
+                    Option("Drone swarms"),
+                    Option("Magical limiters"),
+                    Option("Mind control"),
+                    Option("Regular purges"),
+                    Option("Scapegoating aliens, others"),
+                    Option("Hateful rallies"),
+                    Option("Arresting Freetravelers and others strangers"),
+                    Option("Liberal complacency"),
+                    Option("Not-so-secret corporate sponsorship"),
                 ),
-                numberOfPositiveSelections = 2,
-                numberOfNegativeSelections = 0,
+                questions = listOf(
+                    Question(
+                        question = "Two ways this port is policed and controlled",
+                        answers = 2,
+                    ),
+                ),
             ),
         ),
         contracts = setOf(
@@ -335,37 +361,43 @@ public object PortPlaybook {
         description = "A lonely warning with a sacred meaning. Danger, the signal it sends says. Stay away. Or, alternately, this is how you safely transit. This is how you sail this straight, enter this port, keep flying. For most that is all this place is, a little reminder in the dark. Now you have arrived, after careful approach, to do business.",
         customizations = setOf(
             ChoiceSpecification(
-                question = "What this signal portends",
                 options = setOf(
-                    "Dark matter tears",
-                    "Ethermatter reefs",
-                    "Another port of call",
-                    "The way through the dark, a way home",
-                    "Orbital radiation belts",
-                    "Actual planetary ocean hazards and storms",
+                    Option("Dark matter tears"),
+                    Option("Ethermatter reefs"),
+                    Option("Another port of call"),
+                    Option("The way through the dark, a way home"),
+                    Option("Orbital radiation belts"),
+                    Option("Actual planetary ocean hazards and storms"),
                 ),
-                numberOfPositiveSelections = 1,
-                numberOfNegativeSelections = 0,
+                questions = listOf(
+                    Question(
+                        question = "What this signal portends",
+                        answers = 1,
+                    ),
+                ),
             ),
             ChoiceSpecification(
-                question = "Three things this lighthouse has",
                 options = setOf(
-                    "A light pulsing through the dark",
-                    "A view from a great height",
-                    "A splash of waves, a taste of salt",
-                    "A circle of wheeling creatures",
-                    "A high and lonely isolation",
-                    "A torturous approach",
-                    "A haunted, eldritch air",
-                    "A quiet serenity",
-                    "A wind, etheric or atmospheric",
-                    "A team maintaining it",
-                    "A secretive, solitary guardian",
-                    "A shrine, hollows, bones",
-                    "A light, the sun, the sun, the sun",
+                    Option("A light pulsing through the dark"),
+                    Option("A view from a great height"),
+                    Option("A splash of waves, a taste of salt"),
+                    Option("A circle of wheeling creatures"),
+                    Option("A high and lonely isolation"),
+                    Option("A torturous approach"),
+                    Option("A haunted, eldritch air"),
+                    Option("A quiet serenity"),
+                    Option("A wind, etheric or atmospheric"),
+                    Option("A team maintaining it"),
+                    Option("A secretive, solitary guardian"),
+                    Option("A shrine, hollows, bones"),
+                    Option("A light, the sun, the sun, the sun"),
                 ),
-                numberOfPositiveSelections = 3,
-                numberOfNegativeSelections = 0,
+                questions = listOf(
+                    Question(
+                        question = "Three things this lighthouse has",
+                        answers = 3,
+                    ),
+                ),
             ),
         ),
         contracts = setOf(
@@ -398,35 +430,41 @@ public object PortPlaybook {
         description = "Labs. Hothouses. Black ops exotemporal psych projects. The universe is full of places like this for the same reason it is full of the unexplained and the unknown. Magic, conventional, spatial, universal, what have you, where there is something unknown there will be people, power, and money interested in making it known.",
         customizations = setOf(
             ChoiceSpecification(
-                question = "What is this place studying",
                 options = setOf(
-                    "Astroneering events",
-                    "Deep history",
-                    "Psychokinetics",
-                    "Etheric magic science",
-                    "Organic biospherics",
-                    "Orbital oddities",
-                    "Big universal laws",
-                    "Bigger explosions",
+                    Option("Astroneering events"),
+                    Option("Deep history"),
+                    Option("Psychokinetics"),
+                    Option("Etheric magic science"),
+                    Option("Organic biospherics"),
+                    Option("Orbital oddities"),
+                    Option("Big universal laws"),
+                    Option("Bigger explosions"),
                 ),
-                numberOfPositiveSelections = 1,
-                numberOfNegativeSelections = 0,
+                questions = listOf(
+                    Question(
+                        question = "What is this place studying",
+                        answers = 1,
+                    ),
+                ),
             ),
             ChoiceSpecification(
-                question = "Who is running this place",
                 options = setOf(
-                    "Earnest underfunded academics",
-                    "Stern military scientists",
-                    "Black ops spooks",
-                    "An autonomous z-machine god",
-                    "A national jingoistic agency",
-                    "Strangely, the mob",
-                    "Spooky, brainwashed mumblers",
-                    "Something outside the universe",
-                    "Single-minded megalomaniacs",
+                    Option("Earnest underfunded academics"),
+                    Option("Stern military scientists"),
+                    Option("Black ops spooks"),
+                    Option("An autonomous z-machine god"),
+                    Option("A national jingoistic agency"),
+                    Option("Strangely, the mob"),
+                    Option("Spooky, brainwashed mumblers"),
+                    Option("Something outside the universe"),
+                    Option("Single-minded megalomaniacs"),
                 ),
-                numberOfPositiveSelections = 1,
-                numberOfNegativeSelections = 0,
+                questions = listOf(
+                    Question(
+                        question = "Who is running this place",
+                        answers = 1,
+                    ),
+                ),
             ),
         ),
         contracts = setOf(
@@ -467,32 +505,38 @@ public object PortPlaybook {
         description = "Most people don’t like to recognize how much of modern tech relies on the extraction of dark matter from the etheric sea. But someone has to do it, right? Punch a hole in the skin of the universe into a rich tract. Haul the black gold out. Try to ignore the damage and aura of spookiness for lightperiods all around it.",
         customizations = setOf(
             ChoiceSpecification(
-                question = "Who operates this place polluting the etheric sea",
                 options = setOf(
-                    "DiemCo, ApotheosInc, TianCo, or another company",
-                    "Ghosts",
-                    "A national or polity entity",
-                    "A military supplier",
-                    "Synarchs",
-                    "The Psmanthic Choir",
-                    "A worker’s collective",
+                    Option("DiemCo, ApotheosInc, TianCo, or another company"),
+                    Option("Ghosts"),
+                    Option("A national or polity entity"),
+                    Option("A military supplier"),
+                    Option("Synarchs"),
+                    Option("The Psmanthic Choir"),
+                    Option("A worker’s collective"),
                 ),
-                numberOfPositiveSelections = 1,
-                numberOfNegativeSelections = 0,
+                questions = listOf(
+                    Question(
+                        question = "Who operates this place polluting the etheric sea",
+                        answers = 1,
+                    ),
+                ),
             ),
             ChoiceSpecification(
-                question = "Two things inescapably wrong and damaged about this place",
                 options = setOf(
-                    "Time skips, starts, flow backward",
-                    "Tech doesn’t work, or works oddly",
-                    "The shadows make weird patterns",
-                    "Anyone staying too long gets sick",
-                    "Workers talk about seeing things",
-                    "There’s a song with no source",
-                    "Dimensions contract, expand",
+                    Option("Time skips, starts, flow backward"),
+                    Option("Tech doesn’t work, or works oddly"),
+                    Option("The shadows make weird patterns"),
+                    Option("Anyone staying too long gets sick"),
+                    Option("Workers talk about seeing things"),
+                    Option("There’s a song with no source"),
+                    Option("Dimensions contract, expand"),
                 ),
-                numberOfPositiveSelections = 2,
-                numberOfNegativeSelections = 0,
+                questions = listOf(
+                    Question(
+                        question = "Two things inescapably wrong and damaged about this place",
+                        answers = 2,
+                    ),
+                ),
             ),
         ),
         contracts = setOf(
@@ -657,12 +701,15 @@ public object PortPlaybook {
         description = "Template",
         customizations = setOf(
             ChoiceSpecification(
-                question = "Template",
                 options = setOf(
-                    "Template",
+                    Option("Template"),
                 ),
-                numberOfPositiveSelections = 0,
-                numberOfNegativeSelections = 0,
+                questions = listOf(
+                    Question(
+                        question = "Template",
+                        answers = 1,
+                    ),
+                ),
             ),
         ),
         contracts = setOf(
