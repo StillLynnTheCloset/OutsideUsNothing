@@ -7,6 +7,6 @@ package com.stilllynnthecloset.liboun.model
  */
 public data class PortOfCall constructor(
     val specification: PortOfCallSpecification,
-    val customizations: List<PlaySheetChoice>,
+    val choices: List<Choice>,
     val contracts: List<Contract>,
 )

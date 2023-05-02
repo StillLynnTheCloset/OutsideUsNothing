@@ -6,9 +6,6 @@ package com.stilllynnthecloset.liboun.model
  * Created by Lynn on 3/31/23
  */
 public data class PlaySheet constructor(
-    val name: String,
-    val choices: List<PlaySheetChoiceSpecification>,
-    val actions: List<Action>,
-) {
-//    public fun withRandomChoices(): PlaySheet = this.copy(choices = choices.map { it.withRandomAnswers() })
-}
+    val specification: PlaySheetSpecification,
+    val choices: List<Choice>,
+)

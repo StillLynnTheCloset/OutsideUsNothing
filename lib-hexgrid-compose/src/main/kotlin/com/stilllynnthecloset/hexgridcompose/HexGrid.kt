@@ -158,7 +158,7 @@ private val neighborDeltas = listOf(
 )
 
 
-public fun <T: Any> findAndCheckNeighbors(node: Node<T>, allNodes: List<Node<T>>, allEdges: List<Edge>) {
+public fun <T : Any> findAndCheckNeighbors(node: Node<T>, allNodes: List<Node<T>>, allEdges: List<Edge>) {
     println("Existing Connections:")
     findExistingConnections(node, allNodes, allEdges).forEach {
         println("    ${it.cost} fuel to ${if (it.node1 == node.coordinate) it.node2 else it.node1}")
@@ -175,16 +175,17 @@ public fun <T: Any> findAndCheckNeighbors(node: Node<T>, allNodes: List<Node<T>>
     }
 }
 
-public fun <T: Any> findExistingConnections(node: Node<T>, allNodes: List<Node<T>>, allEdges: List<Edge>): List<Edge> {
+public fun <T : Any> findExistingConnections(node: Node<T>, allNodes: List<Node<T>>, allEdges: List<Edge>): List<Edge> {
     return allEdges.filter { it.node1 == node.coordinate || it.node2 == node.coordinate }
 }
 
-public fun <T: Any> findExistingNeighbors(node: Node<T>, allNodes: List<Node<T>>, allEdges: List<Edge>): List<Node<T>> {
+public fun <T : Any> findExistingNeighbors(node: Node<T>, allNodes: List<Node<T>>, allEdges: List<Edge>): List<Node<T>> {
     val neighborCoords = findAllNeighborCoords(node)
 
     return allNodes.filter { neighbor -> neighborCoords.any { it.row == neighbor.coordinate.row && it.col == neighbor.coordinate.col } }
 }
-public fun <T: Any> findEmptyNeighbors(node: Node<T>, allNodes: List<Node<T>>, allEdges: List<Edge>): List<GridCoordinate> {
+
+public fun <T : Any> findEmptyNeighbors(node: Node<T>, allNodes: List<Node<T>>, allEdges: List<Edge>): List<GridCoordinate> {
     val neighborCoords = findAllNeighborCoords(node)
 
     return neighborCoords.filter { neighbor -> allNodes.none { it.coordinate.row == neighbor.row && it.coordinate.col == neighbor.col } }

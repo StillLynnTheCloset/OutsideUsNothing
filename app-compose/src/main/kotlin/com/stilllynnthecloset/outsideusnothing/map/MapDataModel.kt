@@ -14,8 +14,7 @@ import com.stilllynnthecloset.hexgridcompose.findExistingNeighbors
 import com.stilllynnthecloset.liboun.generateWeightedList
 import com.stilllynnthecloset.liboun.model.PortOfCall
 import com.stilllynnthecloset.liboun.pickN
-import com.stilllynnthecloset.liboun.playbook.companyPort
-import com.stilllynnthecloset.liboun.playbook.portWeightings
+import com.stilllynnthecloset.liboun.playbook.PortPlaybook
 import com.stilllynnthecloset.liboun.rollDie
 
 /**
@@ -24,7 +23,7 @@ import com.stilllynnthecloset.liboun.rollDie
  * Created by Lynn on 4/14/23
  */
 public class MapDataModel {
-    private val portOfCall = PortOfCall(companyPort, emptyList(), emptyList())
+    private val portOfCall = PortOfCall(PortPlaybook.companyPort, emptyList(), emptyList())
     private val orbitalDescent = Node(GridCoordinate(0, -1), AnnotatedString("Orbital Descent"), portOfCall)
     private val hesperion = Node(GridCoordinate(0, 0), AnnotatedString("Hesperion"), portOfCall)
     private val machineHeaven = Node(GridCoordinate(2, 1), AnnotatedString("Machine Heaven"), portOfCall)
@@ -106,7 +105,7 @@ public class MapDataModel {
         generatePortNameEntry = null
 
         // Replace existing node with new node with name and generated info.
-        val generatedPortOfCall = portWeightings.generateWeightedList().random().randomize()
+        val generatedPortOfCall = PortPlaybook.portWeightings.generateWeightedList().random().randomize()
         val newCopy = node.copy(
             label = AnnotatedString(name),
             value = generatedPortOfCall,

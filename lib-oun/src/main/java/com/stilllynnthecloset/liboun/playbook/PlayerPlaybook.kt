@@ -1,12 +1,14 @@
-package com.stilllynnthecloset.liboun.playsheet
+package com.stilllynnthecloset.liboun.playbook
 
 import com.stilllynnthecloset.liboun.model.Action
-import com.stilllynnthecloset.liboun.model.PlaySheet
 
-public val globalPlaySheet: PlaySheet = PlaySheet(
-    name = "Global",
-    choices = emptyList(),
-    actions = listOf(
+/**
+ * PlayerPlaybook - TODO: Documentation
+ *
+ * Created by Lynn on 5/1/23
+ */
+public object PlayerPlaybook {
+    public val standardActions: List<Action> = listOf(
         Action(
             description = "Describe something around you. Describe how you feel about something another player described. Tell how something made you feel",
             diceOffset = 1,
@@ -32,8 +34,12 @@ public val globalPlaySheet: PlaySheet = PlaySheet(
             diceOffset = 0,
         ),
         Action(
-            description = "Provided you have some way of practicing it, have the time, and have a teacher, learn a second role. Add that playsheet to your own",
-            diceOffset = -14,
+            description = "Attack, talk, repair, suggest, fly, solve, or do something else that isn’t on your playsheets for a cheaper cost",
+            diceOffset = -4,
         ),
-    ),
-)
+        Action(
+            description = "Provided you have some way of practicing it, have the time, and have a teacher, learn a second role. Add that playsheet to your own",
+            diceOffset = -10,
+        ),
+    )
+}

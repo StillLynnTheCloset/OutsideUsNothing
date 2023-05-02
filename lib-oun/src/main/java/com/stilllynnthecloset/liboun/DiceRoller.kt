@@ -1,7 +1,7 @@
 package com.stilllynnthecloset.liboun
 
 import com.stilllynnthecloset.liboun.model.ContractQuality
-import com.stilllynnthecloset.liboun.playbook.portWeightings
+import com.stilllynnthecloset.liboun.playbook.PortPlaybook
 import java.math.BigDecimal
 import java.math.BigInteger
 import kotlin.math.pow
@@ -177,10 +177,10 @@ internal fun demo(actionCost: Int, actionDifficulty: Int, diceUsed: Int, probabi
 //        println("${index + 1} - $s")
 //    }
     repeat(5) {
-        val port = portWeightings.generateWeightedList().random().randomize()
+        val port = PortPlaybook.portWeightings.generateWeightedList().random().randomize()
         println(port.specification.name)
         println(port.specification.description)
-        port.customizations.forEach { playSheetChoice ->
+        port.choices.forEach { playSheetChoice ->
             println("    ${playSheetChoice.specification.question}:")
             if (playSheetChoice.positiveSelections.isNotEmpty()) {
                 println("        ${playSheetChoice.positiveSelections}")

@@ -3,7 +3,6 @@ package com.stilllynnthecloset.outsideusnothing.map
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -23,7 +22,7 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.unit.dp
 import com.stilllynnthecloset.hexgridcompose.hexGrid
 import com.stilllynnthecloset.outsideusnothing.Platform
-import com.stilllynnthecloset.outsideusnothing.organizer.displayPortOfCall
+import com.stilllynnthecloset.outsideusnothing.compose
 import com.stilllynnthecloset.outsideusnothing.theme.ImageReference
 import com.stilllynnthecloset.outsideusnothing.theme.textInputWidget
 
@@ -59,7 +58,7 @@ internal fun MapScreen(dataModel: MapDataModel, platform: Platform) {
 
         if (selectedNode != null) {
             val scrollState = rememberScrollState()
-            Column (
+            Column(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(200.dp)
@@ -107,7 +106,7 @@ internal fun MapScreen(dataModel: MapDataModel, platform: Platform) {
                     }
                 } else {
                     selectedNode.value?.let {
-                        displayPortOfCall(it, platform)
+                        it.compose(platform)
                     }
                 }
             }

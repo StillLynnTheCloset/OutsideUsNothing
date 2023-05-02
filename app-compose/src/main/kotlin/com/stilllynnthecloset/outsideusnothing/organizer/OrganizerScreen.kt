@@ -1,30 +1,19 @@
 package com.stilllynnthecloset.outsideusnothing.organizer
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import com.stilllynnthecloset.liboun.model.Contract
-import com.stilllynnthecloset.liboun.model.PlaySheetChoice
-import com.stilllynnthecloset.liboun.model.PortOfCall
 import com.stilllynnthecloset.outsideusnothing.Platform
-import com.stilllynnthecloset.outsideusnothing.theme.ImageReference
+import com.stilllynnthecloset.outsideusnothing.compose
+import com.stilllynnthecloset.outsideusnothing.indentPadding
 
 /**
  * OrganizerScreen - TODO: Documentation
@@ -38,126 +27,171 @@ internal fun OrganizerScreen(dataModel: OrganizerDataModel, platform: Platform) 
         modifier = Modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
-            .padding(startPadding),
+            .padding(indentPadding),
     ) {
-        Button(
-            onClick = {
-                dataModel.generatePort()
-            },
-            modifier = Modifier.align(Alignment.CenterHorizontally),
+        Row(
+            modifier = Modifier.align(Alignment.CenterHorizontally)
         ) {
-            Text("Click me to generate a port of call")
+            Button(
+                onClick = dataModel::generatePort,
+                modifier = Modifier,
+            ) {
+                Text("Generate a port of call")
+            }
+            Button(
+                onClick = dataModel::clearPort,
+                modifier = Modifier,
+            ) {
+                Text("Clear port of call")
+            }
         }
 
-        val res = dataModel.generatedPort
-        if (res != null) {
-            displayPortOfCall(res, platform)
+        dataModel.generatedPort?.compose(platform)
+
+
+        Row(
+            modifier = Modifier.align(Alignment.CenterHorizontally)
+        ) {
+            Button(
+                onClick = dataModel::generateBastard,
+                modifier = Modifier,
+            ) {
+                Text("Generate a bastard")
+            }
+            Button(
+                onClick = dataModel::clearBastard,
+                modifier = Modifier,
+            ) {
+                Text("Clear bastard")
+            }
         }
-    }
-}
 
-private val startPadding = 32.dp
+        dataModel.generatedBastard?.compose(platform)
 
-@Composable
-internal fun displayPortOfCall(port: PortOfCall, platform: Platform) {
-    Column {
-        Text(
-            text = port.specification.name,
-            fontSize = 32.sp,
-        )
-        Text(
-            text = port.specification.description,
-            fontSize = 12.sp,
-            modifier = Modifier.padding(start = startPadding),
-        )
-        Spacer(
-            modifier = Modifier.height(startPadding),
-        )
-        port.customizations.forEach { customization(it, platform) }
-        Spacer(
-            modifier = Modifier.height(startPadding),
-        )
-        Text(
-            text = "Available Contracts:",
-        )
-        port.contracts.forEach { contract(it, platform) }
-    }
-}
 
-@Composable
-internal fun customization(customization: PlaySheetChoice, platform: Platform) {
-    Column(
-        modifier = Modifier
-            .padding(top = 8.dp),
-    ) {
-        Text("${customization.specification.question}:")
-        if (customization.positiveSelections.isNotEmpty()) {
-            Text(
-                text = customization.positiveSelections.joinToString(),
-                modifier = Modifier.padding(start = startPadding),
-            )
+
+        Row(
+            modifier = Modifier.align(Alignment.CenterHorizontally)
+        ) {
+            Button(
+                onClick = dataModel::generateContractItem,
+                modifier = Modifier,
+            ) {
+                Text("Generate a contract item")
+            }
+            Button(
+                onClick = dataModel::clearContractItem,
+                modifier = Modifier,
+            ) {
+                Text("Clear contract item")
+            }
         }
-        if (customization.negativeSelections.isNotEmpty()) {
-            Text(
-                text = "But not: ${customization.negativeSelections.joinToString()}",
-                modifier = Modifier.padding(start = startPadding),
-            )
+
+        dataModel.generatedContractItem?.compose(platform)
+
+
+
+        Row(
+            modifier = Modifier.align(Alignment.CenterHorizontally)
+        ) {
+            Button(
+                onClick = dataModel::generateEvent,
+                modifier = Modifier,
+            ) {
+                Text("Generate an event")
+            }
+            Button(
+                onClick = dataModel::clearEvent,
+                modifier = Modifier,
+            ) {
+                Text("Clear event")
+            }
         }
-    }
-}
 
-@Composable
-internal fun contract(contract: Contract, platform: Platform) {
-    Row(
-        modifier = Modifier
-            .padding(top = 8.dp),
-    ) {
-        Image(
-            painter = platform.imagePainter.getPainter(ImageReference.Food),
-            colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
-            contentDescription = "Supplies",
-            modifier = Modifier
-                .width(24.dp)
-                .align(Alignment.CenterVertically),
-        )
-        Text(
-            text = contract.suppliesReward.toString(),
-            modifier = Modifier
-                .width(32.dp)
-                .align(Alignment.CenterVertically),
-        )
+        dataModel.generatedEvent?.compose(platform)
 
-        Image(
-            painter = platform.imagePainter.getPainter(ImageReference.Gas),
-            colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
-            contentDescription = "Fuel",
-            modifier = Modifier
-                .width(24.dp)
-                .align(Alignment.CenterVertically),
-        )
-        Text(
-            text = contract.fuelReward.toString(),
-            modifier = Modifier
-                .width(32.dp)
-                .align(Alignment.CenterVertically),
-        )
 
-        Image(
-            painter = platform.imagePainter.getPainter(ImageReference.Swords),
-            colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
-            contentDescription = "Fuel",
-            modifier = Modifier
-                .width(24.dp)
-                .alpha(if (contract.itemReward) 1.0F else 0.0F)
-                .align(Alignment.CenterVertically),
-        )
-        Spacer(
-            modifier = Modifier.width(startPadding),
-        )
-        Text(
-            text = contract.contractSpecification.description,
-            modifier = Modifier
-                .align(Alignment.CenterVertically),
-        )
+
+
+        Row(
+            modifier = Modifier.align(Alignment.CenterHorizontally)
+        ) {
+            Button(
+                onClick = dataModel::generateThreat,
+                modifier = Modifier,
+            ) {
+                Text("Generate a threat")
+            }
+            Button(
+                onClick = dataModel::clearThreat,
+                modifier = Modifier,
+            ) {
+                Text("Clear threat")
+            }
+        }
+
+        dataModel.generatedThreat?.compose(platform)
+
+
+
+
+        Row(
+            modifier = Modifier.align(Alignment.CenterHorizontally)
+        ) {
+            Button(
+                onClick = dataModel::generateUsefulItem,
+                modifier = Modifier,
+            ) {
+                Text("Generate a useful item")
+            }
+            Button(
+                onClick = dataModel::clearUsefulItem,
+                modifier = Modifier,
+            ) {
+                Text("Clear useful item")
+            }
+        }
+
+        dataModel.generatedUsefulItem?.compose(platform)
+
+
+        Row(
+            modifier = Modifier.align(Alignment.CenterHorizontally)
+        ) {
+            Button(
+                onClick = dataModel::generateShip,
+                modifier = Modifier,
+            ) {
+                Text("Generate a ship")
+            }
+            Button(
+                onClick = dataModel::clearShip,
+                modifier = Modifier,
+            ) {
+                Text("Clear ship")
+            }
+        }
+
+        dataModel.generatedShip?.compose(platform)
+
+
+        Row(
+            modifier = Modifier.align(Alignment.CenterHorizontally)
+        ) {
+            Button(
+                onClick = dataModel::generatePlayer,
+                modifier = Modifier,
+            ) {
+                Text("Generate a player")
+            }
+            Button(
+                onClick = dataModel::clearPlayer,
+                modifier = Modifier,
+            ) {
+                Text("Clear player")
+            }
+        }
+
+        dataModel.generatedPlayer?.compose(platform)
     }
 }
