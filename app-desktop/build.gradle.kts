@@ -91,7 +91,7 @@ compose.desktop {
             windows {
                 iconFile.set(project.file("icons/ic_launcher.ico"))
                 packageVersion = "$major.$minor.$patch"
-                console = true
+                console = false
                 dirChooser = true
                 perUserInstall = true
                 menuGroup = "games"
