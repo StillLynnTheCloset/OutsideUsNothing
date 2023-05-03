@@ -118,15 +118,15 @@ public class MapDataModel {
         // 2. Has blank placeholder (create edge)
         // 3. Has actual port (don't create anything)
 
-        val existingConnections = findExistingConnections(node, nodeList, edgeList)
+        val existingConnections = findExistingConnections(node, edgeList)
 
         val neighborsToConnectTo = rollDie(6)
         println("Connecting to $neighborsToConnectTo neighbors")
 
         val newConnectionsNeeded = neighborsToConnectTo - existingConnections.size
         if (newConnectionsNeeded > 0) {
-            val emptyNeighbors = findEmptyNeighbors(node, nodeList, edgeList)
-            val blankNeighbors = findExistingNeighbors(node, nodeList, edgeList).filter { it.value == null }.map { it.coordinate }
+            val emptyNeighbors = findEmptyNeighbors(node, nodeList)
+            val blankNeighbors = findExistingNeighbors(node, nodeList).filter { it.value == null }.map { it.coordinate }
             val availableNeighbors = emptyNeighbors + blankNeighbors
 
             availableNeighbors

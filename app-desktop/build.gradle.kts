@@ -54,16 +54,16 @@ kotlin {
 
 compose.desktop {
     application {
-        mainClass = "com.stilllynnthecloset.outsideusnothing.MainKt"
+        mainClass = "com.stilllynnthecloset.outsideusnothing.desktop.MainKt"
 //        jvmArgs += listOf("-Xmx2G")
 //        args += listOf("-customArgument")
 
         nativeDistributions {
             targetFormats(Dmg, Msi, Deb, Rpm, Exe)
             outputBaseDir.set(project.buildDir.resolve("packages"))
-            packageName = "outside-us-nothing"
+            packageName = "Outside us Nothing"
             packageVersion = "$major.$minor.$patch"
-            description = "Outside us, Nothing"
+            description = "Outside us Nothing"
             copyright = "© 2023 Lynn"
             vendor = "Lynn"
 
