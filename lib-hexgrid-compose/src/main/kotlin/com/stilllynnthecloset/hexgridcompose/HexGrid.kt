@@ -9,8 +9,12 @@ import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.StrokeJoin
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Fill
+import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.input.pointer.PointerEventType
 import androidx.compose.ui.input.pointer.onPointerEvent
 import androidx.compose.ui.text.AnnotatedString
@@ -58,7 +62,7 @@ public fun <T : Any> hexGrid(
     val textMeasurer = rememberTextMeasurer()
     val textColor = MaterialTheme.colorScheme.onPrimary
     val gridColor = MaterialTheme.colorScheme.primary
-    val selectedColor = MaterialTheme.colorScheme.tertiary
+    val placeholderColor = MaterialTheme.colorScheme.outlineVariant
     val unitDistance = (nodeSize + nodeSpacing) * scale
 
     Canvas(
@@ -122,7 +126,7 @@ public fun <T : Any> hexGrid(
         }
 
         nodes.forEach {
-            val color = if (it == selectedNode) selectedColor else gridColor
+            val color = if (it.value == null) placeholderColor else gridColor
             drawHexagon(
                 node = it,
                 offset = this.center + (offset * unitDistance),
@@ -131,6 +135,7 @@ public fun <T : Any> hexGrid(
                 textColor = textColor,
                 nodeSize = nodeSize * scale,
                 nodeSpacing = nodeSpacing * scale,
+                selected = it == selectedNode
             )
         }
     }
@@ -223,6 +228,7 @@ private fun <T : Any> DrawScope.drawHexagon(
     textColor: Color,
     nodeSize: Float,
     nodeSpacing: Float,
+    selected: Boolean,
 ) {
     val center = offsetOfNode(offset, node.coordinate, nodeSize, nodeSpacing)
     val hexagonPoints = hexagonOffsets(center, nodeSize)
@@ -232,16 +238,48 @@ private fun <T : Any> DrawScope.drawHexagon(
         path.lineTo(it.x, it.y)
     }
     this.drawPath(path, fillColor, style = Fill)
+    if (selected) {
+        this.drawPath(
+            path = path,
+            color = textColor,
+            style = Stroke(
+                width = 5f,
+                miter = 5f,
+                cap = StrokeCap.Round,
+                join = StrokeJoin.Miter,
+            ),
+        )
+    }
 
     val measureResult = textMeasurer.measure(node.label, style = TextStyle(textAlign = TextAlign.Center))
-    val barHorizontalCenter = center.x
-    val textLeft = barHorizontalCenter - (measureResult.size.width / 2f)
-    val textTop = center.y - (measureResult.size.height / 2f)
-    drawText(
-        textLayoutResult = measureResult,
-        color = textColor,
-        topLeft = Offset(textLeft, textTop),
-    )
+
+    if (measureResult.size.width <= nodeSize * 1.8) {
+        val barHorizontalCenter = center.x
+        val textLeft = barHorizontalCenter - (measureResult.size.width / 2f)
+        val textTop = center.y - (measureResult.size.height / 2f)
+        drawText(
+            textLayoutResult = measureResult,
+            color = textColor,
+            topLeft = Offset(textLeft, textTop),
+        )
+    }
+
+    if (node.value == null) {
+        drawLine(
+            color = textColor,
+            start = center.copy(y = center.y - nodeSize / 4),
+            end = center.copy(y = center.y + nodeSize / 4),
+            strokeWidth = nodeSize / 15,
+            cap = StrokeCap.Round,
+        )
+        drawLine(
+            color = textColor,
+            start = center.copy(x = center.x - nodeSize / 4),
+            end = center.copy(x = center.x + nodeSize / 4),
+            strokeWidth = nodeSize / 15,
+            cap = StrokeCap.Round,
+        )
+    }
 }
 
 @OptIn(ExperimentalTextApi::class)
@@ -257,19 +295,22 @@ private fun DrawScope.drawEdge(
     val node1 = offsetOfNode(offset, edge.node1, nodeSize, nodeSpacing)
     val node2 = offsetOfNode(offset, edge.node2, nodeSize, nodeSpacing)
 
-    this.drawLine(edgeColor, node1, node2, strokeWidth = 16f)
+    this.drawLine(edgeColor, node1, node2, strokeWidth = nodeSize / 5)
 
     if (edge.cost != null) {
         val x = arrayOf(node1.x, node2.x).average().toFloat()
         val y = arrayOf(node1.y, node2.y).average().toFloat()
         val measureResult = textMeasurer.measure(AnnotatedString("${edge.cost}"), style = TextStyle(textAlign = TextAlign.Center))
-        val textLeft = x - (measureResult.size.width / 2f)
-        val textTop = y - (measureResult.size.height / 2f)
-        drawText(
-            textLayoutResult = measureResult,
-            color = textColor,
-            topLeft = Offset(textLeft, textTop),
-        )
+
+        if (measureResult.size.width <= nodeSpacing * 2) {
+            val textLeft = x - (measureResult.size.width / 2f)
+            val textTop = y - (measureResult.size.height / 2f)
+            drawText(
+                textLayoutResult = measureResult,
+                color = textColor,
+                topLeft = Offset(textLeft, textTop),
+            )
+        }
     }
 }
 
