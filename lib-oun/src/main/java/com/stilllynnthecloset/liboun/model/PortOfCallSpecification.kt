@@ -10,14 +10,14 @@ import com.stilllynnthecloset.liboun.pickAtLeastN
 public data class PortOfCallSpecification constructor(
     val name: String,
     val description: String,
-    val customizations: Collection<ChoiceSpecification>,
+    val choices: Collection<ChoiceSpecification>,
     val contracts: Collection<ContractSpecification>,
     val minContracts: Int,
 ) {
     public fun randomize(): PortOfCall {
         return PortOfCall(
             specification = this,
-            choices = customizations.map { it.randomize() },
+            choices = choices.map { it.randomize() },
             contracts = contracts.toSet().pickAtLeastN(minContracts).map { it.randomize() },
         )
     }

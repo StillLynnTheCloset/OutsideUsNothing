@@ -33,7 +33,7 @@ public object AlienPlaybook {
                     ),
                     questions = listOf(
                         Question(
-                            question = "One your were and describe the way it has changed your life",
+                            question = "Choose one your were and describe the way it has changed your life",
                             answers = 1,
                         ),
                     ),
@@ -102,7 +102,7 @@ public object AlienPlaybook {
                     ),
                     questions = listOf(
                         Question(
-                            question = "Two qualities of your physical body",
+                            question = "Choose two qualities of your physical body",
                             answers = 2,
                         ),
                     ),
@@ -122,7 +122,7 @@ public object AlienPlaybook {
                     ),
                     questions = listOf(
                         Question(
-                            question = "Three limits given to you by your body, and decide if you love them or wish you could get rid of them",
+                            question = "Choose three limits given to you by your body, and decide if you love them or wish you could get rid of them",
                             answers = 3,
                         ),
                     ),

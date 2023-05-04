@@ -20,18 +20,27 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.stilllynnthecloset.liboun.calculateDiceOdds
 import com.stilllynnthecloset.liboun.model.Action
+import com.stilllynnthecloset.liboun.model.AnsweredQuestion
 import com.stilllynnthecloset.liboun.model.Bastard
 import com.stilllynnthecloset.liboun.model.Choice
+import com.stilllynnthecloset.liboun.model.ChoiceSpecification
 import com.stilllynnthecloset.liboun.model.Consequence
 import com.stilllynnthecloset.liboun.model.Contract
 import com.stilllynnthecloset.liboun.model.ContractItem
+import com.stilllynnthecloset.liboun.model.ContractQuality
+import com.stilllynnthecloset.liboun.model.ContractSpecification
 import com.stilllynnthecloset.liboun.model.Event
+import com.stilllynnthecloset.liboun.model.EventSpecification
 import com.stilllynnthecloset.liboun.model.FlavorText
 import com.stilllynnthecloset.liboun.model.Option
 import com.stilllynnthecloset.liboun.model.PlaySheet
+import com.stilllynnthecloset.liboun.model.PlaySheetSpecification
 import com.stilllynnthecloset.liboun.model.Player
 import com.stilllynnthecloset.liboun.model.PortOfCall
+import com.stilllynnthecloset.liboun.model.PortOfCallSpecification
+import com.stilllynnthecloset.liboun.model.Question
 import com.stilllynnthecloset.liboun.model.Ship
 import com.stilllynnthecloset.liboun.model.Threat
 import com.stilllynnthecloset.liboun.model.UsefulItem
@@ -39,6 +48,34 @@ import com.stilllynnthecloset.outsideusnothing.theme.ImageReference
 
 public val indentPadding: Dp = 32.dp
 public val separatorPadding: Dp = 16.dp
+
+@Composable
+internal fun PortOfCallSpecification.compose(platform: Platform, modifier: Modifier = Modifier) {
+    Column(
+        modifier = modifier,
+    ) {
+        Text(
+            text = name,
+            fontSize = 32.sp,
+        )
+        Text(
+            text = description,
+            fontSize = 12.sp,
+            modifier = Modifier.padding(start = indentPadding),
+        )
+        Spacer(
+            modifier = Modifier.height(separatorPadding),
+        )
+        choices.forEach { it.compose(platform) }
+        Spacer(
+            modifier = Modifier.height(separatorPadding),
+        )
+        Text(
+            text = "Available Contracts:",
+        )
+        contracts.sortedBy { it.quality }.forEach { it.compose(platform, Modifier.padding(start = indentPadding)) }
+    }
+}
 
 @Composable
 internal fun PortOfCall.compose(platform: Platform, modifier: Modifier = Modifier) {
@@ -69,29 +106,77 @@ internal fun PortOfCall.compose(platform: Platform, modifier: Modifier = Modifie
 }
 
 @Composable
+internal fun ChoiceSpecification.compose(platform: Platform, modifier: Modifier = Modifier) {
+    Column(
+        modifier = modifier,
+    ) {
+        questions.forEach { it.compose(platform) }
+        options.forEach { it.compose(platform, Modifier.padding(start = indentPadding)) }
+    }
+}
+
+@Composable
 internal fun Choice.compose(platform: Platform, modifier: Modifier = Modifier) {
     Column(
         modifier = modifier,
     ) {
-        answeredQuestions.forEach {
-            Text(
-                text = it.question.question,
+        answeredQuestions.forEach { it.compose(platform) }
+    }
+}
+
+@Composable
+internal fun Question.compose(platform: Platform, modifier: Modifier = Modifier) {
+    Column(
+        modifier = modifier,
+    ) {
+        Text(
+            text = question,
+        )
+    }
+}
+
+@Composable
+internal fun AnsweredQuestion.compose(platform: Platform, modifier: Modifier = Modifier) {
+    Column(
+        modifier = modifier,
+    ) {
+        Text(
+            text = question.question,
+        )
+        answers.forEach {
+            it.compose(
+                platform = platform,
+                modifier = Modifier.padding(start = indentPadding),
             )
-            it.answers.forEach {
-                it.compose(
-                    platform = platform,
-                    modifier = Modifier.padding(start = indentPadding),
-                )
-            }
         }
     }
 }
 
 @Composable
-internal fun Contract.compose(platform: Platform, modifier: Modifier = Modifier) {
+internal fun ContractSpecification.compose(platform: Platform, modifier: Modifier = Modifier) {
     Row(
         modifier = modifier,
     ) {
+        Text(
+            text = quality.toString(),
+            color = when (quality) {
+                ContractQuality.VERY_SUBPAR -> Color(0xFFFF0000)
+                ContractQuality.SUBPAR -> Color(0xFFea9999)
+                ContractQuality.AVERAGE -> Color(0xFFFFFFFF)
+                ContractQuality.GOOD -> Color(0xFFb6d7a8)
+                ContractQuality.EXCELLENT -> Color(0xFF00ff00)
+            },
+            modifier = Modifier
+                .align(Alignment.CenterVertically)
+                .width(128.dp),
+        )
+
+
+        Text(
+            text = "(",
+            modifier = Modifier
+                .align(Alignment.CenterVertically),
+        )
         Image(
             painter = platform.imagePainter.getPainter(ImageReference.Food),
             colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
@@ -100,23 +185,39 @@ internal fun Contract.compose(platform: Platform, modifier: Modifier = Modifier)
                 .width(24.dp)
                 .align(Alignment.CenterVertically),
         )
+        Image(
+            painter = platform.imagePainter.getPainter(ImageReference.Dice5),
+            colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
+            contentDescription = "Supplies Dice",
+            modifier = Modifier
+                .width(24.dp)
+                .align(Alignment.CenterVertically),
+        )
         Text(
-            text = suppliesReward.toString(),
+            text = quality.suppliesDice.toString(),
             modifier = Modifier
                 .width(32.dp)
                 .align(Alignment.CenterVertically),
         )
 
         Image(
-            painter = platform.imagePainter.getPainter(ImageReference.Gas),
+            painter = platform.imagePainter.getPainter(ImageReference.Fuel),
             colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
             contentDescription = "Fuel",
             modifier = Modifier
                 .width(24.dp)
                 .align(Alignment.CenterVertically),
         )
+        Image(
+            painter = platform.imagePainter.getPainter(ImageReference.Dice5),
+            colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
+            contentDescription = "Fuel Dice",
+            modifier = Modifier
+                .width(24.dp)
+                .align(Alignment.CenterVertically),
+        )
         Text(
-            text = fuelReward.toString(),
+            text = quality.fuelDice.toString(),
             modifier = Modifier
                 .width(32.dp)
                 .align(Alignment.CenterVertically),
@@ -125,17 +226,28 @@ internal fun Contract.compose(platform: Platform, modifier: Modifier = Modifier)
         Image(
             painter = platform.imagePainter.getPainter(ImageReference.Swords),
             colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
-            contentDescription = "Fuel",
+            contentDescription = "Item",
             modifier = Modifier
                 .width(24.dp)
-                .alpha(if (itemReward) 1.0F else 0.0F)
                 .align(Alignment.CenterVertically),
         )
-        Spacer(
-            modifier = Modifier.width(separatorPadding),
+        Image(
+            painter = platform.imagePainter.getPainter(ImageReference.Dice5),
+            colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
+            contentDescription = "Item Difficulty",
+            modifier = Modifier
+                .width(24.dp)
+                .align(Alignment.CenterVertically),
         )
         Text(
-            text = contractSpecification.description,
+            text = String.format("%.1f%%)", calculateDiceOdds(2, quality.itemDifficultly, 2) * 100),
+            modifier = Modifier
+                .width(96.dp)
+                .align(Alignment.CenterVertically),
+        )
+
+        Text(
+            text = description,
             modifier = Modifier
                 .align(Alignment.CenterVertically),
         )
@@ -143,7 +255,7 @@ internal fun Contract.compose(platform: Platform, modifier: Modifier = Modifier)
 }
 
 @Composable
-internal fun Bastard.compose(platform: Platform, modifier: Modifier = Modifier) {
+internal fun EventSpecification.compose(platform: Platform, modifier: Modifier = Modifier) {
     Column(
         modifier = modifier,
     ) {
@@ -156,45 +268,23 @@ internal fun Bastard.compose(platform: Platform, modifier: Modifier = Modifier) 
             fontSize = 12.sp,
             modifier = Modifier.padding(start = indentPadding),
         )
-    }
-}
-
-@Composable
-internal fun ContractItem.compose(platform: Platform, modifier: Modifier = Modifier) {
-    Row(
-        modifier = modifier,
-    ) {
-        Text(
-            text = name,
-            modifier = Modifier
-                .align(Alignment.CenterVertically),
-        )
-    }
-}
-
-@Composable
-internal fun Threat.compose(platform: Platform, modifier: Modifier = Modifier) {
-    Row(
-        modifier = modifier,
-    ) {
-        Text(
-            text = name,
-            modifier = Modifier
-                .align(Alignment.CenterVertically),
-        )
-    }
-}
-
-@Composable
-internal fun Consequence.compose(platform: Platform, modifier: Modifier = Modifier) {
-    Row(
-        modifier = modifier,
-    ) {
-        Text(
-            text = name,
-            modifier = Modifier
-                .align(Alignment.CenterVertically),
-        )
+        if (choices.isNotEmpty()) {
+            Spacer(
+                modifier = Modifier.height(separatorPadding),
+            )
+            choices.forEach { it.compose(platform) }
+        }
+        if (consequences.isNotEmpty()) {
+            Spacer(
+                modifier = Modifier.height(separatorPadding),
+            )
+            Text(
+                text = "Consequences:",
+            )
+            consequences.forEach {
+                it.compose(platform, Modifier.padding(start = indentPadding))
+            }
+        }
     }
 }
 
@@ -233,59 +323,34 @@ internal fun Event.compose(platform: Platform, modifier: Modifier = Modifier) {
 }
 
 @Composable
-internal fun UsefulItem.compose(platform: Platform, modifier: Modifier = Modifier) {
+internal fun PlaySheetSpecification.compose(platform: Platform, modifier: Modifier = Modifier) {
     Column(
         modifier = modifier,
     ) {
-        Text("$name:")
-        action.compose(platform, Modifier.padding(start = indentPadding))
-    }
-}
-
-@Composable
-internal fun Action.compose(platform: Platform, modifier: Modifier = Modifier) {
-    Row(
-        modifier = modifier,
-    ) {
-        if (diceOffset > 0) {
-            Text(
-                text = "+$diceOffset ",
-                color = Color.Green,
+        Text(
+            text = name,
+            fontSize = 32.sp,
+        )
+        flavorText?.compose(platform, Modifier.padding(start = indentPadding))
+        Text(
+            text = description,
+            fontSize = 12.sp,
+            modifier = Modifier.padding(start = indentPadding),
+        )
+        if (choices.isNotEmpty()) {
+            Spacer(
+                modifier = Modifier.height(separatorPadding),
             )
-        } else if (diceOffset < 0) {
-            Text(
-                text = "$diceOffset ",
-                color = Color.Red,
-            )
-        } else {
-            Text(
-                text = " * ",
-                color = Color.White,
-            )
+            choices.forEach { it.compose(platform, Modifier.padding(start = indentPadding)) }
         }
-        Text(description)
-    }
-}
 
-@Composable
-internal fun Player.compose(platform: Platform, modifier: Modifier = Modifier) {
-    Column(
-        modifier = modifier,
-    ) {
-        Text(
-            text = "Dice: $dicePool",
-        )
-        Text(
-            text = "Condition: $condition",
-        )
-        Text(
-            text = "Playsheets:",
-        )
-        playSheets.forEach { it.compose(platform, showActions = false, modifier = Modifier.padding(start = indentPadding)) }
-        Text(
-            text = "Actions:",
-        )
-        actions.forEach { it.compose(platform, modifier = Modifier.padding(start = indentPadding)) }
+        if (actions.isNotEmpty()) {
+            Text(
+                text = "Actions:",
+                Modifier.padding(top = separatorPadding, start = indentPadding),
+            )
+            actions.forEach { it.compose(platform, Modifier.padding(start = indentPadding * 2)) }
+        }
     }
 }
 
@@ -382,5 +447,173 @@ internal fun Option.compose(platform: Platform, modifier: Modifier = Modifier) {
             modifier = Modifier
                 .align(Alignment.CenterVertically),
         )
+    }
+}
+
+@Composable
+internal fun Contract.compose(platform: Platform, modifier: Modifier = Modifier) {
+    Row(
+        modifier = modifier,
+    ) {
+        Image(
+            painter = platform.imagePainter.getPainter(ImageReference.Food),
+            colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
+            contentDescription = "Supplies",
+            modifier = Modifier
+                .width(24.dp)
+                .align(Alignment.CenterVertically),
+        )
+        Text(
+            text = suppliesReward.toString(),
+            modifier = Modifier
+                .width(32.dp)
+                .align(Alignment.CenterVertically),
+        )
+
+        Image(
+            painter = platform.imagePainter.getPainter(ImageReference.Fuel),
+            colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
+            contentDescription = "Fuel",
+            modifier = Modifier
+                .width(24.dp)
+                .align(Alignment.CenterVertically),
+        )
+        Text(
+            text = fuelReward.toString(),
+            modifier = Modifier
+                .width(32.dp)
+                .align(Alignment.CenterVertically),
+        )
+
+        Image(
+            painter = platform.imagePainter.getPainter(ImageReference.Swords),
+            colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
+            contentDescription = "Item",
+            modifier = Modifier
+                .width(24.dp)
+                .alpha(if (itemReward) 1.0F else 0.0F)
+                .align(Alignment.CenterVertically),
+        )
+        Spacer(
+            modifier = Modifier.width(separatorPadding),
+        )
+        Text(
+            text = contractSpecification.description,
+            modifier = Modifier
+                .align(Alignment.CenterVertically),
+        )
+    }
+}
+
+@Composable
+internal fun Bastard.compose(platform: Platform, modifier: Modifier = Modifier) {
+    Column(
+        modifier = modifier,
+    ) {
+        Text(
+            text = name,
+            fontSize = 32.sp,
+        )
+        Text(
+            text = description,
+            fontSize = 12.sp,
+            modifier = Modifier.padding(start = indentPadding),
+        )
+    }
+}
+
+@Composable
+internal fun ContractItem.compose(platform: Platform, modifier: Modifier = Modifier) {
+    Row(
+        modifier = modifier,
+    ) {
+        Text(
+            text = name,
+            modifier = Modifier
+                .align(Alignment.CenterVertically),
+        )
+    }
+}
+
+@Composable
+internal fun Threat.compose(platform: Platform, modifier: Modifier = Modifier) {
+    Row(
+        modifier = modifier,
+    ) {
+        Text(
+            text = name,
+            modifier = Modifier
+                .align(Alignment.CenterVertically),
+        )
+    }
+}
+
+@Composable
+internal fun Consequence.compose(platform: Platform, modifier: Modifier = Modifier) {
+    Row(
+        modifier = modifier,
+    ) {
+        Text(
+            text = name,
+            modifier = Modifier
+                .align(Alignment.CenterVertically),
+        )
+    }
+}
+
+@Composable
+internal fun UsefulItem.compose(platform: Platform, modifier: Modifier = Modifier) {
+    Column(
+        modifier = modifier,
+    ) {
+        Text("$name:")
+        action.compose(platform, Modifier.padding(start = indentPadding))
+    }
+}
+
+@Composable
+internal fun Action.compose(platform: Platform, modifier: Modifier = Modifier) {
+    Row(
+        modifier = modifier,
+    ) {
+        if (diceOffset > 0) {
+            Text(
+                text = "+$diceOffset ",
+                color = Color.Green,
+            )
+        } else if (diceOffset < 0) {
+            Text(
+                text = "$diceOffset ",
+                color = Color.Red,
+            )
+        } else {
+            Text(
+                text = " * ",
+                color = Color.White,
+            )
+        }
+        Text(description)
+    }
+}
+
+@Composable
+internal fun Player.compose(platform: Platform, modifier: Modifier = Modifier) {
+    Column(
+        modifier = modifier,
+    ) {
+        Text(
+            text = "Dice: $dicePool",
+        )
+        Text(
+            text = "Condition: $condition",
+        )
+        Text(
+            text = "Playsheets:",
+        )
+        playSheets.forEach { it.compose(platform, showActions = false, modifier = Modifier.padding(start = indentPadding)) }
+        Text(
+            text = "Actions:",
+        )
+        actions.forEach { it.compose(platform, modifier = Modifier.padding(start = indentPadding)) }
     }
 }

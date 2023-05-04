@@ -6,6 +6,7 @@ import androidx.compose.runtime.setValue
 import com.stilllynnthecloset.outsideusnothing.dice.DiceRollerDataModel
 import com.stilllynnthecloset.outsideusnothing.map.MapDataModel
 import com.stilllynnthecloset.outsideusnothing.organizer.OrganizerDataModel
+import com.stilllynnthecloset.outsideusnothing.playbook.PlaybookDataModel
 
 /**
  * WindowDataModel - TODO: Documentation
@@ -14,7 +15,7 @@ import com.stilllynnthecloset.outsideusnothing.organizer.OrganizerDataModel
  */
 public class WindowDataModel {
     private val backstack = ArrayDeque<NavigationDestination>(5)
-    internal var currentScreen: NavigationDestination by mutableStateOf<NavigationDestination>(NavigationDestination.DiceRoller(DiceRollerDataModel()))
+    internal var currentScreen: NavigationDestination by mutableStateOf(NavigationDestination.DiceRoller(DiceRollerDataModel()))
         private set
 
     public fun popBackStack() {
@@ -33,6 +34,7 @@ public class WindowDataModel {
             NavigationTabImpl.DiceRoller -> NavigationDestination.DiceRoller(DiceRollerDataModel())
             NavigationTabImpl.Organizer -> NavigationDestination.Organizer(OrganizerDataModel())
             NavigationTabImpl.Map -> NavigationDestination.Map(MapDataModel())
+            NavigationTabImpl.Playbook -> NavigationDestination.Playbook(PlaybookDataModel())
         }
     }
 
