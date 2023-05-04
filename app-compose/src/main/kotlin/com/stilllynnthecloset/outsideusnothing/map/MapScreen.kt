@@ -76,7 +76,7 @@ internal fun MapScreen(dataModel: MapDataModel, platform: Platform) {
                     )
 
                     Image(
-                        painter = platform.imagePainter.getPainter(ImageReference.Minus),
+                        painter = platform.imagePainter.getPainter(ImageReference.Remove),
                         colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurfaceVariant),
                         contentDescription = "Close",
                         modifier = Modifier

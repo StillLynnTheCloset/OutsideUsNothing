@@ -86,7 +86,7 @@ public fun appWindowTitleBar(
 
             if (onOpenWindow != null) {
                 Image(
-                    painter = platform.imagePainter.getPainter(ImageReference.Plus),
+                    painter = platform.imagePainter.getPainter(ImageReference.Add),
                     contentDescription = "Open New Window",
                     colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
                     modifier = Modifier
@@ -97,7 +97,7 @@ public fun appWindowTitleBar(
             }
 
             Image(
-                painter = platform.imagePainter.getPainter(if (currentIsDarkTheme) ImageReference.Sun else ImageReference.Moon),
+                painter = platform.imagePainter.getPainter(if (currentIsDarkTheme) ImageReference.LightMode else ImageReference.DarkMode),
                 contentDescription = "Toggle Dark Mode",
                 colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
                 modifier = Modifier
@@ -545,7 +545,7 @@ public fun incrementInput(
             onClick = {
                 value?.let { onValueChange(it - 1L) }
             },
-            imageReference = ImageReference.Minus,
+            imageReference = ImageReference.Remove,
             contentDescription = "Decrement Counter",
             modifier = Modifier,
             platform = platform,
@@ -564,7 +564,7 @@ public fun incrementInput(
             onClick = {
                 value?.let { onValueChange(it + 1L) }
             },
-            imageReference = ImageReference.Plus,
+            imageReference = ImageReference.Add,
             contentDescription = "Increment Counter",
             modifier = Modifier,
             platform = platform,
