@@ -2,6 +2,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("jvm")
+    kotlin("plugin.serialization")
     id("kotlin-kapt")
 }
 
@@ -17,6 +18,7 @@ val ktlint by configurations.creating
 dependencies {
     implementation(kotlin("stdlib"))
     implementation(KotlinX.coroutines.core)
+    implementation(KotlinX.serialization.json)
 
 //    implementation(Square.moshi.kotlinReflect)
 //    implementation(Square.moshi.adapters)

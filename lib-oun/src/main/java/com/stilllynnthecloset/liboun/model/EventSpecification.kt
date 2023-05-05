@@ -1,10 +1,13 @@
 package com.stilllynnthecloset.liboun.model
 
+import kotlinx.serialization.Serializable
+
 /**
  * EventSpecification - TODO: Documentation
  *
  * Created by Lynn on 5/1/23
  */
+@Serializable
 public data class EventSpecification constructor(
     val name: String,
     val description: String,

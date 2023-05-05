@@ -1,12 +1,14 @@
 package com.stilllynnthecloset.liboun.model
 
 import com.stilllynnthecloset.liboun.pickN
+import kotlinx.serialization.Serializable
 
 /**
  * ChoiceSpecification - TODO: Documentation
  *
  * Created by Lynn on 3/26/23
  */
+@Serializable
 public data class ChoiceSpecification constructor(
     val options: Collection<Option>,
     val questions: Collection<Question>,

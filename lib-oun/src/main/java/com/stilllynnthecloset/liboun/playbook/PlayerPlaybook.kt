@@ -10,15 +10,19 @@ import com.stilllynnthecloset.liboun.model.Action
 public object PlayerPlaybook {
     public val standardActions: List<Action> = listOf(
         Action(
-            description = "Describe something around you. Describe how you feel about something another player described. Tell how something made you feel",
+            description = "Describe something you can see, touch, taste or feel around you.",
             diceOffset = 1,
         ),
         Action(
-            description = "Inconvenience yourself for someone else or help them without reason",
+            description = "Describe how you feel about something another player described. Tell how something made you feel.",
             diceOffset = 1,
         ),
         Action(
-            description = "Ask someone else to talk and listen to their opinion",
+            description = "Inconvenience yourself for someone else or help them without any other reason but helping",
+            diceOffset = 1,
+        ),
+        Action(
+            description = "Ask someone else to talk and listen to and consider their their opinion",
             diceOffset = 1,
         ),
         Action(
@@ -34,11 +38,11 @@ public object PlayerPlaybook {
             diceOffset = 0,
         ),
         Action(
-            description = "Attack, talk, repair, suggest, fly, solve, or do something else that isn’t on your playsheets for a cheaper cost",
+            description = "Attack, talk, repair, suggest, fly, solve, or do other general that isn’t on your playsheets for any cheaper dice cost",
             diceOffset = -4,
         ),
         Action(
-            description = "Provided you have some way of practicing it, have the time, and have a teacher, learn a second role. Add that playsheet to your own",
+            description = "Provided you have some way of practicing it, have the time, and have a teacher, learn a second ship role. Add that new playsheet ‘s actions to your own",
             diceOffset = -10,
         ),
     )

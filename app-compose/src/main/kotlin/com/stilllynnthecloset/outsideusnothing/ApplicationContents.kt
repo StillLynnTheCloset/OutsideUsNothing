@@ -9,7 +9,8 @@ import androidx.compose.ui.unit.DpSize
 import com.stilllynnthecloset.outsideusnothing.dice.DiceRollerScreen
 import com.stilllynnthecloset.outsideusnothing.map.MapScreen
 import com.stilllynnthecloset.outsideusnothing.organizer.OrganizerScreen
-import com.stilllynnthecloset.outsideusnothing.playbook.playbookScreen
+import com.stilllynnthecloset.outsideusnothing.playbooks.playbooksScreen
+import com.stilllynnthecloset.outsideusnothing.reference.referenceScreen
 import com.stilllynnthecloset.outsideusnothing.theme.navigationContainer
 
 @Composable
@@ -42,7 +43,11 @@ public fun applicationContents(windowSize: DpSize, dataModel: MainDataModel, win
                     dataModel = currentScreen.dataModel,
                     platform = platform,
                 )
-                is NavigationDestination.Playbook -> playbookScreen(
+                is NavigationDestination.Playbook -> playbooksScreen(
+                    dataModel = currentScreen.dataModel,
+                    platform = platform,
+                )
+                is NavigationDestination.Reference -> referenceScreen(
                     dataModel = currentScreen.dataModel,
                     platform = platform,
                 )

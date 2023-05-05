@@ -9,7 +9,7 @@ import com.stilllynnthecloset.liboun.model.Threat
  */
 public object ThreatPlaybook {
     public val threats: List<Threat> = listOf(
-        Threat("The ship the players bought from a corp was bought on a loan and debt is always going up. They don’t know collections are going out soon."),
+        Threat("The players ship was bought on a loan and debt is always going up. Collections are going out soon."),
         Threat("One of the corps has a grudge out for the crew. They will keep sending shadowy special operatives to kill them."),
         Threat("One of the corps has recently shifted the balance of power, and is dramatically expanding into new regions, buying new planets."),
         Threat("One of the corps has struck a truce with a fascist faction, allowing them to attack and eliminate its rivals."),

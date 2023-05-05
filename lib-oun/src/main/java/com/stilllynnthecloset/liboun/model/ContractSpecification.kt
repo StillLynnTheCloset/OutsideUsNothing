@@ -2,12 +2,14 @@ package com.stilllynnthecloset.liboun.model
 
 import com.stilllynnthecloset.liboun.checkSuccess
 import com.stilllynnthecloset.liboun.rollDice
+import kotlinx.serialization.Serializable
 
 /**
  * ContractSpecification - TODO: Documentation
  *
  * Created by Lynn on 4/14/23
  */
+@Serializable
 public data class ContractSpecification constructor(
     val description: String,
     val quality: ContractQuality,

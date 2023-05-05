@@ -1,6 +1,10 @@
 package com.stilllynnthecloset.liboun
 
 import com.stilllynnthecloset.liboun.model.ContractQuality
+import com.stilllynnthecloset.liboun.model.Playbook
+import com.stilllynnthecloset.liboun.model.Weighted
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import java.math.BigDecimal
 import java.math.BigInteger
 import kotlin.math.pow
@@ -174,15 +178,26 @@ internal fun demo(actionCost: Int, actionDifficulty: Int, diceUsed: Int, probabi
 }
 
 internal fun main() {
-    demo(
-        actionCost = 14,
-        actionDifficulty = 1,
-        diceUsed = 14,
-        diceSides = 6,
-        probabilitiesToFind = listOf(0.50, 0.75, 0.90, 0.95, 0.99),
-    )
+//    demo(
+//        actionCost = 14,
+//        actionDifficulty = 1,
+//        diceUsed = 14,
+//        diceSides = 6,
+//        probabilitiesToFind = listOf(0.50, 0.75, 0.90, 0.95, 0.99),
+//    )
 
-    printTimeStuff()
+//    repeat(60) {
+//        println(Playbook.defaultPlaybook.ports.weightedRandom(it + 1).name)
+//    }
+
+//    val serializer = Json {
+//        allowStructuredMapKeys = true
+//    }
+//
+//    val string = serializer.encodeToString(Playbook.defaultPlaybook)
+//    println(string)
+
+//    printTimeStuff()
 }
 
 private fun rollForRewards(jobQuality: ContractQuality) {
@@ -324,91 +339,25 @@ public fun getOddsOfAtLeast(sides: Int, dice: Int, minimumNeeded: Int): Double {
     return oddsArray.drop(minimumNeeded - 1).sum() / oddsArray.sum().toDouble()
 }
 
-public fun generateRandomPlayer(name: String) {
-    println("$name is a ${backgrounds.random()} ${aliens.random()}, and is the ship's ${roles.random()}")
-}
+public fun <T> List<Weighted<T>>.weightedRandom(): T =
+    this.let {
+        val totalWeight = it.sumOf { it.weight }
+        val roll = rollDie(totalWeight)
+        println("Total weight is $totalWeight, rolled $roll")
+        it.weightedRandom(roll)
+    }
 
-// public fun generateRandomShip(name: String): Ship = Ship(name)
-
-public val aliens: Set<String> = setOf(
-    "Terre",
-    "Z-Machine",
-    "Angel",
-    "Devil",
-    "Bawalangasi",
-    "Harrisi",
-    "Zph",
-    "Teuth",
-)
-
-public val backgrounds: Set<String> = setOf(
-    "Corporate Citoyen",
-    "Born Freetraveler",
-    "Veteran",
-    "Exile",
-    "Runaway",
-    "Abductee",
-    "Apprentice",
-    "Snapcaster",
-    "Reformed",
-    "Amnesiac",
-)
-
-public val roles: Set<String> = setOf(
-    "Space Wizard",
-    "Planetary Witch",
-    "Pilot",
-    "Social Liaison",
-    "Aetheric Navigator",
-    "Metalwhispering Mechanic",
-    "Intrepid Researcher",
-    "Astroneering Gardener",
-    "Muscled Tough",
-    "Fresh-Faced Newbie",
-)
-
-public val shipMaterials: Set<String> = setOf(
-    "Cold metal",
-    "Cracked ceramic",
-    "Rust and bolts",
-    "Stone",
-    "Smooth plastic",
-    "Flesh",
-    "Glass of many shades",
-    "Bone",
-    "Wood and grown things",
-)
-
-public val shipProperties: Set<String> = setOf(
-    "Just bought or remodeled",
-    "Full of hissing gasses and grease",
-    "Old and antique",
-    "Clean or sterile",
-    "Alive",
-    "Lived in",
-    "Dead",
-    "Tough and hardy",
-    "Has cavernous spaces",
-    "Always damp",
-    "Has compact living quarters",
-    "Irreplaceable",
-    "Agile and fast",
-    "Bigger on the inside",
-    "Magical",
-    "A place of worship",
-    "A technological wonder",
-    "Always breaking",
-    "Haunted",
-    "Brightly lit",
-    "A memorial",
-    "Full of shifting shadows",
-    "An ecosystem",
-    "Loved",
-    "A piece of unique technology",
-    "Home",
-)
-
-public fun <T> Map<T, Int>.generateWeightedList(): List<T> = this.flatMap { weighting -> List(weighting.value) { weighting.key } }
+public fun <T> List<Weighted<T>>.weightedRandom(roll: Int): T =
+    this.let {
+        var currentMax = 0
+        it.forEach {
+            currentMax += it.weight
+            if (roll <= currentMax) {
+                return@let it.value
+            }
+        }
+        throw IllegalStateException("Didn't find a match, current max: $currentMax")
+    }
 
 public fun printTimeStuff() {
     println("1 nanoperiod = ${NANO_PERIOD.milliseconds}")

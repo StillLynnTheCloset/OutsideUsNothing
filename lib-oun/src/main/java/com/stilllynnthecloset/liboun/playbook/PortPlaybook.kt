@@ -6,6 +6,7 @@ import com.stilllynnthecloset.liboun.model.ContractSpecification
 import com.stilllynnthecloset.liboun.model.Option
 import com.stilllynnthecloset.liboun.model.PortOfCallSpecification
 import com.stilllynnthecloset.liboun.model.Question
+import com.stilllynnthecloset.liboun.model.Weighted
 
 /**
  * PortPlaybook - TODO: Documentation
@@ -13,6 +14,11 @@ import com.stilllynnthecloset.liboun.model.Question
  * Created by Lynn on 4/14/23
  */
 public object PortPlaybook {
+    private val generatedContract: ContractSpecification = ContractSpecification(
+        description = "GENERATE_REPLACEMENT",
+        quality = ContractQuality.AVERAGE,
+    )
+
     public val companyPort: PortOfCallSpecification = PortOfCallSpecification(
         name = "The Company Port",
         description = "It’s the top of a space elevator, a station in the void, perhaps even (shockingly) on a planet itself. But wherever it is physically the construction is all the same. The brands the same. The shops the same. The floor utilitarian. The walls to clean. The people too quiet. The cops everywhere. Remember to pay your docking fee.",
@@ -76,6 +82,7 @@ public object PortPlaybook {
                 description = "A rival company offering excellent pay to smuggle out highly dangerous information on the company that owns the port",
                 quality = ContractQuality.EXCELLENT,
             ),
+            generatedContract,
         ),
         minContracts = 3,
     )
@@ -135,6 +142,7 @@ public object PortPlaybook {
                 description = "A smuggler offering excellent pay for delivering something lethal through a controlled port or region",
                 quality = ContractQuality.EXCELLENT,
             ),
+            generatedContract,
         ),
         minContracts = 3,
     )
@@ -209,6 +217,7 @@ public object PortPlaybook {
                 description = "A pirate looking for a partner on an attack on a ship offering excellent pay",
                 quality = ContractQuality.EXCELLENT,
             ),
+            generatedContract,
         ),
         minContracts = 2,
     )
@@ -279,6 +288,7 @@ public object PortPlaybook {
                 description = "A deserter offering very subpar pay to me freed from military service",
                 quality = ContractQuality.VERY_SUBPAR,
             ),
+            generatedContract,
         ),
         minContracts = 1,
     )
@@ -351,6 +361,7 @@ public object PortPlaybook {
                 description = "A dictator offering excellent pay for an offworld delicacy unable to be produced within the dictatorship",
                 quality = ContractQuality.EXCELLENT,
             ),
+            generatedContract,
         ),
         minContracts = 1,
     )
@@ -420,6 +431,7 @@ public object PortPlaybook {
                 description = "The light offering good pay to behold",
                 quality = ContractQuality.GOOD,
             ),
+            generatedContract,
         ),
         minContracts = 1,
     )
@@ -495,6 +507,7 @@ public object PortPlaybook {
                 description = "Something gone very wrong offering excellent pay to be let out",
                 quality = ContractQuality.EXCELLENT,
             ),
+            generatedContract,
         ),
         minContracts = 2,
     )
@@ -555,6 +568,7 @@ public object PortPlaybook {
                 description = "An extradimensional entity speaking in whispers, asking for a piece of it to be taken elsewhere, offering excellent pay",
                 quality = ContractQuality.EXCELLENT,
             ),
+            generatedContract,
         ),
         minContracts = 1,
     )
@@ -716,35 +730,36 @@ public object PortPlaybook {
                 description = "Template",
                 quality = ContractQuality.VERY_SUBPAR,
             ),
+            generatedContract,
         ),
         minContracts = 0,
     )
 
-    public val portWeightings: Map<PortOfCallSpecification, Int> = mapOf(
-        companyPort to 5,
-        freePort to 4,
-        piratePort to 3,
-        militaryPort to 3,
-        authoritarianPort to 3,
-        pharos to 3,
-        researchBase to 3,
-        darkMatterWell to 3,
-        asteroidMine to 3,
-        shipyard to 3,
-        ambiguousUtopia to 2,
-        exocolony to 2,
-        uncontactedWorld to 2,
-        derelict to 2,
-        ruins to 2,
-        dump to 2,
-        hive to 2,
-        extradimensionalPocket to 2,
-        academy to 2,
-        monastery to 2,
-        quarantinedPort to 2,
-        resort to 2,
-        lonelyPlanet to 1,
-        anomaly to 1,
-        meeting to 1,
+    public val ports: List<Weighted<PortOfCallSpecification>> = listOf(
+        Weighted(companyPort, 5),
+        Weighted(freePort, 4),
+        Weighted(piratePort, 3),
+        Weighted(militaryPort, 3),
+        Weighted(authoritarianPort, 3),
+        Weighted(pharos, 3),
+        Weighted(researchBase, 3),
+        Weighted(darkMatterWell, 3),
+        Weighted(asteroidMine, 3),
+        Weighted(shipyard, 3),
+        Weighted(ambiguousUtopia, 2),
+        Weighted(exocolony, 2),
+        Weighted(uncontactedWorld, 2),
+        Weighted(derelict, 2),
+        Weighted(ruins, 2),
+        Weighted(dump, 2),
+        Weighted(hive, 2),
+        Weighted(extradimensionalPocket, 2),
+        Weighted(academy, 2),
+        Weighted(monastery, 2),
+        Weighted(quarantinedPort, 2),
+        Weighted(resort, 2),
+        Weighted(lonelyPlanet, 1),
+        Weighted(anomaly, 1),
+        Weighted(meeting, 1),
     )
 }

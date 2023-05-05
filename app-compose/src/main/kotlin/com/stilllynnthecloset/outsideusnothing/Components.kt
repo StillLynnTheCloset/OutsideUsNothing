@@ -15,6 +15,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.Dp
@@ -28,6 +30,8 @@ import com.stilllynnthecloset.liboun.model.Choice
 import com.stilllynnthecloset.liboun.model.ChoiceSpecification
 import com.stilllynnthecloset.liboun.model.Consequence
 import com.stilllynnthecloset.liboun.model.Contract
+import com.stilllynnthecloset.liboun.model.ContractDestination
+import com.stilllynnthecloset.liboun.model.ContractDetail
 import com.stilllynnthecloset.liboun.model.ContractItem
 import com.stilllynnthecloset.liboun.model.ContractQuality
 import com.stilllynnthecloset.liboun.model.ContractSpecification
@@ -37,6 +41,7 @@ import com.stilllynnthecloset.liboun.model.FlavorText
 import com.stilllynnthecloset.liboun.model.Option
 import com.stilllynnthecloset.liboun.model.PlaySheet
 import com.stilllynnthecloset.liboun.model.PlaySheetSpecification
+import com.stilllynnthecloset.liboun.model.Playbook
 import com.stilllynnthecloset.liboun.model.Player
 import com.stilllynnthecloset.liboun.model.PortOfCall
 import com.stilllynnthecloset.liboun.model.PortOfCallSpecification
@@ -170,7 +175,6 @@ internal fun ContractSpecification.compose(platform: Platform, modifier: Modifie
                 .align(Alignment.CenterVertically)
                 .width(128.dp),
         )
-
 
         Text(
             text = "(",
@@ -442,6 +446,15 @@ internal fun Option.compose(platform: Platform, modifier: Modifier = Modifier) {
     Row(
         modifier = modifier,
     ) {
+        Image(
+            painter = platform.imagePainter.getPainter(ImageReference.RadioButtonUnchecked),
+            colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
+            contentDescription = "Radio Button",
+            modifier = Modifier
+                .padding(end = indentPadding)
+                .width(16.dp)
+                .align(Alignment.CenterVertically),
+        )
         Text(
             text = text,
             modifier = Modifier
@@ -536,6 +549,32 @@ internal fun ContractItem.compose(platform: Platform, modifier: Modifier = Modif
 }
 
 @Composable
+internal fun ContractDestination.compose(platform: Platform, modifier: Modifier = Modifier) {
+    Row(
+        modifier = modifier,
+    ) {
+        Text(
+            text = name,
+            modifier = Modifier
+                .align(Alignment.CenterVertically),
+        )
+    }
+}
+
+@Composable
+internal fun ContractDetail.compose(platform: Platform, modifier: Modifier = Modifier) {
+    Row(
+        modifier = modifier,
+    ) {
+        Text(
+            text = "Deliver ${item.name} ${destination.name}",
+            modifier = Modifier
+                .align(Alignment.CenterVertically),
+        )
+    }
+}
+
+@Composable
 internal fun Threat.compose(platform: Platform, modifier: Modifier = Modifier) {
     Row(
         modifier = modifier,
@@ -615,5 +654,179 @@ internal fun Player.compose(platform: Platform, modifier: Modifier = Modifier) {
             text = "Actions:",
         )
         actions.forEach { it.compose(platform, modifier = Modifier.padding(start = indentPadding)) }
+    }
+}
+
+@Composable
+internal fun Playbook.compose(platform: Platform, listContents: Boolean, modifier: Modifier = Modifier) {
+    Column(
+        modifier = modifier,
+    ) {
+        Text(
+            text = name,
+            fontSize = 32.sp,
+        )
+
+        Text(
+            text ="By: ${authors.joinToString()}",
+            fontSize = 24.sp,
+        )
+
+        Text(
+            text = description,
+            fontSize = 16.sp,
+            modifier = Modifier.padding(start = indentPadding),
+        )
+
+        if (listContents) {
+            Text(
+                text = "This playbook contains",
+                fontSize = 12.sp,
+                modifier = Modifier.padding(start = indentPadding),
+            )
+            var wasAnythingShown = false
+
+            if (aliens.isNotEmpty()) {
+                Text(
+                    text = "${aliens.size}: Alien playsheets",
+                    fontSize = 12.sp,
+                    modifier = Modifier.padding(start = indentPadding * 2),
+                )
+                wasAnythingShown = true
+            }
+
+            if (backgrounds.isNotEmpty()) {
+                Text(
+                    text = "${backgrounds.size}: Background playsheets",
+                    fontSize = 12.sp,
+                    modifier = Modifier.padding(start = indentPadding * 2),
+                )
+                wasAnythingShown = true
+            }
+
+            if (roles.isNotEmpty()) {
+                Text(
+                    text = "${roles.size}: Role playsheets",
+                    fontSize = 12.sp,
+                    modifier = Modifier.padding(start = indentPadding * 2),
+                )
+                wasAnythingShown = true
+            }
+            if (bastards.isNotEmpty()) {
+                Text(
+                    text = "${bastards.size}: Bastards",
+                    fontSize = 12.sp,
+                    modifier = Modifier.padding(start = indentPadding * 2),
+                )
+                wasAnythingShown = true
+            }
+
+            if (events.isNotEmpty()) {
+                Text(
+                    text = "${events.size}: Events",
+                    fontSize = 12.sp,
+                    modifier = Modifier.padding(start = indentPadding * 2),
+                )
+                wasAnythingShown = true
+            }
+
+            if (ports.isNotEmpty()) {
+                Text(
+                    text = "${ports.size}: Ports",
+                    fontSize = 12.sp,
+                    modifier = Modifier.padding(start = indentPadding * 2),
+                )
+                wasAnythingShown = true
+            }
+
+            if (threats.isNotEmpty()) {
+                Text(
+                    text = "${threats.size}: Threats",
+                    fontSize = 12.sp,
+                    modifier = Modifier.padding(start = indentPadding * 2),
+                )
+                wasAnythingShown = true
+            }
+
+            if (usefulItems.isNotEmpty()) {
+                Text(
+                    text = "${usefulItems.size}: Useful items",
+                    fontSize = 12.sp,
+                    modifier = Modifier.padding(start = indentPadding * 2),
+                )
+                wasAnythingShown = true
+            }
+
+            if (npcAdjectives.isNotEmpty()) {
+                Text(
+                    text = "${npcAdjectives.size}: NPC adjectives",
+                    fontSize = 12.sp,
+                    modifier = Modifier.padding(start = indentPadding * 2),
+                )
+                wasAnythingShown = true
+            }
+
+            if (npcTypes.isNotEmpty()) {
+                Text(
+                    text = "${npcTypes.size}: NPC types",
+                    fontSize = 12.sp,
+                    modifier = Modifier.padding(start = indentPadding * 2),
+                )
+                wasAnythingShown = true
+            }
+
+            if (portAdjectives.isNotEmpty()) {
+                Text(
+                    text = "${portAdjectives.size}: Port adjectives",
+                    fontSize = 12.sp,
+                    modifier = Modifier.padding(start = indentPadding * 2),
+                )
+                wasAnythingShown = true
+            }
+
+            if (portNames.isNotEmpty()) {
+                Text(
+                    text = "${portNames.size}: Port names",
+                    fontSize = 12.sp,
+                    modifier = Modifier.padding(start = indentPadding * 2),
+                )
+                wasAnythingShown = true
+            }
+
+            if (contractItems.isNotEmpty()) {
+                Text(
+                    text = "${contractItems.size}: Contract items",
+                    fontSize = 12.sp,
+                    modifier = Modifier.padding(start = indentPadding * 2),
+                )
+                wasAnythingShown = true
+            }
+
+            if (contractDestinations.isNotEmpty()) {
+                Text(
+                    text = "${contractDestinations.size}: Contract destinations",
+                    fontSize = 12.sp,
+                    modifier = Modifier.padding(start = indentPadding * 2),
+                )
+                wasAnythingShown = true
+            }
+
+            if (flavorTexts.isNotEmpty()) {
+                Text(
+                    text = "${flavorTexts.size}: Flavor texts",
+                    fontSize = 12.sp,
+                    modifier = Modifier.padding(start = indentPadding * 2),
+                )
+                wasAnythingShown = true
+            }
+
+            if (!wasAnythingShown) {
+                Text(
+                    text = "NOTHING!",
+                    fontSize = 12.sp,
+                    modifier = Modifier.padding(start = indentPadding * 2),
+                )
+            }
+        }
     }
 }

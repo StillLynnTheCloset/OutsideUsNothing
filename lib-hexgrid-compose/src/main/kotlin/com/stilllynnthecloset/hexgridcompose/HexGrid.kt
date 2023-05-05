@@ -14,7 +14,6 @@ import androidx.compose.ui.graphics.StrokeJoin
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Fill
 import androidx.compose.ui.graphics.drawscope.Stroke
-import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.input.pointer.PointerEventType
 import androidx.compose.ui.input.pointer.onPointerEvent
 import androidx.compose.ui.text.AnnotatedString
@@ -135,7 +134,7 @@ public fun <T : Any> hexGrid(
                 textColor = textColor,
                 nodeSize = nodeSize * scale,
                 nodeSpacing = nodeSpacing * scale,
-                selected = it == selectedNode
+                selected = it == selectedNode,
             )
         }
     }
@@ -239,12 +238,13 @@ private fun <T : Any> DrawScope.drawHexagon(
     }
     this.drawPath(path, fillColor, style = Fill)
     if (selected) {
+        val borderWidth = nodeSize / 15f
         this.drawPath(
             path = path,
             color = textColor,
             style = Stroke(
-                width = 5f,
-                miter = 5f,
+                width = borderWidth,
+                miter = borderWidth,
                 cap = StrokeCap.Round,
                 join = StrokeJoin.Miter,
             ),

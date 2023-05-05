@@ -1,10 +1,13 @@
 package com.stilllynnthecloset.liboun.model
 
+import kotlinx.serialization.Serializable
+
 /**
  * PlaySheetSpecification - TODO: Documentation
  *
  * Created by Lynn on 3/31/23
  */
+@Serializable
 public data class PlaySheetSpecification constructor(
     val name: String,
     val description: String,

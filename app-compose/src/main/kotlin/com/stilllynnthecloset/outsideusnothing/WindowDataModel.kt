@@ -3,17 +3,19 @@ package com.stilllynnthecloset.outsideusnothing
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import com.stilllynnthecloset.liboun.model.Playbook
 import com.stilllynnthecloset.outsideusnothing.dice.DiceRollerDataModel
 import com.stilllynnthecloset.outsideusnothing.map.MapDataModel
 import com.stilllynnthecloset.outsideusnothing.organizer.OrganizerDataModel
-import com.stilllynnthecloset.outsideusnothing.playbook.PlaybookDataModel
+import com.stilllynnthecloset.outsideusnothing.playbooks.PlaybooksViewModel
+import com.stilllynnthecloset.outsideusnothing.reference.ReferenceDataModel
 
 /**
  * WindowDataModel - TODO: Documentation
  *
  * Created by Lynn on 4/14/23
  */
-public class WindowDataModel {
+public class WindowDataModel constructor(private val mainDataModel: MainDataModel) {
     private val backstack = ArrayDeque<NavigationDestination>(5)
     internal var currentScreen: NavigationDestination by mutableStateOf(NavigationDestination.DiceRoller(DiceRollerDataModel()))
         private set
@@ -32,9 +34,10 @@ public class WindowDataModel {
         backstack.clear()
         currentScreen = when (newTab) {
             NavigationTabImpl.DiceRoller -> NavigationDestination.DiceRoller(DiceRollerDataModel())
-            NavigationTabImpl.Organizer -> NavigationDestination.Organizer(OrganizerDataModel())
-            NavigationTabImpl.Map -> NavigationDestination.Map(MapDataModel())
-            NavigationTabImpl.Playbook -> NavigationDestination.Playbook(PlaybookDataModel())
+            NavigationTabImpl.Organizer -> NavigationDestination.Organizer(OrganizerDataModel(mainDataModel.mergedPlaybook))
+            NavigationTabImpl.Map -> NavigationDestination.Map(MapDataModel(mainDataModel.mergedPlaybook))
+            NavigationTabImpl.Playbooks -> NavigationDestination.Playbook(PlaybooksViewModel(mainDataModel))
+            NavigationTabImpl.Reference -> NavigationDestination.Reference(ReferenceDataModel(mainDataModel.mergedPlaybook))
         }
     }
 

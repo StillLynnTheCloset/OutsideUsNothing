@@ -1,11 +1,11 @@
-package com.stilllynnthecloset.outsideusnothing.playbook
+package com.stilllynnthecloset.outsideusnothing.reference
 
 /**
  * PlaybookPage - TODO: Documentation
  *
  * Created by Lynn on 5/3/23
  */
-public enum class PlaybookPage {
+internal enum class ReferencePage {
     TABLE_OF_CONTENTS,
     ALIEN,
     BACKGROUND,

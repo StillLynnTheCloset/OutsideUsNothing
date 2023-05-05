@@ -11,8 +11,7 @@ public object FlavorTextPlaybook {
     public val flavorTexts: List<FlavorText> = listOf(
         // region &ASBW Chapter introductions
         FlavorText(
-            text = "One must imagine, one must hope,\n" +
-                "That you can be born anew, to see with eyes still young.",
+            text = "One must imagine, one must hope,\nThat you can be born anew, to see with eyes still young.",
             attribution = "The Wonderer’s Prayer, traditional Vomyodosoi text",
         ),
         FlavorText(
@@ -60,8 +59,7 @@ public object FlavorTextPlaybook {
             attribution = "Constabulary Knight’s Creed, Section Eleven, Line Five",
         ),
         FlavorText(
-            text = "Rorsh-wise Isacar-la, weeping, wending, summer colours fallen, seaward stretches, planetary oceans.\n" +
-                "Terre-children, devil-children, all unfolding fabula, like cells interlinked.",
+            text = "Rorsh-wise Isacar-la, weeping, wending, summer colours fallen, seaward stretches, planetary oceans.\nTerre-children, devil-children, all unfolding fabula, like cells interlinked.",
             attribution = "From “Song for New Spaces,” a terre poem written shortly after arrival in the reach",
         ),
         FlavorText(
@@ -85,8 +83,7 @@ public object FlavorTextPlaybook {
             attribution = "Letter to a Constabulary Squire, from their father",
         ),
         FlavorText(
-            text = "Wonder yes, see yes, understand yes,\n" +
-                "Yet none of these are worth sand unless you have a friend to share them with.",
+            text = "Wonder yes, see yes, understand yes,\nYet none of these are worth sand unless you have a friend to share them with.",
             attribution = "The Friend-In-Need Prayer, traditional Vomyodosoi text",
         ),
         FlavorText(

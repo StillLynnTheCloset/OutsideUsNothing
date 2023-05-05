@@ -32,5 +32,7 @@ internal object ImagePainterAndroid : ImagePainter {
         ImageReference.Swords -> painterResource(id = R.drawable.ic_swords)
         ImageReference.Map -> painterResource(id = R.drawable.ic_map)
         ImageReference.Factory -> painterResource(id = R.drawable.ic_factory)
+        ImageReference.RadioButtonUnchecked -> painterResource(id = R.drawable.ic_radio_button_unchecked)
+        ImageReference.RadioButtonChecked -> painterResource(id = R.drawable.ic_radio_button_checked)
     }
 }

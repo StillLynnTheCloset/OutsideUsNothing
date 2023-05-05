@@ -30,8 +30,8 @@ public object ShipPlaybook {
                 ),
                 questions = listOf(
                     Question(
-                        question = "One material our ship is made of",
-                        answers = 1,
+                        question = "Choose two materials our ship is formed from",
+                        answers = 2,
                     ),
                 ),
             ),
@@ -66,11 +66,31 @@ public object ShipPlaybook {
                 ),
                 questions = listOf(
                     Question(
-                        question = "Three things our ship is",
+                        question = "Choose three things our ship is",
                         answers = 3,
                     ),
                     Question(
-                        question = "One thing it is decidedly not",
+                        question = "One thing it is really not",
+                        answers = 1,
+                    ),
+                ),
+            ),
+            ChoiceSpecification(
+                options = setOf(
+                    Option("Bought under corp law"),
+                    Option("Custom commission"),
+                    Option("Bartered fairly"),
+                    Option("Salvaged or rescued"),
+                    Option("alive"),
+                    Option("Stolen most likely"),
+                    Option("Found in an anomaly"),
+                    Option("A won game or contest"),
+                    Option("It came from the future"),
+                    Option("You don’t even know"),
+                ),
+                questions = listOf(
+                    Question(
+                        question = "Choose the ship history:",
                         answers = 1,
                     ),
                 ),

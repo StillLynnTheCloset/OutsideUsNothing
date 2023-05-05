@@ -109,7 +109,7 @@ public object UsefulItemPlaybook {
             ),
         ),
         UsefulItem(
-            name = "Orichalcum dagger",
+            name = "Orichalcum sai",
             action = Action(
                 description = "Drain someone’s magic",
                 diceOffset = -1,

@@ -11,18 +11,20 @@ import com.stilllynnthecloset.hexgridcompose.Node
 import com.stilllynnthecloset.hexgridcompose.findEmptyNeighbors
 import com.stilllynnthecloset.hexgridcompose.findExistingConnections
 import com.stilllynnthecloset.hexgridcompose.findExistingNeighbors
-import com.stilllynnthecloset.liboun.generateWeightedList
+import com.stilllynnthecloset.liboun.model.Playbook
 import com.stilllynnthecloset.liboun.model.PortOfCall
 import com.stilllynnthecloset.liboun.pickN
+import com.stilllynnthecloset.liboun.playbook.NamePlaybook
 import com.stilllynnthecloset.liboun.playbook.PortPlaybook
 import com.stilllynnthecloset.liboun.rollDie
+import com.stilllynnthecloset.liboun.weightedRandom
 
 /**
  * MapDataModel - TODO: Documentation
  *
  * Created by Lynn on 4/14/23
  */
-public class MapDataModel {
+internal class MapDataModel constructor(val playbook: Playbook) {
     private val portOfCall = PortOfCall(PortPlaybook.companyPort, emptyList(), emptyList())
     private val orbitalDescent = Node(GridCoordinate(0, -1), AnnotatedString("Orbital Descent"), portOfCall)
     private val hesperion = Node(GridCoordinate(0, 0), AnnotatedString("Hesperion"), portOfCall)
@@ -38,7 +40,7 @@ public class MapDataModel {
     private val d = Node<PortOfCall>(GridCoordinate(-2, 1), AnnotatedString(""), null)
     private val blankStarter = Node<PortOfCall>(GridCoordinate(0, 0), AnnotatedString(""), null)
 
-    public var nodeList: List<Node<PortOfCall>> by mutableStateOf(
+    var nodeList: List<Node<PortOfCall>> by mutableStateOf(
         listOf(
             blankStarter,
 //            hesperion,
@@ -56,7 +58,7 @@ public class MapDataModel {
         ),
     )
 
-    public var edgeList: List<Edge> by mutableStateOf(
+    var edgeList: List<Edge> by mutableStateOf(
         listOf(
 //            Edge(well409.coordinate, newParabuteo.coordinate, 2),
 //            Edge(well409.coordinate, a.coordinate, null), // Cost Unknown
@@ -73,31 +75,35 @@ public class MapDataModel {
         ),
     )
 
-    public var zoomLevel: Float by mutableStateOf(1f)
+    var zoomLevel: Float by mutableStateOf(1f)
 
-    public fun onZoomLevelChanged(newZoom: Float) {
+    fun onZoomLevelChanged(newZoom: Float) {
         zoomLevel = newZoom
     }
 
-    public var offset: Offset by mutableStateOf(Offset(0f, 0f))
+    var offset: Offset by mutableStateOf(Offset(0f, 0f))
 
-    public fun onOffsetChanged(newOffset: Offset) {
+    fun onOffsetChanged(newOffset: Offset) {
         offset = newOffset
     }
 
-    public var selectedNode: Node<PortOfCall>? by mutableStateOf(null)
+    var selectedNode: Node<PortOfCall>? by mutableStateOf(null)
 
-    public fun onNodeSelected(node: Node<PortOfCall>?) {
+    fun onNodeSelected(node: Node<PortOfCall>?) {
         selectedNode = node
     }
 
-    public var generatePortNameEntry: String? by mutableStateOf(null)
+    var generatePortNameEntry: String? by mutableStateOf(null)
 
-    public fun updatePortNameEntry(value: String?) {
+    fun updatePortNameEntry(value: String?) {
         generatePortNameEntry = value
     }
 
-    public fun generatePort(node: Node<PortOfCall>) {
+    fun pickRandomPortName() {
+        generatePortNameEntry = "${NamePlaybook.locationNames1.random()} ${NamePlaybook.locationNames2.random()}"
+    }
+
+    fun generatePort(node: Node<PortOfCall>) {
         val name = generatePortNameEntry
         if (name.isNullOrBlank()) {
             return
@@ -105,7 +111,7 @@ public class MapDataModel {
         generatePortNameEntry = null
 
         // Replace existing node with new node with name and generated info.
-        val generatedPortOfCall = PortPlaybook.portWeightings.generateWeightedList().random().randomize()
+        val generatedPortOfCall = playbook.ports.weightedRandom().randomize(playbook)
         val newCopy = node.copy(
             label = AnnotatedString(name),
             value = generatedPortOfCall,

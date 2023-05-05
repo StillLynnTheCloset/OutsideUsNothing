@@ -88,12 +88,27 @@ internal fun MapScreen(dataModel: MapDataModel, platform: Platform) {
                     )
                 }
                 if (selectedNode.value == null) {
-                    textInputWidget(
-                        value = dataModel.generatePortNameEntry.orEmpty(),
-                        label = "Enter name of port",
-                        modifier = Modifier,
-                        onValueChange = dataModel::updatePortNameEntry,
-                    )
+                    Row {
+                        textInputWidget(
+                            value = dataModel.generatePortNameEntry.orEmpty(),
+                            label = "Enter name of port",
+                            modifier = Modifier,
+                            onValueChange = dataModel::updatePortNameEntry,
+                        )
+
+                        Image(
+                            painter = platform.imagePainter.getPainter(ImageReference.Dice5),
+                            colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurfaceVariant),
+                            contentDescription = "Random Name",
+                            modifier = Modifier
+                                .align(Alignment.CenterVertically)
+                                .size(24.dp)
+                                .clickable {
+                                    dataModel.pickRandomPortName()
+                                },
+                        )
+                    }
+
                     Button(
                         onClick = {
                             dataModel.generatePort(selectedNode)

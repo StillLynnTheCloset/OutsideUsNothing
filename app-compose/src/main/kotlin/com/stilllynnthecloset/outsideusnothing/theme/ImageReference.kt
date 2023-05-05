@@ -24,4 +24,6 @@ public enum class ImageReference {
     Swords,
     Map,
     Factory,
+    RadioButtonUnchecked,
+    RadioButtonChecked,
 }
