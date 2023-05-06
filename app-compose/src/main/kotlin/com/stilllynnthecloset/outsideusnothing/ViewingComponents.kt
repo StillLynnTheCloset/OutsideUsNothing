@@ -15,8 +15,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.Dp
@@ -668,14 +666,13 @@ internal fun Playbook.compose(platform: Platform, listContents: Boolean, modifie
         )
 
         Text(
-            text ="By: ${authors.joinToString()}",
+            text ="By: ${authors.joinToString { it.name }}",
             fontSize = 24.sp,
         )
 
         Text(
             text = description,
             fontSize = 16.sp,
-            modifier = Modifier.padding(start = indentPadding),
         )
 
         if (listContents) {
