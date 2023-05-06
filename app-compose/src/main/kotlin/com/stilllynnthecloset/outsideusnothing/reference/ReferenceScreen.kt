@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
@@ -86,7 +87,9 @@ private fun alien(dataModel: ReferenceDataModel, playbook: Playbook, platform: P
         )
     }
     playbook.aliens.forEach {
-        it.value.compose(platform, Modifier.padding(start = indentPadding))
+        SelectionContainer {
+            it.value.compose(platform, Modifier.padding(start = indentPadding))
+        }
     }
 }
 
@@ -100,7 +103,9 @@ private fun background(dataModel: ReferenceDataModel, playbook: Playbook, platfo
         )
     }
     playbook.backgrounds.forEach {
-        it.value.compose(platform, Modifier.padding(start = indentPadding))
+        SelectionContainer {
+            it.value.compose(platform, Modifier.padding(start = indentPadding))
+        }
     }
 }
 
@@ -114,7 +119,9 @@ private fun role(dataModel: ReferenceDataModel, playbook: Playbook, platform: Pl
         )
     }
     playbook.roles.forEach {
-        it.value.compose(platform, Modifier.padding(start = indentPadding))
+        SelectionContainer {
+            it.value.compose(platform, Modifier.padding(start = indentPadding))
+        }
     }
 }
 
@@ -128,7 +135,9 @@ private fun port(dataModel: ReferenceDataModel, playbook: Playbook, platform: Pl
         )
     }
     playbook.ports.forEach {
-        it.value.compose(platform, Modifier.padding(start = indentPadding))
+        SelectionContainer {
+            it.value.compose(platform, Modifier.padding(start = indentPadding))
+        }
     }
 }
 
@@ -142,7 +151,9 @@ private fun event(dataModel: ReferenceDataModel, playbook: Playbook, platform: P
         )
     }
     playbook.events.forEach {
-        it.value.compose(platform, Modifier.padding(start = indentPadding))
+        SelectionContainer {
+            it.value.compose(platform, Modifier.padding(start = indentPadding))
+        }
     }
 }
 
@@ -162,8 +173,10 @@ private fun contractItem(dataModel: ReferenceDataModel, playbook: Playbook, plat
             Text(
                 text = "Deliver this:",
             )
-            playbook.contractItems.forEach {
-                it.value.compose(platform, Modifier.padding(start = indentPadding))
+                playbook.contractItems.forEach {
+                    SelectionContainer {
+                    it.value.compose(platform, Modifier.padding(start = indentPadding))
+                }
             }
         }
         Column(
@@ -172,8 +185,10 @@ private fun contractItem(dataModel: ReferenceDataModel, playbook: Playbook, plat
             Text(
                 text = "here:",
             )
-            playbook.contractDestinations.forEach {
-                it.value.compose(platform, Modifier.padding(start = indentPadding))
+                playbook.contractDestinations.forEach {
+                    SelectionContainer {
+                    it.value.compose(platform, Modifier.padding(start = indentPadding))
+                }
             }
         }
     }
@@ -189,7 +204,9 @@ private fun usefulItem(dataModel: ReferenceDataModel, playbook: Playbook, platfo
         )
     }
     playbook.usefulItems.forEach {
-        it.value.compose(platform, Modifier.padding(start = indentPadding))
+        SelectionContainer {
+            it.value.compose(platform, Modifier.padding(start = indentPadding))
+        }
     }
 }
 
@@ -203,7 +220,9 @@ private fun bastard(dataModel: ReferenceDataModel, playbook: Playbook, platform:
         )
     }
     playbook.bastards.forEach {
-        it.value.compose(platform, Modifier.padding(start = indentPadding))
+        SelectionContainer {
+            it.value.compose(platform, Modifier.padding(start = indentPadding))
+        }
     }
 }
 
@@ -217,7 +236,9 @@ private fun threat(dataModel: ReferenceDataModel, playbook: Playbook, platform: 
         )
     }
     playbook.threats.forEach {
-        it.value.compose(platform, Modifier.padding(start = indentPadding))
+        SelectionContainer {
+            it.value.compose(platform, Modifier.padding(start = indentPadding))
+        }
     }
 }
 
