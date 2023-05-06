@@ -13,6 +13,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.stilllynnthecloset.liboun.model.Playbook
 import com.stilllynnthecloset.outsideusnothing.Platform
@@ -34,6 +36,14 @@ internal fun ReferenceScreen(dataModel: ReferenceDataModel, platform: Platform) 
             .fillMaxSize()
             .verticalScroll(scrollState),
     ) {
+        Text(
+            text = dataModel.currentPage.humanReadable,
+            fontSize = 48.sp,
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally)
+                .padding(bottom = 16.dp),
+        )
         when (dataModel.currentPage) {
             PlaybookPage.PLAYBOOK -> tableOfContents(dataModel, dataModel.mainDataModel.mergedPlaybook, platform)
             PlaybookPage.ALIEN -> alien(dataModel, dataModel.mainDataModel.mergedPlaybook, platform)
@@ -52,15 +62,17 @@ internal fun ReferenceScreen(dataModel: ReferenceDataModel, platform: Platform) 
 @Composable
 private fun ColumnScope.tableOfContents(dataModel: ReferenceDataModel, playbook: Playbook, platform: Platform) {
     PlaybookPage.values().forEach {
-        Text(
-            text = it.humanReadable,
-            fontSize = 32.sp,
-            modifier = Modifier
-                .align(Alignment.CenterHorizontally)
-                .clickable {
-                    dataModel.setPage(it)
-                },
-        )
+        if (it != PlaybookPage.PLAYBOOK) {
+            Text(
+                text = it.humanReadable,
+                fontSize = 32.sp,
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally)
+                    .clickable {
+                        dataModel.setPage(it)
+                    },
+            )
+        }
     }
 }
 

@@ -322,20 +322,20 @@ public fun getOddsOfAtLeast(sides: Int, dice: Int, minimumNeeded: Int): Double {
 }
 
 public fun <T> List<Weighted<T>>.weightedRandom(): T =
-    this.let {
-        val totalWeight = it.sumOf { it.weight }
+    this.let { list ->
+        val totalWeight = list.sumOf { it.weight }
         val roll = rollDie(totalWeight)
         println("Total weight is $totalWeight, rolled $roll")
-        it.weightedRandom(roll)
+        list.weightedRandom(roll)
     }
 
 public fun <T> List<Weighted<T>>.weightedRandom(roll: Int): T =
-    this.let {
+    this.let { list ->
         var currentMax = 0
-        it.forEach {
-            currentMax += it.weight
+        list.forEach { entry ->
+            currentMax += entry.weight
             if (roll <= currentMax) {
-                return@let it.value
+                return@let entry.value
             }
         }
         throw IllegalStateException("Didn't find a match, current max: $currentMax")
