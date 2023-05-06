@@ -47,7 +47,9 @@ public fun applicationContents(windowSize: DpSize, dataModel: MainDataModel, win
                     platform = platform,
                 )
 
-                is NavigationDestination.Playbook -> PlaybooksScreen(
+                is NavigationDestination.Playbooks -> PlaybooksScreen(
+                    mainDataModel = dataModel,
+                    windowDataModel = windowDataModel,
                     dataModel = currentScreen.dataModel,
                     platform = platform,
                 )
@@ -57,7 +59,7 @@ public fun applicationContents(windowSize: DpSize, dataModel: MainDataModel, win
                     platform = platform,
                 )
 
-                is NavigationDestination.Edit -> EditScreen(
+                is NavigationDestination.EditPlaybook -> EditScreen(
                     dataModel = currentScreen.dataModel,
                     platform = platform,
                 )

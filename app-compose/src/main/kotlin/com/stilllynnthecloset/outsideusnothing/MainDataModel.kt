@@ -50,6 +50,28 @@ public class MainDataModel constructor() {
         )
     }
 
+    public fun updatePlaybook(playbook: Playbook) {
+        updatePlaybooks(
+            playbooks.map {
+                if (it.uuid == playbook.uuid) { playbook } else { it }
+            },
+        )
+    }
+
+    public fun addPlaybook(playbook: Playbook) {
+        updatePlaybooks(
+            playbooks + playbook,
+        )
+    }
+
+    public fun removePlaybook(playbook: Playbook) {
+        updatePlaybooks(
+            playbooks.mapNotNull {
+                if (it.uuid == playbook.uuid) { null } else { it }
+            },
+        )
+    }
+
     public fun openWindow() {
         this.windows = windows + WindowDataModel(this)
     }

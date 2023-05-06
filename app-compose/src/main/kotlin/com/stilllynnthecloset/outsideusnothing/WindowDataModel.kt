@@ -3,6 +3,7 @@ package com.stilllynnthecloset.outsideusnothing
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import com.stilllynnthecloset.liboun.model.Playbook
 import com.stilllynnthecloset.outsideusnothing.dice.DiceRollerDataModel
 import com.stilllynnthecloset.outsideusnothing.edit.EditViewModel
 import com.stilllynnthecloset.outsideusnothing.generator.GeneratorDataModel
@@ -30,15 +31,18 @@ public class WindowDataModel constructor(private val mainDataModel: MainDataMode
         navigate(NavigationAction.NavigateTo(NavigationDestination.DiceRoller(DiceRollerDataModel())))
     }
 
+    public fun openEditPlaybook(playbook: Playbook) {
+        navigate(NavigationAction.NavigateTo(NavigationDestination.EditPlaybook(EditViewModel(mainDataModel, playbook))))
+    }
+
     internal fun updateCurrentTab(newTab: NavigationTabImpl) {
         backstack.clear()
         currentScreen = when (newTab) {
             NavigationTabImpl.DiceRoller -> NavigationDestination.DiceRoller(DiceRollerDataModel())
             NavigationTabImpl.Generator -> NavigationDestination.Generator(GeneratorDataModel(mainDataModel.mergedPlaybook))
             NavigationTabImpl.Map -> NavigationDestination.Map(MapDataModel(mainDataModel.mergedPlaybook))
-            NavigationTabImpl.Playbooks -> NavigationDestination.Playbook(PlaybooksViewModel(mainDataModel))
+            NavigationTabImpl.Playbooks -> NavigationDestination.Playbooks(PlaybooksViewModel(mainDataModel))
             NavigationTabImpl.Reference -> NavigationDestination.Reference(ReferenceDataModel(mainDataModel.mergedPlaybook))
-            NavigationTabImpl.Edit -> NavigationDestination.Edit(EditViewModel(mainDataModel))
         }
     }
 

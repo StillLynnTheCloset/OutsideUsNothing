@@ -38,5 +38,6 @@ internal object ImagePainterAndroid : ImagePainter {
         ImageReference.Document -> painterResource(id = R.drawable.ic_document)
         ImageReference.History -> painterResource(id = R.drawable.ic_history)
         ImageReference.Save -> painterResource(id = R.drawable.ic_save)
+        ImageReference.Delete -> painterResource(id = R.drawable.ic_delete)
     }
 }

@@ -18,5 +18,4 @@ internal enum class NavigationTabImpl constructor(
     Map("Map", ImageReference.Map, "Map"),
     Reference("Reference", ImageReference.Document, "Reference"),
     Playbooks("Playbooks", ImageReference.Book, "Playbooks"),
-    Edit("Edit", ImageReference.Edit, "Edit"),
 }

@@ -38,5 +38,6 @@ internal object ImagePainterDesktop : ImagePainter {
         ImageReference.Document -> painterResource("image/document.svg")
         ImageReference.Edit -> painterResource("image/edit.svg")
         ImageReference.History -> painterResource("image/history.svg")
+        ImageReference.Delete -> painterResource("image/delete.svg")
     }
 }
