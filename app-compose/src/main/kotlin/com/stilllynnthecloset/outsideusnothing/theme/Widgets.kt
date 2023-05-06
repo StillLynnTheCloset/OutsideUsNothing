@@ -53,7 +53,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.stilllynnthecloset.outsideusnothing.Platform
 
-public val appBarHeight: Dp = 64.dp
+internal val appBarHeight: Dp = 64.dp
 
 @Composable
 @ExperimentalFoundationApi
@@ -113,7 +113,7 @@ public fun appWindowTitleBar(
 private val inputHeight = 64.dp
 
 @Composable
-public fun textInputWidget(
+internal fun textInputWidget(
     value: String,
     label: String,
     modifier: Modifier,
@@ -148,7 +148,7 @@ public fun textInputWidget(
 }
 
 @Composable
-public fun longInputWidget(
+internal fun longInputWidget(
     value: Long?,
     label: String,
     modifier: Modifier,
@@ -183,7 +183,7 @@ public fun longInputWidget(
 }
 
 @Composable
-public fun outlinedButton(
+internal fun outlinedButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
@@ -197,7 +197,7 @@ public fun outlinedButton(
 )
 
 @Composable
-public fun imageButton(
+internal fun imageButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
@@ -223,7 +223,7 @@ public fun imageButton(
 )
 
 @Composable
-public fun backButton(
+internal fun backButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     platform: Platform,
@@ -244,29 +244,29 @@ public fun backButton(
 }
 
 @Composable
-public fun horizontalDivider() {
+internal fun horizontalDivider() {
     Divider(thickness = 1.dp)
 }
 
-public abstract class TableColumn<T> {
+internal abstract class TableColumn<T> {
     public abstract fun getTitle(): String
     public abstract fun getValue(data: T): String
 }
 
-public data class VerticallyCombinedColumn<T> constructor(val rows: List<TableColumn<T>>) : TableColumn<T>() {
+internal data class VerticallyCombinedColumn<T> constructor(val rows: List<TableColumn<T>>) : TableColumn<T>() {
     override fun getTitle(): String = rows.joinToString(separator = "\n") { it.getTitle() }
 
     override fun getValue(data: T): String = rows.joinToString(separator = "\n") { it.getValue(data) }
 }
 
-public data class HorizontallyCombinedColumn<T> constructor(val columns: List<TableColumn<T>>) : TableColumn<T>() {
+internal data class HorizontallyCombinedColumn<T> constructor(val columns: List<TableColumn<T>>) : TableColumn<T>() {
     override fun getTitle(): String = columns.joinToString(separator = " ") { it.getTitle() }
 
     override fun getValue(data: T): String = columns.joinToString(separator = " ") { it.getValue(data) }
 }
 
 @Composable
-public fun <T> resultsTable(
+internal fun <T> resultsTable(
     columns: List<TableColumn<T>>,
     results: List<T>,
     lazyListState: LazyListState = rememberLazyListState(),
@@ -381,14 +381,14 @@ private fun RowScope.TableCell(
     )
 }
 
-public interface NavigationTab {
+internal interface NavigationTab {
     public val description: String
     public val imageReference: ImageReference
     public val label: String
 }
 
 @Composable
-public fun <T : NavigationTab> navigationContainer(
+internal fun <T : NavigationTab> navigationContainer(
     windowSize: DpSize,
     currentTab: T?,
     tabs: List<T>,
@@ -439,10 +439,10 @@ public fun <T : NavigationTab> navigationContainer(
     }
 }
 
-public val navBarSize: Dp = 80.dp
+internal val navBarSize: Dp = 80.dp
 
 @Composable
-public fun <T : NavigationTab> navigationRailContainer(
+internal fun <T : NavigationTab> navigationRailContainer(
     currentTab: T?,
     tabs: List<T>,
     onNavigationClick: (T) -> Unit,
@@ -488,7 +488,7 @@ public fun <T : NavigationTab> navigationRailContainer(
 }
 
 @Composable
-public fun <T : NavigationTab> navigationBarContainer(
+internal fun <T : NavigationTab> navigationBarContainer(
     currentTab: T?,
     tabs: List<T>,
     onClick: (T) -> Unit,
@@ -533,7 +533,7 @@ public fun <T : NavigationTab> navigationBarContainer(
 }
 
 @Composable
-public fun incrementInput(
+internal fun incrementInput(
     label: String,
     modifier: Modifier,
     value: Long?,
@@ -573,7 +573,7 @@ public fun incrementInput(
 }
 
 @Composable
-public fun text(
+internal fun text(
     text: String,
     modifier: Modifier,
 ) {

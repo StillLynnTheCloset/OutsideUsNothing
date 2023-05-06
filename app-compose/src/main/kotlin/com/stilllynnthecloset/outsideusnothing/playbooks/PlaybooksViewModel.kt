@@ -9,7 +9,6 @@ import com.stilllynnthecloset.outsideusnothing.MainDataModel
  * Created by Lynn on 5/5/23
  */
 internal class PlaybooksViewModel constructor(val mainDataModel: MainDataModel) {
-
     fun changePlaybookState(playbook: Playbook, active: Boolean) {
         mainDataModel.setPlaybookState(playbook, active)
     }

@@ -9,10 +9,10 @@ public class MainDataModel constructor() {
     public var isDarkTheme: Boolean by mutableStateOf(true)
         private set
 
-    public var mergedPlaybook: Playbook by mutableStateOf(Playbook.defaultPlaybook)
+    internal var mergedPlaybook: Playbook by mutableStateOf(Playbook.defaultPlaybook)
         private set
 
-    public var playbooks: List<Playbook> by mutableStateOf(emptyList())
+    internal var playbooks: List<Playbook> by mutableStateOf(emptyList())
         private set
 
     public var windows: List<WindowDataModel> by mutableStateOf(listOf(WindowDataModel(this)))
@@ -33,12 +33,12 @@ public class MainDataModel constructor() {
         this.isDarkTheme = isDarkTheme
     }
 
-    public fun updatePlaybooks(playbooks: List<Playbook>) {
+    internal fun updatePlaybooks(playbooks: List<Playbook>) {
         this.playbooks = playbooks
         this.mergedPlaybook = playbooks.mapNotNull { if (it.active) it else null }.reduce { a, b -> a + b }
     }
 
-    public fun setPlaybookState(playbook: Playbook, active: Boolean) {
+    internal fun setPlaybookState(playbook: Playbook, active: Boolean) {
         updatePlaybooks(
             playbooks.map {
                 if (it.uuid == playbook.uuid) {
@@ -50,7 +50,7 @@ public class MainDataModel constructor() {
         )
     }
 
-    public fun updatePlaybook(playbook: Playbook) {
+    internal fun updatePlaybook(playbook: Playbook) {
         updatePlaybooks(
             playbooks.map {
                 if (it.uuid == playbook.uuid) { playbook } else { it }
@@ -58,13 +58,13 @@ public class MainDataModel constructor() {
         )
     }
 
-    public fun addPlaybook(playbook: Playbook) {
+    internal fun addPlaybook(playbook: Playbook) {
         updatePlaybooks(
             playbooks + playbook,
         )
     }
 
-    public fun removePlaybook(playbook: Playbook) {
+    internal fun removePlaybook(playbook: Playbook) {
         updatePlaybooks(
             playbooks.mapNotNull {
                 if (it.uuid == playbook.uuid) { null } else { it }

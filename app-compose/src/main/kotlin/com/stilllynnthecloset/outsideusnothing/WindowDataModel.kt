@@ -21,17 +21,13 @@ public class WindowDataModel constructor(private val mainDataModel: MainDataMode
     internal var currentScreen: NavigationDestination by mutableStateOf(NavigationDestination.DiceRoller(DiceRollerDataModel()))
         private set
 
-    public fun popBackStack() {
+    internal fun popBackStack() {
         navigate(NavigationAction.PopBackStack)
     }
 
-    public fun isThereBackstack(): Boolean = backstack.isNotEmpty()
+    internal fun isThereBackstack(): Boolean = backstack.isNotEmpty()
 
-    public fun openDiceRoller() {
-        navigate(NavigationAction.NavigateTo(NavigationDestination.DiceRoller(DiceRollerDataModel())))
-    }
-
-    public fun openEditPlaybook(playbook: Playbook) {
+    internal fun openEditPlaybook(playbook: Playbook) {
         navigate(NavigationAction.NavigateTo(NavigationDestination.EditPlaybook(EditViewModel(mainDataModel, playbook))))
     }
 

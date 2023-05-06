@@ -49,8 +49,8 @@ import com.stilllynnthecloset.liboun.model.Threat
 import com.stilllynnthecloset.liboun.model.UsefulItem
 import com.stilllynnthecloset.outsideusnothing.theme.ImageReference
 
-public val indentPadding: Dp = 32.dp
-public val separatorPadding: Dp = 16.dp
+internal val indentPadding: Dp = 32.dp
+internal val separatorPadding: Dp = 16.dp
 
 @Composable
 internal fun PortOfCallSpecification.compose(platform: Platform, modifier: Modifier = Modifier) {
