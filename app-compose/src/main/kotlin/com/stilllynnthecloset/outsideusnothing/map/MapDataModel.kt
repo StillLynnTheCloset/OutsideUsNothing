@@ -100,7 +100,7 @@ internal class MapDataModel constructor(val playbook: Playbook) {
     }
 
     fun pickRandomPortName() {
-        generatePortNameEntry = "${NamePlaybook.locationNames1.random()} ${NamePlaybook.locationNames2.random()}"
+        generatePortNameEntry = "${NamePlaybook.locationNames1.weightedRandom()} ${NamePlaybook.locationNames2.weightedRandom()}"
     }
 
     fun generatePort(node: Node<PortOfCall>) {
