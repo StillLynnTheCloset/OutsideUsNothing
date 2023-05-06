@@ -160,7 +160,7 @@ public object AlienPlaybook {
         ),
     )
     public val aliens: List<Weighted<PlaySheetSpecification>> = listOf(
-        Weighted(terre, 1),
-        Weighted(angel, 1),
+        Weighted(1, terre),
+        Weighted(1, angel),
     )
 }

@@ -154,22 +154,6 @@ internal fun demo(actionCost: Int, actionDifficulty: Int, diceUsed: Int, probabi
 //        println(oddsOfRewards(it + 1, 6))
 //    }
 
-//    repeat(20) {
-//        generateRandomPlayer("Lynn")
-//    }
-//    repeat(20) {
-//        println(generateRandomShip("Vivipary").niceToString())
-//    }
-//    println(Ship(
-//        name = "Vivipary",
-//        playSheet = Ship.basePlaySheet.copy(
-//            choices = listOf(
-//                Ship.basePlaySheet.choices[0].copy(),
-//                Ship.basePlaySheet.choices[1],
-//            ),
-//        ),
-//    ).niceToString())
-
 //    repeat(30) {
 //        println(getOddsOfAtLeast(6, 4, it + 1))
 //    }
@@ -190,12 +174,12 @@ internal fun main() {
 //        println(Playbook.defaultPlaybook.ports.weightedRandom(it + 1).name)
 //    }
 
-//    val serializer = Json {
-//        allowStructuredMapKeys = true
-//    }
-//
-//    val string = serializer.encodeToString(Playbook.defaultPlaybook)
-//    println(string)
+    val serializer = Json {
+
+    }
+
+    val string = serializer.encodeToString(Playbook.wolf)
+    println(string)
 
 //    printTimeStuff()
 }

@@ -22,7 +22,7 @@ import kotlinx.serialization.Serializable
 public data class Playbook constructor(
     val name: String,
     val description: String,
-    val authors: Set<String>,
+    val authors: Set<Author>,
     val uuid: String,
     val active: Boolean = true,
     val aliens: List<Weighted<PlaySheetSpecification>> = emptyList(),
@@ -50,52 +50,156 @@ public data class Playbook constructor(
         public val defaultPlaybook: Playbook = Playbook(
             name = "Vanilla Outside Us Nothing",
             description = "The default playbook of Outside Us Nothing",
-            authors = setOf("Sable Sy"),
+            authors = setOf(Author("Sable Sy")),
             uuid = DEFAULT_PLAYBOOK_UUID,
             aliens = AlienPlaybook.aliens,
-            backgrounds = BackgroundPlaybook.backgrounds.map { Weighted(it, 1) },
-            roles = RolePlaybook.roles.map { Weighted(it, 1) },
-            bastards = BastardPlaybook.bastards.map { Weighted(it, 1) },
-            events = EventPlaybook.events.map { Weighted(it, 1) },
-            flavorTexts = FlavorTextPlaybook.flavorTexts.map { Weighted(it, 1) },
+            backgrounds = BackgroundPlaybook.backgrounds,
+            roles = RolePlaybook.roles,
+            bastards = BastardPlaybook.bastards,
+            events = EventPlaybook.events,
+            flavorTexts = FlavorTextPlaybook.flavorTexts,
             ports = PortPlaybook.ports,
-            threats = ThreatPlaybook.threats.map { Weighted(it, 1) },
-            usefulItems = UsefulItemPlaybook.items.map { Weighted(it, 1) },
-            npcAdjectives = NamePlaybook.npcNames1.map { Weighted(it, 1) },
-            npcTypes = NamePlaybook.npcNames2.map { Weighted(it, 1) },
-            portAdjectives = NamePlaybook.locationNames1.map { Weighted(it, 1) },
-            portNames = NamePlaybook.locationNames2.map { Weighted(it, 1) },
-            contractItems = ContractItemPlaybook.contractItems.map { Weighted(it, 1) },
-            contractDestinations = ContractItemPlaybook.contractDestinations.map { Weighted(it, 1) },
+            threats = ThreatPlaybook.threats,
+            usefulItems = UsefulItemPlaybook.items,
+            npcAdjectives = NamePlaybook.npcNames1,
+            npcTypes = NamePlaybook.npcNames2,
+            portAdjectives = NamePlaybook.locationNames1,
+            portNames = NamePlaybook.locationNames2,
+            contractItems = ContractItemPlaybook.contractItems,
+            contractDestinations = ContractItemPlaybook.contractDestinations,
         )
 
         public val lynnsPlaybook: Playbook = Playbook(
             name = "Lynn's Cool Homebrew",
             description = "Some fun things I wanted to add",
-            authors = setOf("Lynn"),
+            authors = setOf(Author("Lynn")),
             uuid = "0d851b76-3835-4d16-8a92-fb619fe13908",
             npcAdjectives = listOf(
-                Weighted("ancient", 1),
-                Weighted("lost", 1),
-                Weighted("punk", 1),
-                Weighted("twitchy", 1),
-                Weighted("strangely calm", 1),
-                Weighted("extradimensional", 1),
-                Weighted("anteuniversalian", 1),
-                Weighted("entropic", 1),
+                Weighted(value = "ancient", weight = 1),
+                Weighted(value = "lost", weight = 1),
+                Weighted(value = "punk", weight = 1),
+                Weighted(value = "twitchy", weight = 1),
+                Weighted(value = "strangely calm", weight = 1),
+                Weighted(value = "extradimensional", weight = 1),
+                Weighted(value = "anteuniversalian", weight = 1),
+                Weighted(value = "entropic", weight = 1),
             ),
             npcTypes = listOf(
-                Weighted("cowboy", 1),
-                Weighted("freetraveler", 1),
-                Weighted("mafia", 1),
-                Weighted("spy", 1),
-                Weighted("scientist", 1),
-                Weighted("ancient", 1),
+                Weighted(value = "cowboy", weight = 1),
+                Weighted(value = "freetraveler", weight = 1),
+                Weighted(value = "mafia", weight = 1),
+                Weighted(value = "spy", weight = 1),
+                Weighted(value = "scientist", weight = 1),
+                Weighted(value = "ancient", weight = 1),
             ),
             contractItems = listOf(
-                Weighted(ContractItem("a gold poker chip"), 1),
-                Weighted(ContractItem("a family heirloom"), 1),
-                Weighted(ContractItem("a sealed envelope"), 1),
+                Weighted(value = ContractItem("a gold poker chip"), weight = 1),
+                Weighted(value = ContractItem("a family heirloom"), weight = 1),
+                Weighted(value = ContractItem("a sealed envelope"), weight = 1),
+            ),
+        )
+
+        public val wolf: Playbook = Playbook(
+            name = "Allie’s Playable Anhedonic Wolf add-on",
+            description = "Be a wolf! Don't enjoy anything!",
+            authors = setOf(
+                Author(
+                    name = "Allie"
+                )
+            ),
+            uuid = "8df3484f-bda9-42d7-babc-70edf9ddc667",
+            aliens = listOf(
+                Weighted(
+                    value = PlaySheetSpecification(
+                        name = "Anhedonic Wolf",
+                        description = "Anhedonic Wolves are a race of large bipedal Canidae. Their origins aren't strictly known, and the story varies wildly. Depending on who you ask you might hear tales of a long lost Terre generational ship where the occupants found aboard had become far removed from their ancestors. Other's tell stories of immoral  corporate gene-splicing experiments. Whatever the truth is, the one thing we know about them for certain is their lack of positive emotions. Happiness, it seems, is lost to them.",
+                        flavorText = FlavorText(
+                            text = "\"Oh but you misunderstand my friend, feelings of happiness are thoroughly unavailable to me yes, but rage is quite accessible.\"",
+                            attribution = "recording of a syndicate enforcer known as “Laughter” during a DiemCo sting operation",
+                        ),
+                        choices = listOf(
+                            ChoiceSpecification(
+                                questions = listOf(
+                                    Question(
+                                        question = "Choose one or two colors that your coat is",
+                                        answers = 2,
+                                    )
+                                ),
+                                options = listOf(
+                                    Option("Black"),
+                                    Option("Grey"),
+                                    Option("Brown"),
+                                    Option("White"),
+                                    Option("Red"),
+                                ),
+                            ),
+                            ChoiceSpecification(
+                                questions = listOf(
+                                    Question(
+                                        question = "Choose two things that you are",
+                                        answers = 2,
+                                    ),
+                                    Question(
+                                        question = "Choose one that you're not",
+                                        answers = 2,
+                                    ),
+                                ),
+                                options = listOf(
+                                    Option("Tall"),
+                                    Option("Strong"),
+                                    Option("Sickly"),
+                                    Option("Losing fur"),
+                                    Option("Witty"),
+                                    Option("Pessimistic"),
+                                    Option("Angry"),
+                                    Option("Elderly"),
+                                    Option("Youthful"),
+                                    Option("Devoted to the pack"),
+                                    Option("Alone"),
+                                    Option("Afraid"),
+                                    Option("Numb"),
+                                    Option("Resigned"),
+                                    Option("Positive"),
+                                    Option("Vicious"),
+                                ),
+                            ),
+                        ),
+                        actions = listOf(
+                            Action(
+                                description = "Be pessimistic about the current situation to the detriment of you and your crew",
+                                diceOffset = 3,
+                            ),
+                            Action(
+                                description = "Howl at an inappropriate moment",
+                                diceOffset = 1,
+                            ),
+                            Action(
+                                description = "Struggle with your lack of positive emotions in a society that enjoys them",
+                                diceOffset = 1,
+                            ),
+                            Action(
+                                description = "Complain about your lack of positive emotions",
+                                diceOffset = 0,
+                            ),
+                            Action(
+                                description = "Express an emotion that you can feel, regardless of whether it's appropriate for the moment",
+                                diceOffset = -1,
+                            ),
+                            Action(
+                                description = "Attack someone or something, or generally try to solve a problem with your claws and/or teeth",
+                                diceOffset = -2,
+                            ),
+                            Action(
+                                description = "Reclaim your feelings of happiness and other positive emotions. be it by medical, magical, or spiritual means",
+                                diceOffset = -6,
+                            ),
+                        ),
+                    ),
+                    weight = 1,
+                )
+            ),
+            npcAdjectives = listOf(
+                Weighted(1, "anhedonic"),
             ),
         )
 

@@ -19,10 +19,11 @@ public class MainDataModel constructor() {
         private set
 
     init {
-        updatePlaybooks(
+        updatePlaybooks( // TODO: Replace with load from DB.
             listOf(
                 Playbook.defaultPlaybook,
                 Playbook.lynnsPlaybook,
+                Playbook.wolf,
                 Playbook.emptyPlaybook,
             )
         )

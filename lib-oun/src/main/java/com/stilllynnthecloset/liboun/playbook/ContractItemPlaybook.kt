@@ -2,6 +2,7 @@ package com.stilllynnthecloset.liboun.playbook
 
 import com.stilllynnthecloset.liboun.model.ContractDestination
 import com.stilllynnthecloset.liboun.model.ContractItem
+import com.stilllynnthecloset.liboun.model.Weighted
 
 /**
  * QuestItemPlaybook - TODO: Documentation
@@ -9,50 +10,50 @@ import com.stilllynnthecloset.liboun.model.ContractItem
  * Created by Lynn on 5/1/23
  */
 public object ContractItemPlaybook {
-    public val contractItems: List<ContractItem> = listOf(
-        ContractItem("yeast, mushroom spores, or other dietary microcultures"),
-        ContractItem("a stranger, frozen inside a vintercasket"),
-        ContractItem("an unmarked black box that deflects even the most hi-tech scans"),
-        ContractItem("a strangely outdated flashdrive"),
-        ContractItem("godspit, or other addictive drugs"),
-        ContractItem("a skull that weighs more than it should and shakes at odd times"),
-        ContractItem("a bucket full of glowing, light liquid, not to be spilled"),
-        ContractItem("a single antimatter bomb"),
-        ContractItem("cows"),
-        ContractItem("an ancient text, written on gigantic stone slabs"),
-        ContractItem("orichalcum"),
-        ContractItem("the alkahest, philosopher’s stone, or other alchymichal metamaterials"),
-        ContractItem("a hand carved shrine to a quaint and antiquated god"),
-        ContractItem("their cousin who’s in a band"),
-        ContractItem("guns, a whole lot of guns"),
-        ContractItem("a terraforming nanophage in a tiny, fragile vial"),
-        ContractItem("intel, a rumor, word to the wise"),
-        ContractItem("a love letter"),
-        ContractItem("a false vacuum collapse bomb able to theoretically end the universe"),
-        ContractItem("their own dead body, going home to be buried"),
-        ContractItem("[REDACTED]"),
+    public val contractItems: List<Weighted<ContractItem>> = listOf(
+        Weighted(1, ContractItem("yeast, mushroom spores, or other dietary microcultures")),
+        Weighted(1, ContractItem("a stranger, frozen inside a vintercasket")),
+        Weighted(1, ContractItem("an unmarked black box that deflects even the most hi-tech scans")),
+        Weighted(1, ContractItem("a strangely outdated flashdrive")),
+        Weighted(1, ContractItem("godspit, or other addictive drugs")),
+        Weighted(1, ContractItem("a skull that weighs more than it should and shakes at odd times")),
+        Weighted(1, ContractItem("a bucket full of glowing, light liquid, not to be spilled")),
+        Weighted(1, ContractItem("a single antimatter bomb")),
+        Weighted(1, ContractItem("cows")),
+        Weighted(1, ContractItem("an ancient text, written on gigantic stone slabs")),
+        Weighted(1, ContractItem("orichalcum")),
+        Weighted(1, ContractItem("the alkahest, philosopher’s stone, or other alchymichal metamaterials")),
+        Weighted(1, ContractItem("a hand carved shrine to a quaint and antiquated god")),
+        Weighted(1, ContractItem("their cousin who’s in a band")),
+        Weighted(1, ContractItem("guns, a whole lot of guns")),
+        Weighted(1, ContractItem("a terraforming nanophage in a tiny, fragile vial")),
+        Weighted(1, ContractItem("intel, a rumor, word to the wise")),
+        Weighted(1, ContractItem("a love letter")),
+        Weighted(1, ContractItem("a false vacuum collapse bomb able to theoretically end the universe")),
+        Weighted(1, ContractItem("their own dead body, going home to be buried")),
+        Weighted(1, ContractItem("[REDACTED]")),
     )
 
-    public val contractDestinations: List<ContractDestination> = listOf(
-        ContractDestination("to a neighboring Port of Call"),
-        ContractDestination("to a secret base hidden in hostile surface environments"),
-        ContractDestination("through a blockade"),
-        ContractDestination("to the fairy or other pocket dimension"),
-        ContractDestination("into a sun’s photosphere"),
-        ContractDestination("to some fascists"),
-        ContractDestination("to a business partner"),
-        ContractDestination("to their estranged friends, family, or partners"),
-        ContractDestination("to a hidden asteroid base"),
-        ContractDestination("out to the Deep Wild Dark, the black void past points out on the sednoid at the edge of the system"),
-        ContractDestination("into a pirate or gang stronghold"),
-        ContractDestination("to a writer or other artist"),
-        ContractDestination("to a band or musicians"),
-        ContractDestination("to the ranch or to the cowboys"),
-        ContractDestination("to an odd, out of the way, or uncivilized location"),
-        ContractDestination("to a chorusing monastery"),
-        ContractDestination("to a cigarette smoking cult"),
-        ContractDestination("to a dark matter well or reality hole"),
-        ContractDestination("to a riotous magic school"),
-        ContractDestination("to a wandering Vomyodosi wizard"),
+    public val contractDestinations: List<Weighted<ContractDestination>> = listOf(
+        Weighted(1, ContractDestination("to a neighboring Port of Call")),
+        Weighted(1, ContractDestination("to a secret base hidden in hostile surface environments")),
+        Weighted(1, ContractDestination("through a blockade")),
+        Weighted(1, ContractDestination("to the fairy or other pocket dimension")),
+        Weighted(1, ContractDestination("into a sun’s photosphere")),
+        Weighted(1, ContractDestination("to some fascists")),
+        Weighted(1, ContractDestination("to a business partner")),
+        Weighted(1, ContractDestination("to their estranged friends, family, or partners")),
+        Weighted(1, ContractDestination("to a hidden asteroid base")),
+        Weighted(1, ContractDestination("out to the Deep Wild Dark, the black void past points out on the sednoid at the edge of the system")),
+        Weighted(1, ContractDestination("into a pirate or gang stronghold")),
+        Weighted(1, ContractDestination("to a writer or other artist")),
+        Weighted(1, ContractDestination("to a band or musicians")),
+        Weighted(1, ContractDestination("to the ranch or to the cowboys")),
+        Weighted(1, ContractDestination("to an odd, out of the way, or uncivilized location")),
+        Weighted(1, ContractDestination("to a chorusing monastery")),
+        Weighted(1, ContractDestination("to a cigarette smoking cult")),
+        Weighted(1, ContractDestination("to a dark matter well or reality hole")),
+        Weighted(1, ContractDestination("to a riotous magic school")),
+        Weighted(1, ContractDestination("to a wandering Vomyodosi wizard")),
     )
 }
