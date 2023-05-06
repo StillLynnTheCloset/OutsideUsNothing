@@ -26,4 +26,8 @@ public enum class ImageReference {
     Factory,
     RadioButtonUnchecked,
     RadioButtonChecked,
+    Edit,
+    Document,
+    Save,
+    History,
 }

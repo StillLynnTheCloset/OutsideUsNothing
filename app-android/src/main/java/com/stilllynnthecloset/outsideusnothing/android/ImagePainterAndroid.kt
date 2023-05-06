@@ -34,5 +34,9 @@ internal object ImagePainterAndroid : ImagePainter {
         ImageReference.Factory -> painterResource(id = R.drawable.ic_factory)
         ImageReference.RadioButtonUnchecked -> painterResource(id = R.drawable.ic_radio_button_unchecked)
         ImageReference.RadioButtonChecked -> painterResource(id = R.drawable.ic_radio_button_checked)
+        ImageReference.Edit -> painterResource(id = R.drawable.ic_edit)
+        ImageReference.Document -> painterResource(id = R.drawable.ic_document)
+        ImageReference.History -> painterResource(id = R.drawable.ic_history)
+        ImageReference.Save -> painterResource(id = R.drawable.ic_save)
     }
 }

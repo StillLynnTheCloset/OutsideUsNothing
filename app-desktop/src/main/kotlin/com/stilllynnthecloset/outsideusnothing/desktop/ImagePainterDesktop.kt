@@ -34,5 +34,9 @@ internal object ImagePainterDesktop : ImagePainter {
         ImageReference.Factory -> painterResource("image/factory.svg")
         ImageReference.RadioButtonUnchecked -> painterResource("image/radio_button_unchecked.svg")
         ImageReference.RadioButtonChecked -> painterResource("image/radio_button_checked.svg")
+        ImageReference.Save -> painterResource("image/save.svg")
+        ImageReference.Document -> painterResource("image/document.svg")
+        ImageReference.Edit -> painterResource("image/edit.svg")
+        ImageReference.History -> painterResource("image/history.svg")
     }
 }
