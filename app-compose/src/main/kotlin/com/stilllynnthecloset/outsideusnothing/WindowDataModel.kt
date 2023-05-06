@@ -4,6 +4,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import com.stilllynnthecloset.outsideusnothing.dice.DiceRollerDataModel
+import com.stilllynnthecloset.outsideusnothing.edit.EditViewModel
 import com.stilllynnthecloset.outsideusnothing.generator.GeneratorDataModel
 import com.stilllynnthecloset.outsideusnothing.map.MapDataModel
 import com.stilllynnthecloset.outsideusnothing.playbooks.PlaybooksViewModel
@@ -37,6 +38,7 @@ public class WindowDataModel constructor(private val mainDataModel: MainDataMode
             NavigationTabImpl.Map -> NavigationDestination.Map(MapDataModel(mainDataModel.mergedPlaybook))
             NavigationTabImpl.Playbooks -> NavigationDestination.Playbook(PlaybooksViewModel(mainDataModel))
             NavigationTabImpl.Reference -> NavigationDestination.Reference(ReferenceDataModel(mainDataModel.mergedPlaybook))
+            NavigationTabImpl.Edit -> NavigationDestination.Edit(EditViewModel(mainDataModel))
         }
     }
 

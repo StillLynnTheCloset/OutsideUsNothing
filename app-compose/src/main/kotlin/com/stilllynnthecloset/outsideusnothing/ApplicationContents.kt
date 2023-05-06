@@ -7,6 +7,7 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.DpSize
 import com.stilllynnthecloset.outsideusnothing.dice.DiceRollerScreen
+import com.stilllynnthecloset.outsideusnothing.edit.EditScreen
 import com.stilllynnthecloset.outsideusnothing.generator.GeneratorScreen
 import com.stilllynnthecloset.outsideusnothing.map.MapScreen
 import com.stilllynnthecloset.outsideusnothing.playbooks.PlaybooksScreen
@@ -52,6 +53,11 @@ public fun applicationContents(windowSize: DpSize, dataModel: MainDataModel, win
                 )
 
                 is NavigationDestination.Reference -> ReferenceScreen(
+                    dataModel = currentScreen.dataModel,
+                    platform = platform,
+                )
+
+                is NavigationDestination.Edit -> EditScreen(
                     dataModel = currentScreen.dataModel,
                     platform = platform,
                 )
