@@ -42,7 +42,7 @@ public class WindowDataModel constructor(private val mainDataModel: MainDataMode
             NavigationTabImpl.Generator -> NavigationDestination.Generator(GeneratorDataModel(mainDataModel.mergedPlaybook))
             NavigationTabImpl.Map -> NavigationDestination.Map(MapDataModel(mainDataModel.mergedPlaybook))
             NavigationTabImpl.Playbooks -> NavigationDestination.Playbooks(PlaybooksViewModel(mainDataModel))
-            NavigationTabImpl.Reference -> NavigationDestination.Reference(ReferenceDataModel(mainDataModel.mergedPlaybook))
+            NavigationTabImpl.Reference -> NavigationDestination.Reference(ReferenceDataModel(mainDataModel))
         }
     }
 

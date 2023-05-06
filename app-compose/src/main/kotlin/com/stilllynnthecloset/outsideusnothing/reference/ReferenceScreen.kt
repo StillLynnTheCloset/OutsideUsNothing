@@ -14,7 +14,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.sp
+import com.stilllynnthecloset.liboun.model.Playbook
 import com.stilllynnthecloset.outsideusnothing.Platform
+import com.stilllynnthecloset.outsideusnothing.PlaybookPage
 import com.stilllynnthecloset.outsideusnothing.compose
 import com.stilllynnthecloset.outsideusnothing.indentPadding
 
@@ -33,179 +35,109 @@ internal fun ReferenceScreen(dataModel: ReferenceDataModel, platform: Platform) 
             .verticalScroll(scrollState),
     ) {
         when (dataModel.currentPage) {
-            ReferencePage.TABLE_OF_CONTENTS -> tableOfContents(dataModel, platform)
-            ReferencePage.ALIEN -> alien(dataModel, platform)
-            ReferencePage.BACKGROUND -> background(dataModel, platform)
-            ReferencePage.ROLE -> role(dataModel, platform)
-            ReferencePage.PORT -> port(dataModel, platform)
-            ReferencePage.EVENT -> event(dataModel, platform)
-            ReferencePage.CONTRACT_ITEM -> contractItem(dataModel, platform)
-            ReferencePage.USEFUL_ITEM -> usefulItem(dataModel, platform)
-            ReferencePage.BASTARD -> bastard(dataModel, platform)
-            ReferencePage.THREAT -> threat(dataModel, platform)
+            PlaybookPage.PLAYBOOK -> tableOfContents(dataModel, dataModel.mainDataModel.mergedPlaybook, platform)
+            PlaybookPage.ALIEN -> alien(dataModel, dataModel.mainDataModel.mergedPlaybook, platform)
+            PlaybookPage.BACKGROUND -> background(dataModel, dataModel.mainDataModel.mergedPlaybook, platform)
+            PlaybookPage.ROLE -> role(dataModel, dataModel.mainDataModel.mergedPlaybook, platform)
+            PlaybookPage.PORT -> port(dataModel, dataModel.mainDataModel.mergedPlaybook, platform)
+            PlaybookPage.EVENT -> event(dataModel, dataModel.mainDataModel.mergedPlaybook, platform)
+            PlaybookPage.CONTRACT_ITEM -> contractItem(dataModel, dataModel.mainDataModel.mergedPlaybook, platform)
+            PlaybookPage.USEFUL_ITEM -> usefulItem(dataModel, dataModel.mainDataModel.mergedPlaybook, platform)
+            PlaybookPage.BASTARD -> bastard(dataModel, dataModel.mainDataModel.mergedPlaybook, platform)
+            PlaybookPage.THREAT -> threat(dataModel, dataModel.mainDataModel.mergedPlaybook, platform)
         }
     }
 }
 
 @Composable
-private fun ColumnScope.tableOfContents(dataModel: ReferenceDataModel, platform: Platform) {
-    Text(
-        text = "Aliens",
-        fontSize = 32.sp,
-        modifier = Modifier
-            .align(Alignment.CenterHorizontally)
-            .clickable {
-                dataModel.setPage(ReferencePage.ALIEN)
-            },
-    )
-    Text(
-        text = "Backgrounds",
-        fontSize = 32.sp,
-        modifier = Modifier
-            .align(Alignment.CenterHorizontally)
-            .clickable {
-                dataModel.setPage(ReferencePage.BACKGROUND)
-            },
-    )
-    Text(
-        text = "Ship Roles",
-        fontSize = 32.sp,
-        modifier = Modifier
-            .align(Alignment.CenterHorizontally)
-            .clickable {
-                dataModel.setPage(ReferencePage.ROLE)
-            },
-    )
-    Text(
-        text = "Ports of Call",
-        fontSize = 32.sp,
-        modifier = Modifier
-            .align(Alignment.CenterHorizontally)
-            .clickable {
-                dataModel.setPage(ReferencePage.PORT)
-            },
-    )
-    Text(
-        text = "Events",
-        fontSize = 32.sp,
-        modifier = Modifier
-            .align(Alignment.CenterHorizontally)
-            .clickable {
-                dataModel.setPage(ReferencePage.EVENT)
-            },
-    )
-    Text(
-        text = "Contract Items",
-        fontSize = 32.sp,
-        modifier = Modifier
-            .align(Alignment.CenterHorizontally)
-            .clickable {
-                dataModel.setPage(ReferencePage.CONTRACT_ITEM)
-            },
-    )
-    Text(
-        text = "Useful Items",
-        fontSize = 32.sp,
-        modifier = Modifier
-            .align(Alignment.CenterHorizontally)
-            .clickable {
-                dataModel.setPage(ReferencePage.USEFUL_ITEM)
-            },
-    )
-    Text(
-        text = "Bastards",
-        fontSize = 32.sp,
-        modifier = Modifier
-            .align(Alignment.CenterHorizontally)
-            .clickable {
-                dataModel.setPage(ReferencePage.BASTARD)
-            },
-    )
-    Text(
-        text = "Threats",
-        fontSize = 32.sp,
-        modifier = Modifier
-            .align(Alignment.CenterHorizontally)
-            .clickable {
-                dataModel.setPage(ReferencePage.THREAT)
-            },
-    )
+private fun ColumnScope.tableOfContents(dataModel: ReferenceDataModel, playbook: Playbook, platform: Platform) {
+    PlaybookPage.values().forEach {
+        Text(
+            text = it.humanReadable,
+            fontSize = 32.sp,
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally)
+                .clickable {
+                    dataModel.setPage(it)
+                },
+        )
+    }
 }
 
 @Composable
-private fun alien(dataModel: ReferenceDataModel, platform: Platform) {
+private fun alien(dataModel: ReferenceDataModel, playbook: Playbook, platform: Platform) {
     Button(
-        onClick = { dataModel.setPage(ReferencePage.TABLE_OF_CONTENTS) },
+        onClick = { dataModel.setPage(PlaybookPage.PLAYBOOK) },
     ) {
         Text(
             text = "Back",
         )
     }
-    dataModel.playbook.aliens.forEach {
+    playbook.aliens.forEach {
         it.value.compose(platform, Modifier.padding(start = indentPadding))
     }
 }
 
 @Composable
-private fun background(dataModel: ReferenceDataModel, platform: Platform) {
+private fun background(dataModel: ReferenceDataModel, playbook: Playbook, platform: Platform) {
     Button(
-        onClick = { dataModel.setPage(ReferencePage.TABLE_OF_CONTENTS) },
+        onClick = { dataModel.setPage(PlaybookPage.PLAYBOOK) },
     ) {
         Text(
             text = "Back",
         )
     }
-    dataModel.playbook.backgrounds.forEach {
+    playbook.backgrounds.forEach {
         it.value.compose(platform, Modifier.padding(start = indentPadding))
     }
 }
 
 @Composable
-private fun role(dataModel: ReferenceDataModel, platform: Platform) {
+private fun role(dataModel: ReferenceDataModel, playbook: Playbook, platform: Platform) {
     Button(
-        onClick = { dataModel.setPage(ReferencePage.TABLE_OF_CONTENTS) },
+        onClick = { dataModel.setPage(PlaybookPage.PLAYBOOK) },
     ) {
         Text(
             text = "Back",
         )
     }
-    dataModel.playbook.roles.forEach {
+    playbook.roles.forEach {
         it.value.compose(platform, Modifier.padding(start = indentPadding))
     }
 }
 
 @Composable
-private fun port(dataModel: ReferenceDataModel, platform: Platform) {
+private fun port(dataModel: ReferenceDataModel, playbook: Playbook, platform: Platform) {
     Button(
-        onClick = { dataModel.setPage(ReferencePage.TABLE_OF_CONTENTS) },
+        onClick = { dataModel.setPage(PlaybookPage.PLAYBOOK) },
     ) {
         Text(
             text = "Back",
         )
     }
-    dataModel.playbook.ports.forEach {
+    playbook.ports.forEach {
         it.value.compose(platform, Modifier.padding(start = indentPadding))
     }
 }
 
 @Composable
-private fun event(dataModel: ReferenceDataModel, platform: Platform) {
+private fun event(dataModel: ReferenceDataModel, playbook: Playbook, platform: Platform) {
     Button(
-        onClick = { dataModel.setPage(ReferencePage.TABLE_OF_CONTENTS) },
+        onClick = { dataModel.setPage(PlaybookPage.PLAYBOOK) },
     ) {
         Text(
             text = "Back",
         )
     }
-    dataModel.playbook.events.forEach {
+    playbook.events.forEach {
         it.value.compose(platform, Modifier.padding(start = indentPadding))
     }
 }
 
 @Composable
-private fun contractItem(dataModel: ReferenceDataModel, platform: Platform) {
+private fun contractItem(dataModel: ReferenceDataModel, playbook: Playbook, platform: Platform) {
     Button(
-        onClick = { dataModel.setPage(ReferencePage.TABLE_OF_CONTENTS) },
+        onClick = { dataModel.setPage(PlaybookPage.PLAYBOOK) },
     ) {
         Text(
             text = "Back",
@@ -218,7 +150,7 @@ private fun contractItem(dataModel: ReferenceDataModel, platform: Platform) {
             Text(
                 text = "Deliver this:",
             )
-            dataModel.playbook.contractItems.forEach {
+            playbook.contractItems.forEach {
                 it.value.compose(platform, Modifier.padding(start = indentPadding))
             }
         }
@@ -228,7 +160,7 @@ private fun contractItem(dataModel: ReferenceDataModel, platform: Platform) {
             Text(
                 text = "here:",
             )
-            dataModel.playbook.contractDestinations.forEach {
+            playbook.contractDestinations.forEach {
                 it.value.compose(platform, Modifier.padding(start = indentPadding))
             }
         }
@@ -236,43 +168,44 @@ private fun contractItem(dataModel: ReferenceDataModel, platform: Platform) {
 }
 
 @Composable
-private fun usefulItem(dataModel: ReferenceDataModel, platform: Platform) {
+private fun usefulItem(dataModel: ReferenceDataModel, playbook: Playbook, platform: Platform) {
     Button(
-        onClick = { dataModel.setPage(ReferencePage.TABLE_OF_CONTENTS) },
+        onClick = { dataModel.setPage(PlaybookPage.PLAYBOOK) },
     ) {
         Text(
             text = "Back",
         )
     }
-    dataModel.playbook.usefulItems.forEach {
+    playbook.usefulItems.forEach {
         it.value.compose(platform, Modifier.padding(start = indentPadding))
     }
 }
 
 @Composable
-private fun bastard(dataModel: ReferenceDataModel, platform: Platform) {
+private fun bastard(dataModel: ReferenceDataModel, playbook: Playbook, platform: Platform) {
     Button(
-        onClick = { dataModel.setPage(ReferencePage.TABLE_OF_CONTENTS) },
+        onClick = { dataModel.setPage(PlaybookPage.PLAYBOOK) },
     ) {
         Text(
             text = "Back",
         )
     }
-    dataModel.playbook.bastards.forEach {
+    playbook.bastards.forEach {
         it.value.compose(platform, Modifier.padding(start = indentPadding))
     }
 }
 
 @Composable
-private fun threat(dataModel: ReferenceDataModel, platform: Platform) {
+private fun threat(dataModel: ReferenceDataModel, playbook: Playbook, platform: Platform) {
     Button(
-        onClick = { dataModel.setPage(ReferencePage.TABLE_OF_CONTENTS) },
+        onClick = { dataModel.setPage(PlaybookPage.PLAYBOOK) },
     ) {
         Text(
             text = "Back",
         )
     }
-    dataModel.playbook.threats.forEach {
+    playbook.threats.forEach {
         it.value.compose(platform, Modifier.padding(start = indentPadding))
     }
 }
+
