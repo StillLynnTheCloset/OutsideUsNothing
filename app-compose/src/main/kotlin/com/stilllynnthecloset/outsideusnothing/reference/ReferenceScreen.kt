@@ -56,6 +56,9 @@ internal fun ReferenceScreen(dataModel: ReferenceDataModel, platform: Platform) 
             PlaybookPage.USEFUL_ITEM -> usefulItem(dataModel, dataModel.mainDataModel.mergedPlaybook, platform)
             PlaybookPage.BASTARD -> bastard(dataModel, dataModel.mainDataModel.mergedPlaybook, platform)
             PlaybookPage.THREAT -> threat(dataModel, dataModel.mainDataModel.mergedPlaybook, platform)
+            PlaybookPage.PORT_NAME -> portName(dataModel, dataModel.mainDataModel.mergedPlaybook, platform)
+            PlaybookPage.NPC_LABEL -> npcLabel(dataModel, dataModel.mainDataModel.mergedPlaybook, platform)
+            PlaybookPage.FLAVOR_TEXT -> flavorText(dataModel, dataModel.mainDataModel.mergedPlaybook, platform)
         }
     }
 }
@@ -242,3 +245,104 @@ private fun threat(dataModel: ReferenceDataModel, playbook: Playbook, platform: 
     }
 }
 
+@Composable
+private fun portName(dataModel: ReferenceDataModel, playbook: Playbook, platform: Platform) {
+    Button(
+        onClick = { dataModel.setPage(PlaybookPage.PLAYBOOK) },
+    ) {
+        Text(
+            text = "Back",
+        )
+    }
+    Row {
+        Column(
+            modifier = Modifier.weight(1f),
+        ) {
+            Text(
+                text = "Deliver this:",
+            )
+                playbook.portAdjectives.forEach {
+                    SelectionContainer {
+                    Text(
+                        text = it.value,
+                        modifier = Modifier.padding(start = indentPadding),
+                    )
+                }
+            }
+        }
+        Column(
+            modifier = Modifier.weight(1f),
+        ) {
+            Text(
+                text = "here:",
+            )
+                playbook.portNames.forEach {
+                    SelectionContainer {
+                    Text(
+                        text = it.value,
+                        modifier = Modifier.padding(start = indentPadding),
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun npcLabel(dataModel: ReferenceDataModel, playbook: Playbook, platform: Platform) {
+    Button(
+        onClick = { dataModel.setPage(PlaybookPage.PLAYBOOK) },
+    ) {
+        Text(
+            text = "Back",
+        )
+    }
+    Row {
+        Column(
+            modifier = Modifier.weight(1f),
+        ) {
+            Text(
+                text = "Deliver this:",
+            )
+                playbook.npcAdjectives.forEach {
+                    SelectionContainer {
+                    Text(
+                        text = it.value,
+                        modifier = Modifier.padding(start = indentPadding),
+                    )
+                }
+            }
+        }
+        Column(
+            modifier = Modifier.weight(1f),
+        ) {
+            Text(
+                text = "here:",
+            )
+                playbook.npcTypes.forEach {
+                    SelectionContainer {
+                    Text(
+                        text = it.value,
+                        modifier = Modifier.padding(start = indentPadding),
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun flavorText(dataModel: ReferenceDataModel, playbook: Playbook, platform: Platform) {
+    Button(
+        onClick = { dataModel.setPage(PlaybookPage.PLAYBOOK) },
+    ) {
+        Text(
+            text = "Back",
+        )
+    }
+    playbook.flavorTexts.forEach {
+        SelectionContainer {
+            it.value.compose(platform, Modifier.padding(start = indentPadding))
+        }
+    }
+}
