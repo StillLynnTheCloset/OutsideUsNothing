@@ -23,220 +23,219 @@ import com.stilllynnthecloset.outsideusnothing.indentPadding
  */
 @Composable
 internal fun GeneratorScreen(dataModel: GeneratorDataModel, platform: Platform) {
-    SelectionContainer {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .verticalScroll(rememberScrollState())
-                .padding(indentPadding),
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState())
+            .padding(indentPadding),
+    ) {
+        Row(
+            modifier = Modifier.align(Alignment.CenterHorizontally),
         ) {
-            Row(
-                modifier = Modifier.align(Alignment.CenterHorizontally),
+            Button(
+                onClick = dataModel::generatePort,
+                modifier = Modifier,
             ) {
-                Button(
-                    onClick = dataModel::generatePort,
-                    modifier = Modifier,
-                ) {
-                    Text("Generate a port of call")
-                }
-                Button(
-                    onClick = dataModel::clearPort,
-                    modifier = Modifier,
-                ) {
-                    Text("Clear port of call")
-                }
+                Text("Generate a port of call")
             }
-
+            Button(
+                onClick = dataModel::clearPort,
+                modifier = Modifier,
+            ) {
+                Text("Clear port of call")
+            }
+        }
+        SelectionContainer {
             dataModel.generatedPort?.compose(platform)
-
-            Row(
-                modifier = Modifier.align(Alignment.CenterHorizontally),
+        }
+        Row(
+            modifier = Modifier.align(Alignment.CenterHorizontally),
+        ) {
+            Button(
+                onClick = dataModel::generateBastard,
+                modifier = Modifier,
             ) {
-                Button(
-                    onClick = dataModel::generateBastard,
-                    modifier = Modifier,
-                ) {
-                    Text("Generate a bastard")
-                }
-                Button(
-                    onClick = dataModel::clearBastard,
-                    modifier = Modifier,
-                ) {
-                    Text("Clear bastard")
-                }
+                Text("Generate a bastard")
             }
-
+            Button(
+                onClick = dataModel::clearBastard,
+                modifier = Modifier,
+            ) {
+                Text("Clear bastard")
+            }
+        }
+        SelectionContainer {
             dataModel.generatedBastard?.compose(platform)
-
-            Row(
-                modifier = Modifier.align(Alignment.CenterHorizontally),
+        }
+        Row(
+            modifier = Modifier.align(Alignment.CenterHorizontally),
+        ) {
+            Button(
+                onClick = dataModel::generateContractItem,
+                modifier = Modifier,
             ) {
-                Button(
-                    onClick = dataModel::generateContractItem,
-                    modifier = Modifier,
-                ) {
-                    Text("Generate a contract item")
-                }
-                Button(
-                    onClick = dataModel::clearContractItem,
-                    modifier = Modifier,
-                ) {
-                    Text("Clear contract item")
-                }
+                Text("Generate a contract item")
             }
-
+            Button(
+                onClick = dataModel::clearContractItem,
+                modifier = Modifier,
+            ) {
+                Text("Clear contract item")
+            }
+        }
+        SelectionContainer {
             dataModel.generatedContractDetail?.compose(platform)
-
-            Row(
-                modifier = Modifier.align(Alignment.CenterHorizontally),
+        }
+        Row(
+            modifier = Modifier.align(Alignment.CenterHorizontally),
+        ) {
+            Button(
+                onClick = dataModel::generateEvent,
+                modifier = Modifier,
             ) {
-                Button(
-                    onClick = dataModel::generateEvent,
-                    modifier = Modifier,
-                ) {
-                    Text("Generate an event")
-                }
-                Button(
-                    onClick = dataModel::clearEvent,
-                    modifier = Modifier,
-                ) {
-                    Text("Clear event")
-                }
+                Text("Generate an event")
             }
-
+            Button(
+                onClick = dataModel::clearEvent,
+                modifier = Modifier,
+            ) {
+                Text("Clear event")
+            }
+        }
+        SelectionContainer {
             dataModel.generatedEvent?.compose(platform)
-
-            Row(
-                modifier = Modifier.align(Alignment.CenterHorizontally),
+        }
+        Row(
+            modifier = Modifier.align(Alignment.CenterHorizontally),
+        ) {
+            Button(
+                onClick = dataModel::generateThreat,
+                modifier = Modifier,
             ) {
-                Button(
-                    onClick = dataModel::generateThreat,
-                    modifier = Modifier,
-                ) {
-                    Text("Generate a threat")
-                }
-                Button(
-                    onClick = dataModel::clearThreat,
-                    modifier = Modifier,
-                ) {
-                    Text("Clear threat")
-                }
+                Text("Generate a threat")
             }
-
+            Button(
+                onClick = dataModel::clearThreat,
+                modifier = Modifier,
+            ) {
+                Text("Clear threat")
+            }
+        }
+        SelectionContainer {
             dataModel.generatedThreat?.compose(platform)
-
-            Row(
-                modifier = Modifier.align(Alignment.CenterHorizontally),
+        }
+        Row(
+            modifier = Modifier.align(Alignment.CenterHorizontally),
+        ) {
+            Button(
+                onClick = dataModel::generateUsefulItem,
+                modifier = Modifier,
             ) {
-                Button(
-                    onClick = dataModel::generateUsefulItem,
-                    modifier = Modifier,
-                ) {
-                    Text("Generate a useful item")
-                }
-                Button(
-                    onClick = dataModel::clearUsefulItem,
-                    modifier = Modifier,
-                ) {
-                    Text("Clear useful item")
-                }
+                Text("Generate a useful item")
             }
-
+            Button(
+                onClick = dataModel::clearUsefulItem,
+                modifier = Modifier,
+            ) {
+                Text("Clear useful item")
+            }
+        }
+        SelectionContainer {
             dataModel.generatedUsefulItem?.compose(platform)
-
-            Row(
-                modifier = Modifier.align(Alignment.CenterHorizontally),
+        }
+        Row(
+            modifier = Modifier.align(Alignment.CenterHorizontally),
+        ) {
+            Button(
+                onClick = dataModel::generateShip,
+                modifier = Modifier,
             ) {
-                Button(
-                    onClick = dataModel::generateShip,
-                    modifier = Modifier,
-                ) {
-                    Text("Generate a ship")
-                }
-                Button(
-                    onClick = dataModel::clearShip,
-                    modifier = Modifier,
-                ) {
-                    Text("Clear ship")
-                }
+                Text("Generate a ship")
             }
-
+            Button(
+                onClick = dataModel::clearShip,
+                modifier = Modifier,
+            ) {
+                Text("Clear ship")
+            }
+        }
+        SelectionContainer {
             dataModel.generatedShip?.compose(platform)
-
-            Row(
-                modifier = Modifier.align(Alignment.CenterHorizontally),
+        }
+        Row(
+            modifier = Modifier.align(Alignment.CenterHorizontally),
+        ) {
+            Button(
+                onClick = dataModel::generatePlayer,
+                modifier = Modifier,
             ) {
-                Button(
-                    onClick = dataModel::generatePlayer,
-                    modifier = Modifier,
-                ) {
-                    Text("Generate a player")
-                }
-                Button(
-                    onClick = dataModel::clearPlayer,
-                    modifier = Modifier,
-                ) {
-                    Text("Clear player")
-                }
+                Text("Generate a player")
             }
-
+            Button(
+                onClick = dataModel::clearPlayer,
+                modifier = Modifier,
+            ) {
+                Text("Clear player")
+            }
+        }
+        SelectionContainer {
             dataModel.generatedPlayer?.compose(platform)
-
-            Row(
-                modifier = Modifier.align(Alignment.CenterHorizontally),
+        }
+        Row(
+            modifier = Modifier.align(Alignment.CenterHorizontally),
+        ) {
+            Button(
+                onClick = dataModel::generateFlavorText,
+                modifier = Modifier,
             ) {
-                Button(
-                    onClick = dataModel::generateFlavorText,
-                    modifier = Modifier,
-                ) {
-                    Text("Generate flavor text")
-                }
-                Button(
-                    onClick = dataModel::clearFlavorText,
-                    modifier = Modifier,
-                ) {
-                    Text("Clear flavor text")
-                }
+                Text("Generate flavor text")
             }
-
+            Button(
+                onClick = dataModel::clearFlavorText,
+                modifier = Modifier,
+            ) {
+                Text("Clear flavor text")
+            }
+        }
+        SelectionContainer {
             dataModel.generatedFlavorText?.compose(platform)
-
-            Row(
-                modifier = Modifier.align(Alignment.CenterHorizontally),
+        }
+        Row(
+            modifier = Modifier.align(Alignment.CenterHorizontally),
+        ) {
+            Button(
+                onClick = dataModel::generateLocationName,
+                modifier = Modifier,
             ) {
-                Button(
-                    onClick = dataModel::generateLocationName,
-                    modifier = Modifier,
-                ) {
-                    Text("Generate location name")
-                }
-                Button(
-                    onClick = dataModel::clearLocationName,
-                    modifier = Modifier,
-                ) {
-                    Text("Clear location name")
-                }
+                Text("Generate location name")
             }
-
+            Button(
+                onClick = dataModel::clearLocationName,
+                modifier = Modifier,
+            ) {
+                Text("Clear location name")
+            }
+        }
+        SelectionContainer {
             dataModel.generatedLocationName?.also { Text(text = it) }
-
-            Row(
-                modifier = Modifier.align(Alignment.CenterHorizontally),
+        }
+        Row(
+            modifier = Modifier.align(Alignment.CenterHorizontally),
+        ) {
+            Button(
+                onClick = dataModel::generateNpc,
+                modifier = Modifier,
             ) {
-                Button(
-                    onClick = dataModel::generateNpc,
-                    modifier = Modifier,
-                ) {
-                    Text("Generate npc")
-                }
-                Button(
-                    onClick = dataModel::clearNpc,
-                    modifier = Modifier,
-                ) {
-                    Text("Clear npc")
-                }
+                Text("Generate npc")
             }
-
+            Button(
+                onClick = dataModel::clearNpc,
+                modifier = Modifier,
+            ) {
+                Text("Clear npc")
+            }
+        }
+        SelectionContainer {
             dataModel.generatedNpc?.also { Text(text = it) }
         }
     }
