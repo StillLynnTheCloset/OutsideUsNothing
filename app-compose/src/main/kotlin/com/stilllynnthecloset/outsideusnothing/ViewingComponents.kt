@@ -666,7 +666,7 @@ internal fun Playbook.compose(platform: Platform, listContents: Boolean, modifie
         )
 
         Text(
-            text ="By: ${authors.joinToString { it.name }}",
+            text = "By: ${authors.joinToString { it.name }}",
             fontSize = 24.sp,
         )
 

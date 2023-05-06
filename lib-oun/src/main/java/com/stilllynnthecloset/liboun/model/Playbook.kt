@@ -104,8 +104,8 @@ public data class Playbook constructor(
             description = "Be a wolf! Don't enjoy anything!",
             authors = setOf(
                 Author(
-                    name = "Allie"
-                )
+                    name = "Allie",
+                ),
             ),
             uuid = "8df3484f-bda9-42d7-babc-70edf9ddc667",
             aliens = listOf(
@@ -123,7 +123,7 @@ public data class Playbook constructor(
                                     Question(
                                         question = "Choose one or two colors that your coat is",
                                         answers = 2,
-                                    )
+                                    ),
                                 ),
                                 options = listOf(
                                     Option("Black"),
@@ -196,7 +196,7 @@ public data class Playbook constructor(
                         ),
                     ),
                     weight = 1,
-                )
+                ),
             ),
             npcAdjectives = listOf(
                 Weighted(1, "anhedonic"),

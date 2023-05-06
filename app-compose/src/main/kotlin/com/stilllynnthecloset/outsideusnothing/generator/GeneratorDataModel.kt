@@ -1,4 +1,4 @@
-package com.stilllynnthecloset.outsideusnothing.organizer
+package com.stilllynnthecloset.outsideusnothing.generator
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -18,11 +18,11 @@ import com.stilllynnthecloset.liboun.playbook.ShipPlaybook
 import com.stilllynnthecloset.liboun.weightedRandom
 
 /**
- * OrganizerDataModel - TODO: Documentation
+ * GeneratorDataModel - TODO: Documentation
  *
  * Created by Lynn on 4/14/23
  */
-internal class OrganizerDataModel constructor(private val playbook: Playbook) {
+internal class GeneratorDataModel constructor(private val playbook: Playbook) {
     var generatedPort: PortOfCall? by mutableStateOf(null)
         private set
 

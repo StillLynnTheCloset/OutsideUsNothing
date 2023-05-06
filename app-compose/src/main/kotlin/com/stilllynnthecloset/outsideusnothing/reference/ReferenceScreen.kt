@@ -24,7 +24,7 @@ import com.stilllynnthecloset.outsideusnothing.indentPadding
  * Created by Lynn on 5/3/23
  */
 @Composable
-internal fun referenceScreen(dataModel: ReferenceDataModel, platform: Platform) {
+internal fun ReferenceScreen(dataModel: ReferenceDataModel, platform: Platform) {
     val scrollState = rememberScrollState()
 
     Column(

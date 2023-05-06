@@ -3,10 +3,9 @@ package com.stilllynnthecloset.outsideusnothing
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import com.stilllynnthecloset.liboun.model.Playbook
 import com.stilllynnthecloset.outsideusnothing.dice.DiceRollerDataModel
+import com.stilllynnthecloset.outsideusnothing.generator.GeneratorDataModel
 import com.stilllynnthecloset.outsideusnothing.map.MapDataModel
-import com.stilllynnthecloset.outsideusnothing.organizer.OrganizerDataModel
 import com.stilllynnthecloset.outsideusnothing.playbooks.PlaybooksViewModel
 import com.stilllynnthecloset.outsideusnothing.reference.ReferenceDataModel
 
@@ -34,7 +33,7 @@ public class WindowDataModel constructor(private val mainDataModel: MainDataMode
         backstack.clear()
         currentScreen = when (newTab) {
             NavigationTabImpl.DiceRoller -> NavigationDestination.DiceRoller(DiceRollerDataModel())
-            NavigationTabImpl.Organizer -> NavigationDestination.Organizer(OrganizerDataModel(mainDataModel.mergedPlaybook))
+            NavigationTabImpl.Generator -> NavigationDestination.Generator(GeneratorDataModel(mainDataModel.mergedPlaybook))
             NavigationTabImpl.Map -> NavigationDestination.Map(MapDataModel(mainDataModel.mergedPlaybook))
             NavigationTabImpl.Playbooks -> NavigationDestination.Playbook(PlaybooksViewModel(mainDataModel))
             NavigationTabImpl.Reference -> NavigationDestination.Reference(ReferenceDataModel(mainDataModel.mergedPlaybook))
@@ -48,6 +47,7 @@ public class WindowDataModel constructor(private val mainDataModel: MainDataMode
                     currentScreen = backstack.removeLast()
                 }
             }
+
             is NavigationAction.NavigateTo -> {
                 backstack.addLast(currentScreen)
                 currentScreen = action.destination

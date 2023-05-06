@@ -1,4 +1,4 @@
-package com.stilllynnthecloset.outsideusnothing.organizer
+package com.stilllynnthecloset.outsideusnothing.generator
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -22,7 +22,7 @@ import com.stilllynnthecloset.outsideusnothing.indentPadding
  * Created by Lynn on 4/14/23
  */
 @Composable
-internal fun OrganizerScreen(dataModel: OrganizerDataModel, platform: Platform) {
+internal fun GeneratorScreen(dataModel: GeneratorDataModel, platform: Platform) {
     SelectionContainer {
         Column(
             modifier = Modifier

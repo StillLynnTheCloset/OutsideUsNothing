@@ -25,7 +25,7 @@ public class MainDataModel constructor() {
                 Playbook.lynnsPlaybook,
                 Playbook.wolf,
                 Playbook.emptyPlaybook,
-            )
+            ),
         )
     }
 
@@ -46,7 +46,7 @@ public class MainDataModel constructor() {
                 } else {
                     it
                 }
-            }
+            },
         )
     }
 

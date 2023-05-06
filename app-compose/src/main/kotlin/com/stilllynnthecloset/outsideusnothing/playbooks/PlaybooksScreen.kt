@@ -14,14 +14,14 @@ import com.stilllynnthecloset.outsideusnothing.compose
  * Created by Lynn on 5/5/23
  */
 @Composable
-internal fun playbooksScreen(dataModel: PlaybooksViewModel, platform: Platform) {
+internal fun PlaybooksScreen(dataModel: PlaybooksViewModel, platform: Platform) {
     Column {
         dataModel.mainDataModel.playbooks.forEach { playbook ->
             Row {
                 Checkbox(
                     checked = playbook.active,
                     enabled = playbook.uuid != Playbook.defaultPlaybook.uuid,
-                    onCheckedChange = { dataModel.changePlaybookState(playbook, it) }
+                    onCheckedChange = { dataModel.changePlaybookState(playbook, it) },
                 )
                 playbook.compose(platform, true)
             }

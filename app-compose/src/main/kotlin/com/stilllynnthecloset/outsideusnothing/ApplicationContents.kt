@@ -7,10 +7,10 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.DpSize
 import com.stilllynnthecloset.outsideusnothing.dice.DiceRollerScreen
+import com.stilllynnthecloset.outsideusnothing.generator.GeneratorScreen
 import com.stilllynnthecloset.outsideusnothing.map.MapScreen
-import com.stilllynnthecloset.outsideusnothing.organizer.OrganizerScreen
-import com.stilllynnthecloset.outsideusnothing.playbooks.playbooksScreen
-import com.stilllynnthecloset.outsideusnothing.reference.referenceScreen
+import com.stilllynnthecloset.outsideusnothing.playbooks.PlaybooksScreen
+import com.stilllynnthecloset.outsideusnothing.reference.ReferenceScreen
 import com.stilllynnthecloset.outsideusnothing.theme.navigationContainer
 
 @Composable
@@ -35,19 +35,23 @@ public fun applicationContents(windowSize: DpSize, dataModel: MainDataModel, win
                     dataModel = currentScreen.dataModel,
                     platform = platform,
                 )
-                is NavigationDestination.Organizer -> OrganizerScreen(
+
+                is NavigationDestination.Generator -> GeneratorScreen(
                     dataModel = currentScreen.dataModel,
                     platform = platform,
                 )
+
                 is NavigationDestination.Map -> MapScreen(
                     dataModel = currentScreen.dataModel,
                     platform = platform,
                 )
-                is NavigationDestination.Playbook -> playbooksScreen(
+
+                is NavigationDestination.Playbook -> PlaybooksScreen(
                     dataModel = currentScreen.dataModel,
                     platform = platform,
                 )
-                is NavigationDestination.Reference -> referenceScreen(
+
+                is NavigationDestination.Reference -> ReferenceScreen(
                     dataModel = currentScreen.dataModel,
                     platform = platform,
                 )
