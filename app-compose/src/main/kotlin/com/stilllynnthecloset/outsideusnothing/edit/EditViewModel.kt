@@ -61,4 +61,61 @@ internal class EditViewModel constructor(val mainDataModel: MainDataModel, val w
         )
     }
 
+    fun updatePortAdjective(current: Weighted<String>, new: Weighted<String>) {
+        mainDataModel.updatePlaybook(currentPlaybook.copy(
+            portAdjectives = currentPlaybook.portAdjectives.map {
+                if (it.value == current.value) {
+                    new
+                } else {
+                    it
+                }
+            }
+        ))
+    }
+
+    fun addPortAdjective(new: Weighted<String>) {
+        mainDataModel.updatePlaybook(
+            currentPlaybook.copy(
+                portAdjectives = currentPlaybook.portAdjectives + new
+            )
+        )
+    }
+
+    fun removePortAdjective(new: Weighted<String>) {
+        mainDataModel.updatePlaybook(
+            currentPlaybook.copy(
+                portAdjectives = currentPlaybook.portAdjectives - new
+            )
+        )
+    }
+
+
+    fun updatePortNames(current: Weighted<String>, new: Weighted<String>) {
+        mainDataModel.updatePlaybook(currentPlaybook.copy(
+            portNames = currentPlaybook.portNames.map {
+                if (it.value == current.value) {
+                    new
+                } else {
+                    it
+                }
+            }
+        ))
+    }
+
+    fun addPortNames(new: Weighted<String>) {
+        mainDataModel.updatePlaybook(
+            currentPlaybook.copy(
+                portNames = currentPlaybook.portNames + new
+            )
+        )
+    }
+
+    fun removePortNames(new: Weighted<String>) {
+        mainDataModel.updatePlaybook(
+            currentPlaybook.copy(
+                portNames = currentPlaybook.portNames - new
+            )
+        )
+    }
+
 }

@@ -256,27 +256,105 @@ private fun portNames(dataModel: EditViewModel, playbook: Playbook, platform: Pl
         Column(
             modifier = Modifier.weight(1f),
         ) {
-            Text(
-                text = "Part 1:",
+            outlinedButton(
+                onClick = { dataModel.addPortAdjective(Weighted(1, "")) },
+                modifier = Modifier,
+                content = {
+                    Image(
+                        painter = platform.imagePainter.getPainter(ImageReference.Add),
+                        colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
+                        contentDescription = "Add Port Adjective",
+                        modifier = Modifier
+                            .width(24.dp)
+                            .align(Alignment.CenterVertically),
+                    )
+                    Text(
+                        "Add Adjective",
+                        color = MaterialTheme.colorScheme.onSurface,
+                    )
+                },
             )
-            playbook.portAdjectives.forEach {
-                Text(
-                    text = it.value,
-                    modifier = Modifier.padding(start = indentPadding),
-                )
+            playbook.portAdjectives.forEach { weighted ->
+                Row {
+                    TextField(
+                        value = weighted.value,
+                        label = { Text(text = "Adjective") },
+                        onValueChange = {
+                            dataModel.updatePortAdjective(weighted, Weighted(weighted.weight, it))
+                        },
+                        modifier = Modifier,
+                    )
+                    incrementInput(
+                        label = "weight",
+                        modifier = Modifier,
+                        value = weighted.weight.toLong(),
+                        onValueChange = {
+                            dataModel.updatePortAdjective(weighted, weighted.copy(weight = it?.toInt() ?: 1))
+                        },
+                        platform = platform,
+                    )
+
+                    imageButton(
+                        onClick = {
+                            dataModel.removePortAdjective(weighted)
+                        },
+                        imageReference = ImageReference.Delete,
+                        contentDescription = "Delete",
+                        platform = platform
+                    )
+                }
             }
         }
         Column(
             modifier = Modifier.weight(1f),
         ) {
-            Text(
-                text = "Part 2:",
+            outlinedButton(
+                onClick = { dataModel.addPortNames(Weighted(1, "")) },
+                modifier = Modifier,
+                content = {
+                    Image(
+                        painter = platform.imagePainter.getPainter(ImageReference.Add),
+                        colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
+                        contentDescription = "Add Port Name",
+                        modifier = Modifier
+                            .width(24.dp)
+                            .align(Alignment.CenterVertically),
+                    )
+                    Text(
+                        "Add Name",
+                        color = MaterialTheme.colorScheme.onSurface,
+                    )
+                },
             )
-            playbook.portNames.forEach {
-                Text(
-                    text = it.value,
-                    modifier = Modifier.padding(start = indentPadding),
-                )
+            playbook.portNames.forEach { weighted ->
+                Row {
+                    TextField(
+                        value = weighted.value,
+                        label = { Text(text = "Name") },
+                        onValueChange = {
+                            dataModel.updatePortNames(weighted, Weighted(weighted.weight, it))
+                        },
+                        modifier = Modifier,
+                    )
+                    incrementInput(
+                        label = "weight",
+                        modifier = Modifier,
+                        value = weighted.weight.toLong(),
+                        onValueChange = {
+                            dataModel.updatePortNames(weighted, weighted.copy(weight = it?.toInt() ?: 1))
+                        },
+                        platform = platform,
+                    )
+
+                    imageButton(
+                        onClick = {
+                            dataModel.removePortNames(weighted)
+                        },
+                        imageReference = ImageReference.Delete,
+                        contentDescription = "Delete",
+                        platform = platform
+                    )
+                }
             }
         }
     }
