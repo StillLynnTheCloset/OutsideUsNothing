@@ -557,7 +557,7 @@ internal fun incrementInput(
             value,
             label,
             modifier = Modifier
-                .width(200.dp)
+                .width(100.dp)
                 .padding(horizontal = 4.dp),
             onValueChange = {
                 onValueChange(it)

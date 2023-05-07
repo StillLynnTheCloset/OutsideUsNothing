@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -21,7 +22,13 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.stilllynnthecloset.liboun.model.ContractDestination
+import com.stilllynnthecloset.liboun.model.ContractItem
+import com.stilllynnthecloset.liboun.model.NpcAdjective
+import com.stilllynnthecloset.liboun.model.NpcType
 import com.stilllynnthecloset.liboun.model.Playbook
+import com.stilllynnthecloset.liboun.model.PortAdjective
+import com.stilllynnthecloset.liboun.model.PortType
 import com.stilllynnthecloset.liboun.model.Threat
 import com.stilllynnthecloset.liboun.model.Weighted
 import com.stilllynnthecloset.outsideusnothing.Platform
@@ -32,6 +39,7 @@ import com.stilllynnthecloset.outsideusnothing.theme.ImageReference
 import com.stilllynnthecloset.outsideusnothing.theme.imageButton
 import com.stilllynnthecloset.outsideusnothing.theme.incrementInput
 import com.stilllynnthecloset.outsideusnothing.theme.outlinedButton
+import com.stilllynnthecloset.outsideusnothing.theme.textInputWidget
 
 /**
  * EditScreen - TODO: Documentation
@@ -152,35 +160,6 @@ private fun events(dataModel: EditViewModel, playbook: Playbook, platform: Platf
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
-private fun contractItems(dataModel: EditViewModel, playbook: Playbook, platform: Platform) {
-    Row {
-        Column(
-            modifier = Modifier.weight(1f),
-        ) {
-            Text(
-                text = "Items:",
-            )
-            playbook.contractItems.forEach {
-                it.value.compose(platform, Modifier.padding(start = indentPadding))
-
-            }
-        }
-        Column(
-            modifier = Modifier.weight(1f),
-        ) {
-            Text(
-                text = "Destinations:",
-            )
-            playbook.contractDestinations.forEach {
-                it.value.compose(platform, Modifier.padding(start = indentPadding))
-
-            }
-        }
-    }
-}
-
-@Composable
-@OptIn(ExperimentalMaterial3Api::class)
 private fun usefulItems(dataModel: EditViewModel, playbook: Playbook, platform: Platform) {
     playbook.usefulItems.forEach {
         it.value.compose(platform, Modifier.padding(start = indentPadding))
@@ -199,10 +178,11 @@ private fun bastards(dataModel: EditViewModel, playbook: Playbook, platform: Pla
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
-private fun threats(dataModel: EditViewModel, playbook: Playbook, platform: Platform) {
+private fun ColumnScope.threats(dataModel: EditViewModel, playbook: Playbook, platform: Platform) {
     outlinedButton(
         onClick = { dataModel.addThreat(Weighted(1, Threat(""))) },
-        modifier = Modifier,
+        modifier = Modifier
+            .align(Alignment.CenterHorizontally),
         content = {
             Image(
                 painter = platform.imagePainter.getPainter(ImageReference.Add),
@@ -213,27 +193,35 @@ private fun threats(dataModel: EditViewModel, playbook: Playbook, platform: Plat
                     .align(Alignment.CenterVertically),
             )
             Text(
-                "Add Threat",
+                text = "Add Threat",
                 color = MaterialTheme.colorScheme.onSurface,
             )
         },
     )
     playbook.threats.forEach { weighted ->
-        Row {
-            TextField(
+        Row(
+            modifier = Modifier
+                .padding(vertical = 4.dp)
+                .align(Alignment.CenterHorizontally),
+        ) {
+            textInputWidget(
                 value = weighted.value.name,
-                label = { Text(text = "Threat") },
+                label = "Threat",
                 onValueChange = {
-                    dataModel.updateThreat(weighted, Weighted(weighted.weight, Threat(it, weighted.value.uuid)))
+                    dataModel.updateThreat(Weighted(weighted.weight, Threat(it, weighted.value.uuid)))
                 },
-                modifier = Modifier,
+                modifier = Modifier
+                    .weight(1f)
+                    .align(Alignment.CenterVertically),
             )
             incrementInput(
                 label = "weight",
-                modifier = Modifier,
+                modifier = Modifier
+                    .align(Alignment.CenterVertically)
+                    .padding(horizontal = 4.dp),
                 value = weighted.weight.toLong(),
                 onValueChange = {
-                    dataModel.updateThreat(weighted, weighted.copy(weight = it?.toInt() ?: 1))
+                    dataModel.updateThreat(weighted.copy(weight = it?.toInt() ?: 1))
                 },
                 platform = platform,
             )
@@ -241,6 +229,8 @@ private fun threats(dataModel: EditViewModel, playbook: Playbook, platform: Plat
                 onClick = {
                     dataModel.removeThreat(weighted)
                 },
+                modifier = Modifier
+                    .align(Alignment.CenterVertically),
                 imageReference = ImageReference.Delete,
                 contentDescription = "Delete",
                 platform = platform
@@ -257,8 +247,9 @@ private fun portNames(dataModel: EditViewModel, playbook: Playbook, platform: Pl
             modifier = Modifier.weight(1f),
         ) {
             outlinedButton(
-                onClick = { dataModel.addPortAdjective(Weighted(1, "")) },
-                modifier = Modifier,
+                onClick = { dataModel.addPortAdjective(Weighted(1, PortAdjective(""))) },
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally),
                 content = {
                     Image(
                         painter = platform.imagePainter.getPainter(ImageReference.Add),
@@ -269,27 +260,35 @@ private fun portNames(dataModel: EditViewModel, playbook: Playbook, platform: Pl
                             .align(Alignment.CenterVertically),
                     )
                     Text(
-                        "Add Adjective",
+                        text = "Add Port Adjective",
                         color = MaterialTheme.colorScheme.onSurface,
                     )
                 },
             )
             playbook.portAdjectives.forEach { weighted ->
-                Row {
-                    TextField(
-                        value = weighted.value,
-                        label = { Text(text = "Adjective") },
+                Row(
+                    modifier = Modifier
+                        .padding(vertical = 4.dp)
+                        .align(Alignment.CenterHorizontally),
+                ) {
+                    textInputWidget(
+                        value = weighted.value.text,
+                        label = "Adjective",
                         onValueChange = {
-                            dataModel.updatePortAdjective(weighted, Weighted(weighted.weight, it))
+                            dataModel.updatePortAdjective(Weighted(weighted.weight, weighted.value.copy(text = it)))
                         },
-                        modifier = Modifier,
+                        modifier = Modifier
+                            .weight(1f)
+                            .align(Alignment.CenterVertically),
                     )
                     incrementInput(
                         label = "weight",
-                        modifier = Modifier,
+                        modifier = Modifier
+                            .align(Alignment.CenterVertically)
+                            .padding(horizontal = 4.dp),
                         value = weighted.weight.toLong(),
                         onValueChange = {
-                            dataModel.updatePortAdjective(weighted, weighted.copy(weight = it?.toInt() ?: 1))
+                            dataModel.updatePortAdjective(weighted.copy(weight = it?.toInt() ?: 1))
                         },
                         platform = platform,
                     )
@@ -298,6 +297,8 @@ private fun portNames(dataModel: EditViewModel, playbook: Playbook, platform: Pl
                         onClick = {
                             dataModel.removePortAdjective(weighted)
                         },
+                        modifier = Modifier
+                            .align(Alignment.CenterVertically),
                         imageReference = ImageReference.Delete,
                         contentDescription = "Delete",
                         platform = platform
@@ -309,8 +310,9 @@ private fun portNames(dataModel: EditViewModel, playbook: Playbook, platform: Pl
             modifier = Modifier.weight(1f),
         ) {
             outlinedButton(
-                onClick = { dataModel.addPortNames(Weighted(1, "")) },
-                modifier = Modifier,
+                onClick = { dataModel.addPortType(Weighted(1, PortType(""))) },
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally),
                 content = {
                     Image(
                         painter = platform.imagePainter.getPainter(ImageReference.Add),
@@ -321,35 +323,45 @@ private fun portNames(dataModel: EditViewModel, playbook: Playbook, platform: Pl
                             .align(Alignment.CenterVertically),
                     )
                     Text(
-                        "Add Name",
+                        text = "Add Name",
                         color = MaterialTheme.colorScheme.onSurface,
                     )
                 },
             )
-            playbook.portNames.forEach { weighted ->
-                Row {
-                    TextField(
-                        value = weighted.value,
-                        label = { Text(text = "Name") },
+            playbook.portTypes.forEach { weighted ->
+                Row(
+                    modifier = Modifier
+                        .padding(vertical = 4.dp)
+                        .align(Alignment.CenterHorizontally),
+                ) {
+                    textInputWidget(
+                        value = weighted.value.text,
+                        label = "Name",
                         onValueChange = {
-                            dataModel.updatePortNames(weighted, Weighted(weighted.weight, it))
+                            dataModel.updatePortType(Weighted(weighted.weight, weighted.value.copy(text = it)))
                         },
-                        modifier = Modifier,
+                        modifier = Modifier
+                            .weight(1f)
+                            .padding(horizontal = 4.dp),
                     )
                     incrementInput(
                         label = "weight",
-                        modifier = Modifier,
+                        modifier = Modifier
+                            .align(Alignment.CenterVertically)
+                            .padding(horizontal = 4.dp),
                         value = weighted.weight.toLong(),
                         onValueChange = {
-                            dataModel.updatePortNames(weighted, weighted.copy(weight = it?.toInt() ?: 1))
+                            dataModel.updatePortType(weighted.copy(weight = it?.toInt() ?: 1))
                         },
                         platform = platform,
                     )
 
                     imageButton(
                         onClick = {
-                            dataModel.removePortNames(weighted)
+                            dataModel.removePortType(weighted)
                         },
+                        modifier = Modifier
+                            .align(Alignment.CenterVertically),
                         imageReference = ImageReference.Delete,
                         contentDescription = "Delete",
                         platform = platform
@@ -367,27 +379,260 @@ private fun npcLabels(dataModel: EditViewModel, playbook: Playbook, platform: Pl
         Column(
             modifier = Modifier.weight(1f),
         ) {
-            Text(
-                text = "Part 1:",
+            outlinedButton(
+                onClick = { dataModel.addNpcAdjective(Weighted(1, NpcAdjective(""))) },
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally),
+                content = {
+                    Image(
+                        painter = platform.imagePainter.getPainter(ImageReference.Add),
+                        colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
+                        contentDescription = "Add NPC Adjective",
+                        modifier = Modifier
+                            .width(24.dp)
+                            .align(Alignment.CenterVertically),
+                    )
+                    Text(
+                        text = "Add NPC Adjective",
+                        color = MaterialTheme.colorScheme.onSurface,
+                    )
+                },
             )
-            playbook.npcAdjectives.forEach {
-                Text(
-                    text = it.value,
-                    modifier = Modifier.padding(start = indentPadding),
-                )
+            playbook.npcAdjectives.forEach { weighted ->
+                Row(
+                    modifier = Modifier
+                        .padding(vertical = 4.dp)
+                        .align(Alignment.CenterHorizontally),
+                ) {
+                    textInputWidget(
+                        value = weighted.value.text,
+                        label = "Adjective",
+                        onValueChange = {
+                            dataModel.updateNpcAdjective(Weighted(weighted.weight, weighted.value.copy(text = it)))
+                        },
+                        modifier = Modifier
+                            .weight(1f)
+                            .align(Alignment.CenterVertically),
+                    )
+                    incrementInput(
+                        label = "weight",
+                        modifier = Modifier
+                            .align(Alignment.CenterVertically)
+                            .padding(horizontal = 4.dp),
+                        value = weighted.weight.toLong(),
+                        onValueChange = {
+                            dataModel.updateNpcAdjective(weighted.copy(weight = it?.toInt() ?: 1))
+                        },
+                        platform = platform,
+                    )
+
+                    imageButton(
+                        onClick = {
+                            dataModel.removeNpcAdjective(weighted)
+                        },
+                        modifier = Modifier
+                            .align(Alignment.CenterVertically),
+                        imageReference = ImageReference.Delete,
+                        contentDescription = "Delete",
+                        platform = platform
+                    )
+                }
             }
         }
         Column(
             modifier = Modifier.weight(1f),
         ) {
-            Text(
-                text = "Part 2:",
+            outlinedButton(
+                onClick = { dataModel.addNpcName(Weighted(1, NpcType(""))) },
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally),
+                content = {
+                    Image(
+                        painter = platform.imagePainter.getPainter(ImageReference.Add),
+                        colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
+                        contentDescription = "Add NPC Type",
+                        modifier = Modifier
+                            .width(24.dp)
+                            .align(Alignment.CenterVertically),
+                    )
+                    Text(
+                        text = "Add NPC Type",
+                        color = MaterialTheme.colorScheme.onSurface,
+                    )
+                },
             )
-            playbook.npcTypes.forEach {
-                Text(
-                    text = it.value,
-                    modifier = Modifier.padding(start = indentPadding),
-                )
+            playbook.npcTypes.forEach { weighted ->
+                Row(
+                    modifier = Modifier
+                        .padding(vertical = 4.dp)
+                        .align(Alignment.CenterHorizontally),
+                ) {
+                    textInputWidget(
+                        value = weighted.value.text,
+                        label = "Type",
+                        onValueChange = {
+                            dataModel.updateNpcName(Weighted(weighted.weight, weighted.value.copy(text = it)))
+                        },
+                        modifier = Modifier
+                            .weight(1f)
+                            .align(Alignment.CenterVertically),
+                    )
+                    incrementInput(
+                        label = "weight",
+                        modifier = Modifier
+                            .align(Alignment.CenterVertically)
+                            .padding(horizontal = 4.dp),
+                        value = weighted.weight.toLong(),
+                        onValueChange = {
+                            dataModel.updateNpcName(weighted.copy(weight = it?.toInt() ?: 1))
+                        },
+                        platform = platform,
+                    )
+
+                    imageButton(
+                        onClick = {
+                            dataModel.removeNpcName(weighted)
+                        },
+                        modifier = Modifier
+                            .align(Alignment.CenterVertically),
+                        imageReference = ImageReference.Delete,
+                        contentDescription = "Delete",
+                        platform = platform
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+@OptIn(ExperimentalMaterial3Api::class)
+private fun contractItems(dataModel: EditViewModel, playbook: Playbook, platform: Platform) {
+    Row {
+        Column(
+            modifier = Modifier.weight(1f),
+        ) {
+            outlinedButton(
+                onClick = { dataModel.addContractItem(Weighted(1, ContractItem(""))) },
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally),
+                content = {
+                    Image(
+                        painter = platform.imagePainter.getPainter(ImageReference.Add),
+                        colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
+                        contentDescription = "Add Contract Item",
+                        modifier = Modifier
+                            .width(24.dp)
+                            .align(Alignment.CenterVertically),
+                    )
+                    Text(
+                        text = "Add Contract Item",
+                        color = MaterialTheme.colorScheme.onSurface,
+                    )
+                },
+            )
+            playbook.contractItems.forEach { weighted ->
+                Row(
+                    modifier = Modifier
+                        .padding(vertical = 4.dp)
+                        .align(Alignment.CenterHorizontally),
+                ) {
+                    textInputWidget(
+                        value = weighted.value.name,
+                        label ="Item",
+                        onValueChange = {
+                            dataModel.updateContractItem(Weighted(weighted.weight, weighted.value.copy(name = it)))
+                        },
+                        modifier = Modifier
+                            .weight(1f)
+                            .align(Alignment.CenterVertically),
+                    )
+                    incrementInput(
+                        label = "weight",
+                        modifier = Modifier
+                            .align(Alignment.CenterVertically)
+                            .padding(horizontal = 4.dp),
+                        value = weighted.weight.toLong(),
+                        onValueChange = {
+                            dataModel.updateContractItem(weighted.copy(weight = it?.toInt() ?: 1))
+                        },
+                        platform = platform,
+                    )
+
+                    imageButton(
+                        onClick = {
+                            dataModel.removeContractItem(weighted)
+                        },
+                        modifier = Modifier
+                            .align(Alignment.CenterVertically),
+                        imageReference = ImageReference.Delete,
+                        contentDescription = "Delete",
+                        platform = platform
+                    )
+                }
+            }
+        }
+        Column(
+            modifier = Modifier.weight(1f),
+        ) {
+            outlinedButton(
+                onClick = { dataModel.addContractDestination(Weighted(1, ContractDestination(""))) },
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally),
+                content = {
+                    Image(
+                        painter = platform.imagePainter.getPainter(ImageReference.Add),
+                        colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
+                        contentDescription = "Add Contract Destination",
+                        modifier = Modifier
+                            .width(24.dp)
+                            .align(Alignment.CenterVertically),
+                    )
+                    Text(
+                        text = "Add Contract Destination",
+                        color = MaterialTheme.colorScheme.onSurface,
+                    )
+                },
+            )
+            playbook.contractDestinations.forEach { weighted ->
+                Row(
+                    modifier = Modifier
+                        .padding(vertical = 4.dp)
+                        .align(Alignment.CenterHorizontally),
+                ) {
+                    textInputWidget(
+                        value = weighted.value.name,
+                        label = "Destination",
+                        onValueChange = {
+                            dataModel.updateContractDestination(Weighted(weighted.weight, weighted.value.copy(name = it)))
+                        },
+                        modifier = Modifier
+                            .weight(1f)
+                            .align(Alignment.CenterVertically),
+                    )
+                    incrementInput(
+                        label = "weight",
+                        modifier = Modifier
+                            .align(Alignment.CenterVertically)
+                            .padding(horizontal = 4.dp),
+                        value = weighted.weight.toLong(),
+                        onValueChange = {
+                            dataModel.updateContractDestination(weighted.copy(weight = it?.toInt() ?: 1))
+                        },
+                        platform = platform,
+                    )
+
+                    imageButton(
+                        onClick = {
+                            dataModel.removeContractDestination(weighted)
+                        },
+                        modifier = Modifier
+                            .align(Alignment.CenterVertically),
+                        imageReference = ImageReference.Delete,
+                        contentDescription = "Delete",
+                        platform = platform
+                    )
+                }
             }
         }
     }

@@ -1,7 +1,13 @@
 package com.stilllynnthecloset.outsideusnothing.edit
 
 import com.stilllynnthecloset.liboun.model.Author
+import com.stilllynnthecloset.liboun.model.ContractDestination
+import com.stilllynnthecloset.liboun.model.ContractItem
+import com.stilllynnthecloset.liboun.model.NpcAdjective
+import com.stilllynnthecloset.liboun.model.NpcType
 import com.stilllynnthecloset.liboun.model.Playbook
+import com.stilllynnthecloset.liboun.model.PortAdjective
+import com.stilllynnthecloset.liboun.model.PortType
 import com.stilllynnthecloset.liboun.model.Threat
 import com.stilllynnthecloset.liboun.model.Weighted
 import com.stilllynnthecloset.outsideusnothing.MainDataModel
@@ -33,10 +39,10 @@ internal class EditViewModel constructor(val mainDataModel: MainDataModel, val w
         windowDataModel.openEditPlaybook(playbookUuid, page)
     }
 
-    fun updateThreat(current: Weighted<Threat>, new: Weighted<Threat>) {
+    fun updateThreat(new: Weighted<Threat>) {
         mainDataModel.updatePlaybook(currentPlaybook.copy(
             threats = currentPlaybook.threats.map {
-                if (it.value.uuid == current.value.uuid) {
+                if (it.value.uuid == new.value.uuid) {
                     Weighted(new.weight, it.value.copy(name = new.value.name))
                 } else {
                     it
@@ -61,10 +67,10 @@ internal class EditViewModel constructor(val mainDataModel: MainDataModel, val w
         )
     }
 
-    fun updatePortAdjective(current: Weighted<String>, new: Weighted<String>) {
+    fun updatePortAdjective(new: Weighted<PortAdjective>) {
         mainDataModel.updatePlaybook(currentPlaybook.copy(
             portAdjectives = currentPlaybook.portAdjectives.map {
-                if (it.value == current.value) {
+                if (it.value.uuid == new.value.uuid) {
                     new
                 } else {
                     it
@@ -73,7 +79,7 @@ internal class EditViewModel constructor(val mainDataModel: MainDataModel, val w
         ))
     }
 
-    fun addPortAdjective(new: Weighted<String>) {
+    fun addPortAdjective(new: Weighted<PortAdjective>) {
         mainDataModel.updatePlaybook(
             currentPlaybook.copy(
                 portAdjectives = currentPlaybook.portAdjectives + new
@@ -81,7 +87,7 @@ internal class EditViewModel constructor(val mainDataModel: MainDataModel, val w
         )
     }
 
-    fun removePortAdjective(new: Weighted<String>) {
+    fun removePortAdjective(new: Weighted<PortAdjective>) {
         mainDataModel.updatePlaybook(
             currentPlaybook.copy(
                 portAdjectives = currentPlaybook.portAdjectives - new
@@ -89,11 +95,10 @@ internal class EditViewModel constructor(val mainDataModel: MainDataModel, val w
         )
     }
 
-
-    fun updatePortNames(current: Weighted<String>, new: Weighted<String>) {
+    fun updatePortType(new: Weighted<PortType>) {
         mainDataModel.updatePlaybook(currentPlaybook.copy(
-            portNames = currentPlaybook.portNames.map {
-                if (it.value == current.value) {
+            portTypes = currentPlaybook.portTypes.map {
+                if (it.value.uuid == new.value.uuid) {
                     new
                 } else {
                     it
@@ -102,20 +107,131 @@ internal class EditViewModel constructor(val mainDataModel: MainDataModel, val w
         ))
     }
 
-    fun addPortNames(new: Weighted<String>) {
+    fun addPortType(new: Weighted<PortType>) {
         mainDataModel.updatePlaybook(
             currentPlaybook.copy(
-                portNames = currentPlaybook.portNames + new
+                portTypes = currentPlaybook.portTypes + new
             )
         )
     }
 
-    fun removePortNames(new: Weighted<String>) {
+    fun removePortType(new: Weighted<PortType>) {
         mainDataModel.updatePlaybook(
             currentPlaybook.copy(
-                portNames = currentPlaybook.portNames - new
+                portTypes = currentPlaybook.portTypes - new
             )
         )
     }
 
+    fun updateNpcAdjective(new: Weighted<NpcAdjective>) {
+        mainDataModel.updatePlaybook(currentPlaybook.copy(
+            npcAdjectives = currentPlaybook.npcAdjectives.map {
+                if (it.value.uuid == new.value.uuid) {
+                    new
+                } else {
+                    it
+                }
+            }
+        ))
+    }
+
+    fun addNpcAdjective(new: Weighted<NpcAdjective>) {
+        mainDataModel.updatePlaybook(
+            currentPlaybook.copy(
+                npcAdjectives = currentPlaybook.npcAdjectives + new
+            )
+        )
+    }
+
+    fun removeNpcAdjective(new: Weighted<NpcAdjective>) {
+        mainDataModel.updatePlaybook(
+            currentPlaybook.copy(
+                npcAdjectives = currentPlaybook.npcAdjectives - new
+            )
+        )
+    }
+
+    fun updateNpcName(new: Weighted<NpcType>) {
+        mainDataModel.updatePlaybook(currentPlaybook.copy(
+            npcTypes = currentPlaybook.npcTypes.map {
+                if (it.value.uuid == new.value.uuid) {
+                    new
+                } else {
+                    it
+                }
+            }
+        ))
+    }
+
+    fun addNpcName(new: Weighted<NpcType>) {
+        mainDataModel.updatePlaybook(
+            currentPlaybook.copy(
+                npcTypes = currentPlaybook.npcTypes + new
+            )
+        )
+    }
+
+    fun removeNpcName(new: Weighted<NpcType>) {
+        mainDataModel.updatePlaybook(
+            currentPlaybook.copy(
+                npcTypes = currentPlaybook.npcTypes - new
+            )
+        )
+    }
+
+    fun updateContractItem(new: Weighted<ContractItem>) {
+        mainDataModel.updatePlaybook(currentPlaybook.copy(
+            contractItems = currentPlaybook.contractItems.map {
+                if (it.value.uuid == new.value.uuid) {
+                    new
+                } else {
+                    it
+                }
+            }
+        ))
+    }
+
+    fun addContractItem(new: Weighted<ContractItem>) {
+        mainDataModel.updatePlaybook(
+            currentPlaybook.copy(
+                contractItems = currentPlaybook.contractItems + new
+            )
+        )
+    }
+
+    fun removeContractItem(new: Weighted<ContractItem>) {
+        mainDataModel.updatePlaybook(
+            currentPlaybook.copy(
+                contractItems = currentPlaybook.contractItems - new
+            )
+        )
+    }
+
+    fun updateContractDestination(new: Weighted<ContractDestination>) {
+        mainDataModel.updatePlaybook(currentPlaybook.copy(
+            contractDestinations = currentPlaybook.contractDestinations.map {
+                if (it.value.uuid == new.value.uuid) {
+                    new
+                } else {
+                    it
+                }
+            }
+        ))
+    }
+
+    fun addContractDestination(new: Weighted<ContractDestination>) {
+        mainDataModel.updatePlaybook(
+            currentPlaybook.copy(
+                contractDestinations = currentPlaybook.contractDestinations + new
+            )
+        )
+    }
+
+    fun removeContractDestination(new: Weighted<ContractDestination>) {
+        mainDataModel.updatePlaybook(
+            currentPlaybook.copy(
+                contractDestinations = currentPlaybook.contractDestinations - new
+            )
+        )
+    }
 }
