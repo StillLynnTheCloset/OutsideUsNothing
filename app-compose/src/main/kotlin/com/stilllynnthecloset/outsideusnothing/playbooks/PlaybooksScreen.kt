@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Checkbox
@@ -58,7 +59,7 @@ internal fun PlaybooksScreen(
                             uuid = UUID.randomUUID().toString()
                         )
                         mainDataModel.addPlaybook(playbook)
-                        windowDataModel.openEditPlaybook(playbook)
+                        windowDataModel.openEditPlaybook(playbook.uuid)
                     },
             )
         }
@@ -68,10 +69,11 @@ internal fun PlaybooksScreen(
             ) {
                 Checkbox(
                     checked = playbook.active,
+                    modifier = Modifier
+                        .height(32.dp),
                     enabled = playbook.uuid != Playbook.defaultPlaybook.uuid,
                     onCheckedChange = { dataModel.changePlaybookState(playbook, it) },
                 )
-                playbook.compose(platform, true)
 
                 Image(
                     painter = platform.imagePainter.getPainter(ImageReference.Edit),
@@ -79,13 +81,14 @@ internal fun PlaybooksScreen(
                     alpha = if (playbook.uuid != Playbook.defaultPlaybook.uuid) 1f else 0f,
                     contentDescription = "Edit",
                     modifier = Modifier
-                        .width(24.dp)
                         .align(Alignment.Top)
                         .clickable(
                             enabled = playbook.uuid != Playbook.defaultPlaybook.uuid,
                         ) {
-                            windowDataModel.openEditPlaybook(playbook)
-                        },
+                            windowDataModel.openEditPlaybook(playbook.uuid)
+                        }
+                        .padding(4.dp)
+                        .width(24.dp),
                 )
 
                 Image(
@@ -94,14 +97,17 @@ internal fun PlaybooksScreen(
                     alpha = if (playbook.uuid != Playbook.defaultPlaybook.uuid) 1f else 0f,
                     contentDescription = "Delete",
                     modifier = Modifier
-                        .width(24.dp)
                         .align(Alignment.Top)
                         .clickable(
                             enabled = playbook.uuid != Playbook.defaultPlaybook.uuid,
                         ) {
                             mainDataModel.removePlaybook(playbook)
-                        },
+                        }
+                        .padding(4.dp)
+                        .width(24.dp),
                 )
+
+                playbook.compose(platform, true, modifier = Modifier.padding(start = indentPadding))
             }
         }
     }

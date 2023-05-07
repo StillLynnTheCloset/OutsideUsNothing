@@ -16,9 +16,9 @@ import com.stilllynnthecloset.outsideusnothing.reference.ReferenceDataModel
  *
  * Created by Lynn on 4/14/23
  */
-public class WindowDataModel constructor(private val mainDataModel: MainDataModel) {
+public class WindowDataModel internal constructor(private val mainDataModel: MainDataModel, screen: NavigationDestination) {
     private val backstack = ArrayDeque<NavigationDestination>(5)
-    internal var currentScreen: NavigationDestination by mutableStateOf(NavigationDestination.DiceRoller(DiceRollerDataModel()))
+    internal var currentScreen: NavigationDestination by mutableStateOf(screen)
         private set
 
     internal fun popBackStack() {
@@ -27,8 +27,8 @@ public class WindowDataModel constructor(private val mainDataModel: MainDataMode
 
     internal fun isThereBackstack(): Boolean = backstack.isNotEmpty()
 
-    internal fun openEditPlaybook(playbook: Playbook) {
-        navigate(NavigationAction.NavigateTo(NavigationDestination.EditPlaybook(EditViewModel(mainDataModel, playbook))))
+    internal fun openEditPlaybook(playbookUuid: String, page: PlaybookPage = PlaybookPage.PLAYBOOK) {
+        navigate(NavigationAction.NavigateTo(NavigationDestination.EditPlaybook(EditViewModel(mainDataModel, this, page, playbookUuid))))
     }
 
     internal fun updateCurrentTab(newTab: NavigationTabImpl) {
