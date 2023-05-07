@@ -781,9 +781,9 @@ internal fun Playbook.compose(platform: Platform, listContents: Boolean, modifie
                 wasAnythingShown = true
             }
 
-            if (portNames.isNotEmpty()) {
+            if (portTypes.isNotEmpty()) {
                 Text(
-                    text = "${portNames.size}: Port names",
+                    text = "${portTypes.size}: Port names",
                     fontSize = 12.sp,
                     modifier = Modifier.padding(start = indentPadding * 2),
                 )

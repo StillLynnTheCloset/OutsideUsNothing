@@ -26,12 +26,12 @@ public data class PortOfCallSpecification constructor(
             choices = choices.map { it.randomize() },
             contracts = contracts.toSet().pickAtLeastN(minContracts).map {
                 if (it.description == "GENERATE_REPLACEMENT") {
-                    val npc = "${playbook.npcAdjectives.weightedRandom()} ${playbook.npcTypes.weightedRandom()}"
+                    val npc = "${playbook.npcAdjectives.weightedRandom().text} ${playbook.npcTypes.weightedRandom().text}"
                     val item = playbook.contractItems.weightedRandom().name
                     val destination = if (rollDie(2) == 1) {
                         playbook.contractDestinations.weightedRandom().name
                     } else {
-                        "to ${playbook.portAdjectives.weightedRandom()} ${playbook.portNames.weightedRandom()}"
+                        "to ${playbook.portAdjectives.weightedRandom().text} ${playbook.portTypes.weightedRandom().text}"
                     }
                     val quality = ContractQuality.values().random()
                     it.copy(

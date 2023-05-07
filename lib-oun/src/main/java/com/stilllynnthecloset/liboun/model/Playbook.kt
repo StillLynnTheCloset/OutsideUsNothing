@@ -34,10 +34,10 @@ public data class Playbook constructor(
     val ports: List<Weighted<PortOfCallSpecification>> = emptyList(),
     val threats: List<Weighted<Threat>> = emptyList(),
     val usefulItems: List<Weighted<UsefulItem>> = emptyList(),
-    val npcAdjectives: List<Weighted<String>> = emptyList(),
-    val npcTypes: List<Weighted<String>> = emptyList(),
-    val portAdjectives: List<Weighted<String>> = emptyList(),
-    val portNames: List<Weighted<String>> = emptyList(),
+    val npcAdjectives: List<Weighted<NpcAdjective>> = emptyList(),
+    val npcTypes: List<Weighted<NpcType>> = emptyList(),
+    val portAdjectives: List<Weighted<PortAdjective>> = emptyList(),
+    val portTypes: List<Weighted<PortType>> = emptyList(),
     val contractItems: List<Weighted<ContractItem>> = emptyList(),
     val contractDestinations: List<Weighted<ContractDestination>> = emptyList(),
 ) {
@@ -64,7 +64,7 @@ public data class Playbook constructor(
             npcAdjectives = NamePlaybook.npcNames1,
             npcTypes = NamePlaybook.npcNames2,
             portAdjectives = NamePlaybook.locationNames1,
-            portNames = NamePlaybook.locationNames2,
+            portTypes = NamePlaybook.locationNames2,
             contractItems = ContractItemPlaybook.contractItems,
             contractDestinations = ContractItemPlaybook.contractDestinations,
         )
@@ -75,22 +75,22 @@ public data class Playbook constructor(
             authors = listOf(Author("Lynn")),
             uuid = "0d851b76-3835-4d16-8a92-fb619fe13908",
             npcAdjectives = listOf(
-                Weighted(value = "ancient", weight = 1),
-                Weighted(value = "lost", weight = 1),
-                Weighted(value = "punk", weight = 1),
-                Weighted(value = "twitchy", weight = 1),
-                Weighted(value = "strangely calm", weight = 1),
-                Weighted(value = "extradimensional", weight = 1),
-                Weighted(value = "anteuniversalian", weight = 1),
-                Weighted(value = "entropic", weight = 1),
+                Weighted(value = NpcAdjective("ancient"), weight = 1),
+                Weighted(value = NpcAdjective("lost"), weight = 1),
+                Weighted(value = NpcAdjective("punk"), weight = 1),
+                Weighted(value = NpcAdjective("twitchy"), weight = 1),
+                Weighted(value = NpcAdjective("strangely calm"), weight = 1),
+                Weighted(value = NpcAdjective("extradimensional"), weight = 1),
+                Weighted(value = NpcAdjective("anteuniversalian"), weight = 1),
+                Weighted(value = NpcAdjective("entropic"), weight = 1),
             ),
             npcTypes = listOf(
-                Weighted(value = "cowboy", weight = 1),
-                Weighted(value = "freetraveler", weight = 1),
-                Weighted(value = "mafia", weight = 1),
-                Weighted(value = "spy", weight = 1),
-                Weighted(value = "scientist", weight = 1),
-                Weighted(value = "ancient", weight = 1),
+                Weighted(value = NpcType("cowboy"), weight = 1),
+                Weighted(value = NpcType("freetraveler"), weight = 1),
+                Weighted(value = NpcType("mafia"), weight = 1),
+                Weighted(value = NpcType("spy"), weight = 1),
+                Weighted(value = NpcType("scientist"), weight = 1),
+                Weighted(value = NpcType("ancient"), weight = 1),
             ),
             contractItems = listOf(
                 Weighted(value = ContractItem("a gold poker chip"), weight = 1),
@@ -141,7 +141,7 @@ public data class Playbook constructor(
                                     ),
                                     Question(
                                         question = "Choose one that you're not",
-                                        answers = 2,
+                                        answers = 1,
                                     ),
                                 ),
                                 options = listOf(
@@ -199,7 +199,7 @@ public data class Playbook constructor(
                 ),
             ),
             npcAdjectives = listOf(
-                Weighted(1, "anhedonic"),
+                Weighted(1, NpcAdjective("anhedonic")),
             ),
         )
 
@@ -230,7 +230,7 @@ public data class Playbook constructor(
             npcAdjectives = this.npcAdjectives + other.npcAdjectives,
             npcTypes = this.npcTypes + other.npcTypes,
             portAdjectives = this.portAdjectives + other.portAdjectives,
-            portNames = this.portNames + other.portNames,
+            portTypes = this.portTypes + other.portTypes,
             contractItems = this.contractItems + other.contractItems,
             contractDestinations = this.contractDestinations + other.contractDestinations,
         )

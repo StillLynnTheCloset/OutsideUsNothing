@@ -264,7 +264,7 @@ private fun portName(dataModel: ReferenceDataModel, playbook: Playbook, platform
                 playbook.portAdjectives.forEach {
                     SelectionContainer {
                     Text(
-                        text = it.value,
+                        text = it.value.text,
                         modifier = Modifier.padding(start = indentPadding),
                     )
                 }
@@ -276,10 +276,10 @@ private fun portName(dataModel: ReferenceDataModel, playbook: Playbook, platform
             Text(
                 text = "here:",
             )
-                playbook.portNames.forEach {
+                playbook.portTypes.forEach {
                     SelectionContainer {
                     Text(
-                        text = it.value,
+                        text = it.value.text,
                         modifier = Modifier.padding(start = indentPadding),
                     )
                 }
@@ -307,7 +307,7 @@ private fun npcLabel(dataModel: ReferenceDataModel, playbook: Playbook, platform
                 playbook.npcAdjectives.forEach {
                     SelectionContainer {
                     Text(
-                        text = it.value,
+                        text = it.value.text,
                         modifier = Modifier.padding(start = indentPadding),
                     )
                 }
@@ -322,7 +322,7 @@ private fun npcLabel(dataModel: ReferenceDataModel, playbook: Playbook, platform
                 playbook.npcTypes.forEach {
                     SelectionContainer {
                     Text(
-                        text = it.value,
+                        text = it.value.text,
                         modifier = Modifier.padding(start = indentPadding),
                     )
                 }

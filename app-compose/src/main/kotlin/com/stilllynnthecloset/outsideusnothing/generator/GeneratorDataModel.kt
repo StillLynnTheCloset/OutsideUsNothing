@@ -140,7 +140,7 @@ internal class GeneratorDataModel constructor(private val playbook: Playbook) {
         private set
 
     fun generateLocationName() {
-        generatedLocationName = "${playbook.portAdjectives.weightedRandom()} ${playbook.portNames.weightedRandom()}"
+        generatedLocationName = "${playbook.portAdjectives.weightedRandom().text} ${playbook.portTypes.weightedRandom().text}"
     }
 
     fun clearLocationName() {
@@ -151,7 +151,7 @@ internal class GeneratorDataModel constructor(private val playbook: Playbook) {
         private set
 
     fun generateNpc() {
-        generatedNpc = "${playbook.npcAdjectives.weightedRandom()} ${playbook.npcTypes.weightedRandom()}"
+        generatedNpc = "${playbook.npcAdjectives.weightedRandom().text} ${playbook.npcTypes.weightedRandom().text}"
     }
 
     fun clearNpc() {
