@@ -54,7 +54,7 @@ internal fun PlaybooksScreen(
                         val playbook = Playbook(
                             name = "",
                             description = "",
-                            authors = setOf(),
+                            authors = listOf(),
                             uuid = UUID.randomUUID().toString()
                         )
                         mainDataModel.addPlaybook(playbook)

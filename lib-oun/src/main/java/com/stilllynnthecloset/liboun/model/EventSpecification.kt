@@ -1,6 +1,7 @@
 package com.stilllynnthecloset.liboun.model
 
 import kotlinx.serialization.Serializable
+import java.util.UUID
 
 /**
  * EventSpecification - TODO: Documentation
@@ -13,6 +14,7 @@ public data class EventSpecification constructor(
     val description: String,
     val choices: Collection<ChoiceSpecification>,
     val consequences: Collection<Consequence>,
+    val uuid: String = UUID.randomUUID().toString(),
 ) {
     public fun randomize(): Event {
         return Event(

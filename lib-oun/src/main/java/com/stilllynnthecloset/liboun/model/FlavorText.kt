@@ -1,6 +1,7 @@
 package com.stilllynnthecloset.liboun.model
 
 import kotlinx.serialization.Serializable
+import java.util.UUID
 
 /**
  * FlavorText - TODO: Documentation
@@ -11,4 +12,5 @@ import kotlinx.serialization.Serializable
 public data class FlavorText constructor(
     val text: String,
     val attribution: String,
+    val uuid: String = UUID.randomUUID().toString(),
 )

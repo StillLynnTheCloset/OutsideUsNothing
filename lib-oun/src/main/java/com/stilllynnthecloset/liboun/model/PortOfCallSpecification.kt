@@ -4,6 +4,7 @@ import com.stilllynnthecloset.liboun.pickAtLeastN
 import com.stilllynnthecloset.liboun.rollDie
 import com.stilllynnthecloset.liboun.weightedRandom
 import kotlinx.serialization.Serializable
+import java.util.UUID
 
 /**
  * PortOfCallSpecification - TODO: Documentation
@@ -17,6 +18,7 @@ public data class PortOfCallSpecification constructor(
     val choices: Collection<ChoiceSpecification>,
     val contracts: Collection<ContractSpecification>,
     val minContracts: Int,
+    val uuid: String = UUID.randomUUID().toString(),
 ) {
     public fun randomize(playbook: Playbook): PortOfCall {
         return PortOfCall(

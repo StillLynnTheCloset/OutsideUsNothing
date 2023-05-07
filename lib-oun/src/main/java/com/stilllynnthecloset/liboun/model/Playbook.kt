@@ -22,7 +22,7 @@ import kotlinx.serialization.Serializable
 public data class Playbook constructor(
     val name: String,
     val description: String,
-    val authors: Set<Author>,
+    val authors: List<Author>,
     val uuid: String,
     val active: Boolean = true,
     val aliens: List<Weighted<PlaySheetSpecification>> = emptyList(),
@@ -50,7 +50,7 @@ public data class Playbook constructor(
         public val defaultPlaybook: Playbook = Playbook(
             name = "Vanilla Outside Us Nothing",
             description = "The default playbook of Outside Us Nothing",
-            authors = setOf(Author("Sable Sy")),
+            authors = listOf(Author("Sable Sy")),
             uuid = DEFAULT_PLAYBOOK_UUID,
             aliens = AlienPlaybook.aliens,
             backgrounds = BackgroundPlaybook.backgrounds,
@@ -72,7 +72,7 @@ public data class Playbook constructor(
         public val lynnsPlaybook: Playbook = Playbook(
             name = "Lynn's Cool Homebrew",
             description = "Some fun things I wanted to add",
-            authors = setOf(Author("Lynn")),
+            authors = listOf(Author("Lynn")),
             uuid = "0d851b76-3835-4d16-8a92-fb619fe13908",
             npcAdjectives = listOf(
                 Weighted(value = "ancient", weight = 1),
@@ -102,7 +102,7 @@ public data class Playbook constructor(
         public val wolf: Playbook = Playbook(
             name = "Allie’s Playable Anhedonic Wolf add-on",
             description = "Be a wolf! Don't enjoy anything!",
-            authors = setOf(
+            authors = listOf(
                 Author(
                     name = "Allie",
                 ),
@@ -206,7 +206,7 @@ public data class Playbook constructor(
         public val emptyPlaybook: Playbook = Playbook(
             name = "Empty",
             description = "An empty playbook, for testing",
-            authors = setOf(),
+            authors = listOf(),
             uuid = "2a9e7353-707f-44f1-a22d-a9687f1457d6",
         )
     }
@@ -215,7 +215,7 @@ public data class Playbook constructor(
         return Playbook(
             name = MERGED_PLAYBOOKS_NAME,
             description = MERGED_PLAYBOOKS_DESCRIPTION,
-            authors = this.authors.toSet() + other.authors,
+            authors = (this.authors.toSet() + other.authors).toList(),
             uuid = MERGED_PLAYBOOKS_UUID,
             active = this.active || other.active,
             aliens = this.aliens + other.aliens,

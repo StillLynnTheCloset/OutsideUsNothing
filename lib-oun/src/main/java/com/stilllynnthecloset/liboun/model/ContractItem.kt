@@ -1,6 +1,7 @@
 package com.stilllynnthecloset.liboun.model
 
 import kotlinx.serialization.Serializable
+import java.util.UUID
 
 /**
  * ContractItem - TODO: Documentation
@@ -10,4 +11,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 public data class ContractItem constructor(
     val name: String,
+    val uuid: String = UUID.randomUUID().toString(),
 )

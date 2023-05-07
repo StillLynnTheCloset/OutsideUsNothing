@@ -1,6 +1,7 @@
 package com.stilllynnthecloset.liboun.model
 
 import kotlinx.serialization.Serializable
+import java.util.UUID
 
 /**
  * UsefulItem - TODO: Documentation
@@ -11,4 +12,5 @@ import kotlinx.serialization.Serializable
 public data class UsefulItem constructor(
     val name: String,
     val action: Action,
+    val uuid: String = UUID.randomUUID().toString(),
 )
