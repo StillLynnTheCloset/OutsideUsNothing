@@ -1,20 +1,11 @@
 package com.stilllynnthecloset.outsideusnothing.playbooks
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.material3.Checkbox
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.stilllynnthecloset.liboun.model.Playbook
 import com.stilllynnthecloset.outsideusnothing.MainDataModel
@@ -23,6 +14,7 @@ import com.stilllynnthecloset.outsideusnothing.WindowDataModel
 import com.stilllynnthecloset.outsideusnothing.compose
 import com.stilllynnthecloset.outsideusnothing.indentPadding
 import com.stilllynnthecloset.outsideusnothing.theme.ImageReference
+import com.stilllynnthecloset.outsideusnothing.theme.imageButton
 import java.util.UUID
 
 /**
@@ -44,67 +36,54 @@ internal fun PlaybooksScreen(
                 fontSize = 32.sp,
             )
 
-            Image(
-                painter = platform.imagePainter.getPainter(ImageReference.Add),
-                colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
+            imageButton(
+                onClick = {
+                    val playbook = Playbook(
+                        name = "",
+                        description = "",
+                        authors = listOf(),
+                        uuid = UUID.randomUUID().toString()
+                    )
+                    mainDataModel.addPlaybook(playbook)
+                    windowDataModel.openEditPlaybook(playbook.uuid)
+                },
                 contentDescription = "Add",
-                modifier = Modifier
-                    .width(24.dp)
-                    .align(Alignment.Top)
-                    .clickable {
-                        val playbook = Playbook(
-                            name = "",
-                            description = "",
-                            authors = listOf(),
-                            uuid = UUID.randomUUID().toString()
-                        )
-                        mainDataModel.addPlaybook(playbook)
-                        windowDataModel.openEditPlaybook(playbook.uuid)
-                    },
+                imageReference = ImageReference.Add,
+                platform = platform,
             )
         }
         dataModel.mainDataModel.playbooks.forEach { playbook ->
             Row(
                 modifier = Modifier.padding(start = indentPadding),
             ) {
-                Checkbox(
-                    checked = playbook.active,
-                    modifier = Modifier
-                        .height(32.dp),
+                imageButton(
+                    onClick = {
+                        dataModel.changePlaybookState(playbook, !playbook.active)
+                    },
                     enabled = playbook.uuid != Playbook.defaultPlaybook.uuid,
-                    onCheckedChange = { dataModel.changePlaybookState(playbook, it) },
+                    contentDescription = "Active",
+                    imageReference = if (playbook.active) ImageReference.RadioButtonChecked else ImageReference.RadioButtonUnchecked,
+                    platform = platform,
                 )
 
-                Image(
-                    painter = platform.imagePainter.getPainter(ImageReference.Edit),
-                    colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
-                    alpha = if (playbook.uuid != Playbook.defaultPlaybook.uuid) 1f else 0f,
+                imageButton(
+                    onClick = {
+                        windowDataModel.openEditPlaybook(playbook.uuid)
+                    },
+                    enabled = playbook.uuid != Playbook.defaultPlaybook.uuid,
                     contentDescription = "Edit",
-                    modifier = Modifier
-                        .align(Alignment.Top)
-                        .clickable(
-                            enabled = playbook.uuid != Playbook.defaultPlaybook.uuid,
-                        ) {
-                            windowDataModel.openEditPlaybook(playbook.uuid)
-                        }
-                        .padding(4.dp)
-                        .width(24.dp),
+                    imageReference = ImageReference.Edit,
+                    platform = platform,
                 )
 
-                Image(
-                    painter = platform.imagePainter.getPainter(ImageReference.Delete),
-                    colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
-                    alpha = if (playbook.uuid != Playbook.defaultPlaybook.uuid) 1f else 0f,
+                imageButton(
+                    onClick = {
+                        mainDataModel.removePlaybook(playbook)
+                    },
+                    enabled = playbook.uuid != Playbook.defaultPlaybook.uuid,
                     contentDescription = "Delete",
-                    modifier = Modifier
-                        .align(Alignment.Top)
-                        .clickable(
-                            enabled = playbook.uuid != Playbook.defaultPlaybook.uuid,
-                        ) {
-                            mainDataModel.removePlaybook(playbook)
-                        }
-                        .padding(4.dp)
-                        .width(24.dp),
+                    imageReference = ImageReference.Delete,
+                    platform = platform,
                 )
 
                 playbook.compose(platform, true, modifier = Modifier.padding(start = indentPadding))

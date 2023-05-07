@@ -31,6 +31,7 @@ import com.stilllynnthecloset.outsideusnothing.PlaybookPage
 import com.stilllynnthecloset.outsideusnothing.compose
 import com.stilllynnthecloset.outsideusnothing.indentPadding
 import com.stilllynnthecloset.outsideusnothing.theme.ImageReference
+import com.stilllynnthecloset.outsideusnothing.theme.imageButton
 import com.stilllynnthecloset.outsideusnothing.theme.incrementInput
 import com.stilllynnthecloset.outsideusnothing.theme.textInputWidget
 
@@ -201,6 +202,12 @@ private fun bastards(dataModel: EditViewModel, playbook: Playbook, platform: Pla
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
 private fun threats(dataModel: EditViewModel, playbook: Playbook, platform: Platform) {
+    imageButton(
+        onClick = { dataModel.addThreat(Weighted(1, Threat(""))) },
+        contentDescription = "Add",
+        imageReference = ImageReference.Add,
+        platform = platform,
+    )
     playbook.threats.forEach { weighted ->
         Row {
             TextField(
@@ -234,16 +241,6 @@ private fun threats(dataModel: EditViewModel, playbook: Playbook, platform: Plat
             )
         }
     }
-    TextField(
-        value = "",
-        label = {},
-        onValueChange = {
-            if (it.isNotBlank()) {
-                dataModel.addThreat(Weighted(1, Threat(it)))
-            }
-        },
-        modifier = Modifier,
-    )
 }
 
 @Composable
