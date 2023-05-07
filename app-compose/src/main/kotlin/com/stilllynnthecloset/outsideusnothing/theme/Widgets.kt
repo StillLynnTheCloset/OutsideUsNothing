@@ -45,6 +45,7 @@ import androidx.compose.ui.Alignment.Companion.TopStart
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
@@ -187,11 +188,13 @@ internal fun outlinedButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
+    shape: Shape = MaterialTheme.shapes.small,
     content: @Composable RowScope.() -> Unit,
 ): Unit = OutlinedButton(
     onClick = onClick,
     modifier = modifier
         .height(inputHeight),
+    shape = shape,
     enabled = enabled,
     content = content,
 )

@@ -1,4 +1,3 @@
-
 package com.stilllynnthecloset.outsideusnothing.edit
 
 import androidx.compose.foundation.Image
@@ -11,7 +10,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -33,7 +31,7 @@ import com.stilllynnthecloset.outsideusnothing.indentPadding
 import com.stilllynnthecloset.outsideusnothing.theme.ImageReference
 import com.stilllynnthecloset.outsideusnothing.theme.imageButton
 import com.stilllynnthecloset.outsideusnothing.theme.incrementInput
-import com.stilllynnthecloset.outsideusnothing.theme.textInputWidget
+import com.stilllynnthecloset.outsideusnothing.theme.outlinedButton
 
 /**
  * EditScreen - TODO: Documentation
@@ -202,17 +200,29 @@ private fun bastards(dataModel: EditViewModel, playbook: Playbook, platform: Pla
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
 private fun threats(dataModel: EditViewModel, playbook: Playbook, platform: Platform) {
-    imageButton(
+    outlinedButton(
         onClick = { dataModel.addThreat(Weighted(1, Threat(""))) },
-        contentDescription = "Add",
-        imageReference = ImageReference.Add,
-        platform = platform,
+        modifier = Modifier,
+        content = {
+            Image(
+                painter = platform.imagePainter.getPainter(ImageReference.Add),
+                colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
+                contentDescription = "Add Threat",
+                modifier = Modifier
+                    .width(24.dp)
+                    .align(Alignment.CenterVertically),
+            )
+            Text(
+                "Add Threat",
+                color = MaterialTheme.colorScheme.onSurface,
+            )
+        },
     )
     playbook.threats.forEach { weighted ->
         Row {
             TextField(
                 value = weighted.value.name,
-                label = {},
+                label = { Text(text = "Threat") },
                 onValueChange = {
                     dataModel.updateThreat(weighted, Weighted(weighted.weight, Threat(it, weighted.value.uuid)))
                 },
@@ -227,17 +237,13 @@ private fun threats(dataModel: EditViewModel, playbook: Playbook, platform: Plat
                 },
                 platform = platform,
             )
-            Image(
-                painter = platform.imagePainter.getPainter(ImageReference.Delete),
-                colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
+            imageButton(
+                onClick = {
+                    dataModel.removeThreat(weighted)
+                },
+                imageReference = ImageReference.Delete,
                 contentDescription = "Delete",
-                modifier = Modifier
-                    .padding(8.dp)
-                    .width(24.dp)
-                    .align(Alignment.Top)
-                    .clickable {
-                        dataModel.removeThreat(weighted)
-                    },
+                platform = platform
             )
         }
     }
