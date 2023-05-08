@@ -14,8 +14,7 @@ public class MainDataModel public constructor() {
     internal var mergedPlaybook: Playbook by mutableStateOf(Playbook.defaultPlaybook)
         private set
 
-    internal var playbooks: List<Playbook> by mutableStateOf(emptyList())
-        private set
+    private var playbooks: List<Playbook> by mutableStateOf(emptyList())
 
     public var windows: List<WindowDataModel> by mutableStateOf(listOf(WindowDataModel(this, NavigationDestination.DiceRoller(DiceRollerDataModel()))))
         private set
@@ -23,7 +22,6 @@ public class MainDataModel public constructor() {
     init {
         updatePlaybooks( // TODO: Replace with load from DB.
             listOf(
-                Playbook.defaultPlaybook,
                 Playbook.lynnsPlaybook,
                 Playbook.wolf,
                 Playbook.emptyPlaybook,
@@ -37,7 +35,7 @@ public class MainDataModel public constructor() {
 
     internal fun updatePlaybooks(playbooks: List<Playbook>) {
         this.playbooks = playbooks
-        this.mergedPlaybook = playbooks.mapNotNull { if (it.active) it else null }.reduce { a, b -> a + b }
+        this.mergedPlaybook = getPlaybooks().mapNotNull { if (it.active) it else null }.reduce { a, b -> a + b }
     }
 
     internal fun setPlaybookState(playbook: Playbook, active: Boolean) {
@@ -72,6 +70,10 @@ public class MainDataModel public constructor() {
                 if (it.uuid == playbook.uuid) { null } else { it }
             },
         )
+    }
+
+    internal fun getPlaybooks(): Collection<Playbook> {
+        return listOf(Playbook.defaultPlaybook) + playbooks
     }
 
     public fun openWindow() {

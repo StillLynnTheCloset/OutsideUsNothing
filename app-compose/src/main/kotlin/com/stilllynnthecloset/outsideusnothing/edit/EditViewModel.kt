@@ -21,7 +21,7 @@ import com.stilllynnthecloset.outsideusnothing.WindowDataModel
  */
 internal class EditViewModel constructor(val mainDataModel: MainDataModel, val windowDataModel: WindowDataModel, val currentPage: PlaybookPage, val playbookUuid: String) {
     val currentPlaybook: Playbook
-        get() = mainDataModel.playbooks.first { it.uuid == playbookUuid }
+        get() = mainDataModel.getPlaybooks().first { it.uuid == playbookUuid }
 
     fun onNameChanged(newValue: String) {
         mainDataModel.updatePlaybook(currentPlaybook.copy(name = newValue))

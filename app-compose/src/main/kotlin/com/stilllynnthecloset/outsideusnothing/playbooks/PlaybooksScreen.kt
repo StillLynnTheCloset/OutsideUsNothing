@@ -52,7 +52,7 @@ internal fun PlaybooksScreen(
                 platform = platform,
             )
         }
-        dataModel.mainDataModel.playbooks.forEach { playbook ->
+        dataModel.mainDataModel.getPlaybooks().forEach { playbook ->
             Row(
                 modifier = Modifier.padding(start = indentPadding),
             ) {
@@ -70,7 +70,6 @@ internal fun PlaybooksScreen(
                     onClick = {
                         windowDataModel.openEditPlaybook(playbook.uuid)
                     },
-                    enabled = playbook.uuid != Playbook.defaultPlaybook.uuid,
                     contentDescription = "Edit",
                     imageReference = ImageReference.Edit,
                     platform = platform,

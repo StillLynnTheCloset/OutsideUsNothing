@@ -24,7 +24,7 @@ public data class Playbook constructor(
     val description: String,
     val authors: List<Author>,
     val uuid: String,
-    val active: Boolean = true,
+    val active: Boolean = false,
     val aliens: List<Weighted<PlaySheetSpecification>> = emptyList(),
     val backgrounds: List<Weighted<PlaySheetSpecification>> = emptyList(),
     val roles: List<Weighted<PlaySheetSpecification>> = emptyList(),
@@ -44,14 +44,15 @@ public data class Playbook constructor(
     public companion object {
         private const val DEFAULT_PLAYBOOK_UUID: String = "bd656fa0-b460-4cf3-852a-d5c7730d0028"
         private const val MERGED_PLAYBOOKS_UUID: String = "5c63c40a-05c9-49ff-acfd-2a933c4b2c6f"
-        private const val MERGED_PLAYBOOKS_NAME: String = "5c63c40a-05c9-49ff-acfd-2a933c4b2c6f"
-        private const val MERGED_PLAYBOOKS_DESCRIPTION: String = "5c63c40a-05c9-49ff-acfd-2a933c4b2c6f"
+        private const val MERGED_PLAYBOOKS_NAME: String = "Merged Playbook"
+        private const val MERGED_PLAYBOOKS_DESCRIPTION: String = "A playbook that is the merger of all active playbooks"
 
         public val defaultPlaybook: Playbook = Playbook(
             name = "Vanilla Outside Us Nothing",
             description = "The default playbook of Outside Us Nothing",
             authors = listOf(Author("Sable Sy")),
             uuid = DEFAULT_PLAYBOOK_UUID,
+            active = true,
             aliens = AlienPlaybook.aliens,
             backgrounds = BackgroundPlaybook.backgrounds,
             roles = RolePlaybook.roles,
@@ -74,29 +75,34 @@ public data class Playbook constructor(
             description = "Some fun things I wanted to add",
             authors = listOf(Author("Lynn")),
             uuid = "0d851b76-3835-4d16-8a92-fb619fe13908",
+            active = false,
             npcAdjectives = listOf(
-                Weighted(value = NpcAdjective("ancient"), weight = 1),
-                Weighted(value = NpcAdjective("lost"), weight = 1),
-                Weighted(value = NpcAdjective("punk"), weight = 1),
-                Weighted(value = NpcAdjective("twitchy"), weight = 1),
-                Weighted(value = NpcAdjective("strangely calm"), weight = 1),
-                Weighted(value = NpcAdjective("extradimensional"), weight = 1),
-                Weighted(value = NpcAdjective("anteuniversalian"), weight = 1),
-                Weighted(value = NpcAdjective("entropic"), weight = 1),
+                Weighted(weight = 1, value = NpcAdjective("ancient")),
+                Weighted(weight = 1, value = NpcAdjective("lost")),
+                Weighted(weight = 1, value = NpcAdjective("punk")),
+                Weighted(weight = 1, value = NpcAdjective("twitchy")),
+                Weighted(weight = 1, value = NpcAdjective("strangely calm")),
+                Weighted(weight = 1, value = NpcAdjective("extradimensional")),
+                Weighted(weight = 1, value = NpcAdjective("anteuniversalian")),
+                Weighted(weight = 1, value = NpcAdjective("entropic")),
+                Weighted(weight = 1, value = NpcAdjective("memetic")),
             ),
             npcTypes = listOf(
-                Weighted(value = NpcType("cowboy"), weight = 1),
-                Weighted(value = NpcType("freetraveler"), weight = 1),
-                Weighted(value = NpcType("mafia"), weight = 1),
-                Weighted(value = NpcType("spy"), weight = 1),
-                Weighted(value = NpcType("scientist"), weight = 1),
-                Weighted(value = NpcType("ancient"), weight = 1),
+                Weighted(weight = 1, value = NpcType("cowboy")),
+                Weighted(weight = 1, value = NpcType("freetraveler")),
+                Weighted(weight = 1, value = NpcType("mafia")),
+                Weighted(weight = 1, value = NpcType("spy")),
+                Weighted(weight = 1, value = NpcType("scientist")),
+                Weighted(weight = 1, value = NpcType("ancient")),
             ),
             contractItems = listOf(
-                Weighted(value = ContractItem("a gold poker chip"), weight = 1),
-                Weighted(value = ContractItem("a family heirloom"), weight = 1),
-                Weighted(value = ContractItem("a sealed envelope"), weight = 1),
+                Weighted(weight = 1, value = ContractItem("a platinum poker chip")),
+                Weighted(weight = 1, value = ContractItem("a family heirloom")),
+                Weighted(weight = 1, value = ContractItem("a sealed envelope")),
             ),
+            contractDestinations = listOf(
+                Weighted(weight = 1, value = ContractDestination("a casino")),
+            )
         )
 
         public val wolf: Playbook = Playbook(
@@ -107,9 +113,11 @@ public data class Playbook constructor(
                     name = "Allie",
                 ),
             ),
+            active = false,
             uuid = "8df3484f-bda9-42d7-babc-70edf9ddc667",
             aliens = listOf(
                 Weighted(
+                    weight = 1,
                     value = PlaySheetSpecification(
                         name = "Anhedonic Wolf",
                         description = "Anhedonic Wolves are a race of large bipedal Canidae. Their origins aren't strictly known, and the story varies wildly. Depending on who you ask you might hear tales of a long lost Terre generational ship where the occupants found aboard had become far removed from their ancestors. Other's tell stories of immoral  corporate gene-splicing experiments. Whatever the truth is, the one thing we know about them for certain is their lack of positive emotions. Happiness, it seems, is lost to them.",
@@ -195,11 +203,13 @@ public data class Playbook constructor(
                             ),
                         ),
                     ),
-                    weight = 1,
                 ),
             ),
             npcAdjectives = listOf(
-                Weighted(1, NpcAdjective("anhedonic")),
+                Weighted(weight = 1, value = NpcAdjective("anhedonic")),
+            ),
+            npcTypes = listOf(
+                Weighted(weight = 1, value =  NpcType("wolf")),
             ),
         )
 
@@ -207,6 +217,7 @@ public data class Playbook constructor(
             name = "Empty",
             description = "An empty playbook, for testing",
             authors = listOf(),
+            active = false,
             uuid = "2a9e7353-707f-44f1-a22d-a9687f1457d6",
         )
     }
