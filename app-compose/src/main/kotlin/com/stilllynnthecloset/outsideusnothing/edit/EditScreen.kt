@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
@@ -19,8 +20,10 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.stilllynnthecloset.liboun.model.Bastard
 import com.stilllynnthecloset.liboun.model.ContractDestination
 import com.stilllynnthecloset.liboun.model.ContractItem
+import com.stilllynnthecloset.liboun.model.FlavorText
 import com.stilllynnthecloset.liboun.model.NpcAdjective
 import com.stilllynnthecloset.liboun.model.NpcType
 import com.stilllynnthecloset.liboun.model.Playbook
@@ -175,10 +178,79 @@ private fun usefulItems(dataModel: EditViewModel, playbook: Playbook, platform: 
 }
 
 @Composable
-private fun bastards(dataModel: EditViewModel, playbook: Playbook, platform: Platform) {
-    playbook.bastards.forEach {
-        it.value.compose(platform, Modifier.padding(start = indentPadding))
-
+private fun ColumnScope.bastards(dataModel: EditViewModel, playbook: Playbook, platform: Platform) {
+    outlinedButton(
+        onClick = { dataModel.addBastard(Weighted(1, Bastard("", ""))) },
+        modifier = Modifier
+            .align(Alignment.CenterHorizontally),
+        content = {
+            Image(
+                painter = platform.imagePainter.getPainter(ImageReference.Add),
+                colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
+                contentDescription = "Add Bastard",
+                modifier = Modifier
+                    .width(24.dp)
+                    .align(Alignment.CenterVertically),
+            )
+            Text(
+                text = "Add Bastard",
+                color = MaterialTheme.colorScheme.onSurface,
+            )
+        },
+    )
+    playbook.bastards.forEach { weighted ->
+        Row(
+            modifier = Modifier
+                .padding(vertical = 4.dp)
+                .align(Alignment.CenterHorizontally),
+        ) {
+            Column(
+                modifier = Modifier
+                    .align(Alignment.CenterVertically)
+                    .weight(1f),
+            ) {
+                textInputWidget(
+                    value = weighted.value.name,
+                    label = "Name",
+                    onValueChange = {
+                        dataModel.updateBastard(Weighted(weighted.weight, weighted.value.copy(name = it)))
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                )
+                textInputWidget(
+                    value = weighted.value.description,
+                    label = "Description",
+                    onValueChange = {
+                        dataModel.updateBastard(Weighted(weighted.weight, weighted.value.copy(description = it)))
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                )
+            }
+            incrementInput(
+                label = "weight",
+                modifier = Modifier
+                    .align(Alignment.CenterVertically)
+                    .padding(horizontal = 4.dp),
+                value = weighted.weight.toLong(),
+                width = 100.dp,
+                onValueChange = {
+                    dataModel.updateBastard(weighted.copy(weight = it?.toInt() ?: 1))
+                },
+                platform = platform,
+            )
+            imageButton(
+                onClick = {
+                    dataModel.removeBastard(weighted)
+                },
+                modifier = Modifier
+                    .align(Alignment.CenterVertically),
+                imageReference = ImageReference.Delete,
+                contentDescription = "Delete",
+                platform = platform,
+            )
+        }
     }
 }
 
@@ -648,8 +720,78 @@ private fun contractItems(dataModel: EditViewModel, playbook: Playbook, platform
 }
 
 @Composable
-private fun flavorTexts(dataModel: EditViewModel, playbook: Playbook, platform: Platform) {
-    playbook.flavorTexts.forEach {
-        it.value.compose(platform, Modifier.padding(start = indentPadding))
+private fun ColumnScope.flavorTexts(dataModel: EditViewModel, playbook: Playbook, platform: Platform) {
+    outlinedButton(
+        onClick = { dataModel.addFlavorText(Weighted(1, FlavorText("", ""))) },
+        modifier = Modifier
+            .align(Alignment.CenterHorizontally),
+        content = {
+            Image(
+                painter = platform.imagePainter.getPainter(ImageReference.Add),
+                colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
+                contentDescription = "Add Flavor Text",
+                modifier = Modifier
+                    .width(24.dp)
+                    .align(Alignment.CenterVertically),
+            )
+            Text(
+                text = "Add Flavor Text",
+                color = MaterialTheme.colorScheme.onSurface,
+            )
+        },
+    )
+    playbook.flavorTexts.forEach { weighted ->
+        Row(
+            modifier = Modifier
+                .padding(vertical = 4.dp)
+                .align(Alignment.CenterHorizontally),
+        ) {
+            Column(
+                modifier = Modifier
+                    .align(Alignment.CenterVertically)
+                    .weight(1f),
+            ) {
+                textInputWidget(
+                    value = weighted.value.text,
+                    label = "Text",
+                    onValueChange = {
+                        dataModel.updateFlavorText(Weighted(weighted.weight, weighted.value.copy(text = it)))
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                )
+                textInputWidget(
+                    value = weighted.value.attribution,
+                    label = "Attribution",
+                    onValueChange = {
+                        dataModel.updateFlavorText(Weighted(weighted.weight, weighted.value.copy(attribution = it)))
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                )
+            }
+            incrementInput(
+                label = "weight",
+                modifier = Modifier
+                    .align(Alignment.CenterVertically)
+                    .padding(horizontal = 4.dp),
+                value = weighted.weight.toLong(),
+                width = 100.dp,
+                onValueChange = {
+                    dataModel.updateFlavorText(weighted.copy(weight = it?.toInt() ?: 1))
+                },
+                platform = platform,
+            )
+            imageButton(
+                onClick = {
+                    dataModel.removeFlavorText(weighted)
+                },
+                modifier = Modifier
+                    .align(Alignment.CenterVertically),
+                imageReference = ImageReference.Delete,
+                contentDescription = "Delete",
+                platform = platform,
+            )
+        }
     }
 }

@@ -1,8 +1,10 @@
 package com.stilllynnthecloset.outsideusnothing.edit
 
 import com.stilllynnthecloset.liboun.model.Author
+import com.stilllynnthecloset.liboun.model.Bastard
 import com.stilllynnthecloset.liboun.model.ContractDestination
 import com.stilllynnthecloset.liboun.model.ContractItem
+import com.stilllynnthecloset.liboun.model.FlavorText
 import com.stilllynnthecloset.liboun.model.NpcAdjective
 import com.stilllynnthecloset.liboun.model.NpcType
 import com.stilllynnthecloset.liboun.model.Playbook
@@ -245,6 +247,66 @@ internal class EditViewModel constructor(private val mainDataModel: MainDataMode
         mainDataModel.updatePlaybook(
             currentPlaybook.copy(
                 contractDestinations = currentPlaybook.contractDestinations - new,
+            ),
+        )
+    }
+
+    fun updateFlavorText(new: Weighted<FlavorText>) {
+        mainDataModel.updatePlaybook(
+            currentPlaybook.copy(
+                flavorTexts = currentPlaybook.flavorTexts.map {
+                    if (it.value.uuid == new.value.uuid) {
+                        new
+                    } else {
+                        it
+                    }
+                },
+            ),
+        )
+    }
+
+    fun addFlavorText(new: Weighted<FlavorText>) {
+        mainDataModel.updatePlaybook(
+            currentPlaybook.copy(
+                flavorTexts = currentPlaybook.flavorTexts + new,
+            ),
+        )
+    }
+
+    fun removeFlavorText(new: Weighted<FlavorText>) {
+        mainDataModel.updatePlaybook(
+            currentPlaybook.copy(
+                flavorTexts = currentPlaybook.flavorTexts - new,
+            ),
+        )
+    }
+
+    fun updateBastard(new: Weighted<Bastard>) {
+        mainDataModel.updatePlaybook(
+            currentPlaybook.copy(
+                bastards = currentPlaybook.bastards.map {
+                    if (it.value.uuid == new.value.uuid) {
+                        new
+                    } else {
+                        it
+                    }
+                },
+            ),
+        )
+    }
+
+    fun addBastard(new: Weighted<Bastard>) {
+        mainDataModel.updatePlaybook(
+            currentPlaybook.copy(
+                bastards = currentPlaybook.bastards + new,
+            ),
+        )
+    }
+
+    fun removeBastard(new: Weighted<Bastard>) {
+        mainDataModel.updatePlaybook(
+            currentPlaybook.copy(
+                bastards = currentPlaybook.bastards - new,
             ),
         )
     }
