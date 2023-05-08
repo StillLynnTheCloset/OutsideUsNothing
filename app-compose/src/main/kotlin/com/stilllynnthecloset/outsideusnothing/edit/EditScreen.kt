@@ -4,7 +4,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -81,23 +80,22 @@ internal fun EditScreen(dataModel: EditViewModel, platform: Platform) {
 }
 
 @Composable
-@OptIn(ExperimentalMaterial3Api::class)
 private fun ColumnScope.playbookPage(dataModel: EditViewModel, platform: Platform) {
-    TextField(
+    textInputWidget(
         value = dataModel.currentPlaybook.name,
-        label = { Text("Name") },
+        label = "Name",
         modifier = Modifier.padding(8.dp),
         onValueChange = dataModel::onNameChanged,
     )
-    TextField(
+    textInputWidget(
         value = dataModel.currentPlaybook.description,
-        label = { Text("Description") },
+        label = "Description",
         modifier = Modifier.padding(8.dp),
         onValueChange = dataModel::onDescriptionChanged,
     )
-    TextField(
+    textInputWidget(
         value = dataModel.currentPlaybook.authors.joinToString(",") { it.name },
-        label = { Text("Authors") },
+        label = "Authors",
         modifier = Modifier.padding(8.dp),
         onValueChange = dataModel::onAuthorsChanged,
     )
@@ -105,7 +103,7 @@ private fun ColumnScope.playbookPage(dataModel: EditViewModel, platform: Platfor
     PlaybookPage.values().forEach {
         if (it != PlaybookPage.PLAYBOOK) {
             Text(
-                text = it.humanReadable,
+                text = "${it.humanReadable}: ${getCountForPage(dataModel.currentPlaybook, it)}",
                 fontSize = 32.sp,
                 modifier = Modifier
                     .align(Alignment.Start)
@@ -118,8 +116,25 @@ private fun ColumnScope.playbookPage(dataModel: EditViewModel, platform: Platfor
     }
 }
 
+private fun getCountForPage(playbook: Playbook, page: PlaybookPage): Int {
+    return when (page) {
+        PlaybookPage.PLAYBOOK -> 0
+        PlaybookPage.ALIEN -> playbook.aliens.size
+        PlaybookPage.BACKGROUND -> playbook.backgrounds.size
+        PlaybookPage.ROLE -> playbook.roles.size
+        PlaybookPage.PORT -> playbook.ports.size
+        PlaybookPage.EVENT -> playbook.events.size
+        PlaybookPage.CONTRACT_ITEM -> playbook.contractItems.size + playbook.contractDestinations.size
+        PlaybookPage.USEFUL_ITEM -> playbook.usefulItems.size
+        PlaybookPage.BASTARD -> playbook.bastards.size
+        PlaybookPage.THREAT -> playbook.threats.size
+        PlaybookPage.PORT_NAME -> playbook.portAdjectives.size + playbook.portTypes.size
+        PlaybookPage.NPC_LABEL -> playbook.npcAdjectives.size + playbook.npcTypes.size
+        PlaybookPage.FLAVOR_TEXT -> playbook.flavorTexts.size
+    }
+}
+
 @Composable
-@OptIn(ExperimentalMaterial3Api::class)
 private fun aliens(dataModel: EditViewModel, playbook: Playbook, platform: Platform) {
     playbook.aliens.forEach {
         it.value.compose(platform, Modifier.padding(start = indentPadding))
@@ -127,7 +142,6 @@ private fun aliens(dataModel: EditViewModel, playbook: Playbook, platform: Platf
 }
 
 @Composable
-@OptIn(ExperimentalMaterial3Api::class)
 private fun backgrounds(dataModel: EditViewModel, playbook: Playbook, platform: Platform) {
     playbook.backgrounds.forEach {
         it.value.compose(platform, Modifier.padding(start = indentPadding))
@@ -135,7 +149,6 @@ private fun backgrounds(dataModel: EditViewModel, playbook: Playbook, platform: 
 }
 
 @Composable
-@OptIn(ExperimentalMaterial3Api::class)
 private fun roles(dataModel: EditViewModel, playbook: Playbook, platform: Platform) {
     playbook.roles.forEach {
         it.value.compose(platform, Modifier.padding(start = indentPadding))
@@ -143,7 +156,6 @@ private fun roles(dataModel: EditViewModel, playbook: Playbook, platform: Platfo
 }
 
 @Composable
-@OptIn(ExperimentalMaterial3Api::class)
 private fun ports(dataModel: EditViewModel, playbook: Playbook, platform: Platform) {
     playbook.ports.forEach {
         it.value.compose(platform, Modifier.padding(start = indentPadding))
@@ -151,7 +163,6 @@ private fun ports(dataModel: EditViewModel, playbook: Playbook, platform: Platfo
 }
 
 @Composable
-@OptIn(ExperimentalMaterial3Api::class)
 private fun events(dataModel: EditViewModel, playbook: Playbook, platform: Platform) {
     playbook.events.forEach {
         it.value.compose(platform, Modifier.padding(start = indentPadding))
@@ -159,7 +170,6 @@ private fun events(dataModel: EditViewModel, playbook: Playbook, platform: Platf
 }
 
 @Composable
-@OptIn(ExperimentalMaterial3Api::class)
 private fun usefulItems(dataModel: EditViewModel, playbook: Playbook, platform: Platform) {
     playbook.usefulItems.forEach {
         it.value.compose(platform, Modifier.padding(start = indentPadding))
@@ -168,7 +178,6 @@ private fun usefulItems(dataModel: EditViewModel, playbook: Playbook, platform: 
 }
 
 @Composable
-@OptIn(ExperimentalMaterial3Api::class)
 private fun bastards(dataModel: EditViewModel, playbook: Playbook, platform: Platform) {
     playbook.bastards.forEach {
         it.value.compose(platform, Modifier.padding(start = indentPadding))
@@ -177,7 +186,6 @@ private fun bastards(dataModel: EditViewModel, playbook: Playbook, platform: Pla
 }
 
 @Composable
-@OptIn(ExperimentalMaterial3Api::class)
 private fun ColumnScope.threats(dataModel: EditViewModel, playbook: Playbook, platform: Platform) {
     outlinedButton(
         onClick = { dataModel.addThreat(Weighted(1, Threat(""))) },
@@ -241,7 +249,6 @@ private fun ColumnScope.threats(dataModel: EditViewModel, playbook: Playbook, pl
 }
 
 @Composable
-@OptIn(ExperimentalMaterial3Api::class)
 private fun portNames(dataModel: EditViewModel, playbook: Playbook, platform: Platform) {
     Row {
         Column(
@@ -376,7 +383,6 @@ private fun portNames(dataModel: EditViewModel, playbook: Playbook, platform: Pl
 }
 
 @Composable
-@OptIn(ExperimentalMaterial3Api::class)
 private fun npcLabels(dataModel: EditViewModel, playbook: Playbook, platform: Platform) {
     Row {
         Column(
@@ -511,7 +517,6 @@ private fun npcLabels(dataModel: EditViewModel, playbook: Playbook, platform: Pl
 }
 
 @Composable
-@OptIn(ExperimentalMaterial3Api::class)
 private fun contractItems(dataModel: EditViewModel, playbook: Playbook, platform: Platform) {
     Row {
         Column(
@@ -646,7 +651,6 @@ private fun contractItems(dataModel: EditViewModel, playbook: Playbook, platform
 }
 
 @Composable
-@OptIn(ExperimentalMaterial3Api::class)
 private fun flavorTexts(dataModel: EditViewModel, playbook: Playbook, platform: Platform) {
     playbook.flavorTexts.forEach {
         it.value.compose(platform, Modifier.padding(start = indentPadding))
