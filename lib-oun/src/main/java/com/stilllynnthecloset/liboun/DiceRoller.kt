@@ -174,9 +174,9 @@ internal fun main() {
 //        println(Playbook.defaultPlaybook.ports.weightedRandom(it + 1).name)
 //    }
 
-    val serializer = Json {}
+    val serializer = Json.Default
 
-    val string = serializer.encodeToString(Playbook.wolf)
+    val string = serializer.encodeToString(Playbook.defaultPlaybook)
     println(string)
 
 //    printTimeStuff()
