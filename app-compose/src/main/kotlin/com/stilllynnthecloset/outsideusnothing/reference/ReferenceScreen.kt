@@ -176,8 +176,8 @@ private fun contractItem(dataModel: ReferenceDataModel, playbook: Playbook, plat
             Text(
                 text = "Deliver this:",
             )
-                playbook.contractItems.forEach {
-                    SelectionContainer {
+            playbook.contractItems.forEach {
+                SelectionContainer {
                     it.value.compose(platform, Modifier.padding(start = indentPadding))
                 }
             }
@@ -188,8 +188,8 @@ private fun contractItem(dataModel: ReferenceDataModel, playbook: Playbook, plat
             Text(
                 text = "here:",
             )
-                playbook.contractDestinations.forEach {
-                    SelectionContainer {
+            playbook.contractDestinations.forEach {
+                SelectionContainer {
                     it.value.compose(platform, Modifier.padding(start = indentPadding))
                 }
             }
@@ -261,8 +261,8 @@ private fun portName(dataModel: ReferenceDataModel, playbook: Playbook, platform
             Text(
                 text = "Deliver this:",
             )
-                playbook.portAdjectives.forEach {
-                    SelectionContainer {
+            playbook.portAdjectives.forEach {
+                SelectionContainer {
                     Text(
                         text = it.value.text,
                         modifier = Modifier.padding(start = indentPadding),
@@ -276,8 +276,8 @@ private fun portName(dataModel: ReferenceDataModel, playbook: Playbook, platform
             Text(
                 text = "here:",
             )
-                playbook.portTypes.forEach {
-                    SelectionContainer {
+            playbook.portTypes.forEach {
+                SelectionContainer {
                     Text(
                         text = it.value.text,
                         modifier = Modifier.padding(start = indentPadding),
@@ -304,8 +304,8 @@ private fun npcLabel(dataModel: ReferenceDataModel, playbook: Playbook, platform
             Text(
                 text = "Deliver this:",
             )
-                playbook.npcAdjectives.forEach {
-                    SelectionContainer {
+            playbook.npcAdjectives.forEach {
+                SelectionContainer {
                     Text(
                         text = it.value.text,
                         modifier = Modifier.padding(start = indentPadding),
@@ -319,8 +319,8 @@ private fun npcLabel(dataModel: ReferenceDataModel, playbook: Playbook, platform
             Text(
                 text = "here:",
             )
-                playbook.npcTypes.forEach {
-                    SelectionContainer {
+            playbook.npcTypes.forEach {
+                SelectionContainer {
                     Text(
                         text = it.value.text,
                         modifier = Modifier.padding(start = indentPadding),

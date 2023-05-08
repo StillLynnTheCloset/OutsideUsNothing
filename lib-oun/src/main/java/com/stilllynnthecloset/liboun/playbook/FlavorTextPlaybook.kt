@@ -8,8 +8,8 @@ import com.stilllynnthecloset.liboun.model.Weighted
  *
  * Created by Lynn on 5/2/23
  */
-public object FlavorTextPlaybook {
-    public val flavorTexts: List<Weighted<FlavorText>> = listOf(
+internal object FlavorTextPlaybook {
+    val flavorTexts: List<Weighted<FlavorText>> = listOf(
         // region &ASBW Chapter introductions
         Weighted(
             weight = 1,

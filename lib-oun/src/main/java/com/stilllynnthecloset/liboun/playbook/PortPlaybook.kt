@@ -13,13 +13,13 @@ import com.stilllynnthecloset.liboun.model.Weighted
  *
  * Created by Lynn on 4/14/23
  */
-public object PortPlaybook {
+internal object PortPlaybook {
     private val generatedContract: ContractSpecification = ContractSpecification(
         description = "GENERATE_REPLACEMENT",
         quality = ContractQuality.AVERAGE,
     )
 
-    public val companyPort: PortOfCallSpecification = PortOfCallSpecification(
+    private val companyPort: PortOfCallSpecification = PortOfCallSpecification(
         name = "The Company Port",
         description = "It’s the top of a space elevator, a station in the void, perhaps even (shockingly) on a planet itself. But wherever it is physically the construction is all the same. The brands the same. The shops the same. The floor utilitarian. The walls to clean. The people too quiet. The cops everywhere. Remember to pay your docking fee.",
         choices = setOf(
@@ -86,7 +86,8 @@ public object PortPlaybook {
         ),
         minContracts = 3,
     )
-    public val freePort: PortOfCallSpecification = PortOfCallSpecification(
+
+    private val freePort: PortOfCallSpecification = PortOfCallSpecification(
         name = "The Free Port",
         description = "Some might consider it a smuggler hideout. To others an anti-corporate, post revolution haven. Or maybe it’s wherever was convenient. But, spinning around some frontier world, or mined into an asteroid, or simple a few dozen old ships lashed together, one thing will always be true. No taxes. Perfect for Freetravelers.",
         choices = setOf(
@@ -147,7 +148,7 @@ public object PortPlaybook {
         minContracts = 3,
     )
 
-    public val piratePort: PortOfCallSpecification = PortOfCallSpecification(
+    private val piratePort: PortOfCallSpecification = PortOfCallSpecification(
         name = "The Pirate Port",
         description = "The air smells wrong when the doors open. The lights flicker. No one has repaired the docking clamps. This place is the real Libertalia, and like all pirate havens across all history it won’t last. It doesn’t have to. It just needs to hold together for some dishonest wealth to be spent, unloaded, and traded back into the economy.",
         choices = setOf(
@@ -222,7 +223,7 @@ public object PortPlaybook {
         minContracts = 2,
     )
 
-    public val militaryPort: PortOfCallSpecification = PortOfCallSpecification(
+    private val militaryPort: PortOfCallSpecification = PortOfCallSpecification(
         name = "The Military Port",
         description = "This is a port, yes, with docks and repairs and all the other expected things. But it’s quiet. Buttoned up. Not for you. Because this is here to repair and resupply a military fleet, to hold systems and worlds. You are not military, Freetraveler. Do your business and move on quickly.",
         choices = setOf(
@@ -293,7 +294,7 @@ public object PortPlaybook {
         minContracts = 1,
     )
 
-    public val authoritarianPort: PortOfCallSpecification = PortOfCallSpecification(
+    private val authoritarianPort: PortOfCallSpecification = PortOfCallSpecification(
         name = "The Authoritarian Port",
         description = "Safe behind military lines and military ports comes a place far away from military ports. Clean. Quiet. Orderly. You are not welcome here far from corporate degeneracy. Dissident elements and division have no place within the rules that have been imposed here. Freetraveler, anarchist, syndicalist, scofflaw. Move on.",
         choices = setOf(
@@ -366,7 +367,7 @@ public object PortPlaybook {
         minContracts = 1,
     )
 
-    public val pharos: PortOfCallSpecification = PortOfCallSpecification(
+    private val pharos: PortOfCallSpecification = PortOfCallSpecification(
         name = "The Pharos",
         description = "A lonely warning with a sacred meaning. Danger, the signal it sends says. Stay away. Or, alternately, this is how you safely transit. This is how you sail this straight, enter this port, keep flying. For most that is all this place is, a little reminder in the dark. Now you have arrived, after careful approach, to do business.",
         choices = setOf(
@@ -436,7 +437,7 @@ public object PortPlaybook {
         minContracts = 1,
     )
 
-    public val researchBase: PortOfCallSpecification = PortOfCallSpecification(
+    private val researchBase: PortOfCallSpecification = PortOfCallSpecification(
         name = "The Research Base",
         description = "Labs. Hothouses. Black ops exotemporal psych projects. The universe is full of places like this for the same reason it is full of the unexplained and the unknown. Magic, conventional, spatial, universal, what have you, where there is something unknown there will be people, power, and money interested in making it known.",
         choices = setOf(
@@ -512,7 +513,7 @@ public object PortPlaybook {
         minContracts = 2,
     )
 
-    public val darkMatterWell: PortOfCallSpecification = PortOfCallSpecification(
+    private val darkMatterWell: PortOfCallSpecification = PortOfCallSpecification(
         name = "The Dark Matter Well",
         description = "Most people don’t like to recognize how much of modern tech relies on the extraction of dark matter from the etheric sea. But someone has to do it, right? Punch a hole in the skin of the universe into a rich tract. Haul the black gold out. Try to ignore the damage and aura of spookiness for lightperiods all around it.",
         choices = setOf(
@@ -573,7 +574,7 @@ public object PortPlaybook {
         minContracts = 1,
     )
 
-    public val asteroidMine: PortOfCallSpecification = PortOfCallSpecification(
+    private val asteroidMine: PortOfCallSpecification = PortOfCallSpecification(
         name = "Asteroid Mine",
         description = "TODO",
         choices = setOf(),
@@ -581,7 +582,7 @@ public object PortPlaybook {
         minContracts = 0,
     )
 
-    public val shipyard: PortOfCallSpecification = PortOfCallSpecification(
+    private val shipyard: PortOfCallSpecification = PortOfCallSpecification(
         name = "Shipyard",
         description = "TODO",
         choices = setOf(),
@@ -589,7 +590,7 @@ public object PortPlaybook {
         minContracts = 0,
     )
 
-    public val ambiguousUtopia: PortOfCallSpecification = PortOfCallSpecification(
+    private val ambiguousUtopia: PortOfCallSpecification = PortOfCallSpecification(
         name = "Ambiguous Utopia",
         description = "TODO",
         choices = setOf(),
@@ -597,7 +598,7 @@ public object PortPlaybook {
         minContracts = 0,
     )
 
-    public val exocolony: PortOfCallSpecification = PortOfCallSpecification(
+    private val exocolony: PortOfCallSpecification = PortOfCallSpecification(
         name = "Exocolony",
         description = "TODO",
         choices = setOf(),
@@ -605,7 +606,7 @@ public object PortPlaybook {
         minContracts = 0,
     )
 
-    public val uncontactedWorld: PortOfCallSpecification = PortOfCallSpecification(
+    private val uncontactedWorld: PortOfCallSpecification = PortOfCallSpecification(
         name = "Uncontacted World",
         description = "TODO",
         choices = setOf(),
@@ -613,7 +614,7 @@ public object PortPlaybook {
         minContracts = 0,
     )
 
-    public val derelict: PortOfCallSpecification = PortOfCallSpecification(
+    private val derelict: PortOfCallSpecification = PortOfCallSpecification(
         name = "Derelict",
         description = "TODO",
         choices = setOf(),
@@ -621,7 +622,7 @@ public object PortPlaybook {
         minContracts = 0,
     )
 
-    public val ruins: PortOfCallSpecification = PortOfCallSpecification(
+    private val ruins: PortOfCallSpecification = PortOfCallSpecification(
         name = "Ruins",
         description = "TODO",
         choices = setOf(),
@@ -629,7 +630,7 @@ public object PortPlaybook {
         minContracts = 0,
     )
 
-    public val dump: PortOfCallSpecification = PortOfCallSpecification(
+    private val dump: PortOfCallSpecification = PortOfCallSpecification(
         name = "Dump",
         description = "TODO",
         choices = setOf(),
@@ -637,7 +638,7 @@ public object PortPlaybook {
         minContracts = 0,
     )
 
-    public val hive: PortOfCallSpecification = PortOfCallSpecification(
+    private val hive: PortOfCallSpecification = PortOfCallSpecification(
         name = "Hive",
         description = "TODO",
         choices = setOf(),
@@ -645,7 +646,7 @@ public object PortPlaybook {
         minContracts = 0,
     )
 
-    public val extradimensionalPocket: PortOfCallSpecification = PortOfCallSpecification(
+    private val extradimensionalPocket: PortOfCallSpecification = PortOfCallSpecification(
         name = "Extradimensional Pocket",
         description = "TODO",
         choices = setOf(),
@@ -653,7 +654,7 @@ public object PortPlaybook {
         minContracts = 0,
     )
 
-    public val academy: PortOfCallSpecification = PortOfCallSpecification(
+    private val academy: PortOfCallSpecification = PortOfCallSpecification(
         name = "Academy",
         description = "TODO",
         choices = setOf(),
@@ -661,7 +662,7 @@ public object PortPlaybook {
         minContracts = 0,
     )
 
-    public val monastery: PortOfCallSpecification = PortOfCallSpecification(
+    private val monastery: PortOfCallSpecification = PortOfCallSpecification(
         name = "Monastery",
         description = "TODO",
         choices = setOf(),
@@ -669,7 +670,7 @@ public object PortPlaybook {
         minContracts = 0,
     )
 
-    public val quarantinedPort: PortOfCallSpecification = PortOfCallSpecification(
+    private val quarantinedPort: PortOfCallSpecification = PortOfCallSpecification(
         name = "Quarantined Port",
         description = "TODO",
         choices = setOf(),
@@ -677,7 +678,7 @@ public object PortPlaybook {
         minContracts = 0,
     )
 
-    public val resort: PortOfCallSpecification = PortOfCallSpecification(
+    private val resort: PortOfCallSpecification = PortOfCallSpecification(
         name = "Resort",
         description = "TODO",
         choices = setOf(),
@@ -685,7 +686,7 @@ public object PortPlaybook {
         minContracts = 0,
     )
 
-    public val lonelyPlanet: PortOfCallSpecification = PortOfCallSpecification(
+    private val lonelyPlanet: PortOfCallSpecification = PortOfCallSpecification(
         name = "Lonely Planet",
         description = "TODO",
         choices = setOf(),
@@ -693,7 +694,7 @@ public object PortPlaybook {
         minContracts = 0,
     )
 
-    public val anomaly: PortOfCallSpecification = PortOfCallSpecification(
+    private val anomaly: PortOfCallSpecification = PortOfCallSpecification(
         name = "Anomaly",
         description = "TODO",
         choices = setOf(),
@@ -701,7 +702,7 @@ public object PortPlaybook {
         minContracts = 0,
     )
 
-    public val meeting: PortOfCallSpecification = PortOfCallSpecification(
+    private val meeting: PortOfCallSpecification = PortOfCallSpecification(
         name = "Meeting",
         description = "TODO",
         choices = setOf(),
@@ -709,7 +710,7 @@ public object PortPlaybook {
         minContracts = 0,
     )
 
-    public val template: PortOfCallSpecification = PortOfCallSpecification(
+    private val template: PortOfCallSpecification = PortOfCallSpecification(
         name = "Template",
         description = "Template",
         choices = setOf(
@@ -735,7 +736,7 @@ public object PortPlaybook {
         minContracts = 0,
     )
 
-    public val ports: List<Weighted<PortOfCallSpecification>> = listOf(
+    val ports: List<Weighted<PortOfCallSpecification>> = listOf(
         Weighted(5, companyPort),
         Weighted(4, freePort),
         Weighted(3, piratePort),

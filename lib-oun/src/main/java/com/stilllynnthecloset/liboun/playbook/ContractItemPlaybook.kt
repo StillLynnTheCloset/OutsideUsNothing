@@ -9,8 +9,8 @@ import com.stilllynnthecloset.liboun.model.Weighted
  *
  * Created by Lynn on 5/1/23
  */
-public object ContractItemPlaybook {
-    public val contractItems: List<Weighted<ContractItem>> = listOf(
+internal object ContractItemPlaybook {
+    val contractItems: List<Weighted<ContractItem>> = listOf(
         Weighted(1, ContractItem("yeast, mushroom spores, or other dietary microcultures")),
         Weighted(1, ContractItem("a stranger, frozen inside a vintercasket")),
         Weighted(1, ContractItem("an unmarked black box that deflects even the most hi-tech scans")),
@@ -34,7 +34,7 @@ public object ContractItemPlaybook {
         Weighted(1, ContractItem("[REDACTED]")),
     )
 
-    public val contractDestinations: List<Weighted<ContractDestination>> = listOf(
+    val contractDestinations: List<Weighted<ContractDestination>> = listOf(
         Weighted(1, ContractDestination("to a neighboring Port of Call")),
         Weighted(1, ContractDestination("to a secret base hidden in hostile surface environments")),
         Weighted(1, ContractDestination("through a blockade")),

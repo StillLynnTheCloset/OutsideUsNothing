@@ -102,7 +102,7 @@ public data class Playbook constructor(
             ),
             contractDestinations = listOf(
                 Weighted(weight = 1, value = ContractDestination("a casino")),
-            )
+            ),
         )
 
         public val wolf: Playbook = Playbook(
@@ -209,7 +209,7 @@ public data class Playbook constructor(
                 Weighted(weight = 1, value = NpcAdjective("anhedonic")),
             ),
             npcTypes = listOf(
-                Weighted(weight = 1, value =  NpcType("wolf")),
+                Weighted(weight = 1, value = NpcType("wolf")),
             ),
         )
 

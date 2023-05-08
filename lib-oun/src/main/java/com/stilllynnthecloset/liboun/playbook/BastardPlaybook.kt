@@ -8,8 +8,8 @@ import com.stilllynnthecloset.liboun.model.Weighted
  *
  * Created by Lynn on 5/1/23
  */
-public object BastardPlaybook {
-    public val bastards: List<Weighted<Bastard>> = listOf(
+internal object BastardPlaybook {
+    val bastards: List<Weighted<Bastard>> = listOf(
         Weighted(
             weight = 1,
             value = Bastard(

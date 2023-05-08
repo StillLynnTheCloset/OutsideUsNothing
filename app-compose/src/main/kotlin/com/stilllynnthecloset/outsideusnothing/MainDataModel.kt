@@ -5,7 +5,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import com.stilllynnthecloset.liboun.model.Playbook
 import com.stilllynnthecloset.outsideusnothing.dice.DiceRollerDataModel
-import com.stilllynnthecloset.outsideusnothing.dice.DiceRollerScreen
 
 public class MainDataModel public constructor() {
     public var isDarkTheme: Boolean by mutableStateOf(true)
@@ -20,7 +19,8 @@ public class MainDataModel public constructor() {
         private set
 
     init {
-        updatePlaybooks( // TODO: Replace with load from DB.
+        updatePlaybooks(
+            // TODO: Replace with load from DB.
             listOf(
                 Playbook.lynnsPlaybook,
                 Playbook.wolf,
@@ -53,7 +53,11 @@ public class MainDataModel public constructor() {
     internal fun updatePlaybook(playbook: Playbook) {
         updatePlaybooks(
             playbooks.map {
-                if (it.uuid == playbook.uuid) { playbook } else { it }
+                if (it.uuid == playbook.uuid) {
+                    playbook
+                } else {
+                    it
+                }
             },
         )
     }
@@ -67,7 +71,11 @@ public class MainDataModel public constructor() {
     internal fun removePlaybook(playbook: Playbook) {
         updatePlaybooks(
             playbooks.mapNotNull {
-                if (it.uuid == playbook.uuid) { null } else { it }
+                if (it.uuid == playbook.uuid) {
+                    null
+                } else {
+                    it
+                }
             },
         )
     }

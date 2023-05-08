@@ -13,8 +13,8 @@ import com.stilllynnthecloset.liboun.model.Weighted
  *
  * Created by Lynn on 5/1/23
  */
-public object BackgroundPlaybook {
-    public val corpoCitoyen: PlaySheetSpecification = PlaySheetSpecification(
+internal object BackgroundPlaybook {
+    private val corpoCitoyen: PlaySheetSpecification = PlaySheetSpecification(
         name = "The Corporate Citoyen",
         description = "You used to be someone rich enough to afford citizenship from one of the big interstellar corporations. Life was different back then. You had healthcare. Knew where the next meal was coming from. And were always watched and controlled.",
         flavorText = FlavorText(
@@ -90,7 +90,8 @@ public object BackgroundPlaybook {
             ),
         ),
     )
-    public val backgrounds: List<Weighted<PlaySheetSpecification>> = listOf(
+
+    val backgrounds: List<Weighted<PlaySheetSpecification>> = listOf(
         Weighted(1, corpoCitoyen),
     )
 }

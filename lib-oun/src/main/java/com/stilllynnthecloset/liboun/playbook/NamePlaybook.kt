@@ -11,8 +11,8 @@ import com.stilllynnthecloset.liboun.model.Weighted
  *
  * Created by Lynn on 5/4/23
  */
-public object NamePlaybook {
-    public val locationNames1: List<Weighted<PortAdjective>> = listOf(
+internal object NamePlaybook {
+    val locationNames1: List<Weighted<PortAdjective>> = listOf(
         Weighted(1, PortAdjective("Infinite")),
         Weighted(1, PortAdjective("Free")),
         Weighted(1, PortAdjective("Ardent")),
@@ -45,7 +45,7 @@ public object NamePlaybook {
         Weighted(1, PortAdjective("Anteuniversalian")),
     )
 
-    public val locationNames2: List<Weighted<PortType>> = listOf(
+    val locationNames2: List<Weighted<PortType>> = listOf(
         Weighted(1, PortType("Verge")),
         Weighted(1, PortType("Hold")),
         Weighted(1, PortType("None")),
@@ -78,7 +78,7 @@ public object NamePlaybook {
         Weighted(1, PortType("Eyrie")),
     )
 
-    public val npcNames1: List<Weighted<NpcAdjective>> = listOf(
+    val npcNames1: List<Weighted<NpcAdjective>> = listOf(
         Weighted(1, NpcAdjective("out")),
         Weighted(1, NpcAdjective("void")),
         Weighted(1, NpcAdjective("ether")),
@@ -111,7 +111,7 @@ public object NamePlaybook {
         Weighted(1, NpcAdjective("freetraveler")),
     )
 
-    public val npcNames2: List<Weighted<NpcType>> = listOf(
+    val npcNames2: List<Weighted<NpcType>> = listOf(
         Weighted(1, NpcType("laborer")),
         Weighted(1, NpcType("trader")),
         Weighted(1, NpcType("longshoreman")),

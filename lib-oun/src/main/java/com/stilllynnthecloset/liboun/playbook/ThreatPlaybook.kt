@@ -8,8 +8,8 @@ import com.stilllynnthecloset.liboun.model.Weighted
  *
  * Created by Lynn on 5/1/23
  */
-public object ThreatPlaybook {
-    public val threats: List<Weighted<Threat>> = listOf(
+internal object ThreatPlaybook {
+    val threats: List<Weighted<Threat>> = listOf(
         Weighted(1, Threat("The players ship was bought on a loan and debt is always going up. Collections are going out soon.")),
         Weighted(1, Threat("One of the corps has a grudge out for the crew. They will keep sending shadowy special operatives to kill them.")),
         Weighted(1, Threat("One of the corps has recently shifted the balance of power, and is dramatically expanding into new regions, buying new planets.")),

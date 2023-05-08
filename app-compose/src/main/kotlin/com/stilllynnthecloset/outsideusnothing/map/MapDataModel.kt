@@ -14,8 +14,6 @@ import com.stilllynnthecloset.hexgridcompose.findExistingNeighbors
 import com.stilllynnthecloset.liboun.model.Playbook
 import com.stilllynnthecloset.liboun.model.PortOfCall
 import com.stilllynnthecloset.liboun.pickN
-import com.stilllynnthecloset.liboun.playbook.NamePlaybook
-import com.stilllynnthecloset.liboun.playbook.PortPlaybook
 import com.stilllynnthecloset.liboun.rollDie
 import com.stilllynnthecloset.liboun.weightedRandom
 
@@ -25,7 +23,7 @@ import com.stilllynnthecloset.liboun.weightedRandom
  * Created by Lynn on 4/14/23
  */
 internal class MapDataModel constructor(val playbook: Playbook) {
-    private val portOfCall = PortOfCall(PortPlaybook.companyPort, emptyList(), emptyList())
+    private val portOfCall = PortOfCall(playbook.ports.weightedRandom(), emptyList(), emptyList())
     private val orbitalDescent = Node(GridCoordinate(0, -1), AnnotatedString("Orbital Descent"), portOfCall)
     private val hesperion = Node(GridCoordinate(0, 0), AnnotatedString("Hesperion"), portOfCall)
     private val machineHeaven = Node(GridCoordinate(2, 1), AnnotatedString("Machine Heaven"), portOfCall)
@@ -100,7 +98,7 @@ internal class MapDataModel constructor(val playbook: Playbook) {
     }
 
     fun pickRandomPortName() {
-        generatePortNameEntry = "${NamePlaybook.locationNames1.weightedRandom()} ${NamePlaybook.locationNames2.weightedRandom()}"
+        generatePortNameEntry = "${playbook.portAdjectives.weightedRandom().text} ${playbook.portTypes.weightedRandom().text}"
     }
 
     fun generatePort(node: Node<PortOfCall>) {

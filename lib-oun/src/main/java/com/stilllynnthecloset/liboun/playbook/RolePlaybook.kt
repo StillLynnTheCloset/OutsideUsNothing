@@ -13,8 +13,8 @@ import com.stilllynnthecloset.liboun.model.Weighted
  *
  * Created by Lynn on 5/1/23
  */
-public object RolePlaybook {
-    public val wizard: PlaySheetSpecification = PlaySheetSpecification(
+internal object RolePlaybook {
+    private val wizard: PlaySheetSpecification = PlaySheetSpecification(
         name = "Space Wizard",
         description = "Wizards have long studied the many magics of the etheric sea. The all black everything. Space. And you are no different. Your mind explodes with arcane knowledge and anywhere in the universe will recognize your mastery of the art!",
         flavorText = FlavorText(
@@ -96,7 +96,7 @@ public object RolePlaybook {
         ),
     )
 
-    public val tough: PlaySheetSpecification = PlaySheetSpecification(
+    private val tough: PlaySheetSpecification = PlaySheetSpecification(
         name = "Muscled Tough",
         description = "It’s all well and good to magic, fly, science, and talk your way out of problems but let’s be honest, the universe isn’t always going to play nice. You’re here for when it doesn’t, for when people would threaten you, your ship, and the people you love.",
         flavorText = FlavorText(
@@ -189,7 +189,7 @@ public object RolePlaybook {
         ),
     )
 
-    public val roles: List<Weighted<PlaySheetSpecification>> = listOf(
+    val roles: List<Weighted<PlaySheetSpecification>> = listOf(
         Weighted(1, wizard),
         Weighted(1, tough),
     )

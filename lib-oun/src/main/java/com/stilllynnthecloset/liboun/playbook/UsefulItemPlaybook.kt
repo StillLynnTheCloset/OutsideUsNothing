@@ -9,8 +9,8 @@ import com.stilllynnthecloset.liboun.model.Weighted
  *
  * Created by Lynn on 5/1/23
  */
-public object UsefulItemPlaybook {
-    public val items: List<Weighted<UsefulItem>> = listOf(
+internal object UsefulItemPlaybook {
+    val items: List<Weighted<UsefulItem>> = listOf(
         Weighted(
             weight = 1,
             value = UsefulItem(

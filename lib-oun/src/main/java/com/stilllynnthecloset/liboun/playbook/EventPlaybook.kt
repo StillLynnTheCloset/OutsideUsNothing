@@ -12,8 +12,8 @@ import com.stilllynnthecloset.liboun.model.Weighted
  *
  * Created by Lynn on 5/1/23
  */
-public object EventPlaybook {
-    public val events: List<Weighted<EventSpecification>> = listOf(
+internal object EventPlaybook {
+    val events: List<Weighted<EventSpecification>> = listOf(
         Weighted(
             weight = 1,
             value = EventSpecification(

@@ -10,10 +10,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -173,7 +171,6 @@ private fun events(dataModel: EditViewModel, playbook: Playbook, platform: Platf
 private fun usefulItems(dataModel: EditViewModel, playbook: Playbook, platform: Platform) {
     playbook.usefulItems.forEach {
         it.value.compose(platform, Modifier.padding(start = indentPadding))
-
     }
 }
 
@@ -242,7 +239,7 @@ private fun ColumnScope.threats(dataModel: EditViewModel, playbook: Playbook, pl
                     .align(Alignment.CenterVertically),
                 imageReference = ImageReference.Delete,
                 contentDescription = "Delete",
-                platform = platform
+                platform = platform,
             )
         }
     }
@@ -310,7 +307,7 @@ private fun portNames(dataModel: EditViewModel, playbook: Playbook, platform: Pl
                             .align(Alignment.CenterVertically),
                         imageReference = ImageReference.Delete,
                         contentDescription = "Delete",
-                        platform = platform
+                        platform = platform,
                     )
                 }
             }
@@ -374,7 +371,7 @@ private fun portNames(dataModel: EditViewModel, playbook: Playbook, platform: Pl
                             .align(Alignment.CenterVertically),
                         imageReference = ImageReference.Delete,
                         contentDescription = "Delete",
-                        platform = platform
+                        platform = platform,
                     )
                 }
             }
@@ -444,7 +441,7 @@ private fun npcLabels(dataModel: EditViewModel, playbook: Playbook, platform: Pl
                             .align(Alignment.CenterVertically),
                         imageReference = ImageReference.Delete,
                         contentDescription = "Delete",
-                        platform = platform
+                        platform = platform,
                     )
                 }
             }
@@ -508,7 +505,7 @@ private fun npcLabels(dataModel: EditViewModel, playbook: Playbook, platform: Pl
                             .align(Alignment.CenterVertically),
                         imageReference = ImageReference.Delete,
                         contentDescription = "Delete",
-                        platform = platform
+                        platform = platform,
                     )
                 }
             }
@@ -549,7 +546,7 @@ private fun contractItems(dataModel: EditViewModel, playbook: Playbook, platform
                 ) {
                     textInputWidget(
                         value = weighted.value.name,
-                        label ="Item",
+                        label = "Item",
                         onValueChange = {
                             dataModel.updateContractItem(Weighted(weighted.weight, weighted.value.copy(name = it)))
                         },
@@ -578,7 +575,7 @@ private fun contractItems(dataModel: EditViewModel, playbook: Playbook, platform
                             .align(Alignment.CenterVertically),
                         imageReference = ImageReference.Delete,
                         contentDescription = "Delete",
-                        platform = platform
+                        platform = platform,
                     )
                 }
             }
@@ -642,7 +639,7 @@ private fun contractItems(dataModel: EditViewModel, playbook: Playbook, platform
                             .align(Alignment.CenterVertically),
                         imageReference = ImageReference.Delete,
                         contentDescription = "Delete",
-                        platform = platform
+                        platform = platform,
                     )
                 }
             }

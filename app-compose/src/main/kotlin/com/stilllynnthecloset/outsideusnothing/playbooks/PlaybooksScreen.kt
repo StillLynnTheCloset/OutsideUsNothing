@@ -42,7 +42,7 @@ internal fun PlaybooksScreen(
                         name = "",
                         description = "",
                         authors = listOf(),
-                        uuid = UUID.randomUUID().toString()
+                        uuid = UUID.randomUUID().toString(),
                     )
                     mainDataModel.addPlaybook(playbook)
                     windowDataModel.openEditPlaybook(playbook.uuid)

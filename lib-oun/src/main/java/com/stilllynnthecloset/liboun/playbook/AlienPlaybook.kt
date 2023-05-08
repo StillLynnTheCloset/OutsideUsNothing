@@ -13,8 +13,8 @@ import com.stilllynnthecloset.liboun.model.Weighted
  *
  * Created by Lynn on 5/1/23
  */
-public object AlienPlaybook {
-    public val terre: PlaySheetSpecification = PlaySheetSpecification(
+internal object AlienPlaybook {
+    private val terre: PlaySheetSpecification = PlaySheetSpecification(
         name = "Terre",
         description = "The terre are all people descended from humanity, and from us here and now. But after their long, long time traveling through the dark to this part of the universe, in vast generation ships, some have changed.",
         flavorText = FlavorText(
@@ -82,7 +82,8 @@ public object AlienPlaybook {
             ),
         ),
     )
-    public val angel: PlaySheetSpecification = PlaySheetSpecification(
+
+    private val angel: PlaySheetSpecification = PlaySheetSpecification(
         name = "Angel",
         description = "Something from outside the universe wrote you into this universe’s skin alone and without instruction. As a being of pure energy you are indestructible. But to interact with everything else, to have an identity, most angels, including you, have commissioned carved bodies for themselves. Fragile and fallible bodies that now shelter and identify you.",
         flavorText = FlavorText(
@@ -159,7 +160,8 @@ public object AlienPlaybook {
             ),
         ),
     )
-    public val aliens: List<Weighted<PlaySheetSpecification>> = listOf(
+
+    val aliens: List<Weighted<PlaySheetSpecification>> = listOf(
         Weighted(1, terre),
         Weighted(1, angel),
     )

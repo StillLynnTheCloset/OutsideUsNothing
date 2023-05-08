@@ -3,7 +3,6 @@ package com.stilllynnthecloset.outsideusnothing.reference
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import com.stilllynnthecloset.liboun.model.Playbook
 import com.stilllynnthecloset.outsideusnothing.MainDataModel
 import com.stilllynnthecloset.outsideusnothing.PlaybookPage
 
