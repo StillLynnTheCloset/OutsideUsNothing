@@ -220,6 +220,7 @@ private fun ColumnScope.threats(dataModel: EditViewModel, playbook: Playbook, pl
                     .align(Alignment.CenterVertically)
                     .padding(horizontal = 4.dp),
                 value = weighted.weight.toLong(),
+                width = 100.dp,
                 onValueChange = {
                     dataModel.updateThreat(weighted.copy(weight = it?.toInt() ?: 1))
                 },
@@ -287,6 +288,7 @@ private fun portNames(dataModel: EditViewModel, playbook: Playbook, platform: Pl
                             .align(Alignment.CenterVertically)
                             .padding(horizontal = 4.dp),
                         value = weighted.weight.toLong(),
+                        width = 100.dp,
                         onValueChange = {
                             dataModel.updatePortAdjective(weighted.copy(weight = it?.toInt() ?: 1))
                         },
@@ -350,6 +352,7 @@ private fun portNames(dataModel: EditViewModel, playbook: Playbook, platform: Pl
                             .align(Alignment.CenterVertically)
                             .padding(horizontal = 4.dp),
                         value = weighted.weight.toLong(),
+                        width = 100.dp,
                         onValueChange = {
                             dataModel.updatePortType(weighted.copy(weight = it?.toInt() ?: 1))
                         },
@@ -420,6 +423,7 @@ private fun npcLabels(dataModel: EditViewModel, playbook: Playbook, platform: Pl
                             .align(Alignment.CenterVertically)
                             .padding(horizontal = 4.dp),
                         value = weighted.weight.toLong(),
+                        width = 100.dp,
                         onValueChange = {
                             dataModel.updateNpcAdjective(weighted.copy(weight = it?.toInt() ?: 1))
                         },
@@ -483,6 +487,7 @@ private fun npcLabels(dataModel: EditViewModel, playbook: Playbook, platform: Pl
                             .align(Alignment.CenterVertically)
                             .padding(horizontal = 4.dp),
                         value = weighted.weight.toLong(),
+                        width = 100.dp,
                         onValueChange = {
                             dataModel.updateNpcName(weighted.copy(weight = it?.toInt() ?: 1))
                         },
@@ -553,6 +558,7 @@ private fun contractItems(dataModel: EditViewModel, playbook: Playbook, platform
                             .align(Alignment.CenterVertically)
                             .padding(horizontal = 4.dp),
                         value = weighted.weight.toLong(),
+                        width = 100.dp,
                         onValueChange = {
                             dataModel.updateContractItem(weighted.copy(weight = it?.toInt() ?: 1))
                         },
@@ -616,6 +622,7 @@ private fun contractItems(dataModel: EditViewModel, playbook: Playbook, platform
                             .align(Alignment.CenterVertically)
                             .padding(horizontal = 4.dp),
                         value = weighted.weight.toLong(),
+                        width = 100.dp,
                         onValueChange = {
                             dataModel.updateContractDestination(weighted.copy(weight = it?.toInt() ?: 1))
                         },

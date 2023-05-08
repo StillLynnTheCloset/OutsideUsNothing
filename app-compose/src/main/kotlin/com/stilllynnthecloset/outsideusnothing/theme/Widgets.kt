@@ -542,6 +542,7 @@ internal fun incrementInput(
     value: Long?,
     onValueChange: (Long?) -> Unit,
     platform: Platform,
+    width: Dp = 200.dp,
 ) {
     Row(modifier = modifier) {
         imageButton(
@@ -557,7 +558,7 @@ internal fun incrementInput(
             value,
             label,
             modifier = Modifier
-                .width(100.dp)
+                .width(width)
                 .padding(horizontal = 4.dp),
             onValueChange = {
                 onValueChange(it)
