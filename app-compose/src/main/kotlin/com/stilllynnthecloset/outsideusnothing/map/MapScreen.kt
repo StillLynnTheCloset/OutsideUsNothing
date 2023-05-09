@@ -25,6 +25,10 @@ import com.stilllynnthecloset.outsideusnothing.Platform
 import com.stilllynnthecloset.outsideusnothing.compose
 import com.stilllynnthecloset.outsideusnothing.theme.ImageReference
 import com.stilllynnthecloset.outsideusnothing.theme.textInputWidget
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
 
 /**
  * MapScreen - TODO: Documentation
@@ -96,6 +100,20 @@ internal fun MapScreen(dataModel: MapDataModel, platform: Platform) {
                             onValueChange = dataModel::updatePortNameEntry,
                         )
 
+                        Text(
+                            text = "Generate 20 degrees",
+                            modifier = Modifier
+                                .clickable {
+                                    CoroutineScope(Dispatchers.IO + SupervisorJob()).launch {
+                                        val startTime = System.nanoTime()
+                                        dataModel.generateDegrees(selectedNode, 20)
+                                        println("There are now ${dataModel.nodeList.size} nodes")
+                                        val endTime = System.nanoTime()
+                                        val duration = (endTime - startTime) / 1_000_000
+                                        println("Took $duration ms")
+                                    }
+                                },
+                        )
                         Image(
                             painter = platform.imagePainter.getPainter(ImageReference.Dice5),
                             colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurfaceVariant),

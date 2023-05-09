@@ -325,7 +325,6 @@ public fun <T> List<Weighted<T>>.weightedRandom(): T =
     this.let { list ->
         val totalWeight = list.sumOf { it.weight }
         val roll = rollDie(totalWeight)
-        println("Total weight is $totalWeight, rolled $roll")
         list.weightedRandom(roll)
     }
 

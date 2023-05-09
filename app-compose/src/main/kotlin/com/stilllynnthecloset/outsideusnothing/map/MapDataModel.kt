@@ -101,10 +101,31 @@ internal class MapDataModel constructor(val playbook: Playbook) {
         generatePortNameEntry = "${playbook.portAdjectives.weightedRandom().text} ${playbook.portTypes.weightedRandom().text}"
     }
 
-    fun generatePort(node: Node<PortOfCall>) {
+    fun generateDegrees(node: Node<PortOfCall>, degrees: Int) {
+        if (degrees <= 0) {
+            return
+        }
+        pickRandomPortName()
+        val newNode: Node<PortOfCall> = generatePort(node)
+        val connections = findExistingConnections(node, edgeList)
+        connections.forEach {
+            val neighborCoordinate = if (it.node1 == node.coordinate) it.node2 else it.node1
+            val neighborNode = nodeList.firstOrNull { it.coordinate == neighborCoordinate }
+            if (neighborNode != null) {
+                if (neighborNode.value == null) {
+                    generateDegrees(neighborNode, degrees - 1)
+                }
+            } else {
+                println("Couldn't find neighbor for coords: $neighborCoordinate")
+            }
+        }
+        selectedNode = newNode
+    }
+
+    fun generatePort(node: Node<PortOfCall>): Node<PortOfCall> {
         val name = generatePortNameEntry
         if (name.isNullOrBlank()) {
-            return
+            return node
         }
         generatePortNameEntry = null
 
@@ -125,7 +146,6 @@ internal class MapDataModel constructor(val playbook: Playbook) {
         val existingConnections = findExistingConnections(node, edgeList)
 
         val neighborsToConnectTo = rollDie(6)
-        println("Connecting to $neighborsToConnectTo neighbors")
 
         val newConnectionsNeeded = neighborsToConnectTo - existingConnections.size
         if (newConnectionsNeeded > 0) {
@@ -139,15 +159,14 @@ internal class MapDataModel constructor(val playbook: Playbook) {
                 .forEach { newNeighbor ->
                     if (newNeighbor in emptyNeighbors) {
                         // We need to make a new placeholder node for it.
-                        println("Creating new node at $newNeighbor")
                         nodeList = nodeList + Node(newNeighbor, AnnotatedString(""), null)
                     }
                     if (edgeList.none { (it.node1 == node.coordinate && it.node2 == newNeighbor) || (it.node1 == newNeighbor && it.node2 == node.coordinate) }) {
                         // We need to make a new edge connecting these nodes
-                        println("Creating new edge from ${node.coordinate} to $newNeighbor")
                         edgeList = edgeList + Edge(node.coordinate, newNeighbor, rollDie(6))
                     }
                 }
         }
+        return newCopy
     }
 }
