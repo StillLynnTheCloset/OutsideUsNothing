@@ -6,7 +6,7 @@ import androidx.compose.runtime.setValue
 import com.stilllynnthecloset.liboun.model.Playbook
 import com.stilllynnthecloset.outsideusnothing.dice.DiceRollerDataModel
 
-public class MainDataModel public constructor() {
+public class MainDataModel public constructor(private val platform: Platform) {
     public var isDarkTheme: Boolean by mutableStateOf(true)
         private set
 
@@ -15,7 +15,7 @@ public class MainDataModel public constructor() {
 
     private var playbooks: List<Playbook> by mutableStateOf(emptyList())
 
-    public var windows: List<WindowDataModel> by mutableStateOf(listOf(WindowDataModel(this, NavigationDestination.DiceRoller(DiceRollerDataModel()))))
+    public var windows: List<WindowDataModel> by mutableStateOf(listOf(WindowDataModel(this, NavigationDestination.DiceRoller(DiceRollerDataModel()), platform)))
         private set
 
     init {
@@ -85,7 +85,7 @@ public class MainDataModel public constructor() {
     }
 
     public fun openWindow() {
-        this.windows = windows + WindowDataModel(this, NavigationDestination.DiceRoller(DiceRollerDataModel()))
+        this.windows = windows + WindowDataModel(this, NavigationDestination.DiceRoller(DiceRollerDataModel()), platform)
     }
 
     public fun closeWindow(window: WindowDataModel) {

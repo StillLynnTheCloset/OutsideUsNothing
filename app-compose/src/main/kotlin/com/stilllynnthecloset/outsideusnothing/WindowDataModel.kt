@@ -15,7 +15,11 @@ import com.stilllynnthecloset.outsideusnothing.reference.ReferenceDataModel
  *
  * Created by Lynn on 4/14/23
  */
-public class WindowDataModel internal constructor(private val mainDataModel: MainDataModel, screen: NavigationDestination) {
+public class WindowDataModel internal constructor(
+    private val mainDataModel: MainDataModel,
+    private val screen: NavigationDestination,
+    private val platform: Platform,
+) {
     private val backstack = ArrayDeque<NavigationDestination>(5)
     internal var currentScreen: NavigationDestination by mutableStateOf(screen)
         private set

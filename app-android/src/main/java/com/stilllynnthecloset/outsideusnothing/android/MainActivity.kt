@@ -40,8 +40,8 @@ class MainActivity : ComponentActivity() {
 @ExperimentalMaterial3Api
 @Composable
 fun Content() {
-    val dataModel = remember { MainDataModel() }
     val platform = remember { PlatformAndroid() }
+    val dataModel = remember { MainDataModel(platform) }
 
     LynnTheme(dataModel.isDarkTheme) {
         Surface(

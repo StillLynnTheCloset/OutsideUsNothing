@@ -32,8 +32,8 @@ import com.stilllynnthecloset.outsideusnothing.theme.appWindowTitleBar
 public fun main() {
     application {
         val windowStates = remember { mutableMapOf<WindowDataModel, WindowState>() }
-        val dataModel = remember { MainDataModel() }
         val platform = remember { PlatformDesktop() }
+        val dataModel = remember { MainDataModel(platform) }
         dataModel.windows.forEach { window ->
             val windowState = windowStates[window] ?: WindowState(
                 placement = WindowPlacement.Floating,
