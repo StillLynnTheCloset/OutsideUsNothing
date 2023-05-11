@@ -4,15 +4,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.text.AnnotatedString
 import com.stilllynnthecloset.hexgridcompose.Edge
 import com.stilllynnthecloset.hexgridcompose.GridCoordinate
 import com.stilllynnthecloset.hexgridcompose.Node
+import com.stilllynnthecloset.hexgridcompose.PlaceholderNode
 import com.stilllynnthecloset.hexgridcompose.findEmptyNeighbors
 import com.stilllynnthecloset.hexgridcompose.findExistingConnections
 import com.stilllynnthecloset.hexgridcompose.findExistingNeighbors
 import com.stilllynnthecloset.liboun.model.Playbook
-import com.stilllynnthecloset.liboun.model.PortOfCall
 import com.stilllynnthecloset.liboun.pickN
 import com.stilllynnthecloset.liboun.rollDie
 import com.stilllynnthecloset.liboun.weightedRandom
@@ -23,55 +22,21 @@ import com.stilllynnthecloset.liboun.weightedRandom
  * Created by Lynn on 4/14/23
  */
 internal class MapDataModel constructor(val playbook: Playbook) {
-    private val portOfCall = PortOfCall(playbook.ports.weightedRandom(), emptyList(), emptyList())
-    private val orbitalDescent = Node(GridCoordinate(0, -1), AnnotatedString("Orbital Descent"), portOfCall)
-    private val hesperion = Node(GridCoordinate(0, 0), AnnotatedString("Hesperion"), portOfCall)
-    private val machineHeaven = Node(GridCoordinate(2, 1), AnnotatedString("Machine Heaven"), portOfCall)
-    private val well409 = Node(GridCoordinate(-1, 0), AnnotatedString("Well 409"), portOfCall)
-    private val freeholdNone = Node(GridCoordinate(1, -1), AnnotatedString("Freehold None"), portOfCall)
-    private val harfast = Node(GridCoordinate(1, 0), AnnotatedString("Harfast"), portOfCall)
-    private val mirandumsHideout = Node(GridCoordinate(1, 1), AnnotatedString("Mirandum's\nHideout"), portOfCall)
-    private val newParabuteo = Node(GridCoordinate(0, 1), AnnotatedString("New Parabuteo"), portOfCall)
-    private val a = Node<PortOfCall>(GridCoordinate(-1, -1), AnnotatedString(""), null)
-    private val b = Node<PortOfCall>(GridCoordinate(-1, 1), AnnotatedString(""), null)
-    private val c = Node<PortOfCall>(GridCoordinate(-2, 0), AnnotatedString(""), null)
-    private val d = Node<PortOfCall>(GridCoordinate(-2, 1), AnnotatedString(""), null)
-    private val blankStarter = Node<PortOfCall>(GridCoordinate(0, 0), AnnotatedString(""), null)
+    private val blankStarter = PlaceholderNode(GridCoordinate(0, 0))
 
-    var nodeList: List<Node<PortOfCall>> by mutableStateOf(
-        listOf(
-            blankStarter,
-//            hesperion,
-//            well409,
-//            freeholdNone,
-//            harfast,
-//            mirandumsHideout,
-//            machineHeaven,
-//            newParabuteo,
-//            orbitalDescent,
-//            a,
-//            b,
-//            c,
-//            d,
-        ),
+    var nodeList: List<Node> by mutableStateOf(
+        listOf(blankStarter),
     )
 
     var edgeList: List<Edge> by mutableStateOf(
-        listOf(
-//            Edge(well409.coordinate, newParabuteo.coordinate, 2),
-//            Edge(well409.coordinate, a.coordinate, null), // Cost Unknown
-//            Edge(well409.coordinate, b.coordinate, null), // Cost Unknown
-//            Edge(well409.coordinate, c.coordinate, null), // Cost Unknown
-//            Edge(well409.coordinate, d.coordinate, null), // Cost Unknown
-//            Edge(well409.coordinate, hesperion.coordinate, 1),
-//            Edge(freeholdNone.coordinate, hesperion.coordinate, 3),
-//            Edge(freeholdNone.coordinate, orbitalDescent.coordinate, 2),
-//            Edge(freeholdNone.coordinate, harfast.coordinate, 1),
-//            Edge(harfast.coordinate, hesperion.coordinate, 4),
-//            Edge(harfast.coordinate, mirandumsHideout.coordinate, 6),
-//            Edge(harfast.coordinate, machineHeaven.coordinate, 2),
-        ),
+        listOf(),
     )
+
+
+    fun updateMap(map: Map) {
+        nodeList = map.nodes
+        edgeList = map.edges
+    }
 
     var zoomLevel: Float by mutableStateOf(1f)
 
@@ -85,9 +50,9 @@ internal class MapDataModel constructor(val playbook: Playbook) {
         offset = newOffset
     }
 
-    var selectedNode: Node<PortOfCall>? by mutableStateOf(null)
+    var selectedNode: Node? by mutableStateOf(null)
 
-    fun onNodeSelected(node: Node<PortOfCall>?) {
+    fun onNodeSelected(node: Node?) {
         selectedNode = node
     }
 
@@ -101,18 +66,18 @@ internal class MapDataModel constructor(val playbook: Playbook) {
         generatePortNameEntry = "${playbook.portAdjectives.weightedRandom().text} ${playbook.portTypes.weightedRandom().text}"
     }
 
-    fun generateDegrees(node: Node<PortOfCall>, degrees: Int) {
+    fun generateDegrees(node: Node, degrees: Int) {
         if (degrees <= 0) {
             return
         }
         pickRandomPortName()
-        val newNode: Node<PortOfCall> = generatePort(node)
+        val newNode: Node = generatePort(node)
         val connections = findExistingConnections(node, edgeList)
         connections.forEach {
             val neighborCoordinate = if (it.node1 == node.coordinate) it.node2 else it.node1
             val neighborNode = nodeList.firstOrNull { it.coordinate == neighborCoordinate }
             if (neighborNode != null) {
-                if (neighborNode.value == null) {
+                if (neighborNode is PlaceholderNode) {
                     generateDegrees(neighborNode, degrees - 1)
                 }
             } else {
@@ -122,51 +87,50 @@ internal class MapDataModel constructor(val playbook: Playbook) {
         selectedNode = newNode
     }
 
-    fun generatePort(node: Node<PortOfCall>): Node<PortOfCall> {
+    fun generatePort(node: Node): Node {
         val name = generatePortNameEntry
         if (name.isNullOrBlank()) {
             return node
         }
         generatePortNameEntry = null
+        if (node is PlaceholderNode) {
+            // Replace existing node with new node with name and generated info.
+            val generatedPortOfCall = playbook.ports.weightedRandom().randomize(playbook)
+            val newCopy = PortNode(node.coordinate, generatedPortOfCall)
+            nodeList = (nodeList - node) + newCopy
+            selectedNode = newCopy
 
-        // Replace existing node with new node with name and generated info.
-        val generatedPortOfCall = playbook.ports.weightedRandom().randomize(playbook)
-        val newCopy = node.copy(
-            label = AnnotatedString(name),
-            value = generatedPortOfCall,
-        )
-        nodeList = (nodeList - node) + newCopy
-        selectedNode = newCopy
+            // Three types of neighbor:
+            // 1. Completely empty (create placeholder and edge)
+            // 2. Has blank placeholder (create edge)
+            // 3. Has actual port (don't create anything)
 
-        // Three types of neighbor:
-        // 1. Completely empty (create placeholder and edge)
-        // 2. Has blank placeholder (create edge)
-        // 3. Has actual port (don't create anything)
+            val existingConnections = findExistingConnections(node, edgeList)
 
-        val existingConnections = findExistingConnections(node, edgeList)
+            val neighborsToConnectTo = rollDie(6)
 
-        val neighborsToConnectTo = rollDie(6)
+            val newConnectionsNeeded = neighborsToConnectTo - existingConnections.size
+            if (newConnectionsNeeded > 0) {
+                val emptyNeighbors = findEmptyNeighbors(node, nodeList)
+                val blankNeighbors = findExistingNeighbors(node, nodeList).filter { it is PlaceholderNode }.map { it.coordinate }
+                val availableNeighbors = emptyNeighbors + blankNeighbors
 
-        val newConnectionsNeeded = neighborsToConnectTo - existingConnections.size
-        if (newConnectionsNeeded > 0) {
-            val emptyNeighbors = findEmptyNeighbors(node, nodeList)
-            val blankNeighbors = findExistingNeighbors(node, nodeList).filter { it.value == null }.map { it.coordinate }
-            val availableNeighbors = emptyNeighbors + blankNeighbors
-
-            availableNeighbors
-                .toSet()
-                .pickN(newConnectionsNeeded)
-                .forEach { newNeighbor ->
-                    if (newNeighbor in emptyNeighbors) {
-                        // We need to make a new placeholder node for it.
-                        nodeList = nodeList + Node(newNeighbor, AnnotatedString(""), null)
+                availableNeighbors
+                    .toSet()
+                    .pickN(newConnectionsNeeded)
+                    .forEach { newNeighbor ->
+                        if (newNeighbor in emptyNeighbors) {
+                            // We need to make a new placeholder node for it.
+                            nodeList = nodeList + PlaceholderNode(newNeighbor)
+                        }
+                        if (edgeList.none { (it.node1 == node.coordinate && it.node2 == newNeighbor) || (it.node1 == newNeighbor && it.node2 == node.coordinate) }) {
+                            // We need to make a new edge connecting these nodes
+                            edgeList = edgeList + Edge(node.coordinate, newNeighbor, rollDie(6))
+                        }
                     }
-                    if (edgeList.none { (it.node1 == node.coordinate && it.node2 == newNeighbor) || (it.node1 == newNeighbor && it.node2 == node.coordinate) }) {
-                        // We need to make a new edge connecting these nodes
-                        edgeList = edgeList + Edge(node.coordinate, newNeighbor, rollDie(6))
-                    }
-                }
+            }
+            return newCopy
         }
-        return newCopy
+        return node
     }
 }

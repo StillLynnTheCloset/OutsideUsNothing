@@ -23,21 +23,36 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.drawText
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.text.style.TextAlign
+import kotlinx.serialization.Polymorphic
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
 import kotlin.math.cos
 import kotlin.math.sin
 
-public data class Node<T : Any> constructor(
-    val coordinate: GridCoordinate,
-    val label: AnnotatedString,
-    val value: T?,
-)
+@Polymorphic
+public interface Node {
+    public val coordinate: GridCoordinate
+    public val label: AnnotatedString
+}
 
+@Serializable
+@SerialName("placeholder")
+public data class PlaceholderNode constructor(
+    override val coordinate: GridCoordinate,
+) : Node {
+    @Transient
+    override val label: AnnotatedString = AnnotatedString("")
+}
+
+@Serializable
 public data class Edge constructor(
     val node1: GridCoordinate,
     val node2: GridCoordinate,
     val cost: Int?,
 )
 
+@Serializable
 public data class GridCoordinate constructor(
     val row: Int,
     val col: Int,
@@ -45,9 +60,9 @@ public data class GridCoordinate constructor(
 
 @Composable
 @OptIn(ExperimentalTextApi::class, ExperimentalComposeUiApi::class)
-public fun <T : Any> hexGrid(
+public fun <T : Node> hexGrid(
     modifier: Modifier,
-    nodes: List<Node<T>>,
+    nodes: List<T>,
     edges: List<Edge>,
     nodeSize: Float,
     nodeSpacing: Float,
@@ -55,8 +70,8 @@ public fun <T : Any> hexGrid(
     onOffsetChanged: (Offset) -> Unit,
     scale: Float,
     onScaleChanged: (Float) -> Unit,
-    selectedNode: Node<T>?,
-    onNodeSelected: (Node<T>) -> Unit,
+    selectedNode: T?,
+    onNodeSelected: (T) -> Unit,
 ) {
     val textMeasurer = rememberTextMeasurer()
     val textColor = MaterialTheme.colorScheme.onPrimary
@@ -125,7 +140,7 @@ public fun <T : Any> hexGrid(
         }
 
         nodes.forEach {
-            val color = if (it.value == null) placeholderColor else gridColor
+            val color = if (it is PlaceholderNode) placeholderColor else gridColor
             drawHexagon(
                 node = it,
                 offset = this.center + (offset * unitDistance),
@@ -161,7 +176,7 @@ private val neighborDeltas = listOf(
     ),
 )
 
-public fun <T : Any> findAndCheckNeighbors(node: Node<T>, allNodes: List<Node<T>>, allEdges: List<Edge>) {
+public fun <T : Node> findAndCheckNeighbors(node: T, allNodes: List<T>, allEdges: List<Edge>) {
     println("Existing Connections:")
     findExistingConnections(node, allEdges).forEach {
         println("    ${it.cost} fuel to ${if (it.node1 == node.coordinate) it.node2 else it.node1}")
@@ -178,23 +193,23 @@ public fun <T : Any> findAndCheckNeighbors(node: Node<T>, allNodes: List<Node<T>
     }
 }
 
-public fun <T : Any> findExistingConnections(node: Node<T>, allEdges: List<Edge>): List<Edge> {
+public fun <T : Node> findExistingConnections(node: T, allEdges: List<Edge>): List<Edge> {
     return allEdges.filter { it.node1 == node.coordinate || it.node2 == node.coordinate }
 }
 
-public fun <T : Any> findExistingNeighbors(node: Node<T>, allNodes: List<Node<T>>): List<Node<T>> {
+public fun <T : Node> findExistingNeighbors(node: T, allNodes: List<T>): List<Node> {
     val neighborCoords = findAllNeighborCoords(node)
 
     return allNodes.filter { neighbor -> neighborCoords.any { it.row == neighbor.coordinate.row && it.col == neighbor.coordinate.col } }
 }
 
-public fun <T : Any> findEmptyNeighbors(node: Node<T>, allNodes: List<Node<T>>): List<GridCoordinate> {
+public fun <T : Node> findEmptyNeighbors(node: T, allNodes: List<T>): List<GridCoordinate> {
     val neighborCoords = findAllNeighborCoords(node)
 
     return neighborCoords.filter { neighbor -> allNodes.none { it.coordinate.row == neighbor.row && it.coordinate.col == neighbor.col } }
 }
 
-public fun <T : Any> findAllNeighborCoords(node: Node<T>): List<GridCoordinate> {
+public fun <T : Node> findAllNeighborCoords(node: T): List<GridCoordinate> {
     return (0 until 6).map { direction ->
         findNeighborCoords(node, direction)
     }
@@ -203,24 +218,24 @@ public fun <T : Any> findAllNeighborCoords(node: Node<T>): List<GridCoordinate> 
 /**
  * [direction] is the selection of a neighbor, starting at 0 at 3:00, and going CCW
  */
-public fun <T : Any> findNeighborCoords(node: Node<T>, direction: Int): GridCoordinate {
+public fun <T : Node> findNeighborCoords(node: T, direction: Int): GridCoordinate {
     val parity = node.coordinate.row and 1 // 1 if odd, 0 if even
     val diff = neighborDeltas[parity][direction]
     return GridCoordinate(node.coordinate.row + diff[1], node.coordinate.col + diff[0])
 }
 
-private fun <T : Any> nodeScreenBounds(
-    nodes: List<Node<T>>,
+private fun <T : Node> nodeScreenBounds(
+    nodes: List<T>,
     offset: Offset,
     nodeSize: Float,
     nodeSpacing: Float,
-): List<Pair<Node<T>, List<Offset>>> {
+): List<Pair<T, List<Offset>>> {
     return nodes.map { it to hexagonOffsets(offsetOfNode(offset, it.coordinate, nodeSize, nodeSpacing), nodeSize) }
 }
 
 @OptIn(ExperimentalTextApi::class)
-private fun <T : Any> DrawScope.drawHexagon(
-    node: Node<T>,
+private fun <T : Node> DrawScope.drawHexagon(
+    node: T,
     offset: Offset,
     textMeasurer: TextMeasurer,
     fillColor: Color,
@@ -264,7 +279,7 @@ private fun <T : Any> DrawScope.drawHexagon(
         )
     }
 
-    if (node.value == null) {
+    if (node is PlaceholderNode) {
         drawLine(
             color = textColor,
             start = center.copy(y = center.y - nodeSize / 4),

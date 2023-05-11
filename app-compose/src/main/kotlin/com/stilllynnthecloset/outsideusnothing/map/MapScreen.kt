@@ -91,7 +91,7 @@ internal fun MapScreen(dataModel: MapDataModel, platform: Platform) {
                             },
                     )
                 }
-                if (selectedNode.value == null) {
+                if (selectedNode !is PortNode) {
                     Row {
                         textInputWidget(
                             value = dataModel.generatePortNameEntry.orEmpty(),
@@ -137,9 +137,7 @@ internal fun MapScreen(dataModel: MapDataModel, platform: Platform) {
                         )
                     }
                 } else {
-                    selectedNode.value?.let {
-                        it.compose(platform)
-                    }
+                    selectedNode.portOfCall.compose(platform)
                 }
             }
         }

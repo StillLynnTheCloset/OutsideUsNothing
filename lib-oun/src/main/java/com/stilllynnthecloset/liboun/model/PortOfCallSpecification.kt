@@ -23,6 +23,7 @@ public data class PortOfCallSpecification constructor(
     public fun randomize(playbook: Playbook): PortOfCall {
         return PortOfCall(
             specification = this,
+            name = "${playbook.portAdjectives.weightedRandom().text} ${playbook.portTypes.weightedRandom().text}",
             choices = choices.map { it.randomize() },
             contracts = contracts.toSet().pickAtLeastN(minContracts).map {
                 if (it.description == "GENERATE_REPLACEMENT") {

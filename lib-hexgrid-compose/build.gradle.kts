@@ -5,6 +5,7 @@ import java.util.Properties
 
 plugins {
     kotlin("jvm")
+    kotlin("plugin.serialization")
     id("org.jetbrains.compose")
     id("kotlin-kapt")
 }
@@ -29,6 +30,7 @@ dependencies {
     implementation(project(":lib-oun"))
 
     implementation(AndroidX.annotation)
+    implementation(KotlinX.serialization.json)
 
     implementation(compose.runtime)
     implementation(compose.uiTooling)

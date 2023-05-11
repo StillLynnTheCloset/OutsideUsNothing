@@ -10,6 +10,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 public data class PortOfCall constructor(
     val specification: PortOfCallSpecification,
+    val name: String,
     val choices: Collection<Choice>,
     val contracts: Collection<Contract>,
 )
