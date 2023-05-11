@@ -26,6 +26,8 @@ dependencies {
     implementation(kotlin("stdlib"))
 
     implementation(project(":app-compose"))
+    implementation(project(":lib-oun"))
+    implementation(project(":lib-hexgrid-compose"))
 
     implementation(KotlinX.coroutines.swing)
 

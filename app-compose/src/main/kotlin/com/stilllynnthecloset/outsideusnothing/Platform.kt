@@ -9,4 +9,5 @@ import com.stilllynnthecloset.outsideusnothing.theme.ImagePainter
  */
 public interface Platform {
     public val imagePainter: ImagePainter
+    public val persistence: Persistence
 }

@@ -39,7 +39,7 @@ public class WindowDataModel internal constructor(
         currentScreen = when (newTab) {
             NavigationTabImpl.DiceRoller -> NavigationDestination.DiceRoller(DiceRollerDataModel())
             NavigationTabImpl.Generator -> NavigationDestination.Generator(GeneratorDataModel(mainDataModel.mergedPlaybook))
-            NavigationTabImpl.Map -> NavigationDestination.Map(MapDataModel(mainDataModel.mergedPlaybook))
+            NavigationTabImpl.Map -> NavigationDestination.Map(MapDataModel(mainDataModel.mergedPlaybook, platform))
             NavigationTabImpl.Playbooks -> NavigationDestination.Playbooks(PlaybooksViewModel(mainDataModel))
             NavigationTabImpl.Reference -> NavigationDestination.Reference(ReferenceDataModel(mainDataModel))
         }

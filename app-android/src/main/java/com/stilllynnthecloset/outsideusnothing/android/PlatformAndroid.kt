@@ -1,5 +1,6 @@
 package com.stilllynnthecloset.outsideusnothing.android
 
+import com.stilllynnthecloset.outsideusnothing.Persistence
 import com.stilllynnthecloset.outsideusnothing.Platform
 import com.stilllynnthecloset.outsideusnothing.theme.ImagePainter
 
@@ -10,4 +11,5 @@ import com.stilllynnthecloset.outsideusnothing.theme.ImagePainter
  */
 internal data class PlatformAndroid constructor(
     override val imagePainter: ImagePainter = ImagePainterAndroid,
+    override val persistence: Persistence = PersistenceAndroid(),
 ) : Platform

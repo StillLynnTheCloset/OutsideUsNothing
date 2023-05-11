@@ -15,13 +15,17 @@ import com.stilllynnthecloset.liboun.model.Playbook
 import com.stilllynnthecloset.liboun.pickN
 import com.stilllynnthecloset.liboun.rollDie
 import com.stilllynnthecloset.liboun.weightedRandom
+import com.stilllynnthecloset.outsideusnothing.Platform
 
 /**
  * MapDataModel - TODO: Documentation
  *
  * Created by Lynn on 4/14/23
  */
-internal class MapDataModel constructor(val playbook: Playbook) {
+internal class MapDataModel constructor(
+    val playbook: Playbook,
+    val platform: Platform,
+) {
     private val blankStarter = PlaceholderNode(GridCoordinate(0, 0))
 
     var nodeList: List<Node> by mutableStateOf(
@@ -32,6 +36,9 @@ internal class MapDataModel constructor(val playbook: Playbook) {
         listOf(),
     )
 
+    init {
+        updateMap(platform.persistence.loadCurrentMap())
+    }
 
     fun updateMap(map: Map) {
         nodeList = map.nodes
