@@ -174,13 +174,43 @@ internal fun main() {
 //        println(Playbook.defaultPlaybook.ports.weightedRandom(it + 1).name)
 //    }
 
-    val serializer = Json.Default
+//    val serializer = Json.Default
+//
+//    val string = serializer.encodeToString(Playbook.defaultPlaybook)
+//    println(string)
 
-    val string = serializer.encodeToString(Playbook.defaultPlaybook)
-    println(string)
+    println(
+        generate(1000) {
+            rollForEvents(
+                listOf(
+                    1,
+                    4,
+                    1,
+                    2
+                )
+            )
+        }.average()
+    )
+
 
 //    printTimeStuff()
 }
+
+public fun getOddsOfEvents(edgeCosts: List<Int>, eventOdds: Double = 0.5): Double {
+    return edgeCosts
+        .sumOf { it - 1 } * eventOdds
+}
+public fun rollForEvents(edgeCosts: List<Int>, eventOdds: Double = 0.5): Int {
+    return edgeCosts
+        .sumOf { it - 1 }
+        .generate { eventOdds > random.nextDouble() }
+        .sumOf { if (it) 1L else 0 }
+        .toInt()
+}
+
+public fun <T> generate(count: Int, generator: () -> T): List<T> = count.generate(generator)
+@JvmName("generateExtension")
+public fun <T> Int.generate(generator: () -> T): List<T> = (0 until this).map { generator() }
 
 private fun rollForRewards(jobQuality: ContractQuality) {
     println("Fuel for job " + rollDice(jobQuality.fuelDice, 6).sum())
