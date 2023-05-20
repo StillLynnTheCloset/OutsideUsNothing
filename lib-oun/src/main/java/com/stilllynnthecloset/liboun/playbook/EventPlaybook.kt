@@ -5,6 +5,7 @@ import com.stilllynnthecloset.liboun.model.Consequence
 import com.stilllynnthecloset.liboun.model.EventSpecification
 import com.stilllynnthecloset.liboun.model.Option
 import com.stilllynnthecloset.liboun.model.Question
+import com.stilllynnthecloset.liboun.model.TextConsequenceSpecification
 import com.stilllynnthecloset.liboun.model.Weighted
 
 /**
@@ -40,10 +41,10 @@ internal object EventPlaybook {
                     ),
                 ),
                 consequences = listOf(
-                    Consequence(
+                    TextConsequenceSpecification(
                         name = "Crew needs strong rolls or help to escape the field",
                     ),
-                    Consequence(
+                    TextConsequenceSpecification(
                         name = "Crew escapes the field, ship continues",
                     ),
                 ),
@@ -658,7 +659,7 @@ internal object EventPlaybook {
             ),
         ),
         consequences = listOf(
-            Consequence(
+            TextConsequenceSpecification(
                 name = "asdf",
             ),
         ),

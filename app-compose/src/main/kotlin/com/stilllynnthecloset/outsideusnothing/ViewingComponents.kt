@@ -27,6 +27,7 @@ import com.stilllynnthecloset.liboun.model.Bastard
 import com.stilllynnthecloset.liboun.model.Choice
 import com.stilllynnthecloset.liboun.model.ChoiceSpecification
 import com.stilllynnthecloset.liboun.model.Consequence
+import com.stilllynnthecloset.liboun.model.ConsequenceSpecification
 import com.stilllynnthecloset.liboun.model.Contract
 import com.stilllynnthecloset.liboun.model.ContractDestination
 import com.stilllynnthecloset.liboun.model.ContractDetail
@@ -101,10 +102,12 @@ internal fun PortOfCall.compose(platform: Platform, modifier: Modifier = Modifie
         Spacer(
             modifier = Modifier.height(separatorPadding),
         )
-        Text(
-            text = "Available Contracts:",
-        )
-        contracts.forEach { it.compose(platform) }
+        if (contracts.isNotEmpty()) {
+            Text(
+                text = "Available Contracts:",
+            )
+            contracts.forEach { it.compose(platform) }
+        }
     }
 }
 
@@ -310,14 +313,14 @@ internal fun Event.compose(platform: Platform, modifier: Modifier = Modifier) {
             )
             choices.forEach { it.compose(platform) }
         }
-        if (specification.consequences.isNotEmpty()) {
+        if (consequences.isNotEmpty()) {
             Spacer(
                 modifier = Modifier.height(separatorPadding),
             )
             Text(
                 text = "Consequences:",
             )
-            specification.consequences.forEach {
+            consequences.forEach {
                 it.compose(platform, Modifier.padding(start = indentPadding))
             }
         }
@@ -587,6 +590,18 @@ internal fun Threat.compose(platform: Platform, modifier: Modifier = Modifier) {
 
 @Composable
 internal fun Consequence.compose(platform: Platform, modifier: Modifier = Modifier) {
+    Row(
+        modifier = modifier,
+    ) {
+        Text(
+            text = specification.name,
+            modifier = Modifier
+                .align(Alignment.CenterVertically),
+        )
+    }
+}
+@Composable
+internal fun ConsequenceSpecification.compose(platform: Platform, modifier: Modifier = Modifier) {
     Row(
         modifier = modifier,
     ) {

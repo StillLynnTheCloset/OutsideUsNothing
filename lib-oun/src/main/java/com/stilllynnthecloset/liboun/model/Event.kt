@@ -11,4 +11,5 @@ import kotlinx.serialization.Serializable
 public data class Event constructor(
     val specification: EventSpecification,
     val choices: Collection<Choice>,
+    val consequences: Collection<Consequence>,
 )

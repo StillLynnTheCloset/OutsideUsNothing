@@ -13,13 +13,14 @@ public data class EventSpecification constructor(
     val name: String,
     val description: String,
     val choices: Collection<ChoiceSpecification>,
-    val consequences: Collection<Consequence>,
+    val consequences: Collection<ConsequenceSpecification>,
     val uuid: String = UUID.randomUUID().toString(),
 ) {
     public fun randomize(): Event {
         return Event(
             specification = this,
             choices = this.choices.map { it.randomize() },
+            consequences = this.consequences.map { it.randomize() },
         )
     }
 }
