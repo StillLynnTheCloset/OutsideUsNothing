@@ -12,6 +12,9 @@ internal object Colors {
     // secondary
     private val poppyRed = Color(0xFFFF5727)
 
+    // tertiary
+    private val gren = Color(0xFF0D750D)
+
     // neutral
     private val blackCoal = Color(0xFF1D1D1D)
     private val slate = Color(0xFF2D2D2D)
@@ -33,7 +36,7 @@ internal object Colors {
         secondaryContainer = niceMagenta,
         onSecondaryContainer = marshmallow,
 
-        tertiary = fadedMagenta,
+        tertiary = gren,
         onTertiary = marshmallow,
 //        tertiaryContainer = ,
 //        onTertiaryContainer = ,
@@ -71,7 +74,7 @@ internal object Colors {
         secondaryContainer = niceMagenta,
         onSecondaryContainer = marshmallow,
 
-        tertiary = fadedMagenta,
+        tertiary = gren,
         onTertiary = marshmallow,
 //        tertiaryContainer = ,
 //        onTertiaryContainer = ,

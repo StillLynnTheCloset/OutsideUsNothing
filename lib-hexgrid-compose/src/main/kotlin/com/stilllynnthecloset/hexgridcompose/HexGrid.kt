@@ -70,7 +70,7 @@ public fun <T : Node> hexGrid(
     onOffsetChanged: (Offset) -> Unit,
     scale: Float,
     onScaleChanged: (Float) -> Unit,
-    selectedNode: T?,
+    highlightedNodes: List<Pair<GridCoordinate, Color>>,
     onNodeSelected: (T) -> Unit,
 ) {
     val textMeasurer = rememberTextMeasurer()
@@ -139,17 +139,18 @@ public fun <T : Node> hexGrid(
             )
         }
 
-        nodes.forEach {
-            val color = if (it is PlaceholderNode) placeholderColor else gridColor
+        nodes.forEach { node ->
+            val color = if (node is PlaceholderNode) placeholderColor else gridColor
+            val selectedColor = highlightedNodes.firstOrNull { it.first == node.coordinate }?.second
             drawHexagon(
-                node = it,
+                node = node,
                 offset = this.center + (offset * unitDistance),
                 textMeasurer = textMeasurer,
                 fillColor = color,
                 textColor = textColor,
                 nodeSize = nodeSize * scale,
                 nodeSpacing = nodeSpacing * scale,
-                selected = it == selectedNode,
+                selectedColor = selectedColor,
             )
         }
     }
@@ -242,7 +243,7 @@ private fun <T : Node> DrawScope.drawHexagon(
     textColor: Color,
     nodeSize: Float,
     nodeSpacing: Float,
-    selected: Boolean,
+    selectedColor: Color?,
 ) {
     val center = offsetOfNode(offset, node.coordinate, nodeSize, nodeSpacing)
     val hexagonPoints = hexagonOffsets(center, nodeSize)
@@ -252,11 +253,11 @@ private fun <T : Node> DrawScope.drawHexagon(
         path.lineTo(it.x, it.y)
     }
     this.drawPath(path, fillColor, style = Fill)
-    if (selected) {
+    if (selectedColor != null) {
         val borderWidth = nodeSize / 15f
         this.drawPath(
             path = path,
-            color = textColor,
+            color = selectedColor,
             style = Stroke(
                 width = borderWidth,
                 miter = borderWidth,

@@ -53,7 +53,13 @@ internal fun MapScreen(dataModel: MapDataModel, platform: Platform) {
             onOffsetChanged = dataModel::onOffsetChanged,
             scale = dataModel.zoomLevel,
             onScaleChanged = dataModel::onZoomLevelChanged,
-            selectedNode = dataModel.selectedNode,
+            highlightedNodes = dataModel.highlightedNodes.map {
+                it.first to when (it.second) {
+                    MapDataModel.NodeHighlight.SELECTED -> MaterialTheme.colorScheme.onPrimary
+                    MapDataModel.NodeHighlight.SHIP_LOCATION -> MaterialTheme.colorScheme.error
+                    MapDataModel.NodeHighlight.ON_PATH -> MaterialTheme.colorScheme.tertiary
+                }
+            },
             onNodeSelected = dataModel::onNodeSelected,
         )
 
@@ -77,6 +83,14 @@ internal fun MapScreen(dataModel: MapDataModel, platform: Platform) {
                     Spacer(
                         modifier = Modifier
                             .weight(1f),
+                    )
+
+                    Text(
+                        text = "Travel Here for ${dataModel.currentPathCost}\nAverage events: ${dataModel.currentPathEventOdds}",
+                        modifier = Modifier
+                            .clickable {
+                                dataModel.onShipLocationChanged(selectedNode)
+                            }
                     )
 
                     Image(
