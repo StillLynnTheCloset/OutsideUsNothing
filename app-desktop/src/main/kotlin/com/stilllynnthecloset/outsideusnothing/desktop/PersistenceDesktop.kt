@@ -28,7 +28,6 @@ public class PersistenceDesktop : Persistence {
         return sableMap
     }
 
-
     private val portOfCall = PortOfCall(PortOfCallSpecification("", "", listOf(), listOf(), 0), "", emptyList(), emptyList())
     private val orbitalDescant = PortNode(GridCoordinate(0, -1), portOfCall.copy(name = "Orbital Descant"))
     private val hesperion = PortNode(GridCoordinate(0, 0), portOfCall.copy(name = "Hesperion"))
@@ -40,6 +39,9 @@ public class PersistenceDesktop : Persistence {
     private val well409 = PortNode(GridCoordinate(-1, -1), portOfCall.copy(name = "Well 409"))
     private val parabuteo = PortNode(GridCoordinate(-2, 1), portOfCall.copy(name = "Parabuteo"))
     private val chapel = PortNode(GridCoordinate(-1, 1), portOfCall.copy(name = "Chapel of the\nPharotekton"))
+    private val gentleJill = PortNode(GridCoordinate(-2, 2), portOfCall.copy(name = "Gentle Jill"))
+    private val rockField = PortNode(GridCoordinate(-3, 0), portOfCall.copy(name = "Rock field"))
+    private val bakunin = PortNode(GridCoordinate(-3, 1), portOfCall.copy(name = "Bakunin"))
     private val a = PlaceholderNode(GridCoordinate(-1, -2))
     private val c = PlaceholderNode(GridCoordinate(-2, -1))
     private val d = PlaceholderNode(GridCoordinate(-2, 0))
@@ -59,6 +61,9 @@ public class PersistenceDesktop : Persistence {
             d,
             parabuteo,
             chapel,
+            gentleJill,
+            rockField,
+            bakunin,
         ),
         edges = listOf(
             Edge(well409.coordinate, newParabuteo.coordinate, 2),
@@ -75,8 +80,12 @@ public class PersistenceDesktop : Persistence {
             Edge(harfast.coordinate, machineHeaven.coordinate, 2),
             Edge(mirandumsHideout.coordinate, machineHeaven.coordinate, null),
             Edge(chapel.coordinate, machineHeaven.coordinate, 2),
-            Edge(parabuteo.coordinate, newParabuteo.coordinate, null),
+            Edge(parabuteo.coordinate, newParabuteo.coordinate, 4),
             Edge(chapel.coordinate, parabuteo.coordinate, 3),
+            Edge(gentleJill.coordinate, parabuteo.coordinate, 6),
+            Edge(rockField.coordinate, parabuteo.coordinate, 1),
+            Edge(bakunin.coordinate, parabuteo.coordinate, 4),
+            Edge(gentleJill.coordinate, parabuteo.coordinate, 6),
         )
     )
 }

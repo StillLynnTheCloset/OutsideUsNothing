@@ -30,6 +30,8 @@ import kotlinx.serialization.Transient
 import kotlin.math.cos
 import kotlin.math.sin
 
+private const val COORDINATE_DEBUG = true
+
 @Polymorphic
 public interface Node {
     public val coordinate: GridCoordinate
@@ -267,7 +269,13 @@ private fun <T : Node> DrawScope.drawHexagon(
         )
     }
 
-    val measureResult = textMeasurer.measure(node.label, style = TextStyle(textAlign = TextAlign.Center))
+    val text = if (COORDINATE_DEBUG) {
+        node.label + AnnotatedString("\n(${node.coordinate.row},${node.coordinate.col})")
+    } else {
+        node.label
+    }
+
+    val measureResult = textMeasurer.measure(text, style = TextStyle(textAlign = TextAlign.Center))
 
     if (measureResult.size.width <= nodeSize * 1.8) {
         val barHorizontalCenter = center.x
