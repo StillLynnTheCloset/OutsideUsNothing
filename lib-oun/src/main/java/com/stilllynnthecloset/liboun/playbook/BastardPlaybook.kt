@@ -98,7 +98,7 @@ internal object BastardPlaybook {
             weight = 1,
             value = Bastard(
                 name = "[error]whispers",
-                description = "What? Why am I on this list,  I’m your friend! This is a mistake!",
+                description = "What? Why am I on this list, I’m your friend! This is a mistake!",
             ),
         ),
     )

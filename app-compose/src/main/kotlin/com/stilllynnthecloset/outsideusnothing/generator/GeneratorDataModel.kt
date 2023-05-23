@@ -118,6 +118,7 @@ internal class GeneratorDataModel constructor(private val playbook: Playbook) {
                 playbook.backgrounds.weightedRandom().randomize(),
                 playbook.roles.weightedRandom().randomize(),
             ),
+            items = emptyList(),
         )
     }
 

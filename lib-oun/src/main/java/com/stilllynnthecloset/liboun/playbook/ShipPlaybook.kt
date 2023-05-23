@@ -77,16 +77,16 @@ public object ShipPlaybook {
             ),
             ChoiceSpecification(
                 options = setOf(
-                    Option("Bought under corp law"),
-                    Option("Custom commission"),
-                    Option("Bartered fairly"),
-                    Option("Salvaged or rescued"),
+                    Option("bought under corp law"),
+                    Option("custom commission"),
+                    Option("bartered fairly"),
+                    Option("salvaged or rescued"),
                     Option("alive"),
-                    Option("Stolen most likely"),
-                    Option("Found in an anomaly"),
-                    Option("A won game or contest"),
-                    Option("It came from the future"),
-                    Option("You don’t even know"),
+                    Option("stolen most likely"),
+                    Option("found in an anomaly"),
+                    Option("won in a game or contest"),
+                    Option("it came from the future"),
+                    Option("you don’t even know"),
                 ),
                 questions = listOf(
                     Question(

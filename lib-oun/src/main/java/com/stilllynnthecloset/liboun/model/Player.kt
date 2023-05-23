@@ -13,6 +13,7 @@ public data class Player constructor(
     val dicePool: Int,
     val condition: HealthCondition,
     val playSheets: Collection<PlaySheet>,
+    val items: Collection<UsefulItem>,
 ) {
     val actions: Collection<Action> = (playSheets.flatMap { it.specification.actions } + PlayerPlaybook.standardActions).sortedByDescending { it.diceOffset }
 }
