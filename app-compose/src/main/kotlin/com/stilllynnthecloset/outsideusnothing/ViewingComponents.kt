@@ -430,7 +430,7 @@ internal fun FlavorText.compose(platform: Platform, modifier: Modifier = Modifie
         modifier = modifier,
     ) {
         Text(
-            text = text,
+            text = "\"$text\"",
             fontSize = 12.sp,
             style = TextStyle(fontStyle = FontStyle.Italic),
         )
