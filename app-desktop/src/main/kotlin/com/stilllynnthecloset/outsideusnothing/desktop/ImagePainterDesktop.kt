@@ -39,5 +39,12 @@ internal object ImagePainterDesktop : ImagePainter {
         ImageReference.Edit -> painterResource("image/edit.svg")
         ImageReference.History -> painterResource("image/history.svg")
         ImageReference.Delete -> painterResource("image/delete.svg")
+        ImageReference.Person -> painterResource("image/person.svg")
+        ImageReference.PersonAdd -> painterResource("image/person_add.svg")
+        ImageReference.PersonRemove -> painterResource("image/person_remove.svg")
+        ImageReference.Group -> painterResource("image/group.svg")
+        ImageReference.GroupAdd -> painterResource("image/group_add.svg")
+        ImageReference.GroupRemove -> painterResource("image/group_remove.svg")
+        ImageReference.Ship -> painterResource("image/ship.svg")
     }
 }

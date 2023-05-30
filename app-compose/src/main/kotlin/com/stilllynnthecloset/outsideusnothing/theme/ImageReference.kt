@@ -31,4 +31,11 @@ public enum class ImageReference {
     Save,
     History,
     Delete,
+    Person,
+    PersonAdd,
+    PersonRemove,
+    Group,
+    GroupAdd,
+    GroupRemove,
+    Ship,
 }
