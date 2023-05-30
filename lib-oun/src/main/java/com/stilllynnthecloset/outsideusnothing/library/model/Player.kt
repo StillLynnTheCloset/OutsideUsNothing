@@ -10,6 +10,7 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 public data class Player constructor(
+    val name: String,
     val dicePool: Int,
     val condition: HealthCondition,
     val playSheets: Collection<PlaySheet>,

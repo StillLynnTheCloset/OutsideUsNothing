@@ -111,6 +111,7 @@ internal class GeneratorDataModel constructor(private val playbook: Playbook) {
 
     fun generatePlayer() {
         generatedPlayer = Player(
+            name = "Lorem",
             dicePool = (0..20).random(),
             condition = HealthCondition.values().random(),
             playSheets = listOf(
