@@ -57,6 +57,8 @@ val ktlint by configurations.creating
 
 dependencies {
     implementation(project(":app-compose"))
+    implementation(project(":lib-oun"))
+    implementation(project(":lib-hexgrid-compose"))
 
     implementation(AndroidX.core.ktx)
     implementation(AndroidX.lifecycle.runtime.ktx)

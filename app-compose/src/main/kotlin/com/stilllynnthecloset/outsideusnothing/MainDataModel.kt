@@ -3,7 +3,7 @@ package com.stilllynnthecloset.outsideusnothing
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import com.stilllynnthecloset.liboun.model.Playbook
+import com.stilllynnthecloset.outsideusnothing.library.model.Playbook
 import com.stilllynnthecloset.outsideusnothing.dice.DiceRollerDataModel
 
 public class MainDataModel public constructor(private val platform: Platform) {

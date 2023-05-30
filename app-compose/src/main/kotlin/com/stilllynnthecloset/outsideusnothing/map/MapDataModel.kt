@@ -4,19 +4,21 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.geometry.Offset
-import com.stilllynnthecloset.hexgridcompose.Edge
-import com.stilllynnthecloset.hexgridcompose.GridCoordinate
-import com.stilllynnthecloset.hexgridcompose.Node
-import com.stilllynnthecloset.hexgridcompose.PlaceholderNode
 import com.stilllynnthecloset.hexgridcompose.findEmptyNeighbors
 import com.stilllynnthecloset.hexgridcompose.findExistingConnections
 import com.stilllynnthecloset.hexgridcompose.findExistingNeighbors
-import com.stilllynnthecloset.liboun.getOddsOfEvents
-import com.stilllynnthecloset.liboun.model.Playbook
-import com.stilllynnthecloset.liboun.pickN
-import com.stilllynnthecloset.liboun.rollDie
-import com.stilllynnthecloset.liboun.weightedRandom
+import com.stilllynnthecloset.outsideusnothing.library.getOddsOfEvents
+import com.stilllynnthecloset.outsideusnothing.library.model.Playbook
+import com.stilllynnthecloset.outsideusnothing.library.pickN
+import com.stilllynnthecloset.outsideusnothing.library.rollDie
+import com.stilllynnthecloset.outsideusnothing.library.weightedRandom
 import com.stilllynnthecloset.outsideusnothing.Platform
+import com.stilllynnthecloset.outsideusnothing.library.map.HexGridCoordinate
+import com.stilllynnthecloset.outsideusnothing.library.map.HexGridEdge
+import com.stilllynnthecloset.outsideusnothing.library.map.HexGridMap
+import com.stilllynnthecloset.outsideusnothing.library.map.HexGridNode
+import com.stilllynnthecloset.outsideusnothing.library.map.PlaceholderNode
+import com.stilllynnthecloset.outsideusnothing.library.map.PortNode
 import java.util.PriorityQueue
 
 /**
@@ -28,17 +30,17 @@ internal class MapDataModel constructor(
     val playbook: Playbook,
     val platform: Platform,
 ) {
-    private val blankStarter = PlaceholderNode(GridCoordinate(0, 0))
+    private val blankStarter = PlaceholderNode(HexGridCoordinate(0, 0))
 
-    var nodeList: List<Node> by mutableStateOf(
+    var nodeList: List<HexGridNode> by mutableStateOf(
         listOf(blankStarter),
     )
 
-    var edgeList: List<Edge> by mutableStateOf(
+    var edgeList: List<HexGridEdge> by mutableStateOf(
         listOf(),
     )
 
-    var highlightedNodes: List<Pair<GridCoordinate, NodeHighlight>> by mutableStateOf(
+    var highlightedNodes: List<Pair<HexGridCoordinate, NodeHighlight>> by mutableStateOf(
         listOf(),
     )
 
@@ -49,7 +51,7 @@ internal class MapDataModel constructor(
         updateMap(platform.persistence.loadCurrentMap())
     }
 
-    fun updateMap(map: Map) {
+    fun updateMap(map: HexGridMap) {
         nodeList = map.nodes
         edgeList = map.edges
     }
@@ -66,16 +68,16 @@ internal class MapDataModel constructor(
         offset = newOffset
     }
 
-    var selectedNode: Node? by mutableStateOf(null)
+    var selectedNode: HexGridNode? by mutableStateOf(null)
 
-    fun onNodeSelected(node: Node?) {
+    fun onNodeSelected(node: HexGridNode?) {
         selectedNode = node
         updateHighlightedNodes()
     }
 
-    var shipLocation: Node? by mutableStateOf(null)
+    var shipLocation: HexGridNode? by mutableStateOf(null)
 
-    fun onShipLocationChanged(node: Node?) {
+    fun onShipLocationChanged(node: HexGridNode?) {
         shipLocation = node
         updateHighlightedNodes()
     }
@@ -90,12 +92,12 @@ internal class MapDataModel constructor(
         generatePortNameEntry = "${playbook.portAdjectives.weightedRandom().text} ${playbook.portTypes.weightedRandom().text}"
     }
 
-    fun generateDegrees(node: Node, degrees: Int) {
+    fun generateDegrees(node: HexGridNode, degrees: Int) {
         if (degrees <= 0) {
             return
         }
         pickRandomPortName()
-        val newNode: Node = generatePort(node)
+        val newNode: HexGridNode = generatePort(node)
         val connections = findExistingConnections(node, edgeList)
         connections.forEach {
             val neighborCoordinate = if (it.node1 == node.coordinate) it.node2 else it.node1
@@ -111,7 +113,7 @@ internal class MapDataModel constructor(
         selectedNode = newNode
     }
 
-    fun generatePort(node: Node): Node {
+    fun generatePort(node: HexGridNode): HexGridNode {
         val name = generatePortNameEntry
         if (name.isNullOrBlank()) {
             return node
@@ -136,7 +138,7 @@ internal class MapDataModel constructor(
             val newConnectionsNeeded = neighborsToConnectTo - existingConnections.size
             if (newConnectionsNeeded > 0) {
                 val emptyNeighbors = findEmptyNeighbors(node, nodeList)
-                val blankNeighbors = findExistingNeighbors(node, nodeList).filter { it is PlaceholderNode }.map { it.coordinate }
+                val blankNeighbors = findExistingNeighbors(node, nodeList).filterIsInstance<PlaceholderNode>().map { it.coordinate }
                 val availableNeighbors = emptyNeighbors + blankNeighbors
 
                 availableNeighbors
@@ -149,7 +151,7 @@ internal class MapDataModel constructor(
                         }
                         if (edgeList.none { (it.node1 == node.coordinate && it.node2 == newNeighbor) || (it.node1 == newNeighbor && it.node2 == node.coordinate) }) {
                             // We need to make a new edge connecting these nodes
-                            edgeList = edgeList + Edge(node.coordinate, newNeighbor, rollDie(6))
+                            edgeList = edgeList + HexGridEdge(node.coordinate, newNeighbor, rollDie(6))
                         }
                     }
             }
@@ -159,7 +161,7 @@ internal class MapDataModel constructor(
     }
 
     private fun updateHighlightedNodes() {
-        highlightedNodes = mutableListOf<Pair<GridCoordinate, NodeHighlight>>().apply {
+        highlightedNodes = mutableListOf<Pair<HexGridCoordinate, NodeHighlight>>().apply {
             val selectedNodeLocal = selectedNode
             if (selectedNodeLocal != null) {
                 add(selectedNodeLocal.coordinate to NodeHighlight.SELECTED)
@@ -189,7 +191,7 @@ internal class MapDataModel constructor(
         }
     }
 
-    private fun findShortestPath(startCoordinate: GridCoordinate, endCoordinate: GridCoordinate): List<GridCoordinate> {
+    private fun findShortestPath(startCoordinate: HexGridCoordinate, endCoordinate: HexGridCoordinate): List<HexGridCoordinate> {
         return Graph(edgeList).dijkstra(startCoordinate).getPath(endCoordinate)
     }
 
@@ -201,10 +203,10 @@ internal class MapDataModel constructor(
 }
 
 private data class Vertex(
-    val coordinate: GridCoordinate,
+    val coordinate: HexGridCoordinate,
     val dist: Int = Int.MAX_VALUE,
     val previous: Vertex? = null,
-    val neighbors: kotlin.collections.Map<GridCoordinate, Int?> = emptyMap()
+    val neighbors: kotlin.collections.Map<HexGridCoordinate, Int?> = emptyMap()
 ) : Comparable<Vertex> {
     override fun compareTo(other: Vertex): Int {
         return dist.compareTo(other.dist)
@@ -212,10 +214,10 @@ private data class Vertex(
 }
 
 private class Graph constructor(
-    edges: List<Edge>,
+    edges: List<HexGridEdge>,
 ) {
     // mapping of vertex names to Vertex objects, built from a set of Edges
-    private val graph = HashMap<GridCoordinate, Vertex>(edges.size)
+    private val graph = HashMap<HexGridCoordinate, Vertex>(edges.size)
 
     init {
         val filteredEdges = edges.filter { it.cost != null }
@@ -238,7 +240,7 @@ private class Graph constructor(
         }
     }
 
-    fun dijkstra(startCoordinate: GridCoordinate): Graph {
+    fun dijkstra(startCoordinate: HexGridCoordinate): Graph {
         if (!graph.containsKey(startCoordinate)) {
             println("Graph doesn't contain start vertex '$startCoordinate'")
             return this
@@ -280,7 +282,7 @@ private class Graph constructor(
         return this
     }
 
-    fun getPath(endCoordinate: GridCoordinate): List<GridCoordinate> {
+    fun getPath(endCoordinate: HexGridCoordinate): List<HexGridCoordinate> {
         val current = graph[endCoordinate] ?: return emptyList()
         val prev = current.previous ?: return emptyList()
         if (current.coordinate == prev.coordinate) {

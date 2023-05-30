@@ -3,19 +3,19 @@ package com.stilllynnthecloset.outsideusnothing.generator
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import com.stilllynnthecloset.liboun.model.Bastard
-import com.stilllynnthecloset.liboun.model.ContractDetail
-import com.stilllynnthecloset.liboun.model.Event
-import com.stilllynnthecloset.liboun.model.FlavorText
-import com.stilllynnthecloset.liboun.model.HealthCondition
-import com.stilllynnthecloset.liboun.model.Playbook
-import com.stilllynnthecloset.liboun.model.Player
-import com.stilllynnthecloset.liboun.model.PortOfCall
-import com.stilllynnthecloset.liboun.model.Ship
-import com.stilllynnthecloset.liboun.model.Threat
-import com.stilllynnthecloset.liboun.model.UsefulItem
-import com.stilllynnthecloset.liboun.playbook.ShipPlaybook
-import com.stilllynnthecloset.liboun.weightedRandom
+import com.stilllynnthecloset.outsideusnothing.library.model.Bastard
+import com.stilllynnthecloset.outsideusnothing.library.model.ContractDetail
+import com.stilllynnthecloset.outsideusnothing.library.model.Event
+import com.stilllynnthecloset.outsideusnothing.library.model.FlavorText
+import com.stilllynnthecloset.outsideusnothing.library.model.HealthCondition
+import com.stilllynnthecloset.outsideusnothing.library.model.Playbook
+import com.stilllynnthecloset.outsideusnothing.library.model.Player
+import com.stilllynnthecloset.outsideusnothing.library.model.PortOfCall
+import com.stilllynnthecloset.outsideusnothing.library.model.Ship
+import com.stilllynnthecloset.outsideusnothing.library.model.Threat
+import com.stilllynnthecloset.outsideusnothing.library.model.UsefulItem
+import com.stilllynnthecloset.outsideusnothing.library.playbook.ShipPlaybook
+import com.stilllynnthecloset.outsideusnothing.library.weightedRandom
 
 /**
  * GeneratorDataModel - TODO: Documentation

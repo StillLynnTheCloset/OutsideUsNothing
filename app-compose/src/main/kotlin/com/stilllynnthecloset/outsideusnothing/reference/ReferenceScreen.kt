@@ -17,7 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.stilllynnthecloset.liboun.model.Playbook
+import com.stilllynnthecloset.outsideusnothing.library.model.Playbook
 import com.stilllynnthecloset.outsideusnothing.Platform
 import com.stilllynnthecloset.outsideusnothing.PlaybookPage
 import com.stilllynnthecloset.outsideusnothing.compose

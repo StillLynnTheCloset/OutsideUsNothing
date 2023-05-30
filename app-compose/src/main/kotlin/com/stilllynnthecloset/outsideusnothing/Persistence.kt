@@ -1,7 +1,7 @@
 package com.stilllynnthecloset.outsideusnothing
 
-import com.stilllynnthecloset.outsideusnothing.dice.DiceRollerState
-import com.stilllynnthecloset.outsideusnothing.map.Map
+import com.stilllynnthecloset.outsideusnothing.library.model.Player
+import com.stilllynnthecloset.outsideusnothing.library.map.HexGridMap
 
 /**
  * Persistence - TODO: Documentation
@@ -9,7 +9,10 @@ import com.stilllynnthecloset.outsideusnothing.map.Map
  * Created by Lynn on 3/24/23
  */
 public interface Persistence {
-    public fun loadCurrentData(): DiceRollerState
-    public fun saveCurrentData(data: DiceRollerState)
-    public fun loadCurrentMap(): Map
+    public fun loadCurrentMap(): HexGridMap
+    public fun saveCurrentMap(newMap: HexGridMap)
+    public fun getPlayers(): List<Player>
+    public fun getActivePlayer(): Player?
+    public fun updatePlayer(newPlayer: Player)
+    public fun updateActivePlayer(newActivePlayer: Player)
 }

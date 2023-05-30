@@ -1,6 +1,6 @@
 package com.stilllynnthecloset.outsideusnothing.playbooks
 
-import com.stilllynnthecloset.liboun.model.Playbook
+import com.stilllynnthecloset.outsideusnothing.library.model.Playbook
 import com.stilllynnthecloset.outsideusnothing.MainDataModel
 
 /**

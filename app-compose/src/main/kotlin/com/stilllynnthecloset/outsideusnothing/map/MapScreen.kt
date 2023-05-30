@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import com.stilllynnthecloset.hexgridcompose.hexGrid
 import com.stilllynnthecloset.outsideusnothing.Platform
 import com.stilllynnthecloset.outsideusnothing.compose
+import com.stilllynnthecloset.outsideusnothing.library.map.PortNode
 import com.stilllynnthecloset.outsideusnothing.theme.ImageReference
 import com.stilllynnthecloset.outsideusnothing.theme.textInputWidget
 import kotlinx.coroutines.CoroutineScope

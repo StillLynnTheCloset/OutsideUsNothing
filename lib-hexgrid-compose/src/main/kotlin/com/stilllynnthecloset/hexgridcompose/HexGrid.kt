@@ -23,56 +23,28 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.drawText
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.text.style.TextAlign
-import kotlinx.serialization.Polymorphic
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
-import kotlinx.serialization.Transient
+import com.stilllynnthecloset.outsideusnothing.library.map.HexGridEdge
+import com.stilllynnthecloset.outsideusnothing.library.map.HexGridCoordinate
+import com.stilllynnthecloset.outsideusnothing.library.map.HexGridNode
+import com.stilllynnthecloset.outsideusnothing.library.map.PlaceholderNode
 import kotlin.math.cos
 import kotlin.math.sin
 
 private const val COORDINATE_DEBUG = true
 
-@Polymorphic
-public interface Node {
-    public val coordinate: GridCoordinate
-    public val label: AnnotatedString
-}
-
-@Serializable
-@SerialName("placeholder")
-public data class PlaceholderNode constructor(
-    override val coordinate: GridCoordinate,
-) : Node {
-    @Transient
-    override val label: AnnotatedString = AnnotatedString("")
-}
-
-@Serializable
-public data class Edge constructor(
-    val node1: GridCoordinate,
-    val node2: GridCoordinate,
-    val cost: Int?,
-)
-
-@Serializable
-public data class GridCoordinate constructor(
-    val row: Int,
-    val col: Int,
-)
-
 @Composable
 @OptIn(ExperimentalTextApi::class, ExperimentalComposeUiApi::class)
-public fun <T : Node> hexGrid(
+public fun <T : HexGridNode> hexGrid(
     modifier: Modifier,
     nodes: List<T>,
-    edges: List<Edge>,
+    edges: List<HexGridEdge>,
     nodeSize: Float,
     nodeSpacing: Float,
     offset: Offset,
     onOffsetChanged: (Offset) -> Unit,
     scale: Float,
     onScaleChanged: (Float) -> Unit,
-    highlightedNodes: List<Pair<GridCoordinate, Color>>,
+    highlightedNodes: List<Pair<HexGridCoordinate, Color>>,
     onNodeSelected: (T) -> Unit,
 ) {
     val textMeasurer = rememberTextMeasurer()
@@ -179,7 +151,7 @@ private val neighborDeltas = listOf(
     ),
 )
 
-public fun <T : Node> findAndCheckNeighbors(node: T, allNodes: List<T>, allEdges: List<Edge>) {
+public fun <T : HexGridNode> findAndCheckNeighbors(node: T, allNodes: List<T>, allEdges: List<HexGridEdge>) {
     println("Existing Connections:")
     findExistingConnections(node, allEdges).forEach {
         println("    ${it.cost} fuel to ${if (it.node1 == node.coordinate) it.node2 else it.node1}")
@@ -196,23 +168,23 @@ public fun <T : Node> findAndCheckNeighbors(node: T, allNodes: List<T>, allEdges
     }
 }
 
-public fun <T : Node> findExistingConnections(node: T, allEdges: List<Edge>): List<Edge> {
+public fun <T : HexGridNode> findExistingConnections(node: T, allEdges: List<HexGridEdge>): List<HexGridEdge> {
     return allEdges.filter { it.node1 == node.coordinate || it.node2 == node.coordinate }
 }
 
-public fun <T : Node> findExistingNeighbors(node: T, allNodes: List<T>): List<Node> {
+public fun <T : HexGridNode> findExistingNeighbors(node: T, allNodes: List<T>): List<HexGridNode> {
     val neighborCoords = findAllNeighborCoords(node)
 
     return allNodes.filter { neighbor -> neighborCoords.any { it.row == neighbor.coordinate.row && it.col == neighbor.coordinate.col } }
 }
 
-public fun <T : Node> findEmptyNeighbors(node: T, allNodes: List<T>): List<GridCoordinate> {
+public fun <T : HexGridNode> findEmptyNeighbors(node: T, allNodes: List<T>): List<HexGridCoordinate> {
     val neighborCoords = findAllNeighborCoords(node)
 
     return neighborCoords.filter { neighbor -> allNodes.none { it.coordinate.row == neighbor.row && it.coordinate.col == neighbor.col } }
 }
 
-public fun <T : Node> findAllNeighborCoords(node: T): List<GridCoordinate> {
+public fun <T : HexGridNode> findAllNeighborCoords(node: T): List<HexGridCoordinate> {
     return (0 until 6).map { direction ->
         findNeighborCoords(node, direction)
     }
@@ -221,13 +193,13 @@ public fun <T : Node> findAllNeighborCoords(node: T): List<GridCoordinate> {
 /**
  * [direction] is the selection of a neighbor, starting at 0 at 3:00, and going CCW
  */
-public fun <T : Node> findNeighborCoords(node: T, direction: Int): GridCoordinate {
+public fun <T : HexGridNode> findNeighborCoords(node: T, direction: Int): HexGridCoordinate {
     val parity = node.coordinate.row and 1 // 1 if odd, 0 if even
     val diff = neighborDeltas[parity][direction]
-    return GridCoordinate(node.coordinate.row + diff[1], node.coordinate.col + diff[0])
+    return HexGridCoordinate(node.coordinate.row + diff[1], node.coordinate.col + diff[0])
 }
 
-private fun <T : Node> nodeScreenBounds(
+private fun <T : HexGridNode> nodeScreenBounds(
     nodes: List<T>,
     offset: Offset,
     nodeSize: Float,
@@ -237,7 +209,7 @@ private fun <T : Node> nodeScreenBounds(
 }
 
 @OptIn(ExperimentalTextApi::class)
-private fun <T : Node> DrawScope.drawHexagon(
+private fun <T : HexGridNode> DrawScope.drawHexagon(
     node: T,
     offset: Offset,
     textMeasurer: TextMeasurer,
@@ -308,7 +280,7 @@ private fun <T : Node> DrawScope.drawHexagon(
 
 @OptIn(ExperimentalTextApi::class)
 private fun DrawScope.drawEdge(
-    edge: Edge,
+    edge: HexGridEdge,
     offset: Offset,
     textMeasurer: TextMeasurer,
     edgeColor: Color,
@@ -352,7 +324,7 @@ private fun findAngle(fraction: Double): Double {
     return fraction * Math.PI * 2 + Math.toRadians(270.0)
 }
 
-private fun offsetOfNode(screenOrigin: Offset, coordinate: GridCoordinate, nodeSize: Float, nodeSpacing: Float): Offset {
+private fun offsetOfNode(screenOrigin: Offset, coordinate: HexGridCoordinate, nodeSize: Float, nodeSpacing: Float): Offset {
     val ang30 = Math.toRadians(30.0)
     val rowOff = cos(ang30) * (nodeSize + nodeSpacing)
     val colOff = sin(ang30) * (nodeSize + nodeSpacing)
