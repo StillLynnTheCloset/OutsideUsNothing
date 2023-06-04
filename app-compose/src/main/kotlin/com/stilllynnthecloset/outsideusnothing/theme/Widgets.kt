@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3Api::class)
-
 package com.stilllynnthecloset.outsideusnothing.theme
 
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -12,6 +10,7 @@ import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -19,10 +18,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Divider
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -31,21 +33,27 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationRail
 import androidx.compose.material3.NavigationRailItem
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Alignment.Companion.Start
 import androidx.compose.ui.Alignment.Companion.TopStart
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.input.pointer.PointerEventType
+import androidx.compose.ui.input.pointer.onPointerEvent
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
@@ -114,6 +122,7 @@ public fun appWindowTitleBar(
 private val inputHeight = 64.dp
 
 @Composable
+@OptIn(ExperimentalMaterial3Api::class)
 internal fun textInputWidget(
     value: String,
     label: String,
@@ -149,6 +158,7 @@ internal fun textInputWidget(
 }
 
 @Composable
+@OptIn(ExperimentalMaterial3Api::class)
 internal fun longInputWidget(
     value: Long?,
     label: String,
@@ -491,6 +501,7 @@ internal fun <T : NavigationTab> navigationRailContainer(
 }
 
 @Composable
+@OptIn(ExperimentalMaterial3Api::class)
 internal fun <T : NavigationTab> navigationBarContainer(
     currentTab: T?,
     tabs: List<T>,
@@ -587,4 +598,195 @@ internal fun text(
         fontSize = 20.sp,
         modifier = modifier,
     )
+}
+
+@Composable
+@OptIn(ExperimentalComposeUiApi::class)
+public fun <T> dropDown(
+    items: List<T>,
+    selected: T,
+    modifier: Modifier,
+    platform: Platform,
+    onItemClick: (T) -> Unit,
+    composeItem: @Composable (item: T, childModifier: Modifier) -> Unit,
+) {
+    val expanded = remember { mutableStateOf(false) }
+    Box(
+        modifier = modifier
+            .height(inputHeight)
+            .border(
+                1.dp,
+                MaterialTheme.colorScheme.outline,
+                MaterialTheme.shapes.small,
+            )
+            .wrapContentSize(Center)
+            .onPointerEvent(PointerEventType.Scroll) { event ->
+                val scrollDelta = event.changes.firstOrNull()?.scrollDelta?.y
+                println("Scroll by $scrollDelta")
+                when {
+                    scrollDelta == null -> Unit
+                    scrollDelta > 0f -> items.getOrNull(items.indexOf(selected) + 1)?.let { onItemClick(it) }
+                    scrollDelta < 0f -> items.getOrNull(items.indexOf(selected) - 1)?.let { onItemClick(it) }
+                }
+            }
+            .defaultMinSize(
+                minWidth = 280.dp,
+            ),
+    ) {
+        Row(
+            modifier = Modifier
+                .height(IntrinsicSize.Max)
+                .width(IntrinsicSize.Max)
+                .padding(4.dp),
+        ) {
+            composeItem(
+                selected,
+                Modifier
+                    .height(IntrinsicSize.Max)
+                    .width(IntrinsicSize.Max)
+                    .clickable { expanded.value = true },
+            )
+        }
+        DropdownMenu(
+            expanded = expanded.value,
+            onDismissRequest = { expanded.value = false },
+        ) {
+            items.forEach { item ->
+                DropdownMenuItem(
+                    text = {
+                        composeItem(item, Modifier)
+                    },
+                    onClick = {
+                        expanded.value = false
+                        onItemClick(item)
+                    },
+                )
+            }
+        }
+    }
+}
+
+public enum class SortDirection {
+    ASC,
+    DESC,
+}
+
+@Composable
+@OptIn(ExperimentalComposeUiApi::class)
+public fun <T> dropDownSort(
+    items: List<T>,
+    selected: T,
+    sortDirection: SortDirection,
+    modifier: Modifier,
+    platform: Platform,
+    onItemClick: (T) -> Unit,
+    onDirectionClick: (SortDirection) -> Unit,
+    composeItem: @Composable (item: T, childModifier: Modifier) -> Unit,
+) {
+    val expanded = remember { mutableStateOf(false) }
+    Box(
+        modifier = modifier
+            .height(inputHeight)
+            .border(
+                1.dp,
+                MaterialTheme.colorScheme.outline,
+                MaterialTheme.shapes.small,
+            )
+            .wrapContentSize(Center)
+            .onPointerEvent(PointerEventType.Scroll) { event ->
+                val scrollDelta = event.changes.firstOrNull()?.scrollDelta?.y
+                println("Scroll by $scrollDelta")
+                when {
+                    scrollDelta == null -> Unit
+                    scrollDelta > 0f -> items.getOrNull(items.indexOf(selected) + 1)?.let { onItemClick(it) }
+                    scrollDelta < 0f -> items.getOrNull(items.indexOf(selected) - 1)?.let { onItemClick(it) }
+                }
+            }
+            .defaultMinSize(
+                minWidth = 280.dp,
+            ),
+    ) {
+        Row(
+            modifier = Modifier
+                .height(IntrinsicSize.Max)
+                .width(IntrinsicSize.Max)
+                .padding(4.dp),
+        ) {
+            composeItem(
+                selected,
+                Modifier
+                    .height(IntrinsicSize.Max)
+                    .width(IntrinsicSize.Max)
+                    .clickable { expanded.value = true },
+            )
+            Image(
+                painter = platform.imagePainter.getPainter(
+                    when (sortDirection) {
+                        SortDirection.ASC -> ImageReference.Remove // Down
+                        SortDirection.DESC -> ImageReference.Add // Up
+                    },
+                ),
+                colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
+                contentDescription = "Sort Direction",
+                modifier = Modifier
+                    .width(24.dp)
+                    .align(CenterVertically)
+                    .clickable {
+                        val newSort = when (sortDirection) {
+                            SortDirection.ASC -> SortDirection.DESC
+                            SortDirection.DESC -> SortDirection.ASC
+                        }
+                        onDirectionClick(newSort)
+                    },
+            )
+        }
+        DropdownMenu(
+            expanded = expanded.value,
+            onDismissRequest = { expanded.value = false },
+        ) {
+            items.forEach { item ->
+                DropdownMenuItem(
+                    text = {
+                        composeItem(item, Modifier)
+                    },
+                    onClick = {
+                        expanded.value = false
+                        onItemClick(item)
+                    },
+                )
+            }
+        }
+    }
+}
+
+@Composable
+internal fun <T> radioButtons(
+    options: Collection<T>,
+    blockedOptions: Collection<T>,
+    selections: Collection<T>,
+    maximumSelections: Int,
+    onClick: (T) -> Unit,
+    composeItem: @Composable (item: T, childModifier: Modifier) -> Unit,
+) {
+    Column {
+        options.forEach { option ->
+            val enabled = !(option in blockedOptions || (option !in selections && selections.size >= maximumSelections))
+            Row(
+                modifier = Modifier
+                    .clickable { if (enabled) onClick(option) }
+            ) {
+                RadioButton(
+                    selected = option in selections,
+                    enabled = enabled,
+                    modifier = Modifier,
+                    onClick = null,
+                )
+                composeItem(
+                    option,
+                    Modifier
+                        .align(CenterVertically),
+                )
+            }
+        }
+    }
 }

@@ -600,6 +600,7 @@ internal fun Consequence.compose(platform: Platform, modifier: Modifier = Modifi
         )
     }
 }
+
 @Composable
 internal fun ConsequenceSpecification.compose(platform: Platform, modifier: Modifier = Modifier) {
     Row(
@@ -654,19 +655,33 @@ internal fun Player.compose(platform: Platform, modifier: Modifier = Modifier) {
         modifier = modifier,
     ) {
         Text(
+            text = name,
+        )
+
+        Text(
             text = "Dice: $dicePool",
         )
+
         Text(
             text = "Condition: $condition",
         )
+
         Text(
             text = "Playsheets:",
         )
         playSheets.forEach { it.compose(platform, showActions = false, modifier = Modifier.padding(start = indentPadding)) }
+
         Text(
             text = "Actions:",
         )
         actions.forEach { it.compose(platform, modifier = Modifier.padding(start = indentPadding)) }
+
+        if (items.isNotEmpty()) {
+            Text(
+                text = "Items:",
+            )
+            items.forEach { it.compose(platform, modifier = Modifier.padding(start = indentPadding)) }
+        }
     }
 }
 
@@ -724,6 +739,7 @@ internal fun Playbook.compose(platform: Platform, listContents: Boolean, modifie
                 )
                 wasAnythingShown = true
             }
+
             if (bastards.isNotEmpty()) {
                 Text(
                     text = "${bastards.size}: Bastards",

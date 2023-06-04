@@ -3,6 +3,7 @@ package com.stilllynnthecloset.outsideusnothing
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import com.stilllynnthecloset.outsideusnothing.createplayer.CreatePlayerViewModel
 import com.stilllynnthecloset.outsideusnothing.dice.DiceRollerDataModel
 import com.stilllynnthecloset.outsideusnothing.edit.EditViewModel
 import com.stilllynnthecloset.outsideusnothing.generator.GeneratorDataModel
@@ -39,6 +40,7 @@ public class WindowDataModel internal constructor(
         currentScreen = when (newTab) {
             NavigationTabImpl.DiceRoller -> NavigationDestination.DiceRoller(DiceRollerDataModel())
             NavigationTabImpl.Generator -> NavigationDestination.Generator(GeneratorDataModel(mainDataModel.mergedPlaybook))
+            NavigationTabImpl.Players -> NavigationDestination.CreatePlayer(CreatePlayerViewModel(mainDataModel))
             NavigationTabImpl.Map -> NavigationDestination.Map(MapDataModel(mainDataModel.mergedPlaybook, platform))
             NavigationTabImpl.Playbooks -> NavigationDestination.Playbooks(PlaybooksViewModel(mainDataModel))
             NavigationTabImpl.Reference -> NavigationDestination.Reference(ReferenceDataModel(mainDataModel))

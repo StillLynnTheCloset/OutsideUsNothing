@@ -6,6 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.DpSize
+import com.stilllynnthecloset.outsideusnothing.createplayer.CreatePlayerScreen
 import com.stilllynnthecloset.outsideusnothing.dice.DiceRollerScreen
 import com.stilllynnthecloset.outsideusnothing.edit.EditScreen
 import com.stilllynnthecloset.outsideusnothing.generator.GeneratorScreen
@@ -38,6 +39,11 @@ public fun applicationContents(windowSize: DpSize, dataModel: MainDataModel, win
                 )
 
                 is NavigationDestination.Generator -> GeneratorScreen(
+                    dataModel = currentScreen.dataModel,
+                    platform = platform,
+                )
+
+                is NavigationDestination.CreatePlayer -> CreatePlayerScreen(
                     dataModel = currentScreen.dataModel,
                     platform = platform,
                 )
