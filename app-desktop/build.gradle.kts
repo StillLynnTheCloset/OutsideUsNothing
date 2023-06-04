@@ -30,6 +30,7 @@ dependencies {
     implementation(project(":lib-hexgrid-compose"))
 
     implementation(KotlinX.coroutines.swing)
+    implementation(KotlinX.serialization.json)
 
     implementation(AndroidX.annotation)
 

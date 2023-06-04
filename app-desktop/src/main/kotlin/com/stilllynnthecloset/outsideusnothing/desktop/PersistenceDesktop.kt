@@ -4,11 +4,14 @@ import com.stilllynnthecloset.outsideusnothing.library.model.Player
 import com.stilllynnthecloset.outsideusnothing.library.model.PortOfCall
 import com.stilllynnthecloset.outsideusnothing.library.model.PortOfCallSpecification
 import com.stilllynnthecloset.outsideusnothing.Persistence
+import com.stilllynnthecloset.outsideusnothing.library.SerializerTools
 import com.stilllynnthecloset.outsideusnothing.library.map.HexGridCoordinate
 import com.stilllynnthecloset.outsideusnothing.library.map.HexGridEdge
 import com.stilllynnthecloset.outsideusnothing.library.map.HexGridMap
 import com.stilllynnthecloset.outsideusnothing.library.map.PlaceholderNode
 import com.stilllynnthecloset.outsideusnothing.library.map.PortNode
+import com.stilllynnthecloset.outsideusnothing.readFile
+import kotlinx.serialization.decodeFromString
 
 /**
  * PersistenceDesktop - TODO: Documentation
@@ -25,7 +28,7 @@ public class PersistenceDesktop : Persistence {
     }
 
     override fun getPlayers(): List<Player> {
-        TODO("Not yet implemented")
+        return SerializerTools.serializer.decodeFromString<PlayersList>(readFile("players.json")).players
     }
 
     override fun getActivePlayer(): Player? {
@@ -102,4 +105,14 @@ public class PersistenceDesktop : Persistence {
             HexGridEdge(newParabuteo.coordinate, hesperion.coordinate, 3),
         )
     )
+
+    private fun getPlatformSpecificDataFolder(): String {
+
+        // Windows: C:\Users\Username\AppData\outsideUsNothing
+        // Linux: System.getenv("XDG_DATA_HOME") + "/outsideUsNothing
+        // Mac: ~/Library/Application Support/outsideUsNothing
+
+
+        return ""
+    }
 }
