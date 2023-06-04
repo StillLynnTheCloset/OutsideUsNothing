@@ -5,6 +5,7 @@ import com.stilllynnthecloset.outsideusnothing.library.playbook.PlayerPlaybook
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
+import java.util.UUID
 
 /**
  * Player - TODO: Documentation
@@ -18,7 +19,8 @@ public data class Player constructor(
     val condition: HealthCondition,
     val playSheets: Collection<PlaySheet>,
     val items: Collection<UsefulItem>,
-) {
+    override val uuid: String = UUID.randomUUID().toString(),
+) : UniversallyUnique {
     public companion object {
         public fun fromJson(string: String): Player = SerializerTools.serializer.decodeFromString(string)
     }

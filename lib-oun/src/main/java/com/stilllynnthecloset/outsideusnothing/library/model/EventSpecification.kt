@@ -14,8 +14,8 @@ public data class EventSpecification constructor(
     val description: String,
     val choices: Collection<ChoiceSpecification>,
     val consequences: Collection<ConsequenceSpecification>,
-    val uuid: String = UUID.randomUUID().toString(),
-) {
+    override val uuid: String = UUID.randomUUID().toString(),
+) : UniversallyUnique {
     public fun randomize(): Event {
         return Event(
             specification = this,

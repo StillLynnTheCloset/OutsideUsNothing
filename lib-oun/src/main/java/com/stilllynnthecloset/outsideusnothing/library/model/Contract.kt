@@ -1,6 +1,7 @@
 package com.stilllynnthecloset.outsideusnothing.library.model
 
 import kotlinx.serialization.Serializable
+import java.util.UUID
 
 /**
  * Contract - TODO: Documentation
@@ -13,4 +14,5 @@ public data class Contract constructor(
     val fuelReward: Int,
     val suppliesReward: Int,
     val itemReward: Boolean,
-)
+    override val uuid: String = UUID.randomUUID().toString(),
+) : UniversallyUnique

@@ -23,7 +23,7 @@ public data class Playbook constructor(
     val name: String,
     val description: String,
     val authors: List<Author>,
-    val uuid: String,
+    override val uuid: String,
     val active: Boolean = false,
     val aliens: List<Weighted<PlaySheetSpecification>> = emptyList(),
     val backgrounds: List<Weighted<PlaySheetSpecification>> = emptyList(),
@@ -40,7 +40,7 @@ public data class Playbook constructor(
     val portTypes: List<Weighted<PortType>> = emptyList(),
     val contractItems: List<Weighted<ContractItem>> = emptyList(),
     val contractDestinations: List<Weighted<ContractDestination>> = emptyList(),
-) {
+) : UniversallyUnique {
     public companion object {
         private const val DEFAULT_PLAYBOOK_UUID: String = "bd656fa0-b460-4cf3-852a-d5c7730d0028"
         private const val MERGED_PLAYBOOKS_UUID: String = "5c63c40a-05c9-49ff-acfd-2a933c4b2c6f"

@@ -1,6 +1,7 @@
 package com.stilllynnthecloset.outsideusnothing.library.model
 
 import kotlinx.serialization.Serializable
+import java.util.UUID
 
 /**
  * Ship - TODO: Documentation
@@ -14,4 +15,5 @@ public data class Ship constructor(
     val supplies: Int = 8,
     val condition: HealthCondition = HealthCondition.HEALTHY,
     val playSheet: PlaySheet,
-)
+    override val uuid: String = UUID.randomUUID().toString(),
+) : UniversallyUnique

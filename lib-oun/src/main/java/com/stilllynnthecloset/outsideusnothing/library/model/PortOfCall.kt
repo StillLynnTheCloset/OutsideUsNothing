@@ -1,6 +1,7 @@
 package com.stilllynnthecloset.outsideusnothing.library.model
 
 import kotlinx.serialization.Serializable
+import java.util.UUID
 
 /**
  * PortOfCall - TODO: Documentation
@@ -13,4 +14,5 @@ public data class PortOfCall constructor(
     val name: String,
     val choices: Collection<Choice>,
     val contracts: Collection<Contract>,
-)
+    override val uuid: String = UUID.randomUUID().toString(),
+) : UniversallyUnique

@@ -1,6 +1,7 @@
 package com.stilllynnthecloset.outsideusnothing.library.model
 
 import kotlinx.serialization.Serializable
+import java.util.UUID
 
 /**
  * Question - TODO: Documentation
@@ -11,4 +12,5 @@ import kotlinx.serialization.Serializable
 public data class Question constructor(
     val question: String,
     val answers: Int,
-)
+    override val uuid: String = UUID.randomUUID().toString(),
+) : UniversallyUnique

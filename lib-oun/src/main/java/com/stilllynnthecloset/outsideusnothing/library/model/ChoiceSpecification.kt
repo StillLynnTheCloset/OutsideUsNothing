@@ -2,6 +2,7 @@ package com.stilllynnthecloset.outsideusnothing.library.model
 
 import com.stilllynnthecloset.outsideusnothing.library.pickN
 import kotlinx.serialization.Serializable
+import java.util.UUID
 
 /**
  * ChoiceSpecification - TODO: Documentation
@@ -12,7 +13,8 @@ import kotlinx.serialization.Serializable
 public data class ChoiceSpecification constructor(
     val options: Collection<Option>,
     val questions: Collection<Question>,
-) {
+    override val uuid: String = UUID.randomUUID().toString(),
+) : UniversallyUnique {
     public fun randomize(): Choice {
         val accumulatedSelections = mutableSetOf<Option>()
         val optionsSet = options.toSet()

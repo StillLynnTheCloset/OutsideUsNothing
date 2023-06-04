@@ -1,6 +1,7 @@
 package com.stilllynnthecloset.outsideusnothing.library.model
 
 import kotlinx.serialization.Serializable
+import java.util.UUID
 
 /**
  * Author - TODO: Documentation
@@ -10,4 +11,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 public data class Author constructor(
     val name: String,
-)
+    override val uuid: String = UUID.randomUUID().toString(),
+) : UniversallyUnique

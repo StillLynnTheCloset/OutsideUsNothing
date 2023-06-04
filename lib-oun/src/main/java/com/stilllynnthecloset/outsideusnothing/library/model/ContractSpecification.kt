@@ -3,6 +3,7 @@ package com.stilllynnthecloset.outsideusnothing.library.model
 import com.stilllynnthecloset.outsideusnothing.library.checkSuccess
 import com.stilllynnthecloset.outsideusnothing.library.rollDice
 import kotlinx.serialization.Serializable
+import java.util.UUID
 
 /**
  * ContractSpecification - TODO: Documentation
@@ -13,7 +14,8 @@ import kotlinx.serialization.Serializable
 public data class ContractSpecification constructor(
     val description: String,
     val quality: ContractQuality,
-) {
+    override val uuid: String = UUID.randomUUID().toString(),
+) : UniversallyUnique {
     public fun randomize(): Contract {
         return Contract(
             contractSpecification = this,

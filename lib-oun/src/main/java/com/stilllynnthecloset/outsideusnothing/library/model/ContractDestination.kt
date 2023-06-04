@@ -11,5 +11,5 @@ import java.util.UUID
 @Serializable
 public data class ContractDestination constructor(
     val name: String,
-    val uuid: String = UUID.randomUUID().toString(),
-)
+    override val uuid: String = UUID.randomUUID().toString(),
+) : UniversallyUnique

@@ -18,8 +18,8 @@ public data class PortOfCallSpecification constructor(
     val choices: Collection<ChoiceSpecification>,
     val contracts: Collection<ContractSpecification>,
     val minContracts: Int,
-    val uuid: String = UUID.randomUUID().toString(),
-) {
+    override val uuid: String = UUID.randomUUID().toString(),
+) : UniversallyUnique {
     public fun randomize(playbook: Playbook): PortOfCall {
         return PortOfCall(
             specification = this,

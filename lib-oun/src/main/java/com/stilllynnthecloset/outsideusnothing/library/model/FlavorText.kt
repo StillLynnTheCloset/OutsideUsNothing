@@ -12,5 +12,5 @@ import java.util.UUID
 public data class FlavorText constructor(
     val text: String,
     val attribution: String,
-    val uuid: String = UUID.randomUUID().toString(),
-)
+    override val uuid: String = UUID.randomUUID().toString(),
+) : UniversallyUnique
