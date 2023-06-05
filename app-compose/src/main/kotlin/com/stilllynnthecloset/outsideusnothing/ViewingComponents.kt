@@ -1,9 +1,14 @@
 package com.stilllynnthecloset.outsideusnothing
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.TooltipArea
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -21,6 +26,8 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.stilllynnthecloset.outsideusnothing.library.calculateDiceOdds
+import com.stilllynnthecloset.outsideusnothing.library.getMaximumRollSum
+import com.stilllynnthecloset.outsideusnothing.library.getMinimumRollSum
 import com.stilllynnthecloset.outsideusnothing.library.model.Action
 import com.stilllynnthecloset.outsideusnothing.library.model.AnsweredQuestion
 import com.stilllynnthecloset.outsideusnothing.library.model.Bastard
@@ -57,6 +64,7 @@ import kotlin.math.absoluteValue
 internal val indentPadding: Dp = 32.dp
 internal val separatorPadding: Dp = 16.dp
 internal val betweenItemPadding: Dp = 4.dp
+internal val tooltipPadding: Dp = 4.dp
 
 @Composable
 internal fun PortOfCallSpecification.compose(platform: Platform, modifier: Modifier = Modifier) {
@@ -83,7 +91,12 @@ internal fun PortOfCallSpecification.compose(platform: Platform, modifier: Modif
         Text(
             text = "Available Contracts:",
         )
-        contracts.sortedBy { it.quality }.forEach { it.compose(platform, Modifier.padding(start = indentPadding)) }
+        contracts
+            .filterNot { it == ContractSpecification.generatedContract }
+            .sortedBy { it.quality }
+            .forEach {
+                it.compose(platform, Modifier.padding(start = indentPadding))
+            }
     }
 }
 
@@ -175,92 +188,11 @@ internal fun ContractSpecification.compose(platform: Platform, modifier: Modifie
         modifier = modifier
             .padding(vertical = betweenItemPadding),
     ) {
-        Text(
-            text = quality.toString(),
-            color = when (quality) {
-                ContractQuality.VERY_SUBPAR -> Color(0xFFFF0000)
-                ContractQuality.SUBPAR -> Color(0xFFea9999)
-                ContractQuality.AVERAGE -> Color(0xFFFFFFFF)
-                ContractQuality.GOOD -> Color(0xFFb6d7a8)
-                ContractQuality.EXCELLENT -> Color(0xFF00ff00)
-            },
+        quality.compose(
+            platform = platform,
             modifier = Modifier
                 .align(Alignment.CenterVertically)
                 .width(128.dp),
-        )
-
-        Text(
-            text = "(",
-            modifier = Modifier
-                .align(Alignment.CenterVertically),
-        )
-        Image(
-            painter = platform.imagePainter.getPainter(ImageReference.Food),
-            colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
-            contentDescription = "Supplies",
-            modifier = Modifier
-                .width(24.dp)
-                .align(Alignment.CenterVertically),
-        )
-        Image(
-            painter = platform.imagePainter.getPainter(ImageReference.Dice5),
-            colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
-            contentDescription = "Supplies Dice",
-            modifier = Modifier
-                .width(24.dp)
-                .align(Alignment.CenterVertically),
-        )
-        Text(
-            text = quality.suppliesDice.toString(),
-            modifier = Modifier
-                .width(32.dp)
-                .align(Alignment.CenterVertically),
-        )
-
-        Image(
-            painter = platform.imagePainter.getPainter(ImageReference.Fuel),
-            colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
-            contentDescription = "Fuel",
-            modifier = Modifier
-                .width(24.dp)
-                .align(Alignment.CenterVertically),
-        )
-        Image(
-            painter = platform.imagePainter.getPainter(ImageReference.Dice5),
-            colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
-            contentDescription = "Fuel Dice",
-            modifier = Modifier
-                .width(24.dp)
-                .align(Alignment.CenterVertically),
-        )
-        Text(
-            text = quality.fuelDice.toString(),
-            modifier = Modifier
-                .width(32.dp)
-                .align(Alignment.CenterVertically),
-        )
-
-        Image(
-            painter = platform.imagePainter.getPainter(ImageReference.Swords),
-            colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
-            contentDescription = "Item",
-            modifier = Modifier
-                .width(24.dp)
-                .align(Alignment.CenterVertically),
-        )
-        Image(
-            painter = platform.imagePainter.getPainter(ImageReference.Dice5),
-            colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
-            contentDescription = "Item Difficulty",
-            modifier = Modifier
-                .width(24.dp)
-                .align(Alignment.CenterVertically),
-        )
-        Text(
-            text = String.format("%.1f%%)", calculateDiceOdds(2, quality.itemDifficultly, 2) * 100),
-            modifier = Modifier
-                .width(96.dp)
-                .align(Alignment.CenterVertically),
         )
 
         Text(
@@ -269,6 +201,105 @@ internal fun ContractSpecification.compose(platform: Platform, modifier: Modifie
                 .align(Alignment.CenterVertically),
         )
     }
+}
+
+@Composable
+@OptIn(ExperimentalFoundationApi::class)
+internal fun ContractQuality.compose(platform: Platform, modifier: Modifier = Modifier) {
+    TooltipArea(
+        tooltip = {
+            Column(
+                modifier = Modifier
+                    .background(MaterialTheme.colorScheme.surfaceVariant)
+                    .padding(tooltipPadding)
+                    .width(IntrinsicSize.Max)
+            ) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                ) {
+                    Text(
+                        text = "(${getMinimumRollSum(suppliesDice)} - ${getMaximumRollSum(suppliesDice)})",
+                        modifier = Modifier
+                            .align(Alignment.CenterVertically),
+                    )
+                    Spacer(
+                        modifier = Modifier
+                            .weight(1f),
+                    )
+                    Image(
+                        painter = platform.imagePainter.getPainter(ImageReference.Food),
+                        colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
+                        contentDescription = "Supplies",
+                        modifier = Modifier
+                            .width(24.dp)
+                            .align(Alignment.CenterVertically),
+                    )
+                }
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                ) {
+                    Text(
+                        text = "(${getMinimumRollSum(fuelDice)} - ${getMaximumRollSum(fuelDice)})",
+                        modifier = Modifier
+                            .align(Alignment.CenterVertically),
+                    )
+                    Spacer(
+                        modifier = Modifier
+                            .weight(1f),
+                    )
+                    Image(
+                        painter = platform.imagePainter.getPainter(ImageReference.Fuel),
+                        colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
+                        contentDescription = "Fuel",
+                        modifier = Modifier
+                            .width(24.dp)
+                            .align(Alignment.CenterVertically),
+                    )
+                }
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                ) {
+                    Text(
+                        text = String.format("%.1f%%", calculateDiceOdds(2, itemDifficultly, 2) * 100),
+                        modifier = Modifier
+                            .align(Alignment.CenterVertically),
+                    )
+                    Spacer(
+                        modifier = Modifier
+                            .weight(1f),
+                    )
+                    Image(
+                        painter = platform.imagePainter.getPainter(ImageReference.Swords),
+                        colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
+                        contentDescription = "Item",
+                        modifier = Modifier
+                            .width(24.dp)
+                            .align(Alignment.CenterVertically),
+                    )
+                }
+            }
+        },
+        modifier = modifier,
+        content = {
+            Row {
+                Text(
+                    text = humanReadable,
+                    color = when (this@compose) {
+                        ContractQuality.VERY_SUBPAR -> Color(0xFFFF0000)
+                        ContractQuality.SUBPAR -> Color(0xFFea9999)
+                        ContractQuality.AVERAGE -> Color(0xFFFFFFFF)
+                        ContractQuality.GOOD -> Color(0xFFb6d7a8)
+                        ContractQuality.EXCELLENT -> Color(0xFF00ff00)
+                    },
+                    modifier = Modifier
+                        .align(Alignment.CenterVertically),
+                )
+            }
+        }
+    )
 }
 
 @Composable

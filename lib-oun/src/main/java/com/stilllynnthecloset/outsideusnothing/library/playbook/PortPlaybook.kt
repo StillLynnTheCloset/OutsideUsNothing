@@ -3,6 +3,7 @@ package com.stilllynnthecloset.outsideusnothing.library.playbook
 import com.stilllynnthecloset.outsideusnothing.library.model.ChoiceSpecification
 import com.stilllynnthecloset.outsideusnothing.library.model.ContractQuality
 import com.stilllynnthecloset.outsideusnothing.library.model.ContractSpecification
+import com.stilllynnthecloset.outsideusnothing.library.model.ContractSpecification.Companion.generatedContract
 import com.stilllynnthecloset.outsideusnothing.library.model.Option
 import com.stilllynnthecloset.outsideusnothing.library.model.PortOfCallSpecification
 import com.stilllynnthecloset.outsideusnothing.library.model.Question
@@ -14,11 +15,6 @@ import com.stilllynnthecloset.outsideusnothing.library.model.Weighted
  * Created by Lynn on 4/14/23
  */
 internal object PortPlaybook {
-    private val generatedContract: ContractSpecification = ContractSpecification(
-        description = "GENERATE_REPLACEMENT",
-        quality = ContractQuality.AVERAGE,
-    )
-
     private val companyPort: PortOfCallSpecification = PortOfCallSpecification(
         name = "The Company Port",
         description = "It’s the top of a space elevator, a station in the void, perhaps even (shockingly) on a planet itself. But wherever it is physically the construction is all the same. The brands the same. The shops the same. The floor utilitarian. The walls to clean. The people too quiet. The cops everywhere. Remember to pay your docking fee.",

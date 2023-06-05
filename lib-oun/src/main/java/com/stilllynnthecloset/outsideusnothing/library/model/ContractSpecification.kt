@@ -16,6 +16,12 @@ public data class ContractSpecification constructor(
     val quality: ContractQuality,
     override val uuid: String = UUID.randomUUID().toString(),
 ) : UniversallyUnique {
+    public companion object {
+        public val generatedContract: ContractSpecification = ContractSpecification(
+            description = "GENERATE_REPLACEMENT",
+            quality = ContractQuality.AVERAGE,
+        )
+    }
     public fun randomize(): Contract {
         return Contract(
             contractSpecification = this,
