@@ -10,21 +10,21 @@ import kotlin.time.Duration.Companion.milliseconds
 
 // region Probability
 
-public fun calculateDiceOdds(actionCost: Int, actionDifficulty: Int, diceUsed: Int, diceSides: Int = 6): Double {
+public fun calculateDiceOdds(actionCost: Int, actionDifficulty: Int, diceUsed: Int, diceSides: Int = STANDARD_DICE_SIDES): Double {
     return (actionCost..diceUsed).sumOf {
         val odds = calculateDiceOddsOfGettingExactly(it, actionDifficulty, diceUsed, diceSides)
         odds
     }.toDouble()
 }
 
-private fun calculateDiceOddsOfGettingExactly(numberOfSuccesses: Int, actionDifficulty: Int, diceUsed: Int, diceSides: Int): BigDecimal {
+private fun calculateDiceOddsOfGettingExactly(numberOfSuccesses: Int, actionDifficulty: Int, diceUsed: Int, diceSides: Int = STANDARD_DICE_SIDES): BigDecimal {
     val rollOdds = calculateDieOdds(actionDifficulty, diceSides).toBigDecimal()
     val combinations = comb(diceUsed, numberOfSuccesses)
     val oddsOfAnyCombination = (rollOdds.pow(numberOfSuccesses)) * (1.0.toBigDecimal() - rollOdds).pow(diceUsed - numberOfSuccesses)
     return (combinations.toBigDecimal() * oddsOfAnyCombination)
 }
 
-private fun calculateDieOdds(actionDifficulty: Int, diceSides: Int): Double {
+private fun calculateDieOdds(actionDifficulty: Int, diceSides: Int = STANDARD_DICE_SIDES): Double {
     return (diceSides - actionDifficulty) / diceSides.toDouble()
 }
 
@@ -39,7 +39,7 @@ private fun comb(n: Int, k: Int): BigInteger {
     return perm(n, k) / fact
 }
 
-public fun findMinDiceToRollToGetOdds(desiredOdds: Double, actionCost: Int, actionDifficulty: Int, diceSides: Int = 6): Int {
+public fun findMinDiceToRollToGetOdds(desiredOdds: Double, actionCost: Int, actionDifficulty: Int, diceSides: Int = STANDARD_DICE_SIDES): Int {
     var dice = actionCost
     var result = calculateDiceOdds(actionCost, actionDifficulty, dice, diceSides)
 
@@ -51,7 +51,7 @@ public fun findMinDiceToRollToGetOdds(desiredOdds: Double, actionCost: Int, acti
     return dice
 }
 
-public fun findMinRollsForStandardProbabilities(actionCost: Int, probabilitiesToFind: List<Double>, diceSides: Int = 6) {
+public fun findMinRollsForStandardProbabilities(actionCost: Int, probabilitiesToFind: List<Double>, diceSides: Int = STANDARD_DICE_SIDES) {
     (1 until diceSides).forEach { actionDifficulty ->
         print("Difficulty: $actionDifficulty   ")
         probabilitiesToFind.map { desiredOdds ->
@@ -60,163 +60,6 @@ public fun findMinRollsForStandardProbabilities(actionCost: Int, probabilitiesTo
         }
         println()
     }
-}
-
-// endregion Probability
-
-// region Simulation
-
-public fun rollDice(diceUsed: Int, diceSides: Int = 6): List<Int> {
-    return (0 until diceUsed).map { rollDie(diceSides) }
-}
-
-private val random: Random = Random.Default
-
-public fun rollDie(diceSides: Int): Int {
-    return random.nextInt(diceSides) + 1
-}
-
-public fun checkSuccess(actionCost: Int, actionDifficulty: Int, rolls: List<Int>): Boolean {
-    return rolls.count { it > actionDifficulty } >= actionCost
-}
-
-public fun simulateOdds(simulations: Int, actionCost: Int, actionDifficulty: Int, diceUsed: Int, diceSides: Int = 6): Double {
-    return (0 until simulations).count {
-        checkSuccess(actionCost, actionDifficulty, rollDice(diceUsed, diceSides))
-    } / simulations.toDouble()
-}
-
-public fun <T> Set<T>.pickN(count: Int): Set<T> {
-    return pickNInRange(count, count)
-}
-
-public fun <T> Set<T>.pickAtLeastN(minCount: Int): Set<T> {
-    return pickNInRange(minCount.coerceAtMost(this.size), this.size + 1)
-}
-
-public fun <T> Set<T>.pickNInRange(minCount: Int, maxCount: Int): Set<T> {
-    val count = random.nextInt(minCount.coerceAtMost(this.size), maxCount.coerceAtMost(this.size) + 1)
-    val results = mutableSetOf<T>()
-    repeat(count) {
-        results.add(this.minus(results).random())
-    }
-    return results
-}
-
-// endregion Simulation
-
-internal fun demo(actionCost: Int, actionDifficulty: Int, diceUsed: Int, probabilitiesToFind: List<Double>, diceSides: Int = 6) {
-//    repeat(13) {
-//        val cost = it + 1
-//        println("Using $diceSides-sided dice. Action requires $cost rolls")
-//        findMinRollsForStandardProbabilities(cost, probabilitiesToFind, diceSides)
-//
-//        println()
-//        println()
-//    }
-//    println("Using $diceSides-sided dice. Action requires $actionCost rolls")
-//    findMinRollsForStandardProbabilities(actionCost, probabilitiesToFind, diceSides)
-//
-//    println()
-//    println()
-//
-//    println("Rolling $diceUsed, $diceSides-sided dice. Action requires $actionCost rolls higher than $actionDifficulty")
-//    val actualOdds = calculateDiceOdds(
-//        actionCost = actionCost,
-//        actionDifficulty = actionDifficulty,
-//        diceUsed = diceUsed,
-//        diceSides = diceSides,
-//    )
-//    println("Exact probability of successfully performing the action: ${String.format("%.20f", actualOdds)}")
-//
-//    val simulations = 1_000_000
-//    val simulatedOdds = simulateOdds(
-//        simulations = simulations,
-//        actionCost = actionCost,
-//        actionDifficulty = actionDifficulty,
-//        diceUsed = diceUsed,
-//        diceSides = diceSides,
-//    )
-//    println("Success rate after $simulations simulated rolls: $simulatedOdds")
-//
-//    val roll = rollDice(diceUsed, diceSides)
-//    println("Rolled: $roll")
-//    val success = checkSuccess(actionCost, actionDifficulty, roll)
-//    println("Succeeded? $success")
-//
-//
-//
-//    println(countRollPermutations(6, 3))
-//    repeat(4) {
-//        println(oddsOfRewards(it + 1, 6))
-//    }
-
-//    repeat(30) {
-//        println(getOddsOfAtLeast(6, 4, it + 1))
-//    }
-
-//    rollForRewards(JobQuality.EXCELLENT)
-}
-
-internal fun main() {
-//    demo(
-//        actionCost = 14,
-//        actionDifficulty = 1,
-//        diceUsed = 14,
-//        diceSides = 6,
-//        probabilitiesToFind = listOf(0.50, 0.75, 0.90, 0.95, 0.99),
-//    )
-
-//    repeat(60) {
-//        println(Playbook.defaultPlaybook.ports.weightedRandom(it + 1).name)
-//    }
-
-//    val serializer = Json.Default
-//
-//    val string = serializer.encodeToString(Playbook.defaultPlaybook)
-//    println(string)
-
-    println(
-        generate(1000) {
-            rollForEvents(
-                listOf(
-                    1,
-                    4,
-                    1,
-                    2
-                )
-            )
-        }.average()
-    )
-
-
-//    printTimeStuff()
-}
-
-public fun getOddsOfEvents(edgeCosts: List<Int>, eventOdds: Double = 0.5): Double {
-    return edgeCosts
-        .sumOf { it - 1 } * eventOdds
-}
-public fun rollForEvents(edgeCosts: List<Int>, eventOdds: Double = 0.5): Int {
-    return edgeCosts
-        .sumOf { it - 1 }
-        .generate { eventOdds > random.nextDouble() }
-        .sumOf { if (it) 1L else 0 }
-        .toInt()
-}
-
-public fun <T> generate(count: Int, generator: () -> T): List<T> = count.generate(generator)
-@JvmName("generateExtension")
-public fun <T> Int.generate(generator: () -> T): List<T> = (0 until this).map { generator() }
-
-private fun rollForRewards(jobQuality: ContractQuality) {
-    println("Fuel for job " + rollDice(jobQuality.fuelDice, 6).sum())
-    println("Supplies for job " + rollDice(jobQuality.suppliesDice, 6).sum())
-    println("Item for job? " + checkSuccess(2, jobQuality.itemDifficultly, rollDice(2, 6)))
-}
-
-private fun oddsOfRewards(diceToRoll: Int, sides: Int): List<Int> {
-    return getOddsArray(sides, diceToRoll)
 }
 
 /**
@@ -228,7 +71,7 @@ private fun oddsOfRewards(diceToRoll: Int, sides: Int): List<Int> {
  *
  * @return The number of possible outcomes of rolling the given dice.
  */
-public fun countRollPermutations(sides: Int, dice: Int): Int {
+public fun countRollPermutations(dice: Int, sides: Int = STANDARD_DICE_SIDES): Int {
     return sides.toDouble().pow(dice).toInt()
 }
 
@@ -241,7 +84,7 @@ public fun countRollPermutations(sides: Int, dice: Int): Int {
  *
  * @return The smallest possible sum on the given dice.
  */
-public fun getMinimumRollSum(sides: Int, dice: Int): Int {
+public fun getMinimumRollSum(dice: Int, sides: Int = STANDARD_DICE_SIDES): Int {
     return dice
 }
 
@@ -254,7 +97,7 @@ public fun getMinimumRollSum(sides: Int, dice: Int): Int {
  *
  * @return The largest possible sum of the given dice.
  */
-public fun getMaximumRollSum(sides: Int, dice: Int): Int {
+public fun getMaximumRollSum(dice: Int, sides: Int = STANDARD_DICE_SIDES): Int {
     return sides * dice
 }
 
@@ -267,9 +110,9 @@ public fun getMaximumRollSum(sides: Int, dice: Int): Int {
  *
  * @return The total number of possible sums from the given dice.
  */
-public fun countRollOutcomes(sides: Int, dice: Int): Int {
+public fun countRollOutcomes(dice: Int, sides: Int = STANDARD_DICE_SIDES): Int {
     // Add one for an inclusive set.
-    return getMaximumRollSum(sides, dice) - getMinimumRollSum(sides, dice) + 1
+    return getMaximumRollSum(dice, sides) - getMinimumRollSum(dice, sides) + 1
 }
 
 /**
@@ -319,15 +162,15 @@ public fun countRollOutcomes(sides: Int, dice: Int): Int {
  * @param sides The number of sides on the dice.
  * @param dice The number of dice that are rolled.
  */
-public fun getOddsArray(sides: Int, dice: Int): List<Int> {
+public fun getOddsArray(dice: Int, sides: Int = STANDARD_DICE_SIDES): List<Int> {
     // Base case, odds of one for everything.
     return if (dice == 1) {
         List(sides) { 1 }
     } else {
         // These are just sides * (dice or dice-1) but functions are nice.
-        val size = getMaximumRollSum(sides, dice)
-        val prevSize = getMaximumRollSum(sides, dice - 1)
-        val prevOddsArray = getOddsArray(sides, dice - 1) // Get the odds for one fewer dice.
+        val size = getMaximumRollSum(dice, sides)
+        val prevSize = getMaximumRollSum(dice - 1, sides)
+        val prevOddsArray = getOddsArray(dice - 1, sides) // Get the odds for one fewer dice.
 
         // Create an array in which to store our sums.
         val sumArray = MutableList(size) { 0 }
@@ -343,29 +186,143 @@ public fun getOddsArray(sides: Int, dice: Int): List<Int> {
     }
 }
 
-public fun getOddsOfAtLeast(sides: Int, dice: Int, minimumNeeded: Int): Double {
-    val oddsArray = getOddsArray(sides, dice)
+public fun getOddsOfAtLeast(dice: Int, minimumNeeded: Int, sides: Int = STANDARD_DICE_SIDES): Double {
+    val oddsArray = getOddsArray(dice, sides)
     return oddsArray.drop(minimumNeeded - 1).sum() / oddsArray.sum().toDouble()
 }
 
-public fun <T> List<Weighted<T>>.weightedRandom(): T =
-    this.let { list ->
-        val totalWeight = list.sumOf { it.weight }
-        val roll = rollDie(totalWeight)
-        list.weightedRandom(roll)
-    }
+// endregion Probability
 
-public fun <T> List<Weighted<T>>.weightedRandom(roll: Int): T =
-    this.let { list ->
-        var currentMax = 0
-        list.forEach { entry ->
-            currentMax += entry.weight
-            if (roll <= currentMax) {
-                return@let entry.value
-            }
+// region Simulation
+
+public fun rollDice(diceUsed: Int, diceSides: Int = STANDARD_DICE_SIDES): List<Int> {
+    return (0 until diceUsed).map { rollDie(diceSides) }
+}
+
+private val random: Random = Random.Default
+
+public fun rollDie(diceSides: Int = STANDARD_DICE_SIDES): Int {
+    return random.nextInt(diceSides) + 1
+}
+
+public fun checkSuccess(actionCost: Int, actionDifficulty: Int, rolls: List<Int>): Boolean {
+    return rolls.count { it > actionDifficulty } >= actionCost
+}
+
+public fun simulateOdds(simulations: Int, actionCost: Int, actionDifficulty: Int, diceUsed: Int, diceSides: Int = STANDARD_DICE_SIDES): Double {
+    return (0 until simulations).count {
+        checkSuccess(actionCost, actionDifficulty, rollDice(diceUsed, diceSides))
+    } / simulations.toDouble()
+}
+
+// endregion Simulation
+
+// region Random Tools
+
+public fun <T> List<Weighted<T>>.weightedRandom(): T {
+    val totalWeight = this.sumOf { it.weight }
+    val roll = rollDie(totalWeight)
+    return this.weightedRandom(roll)
+}
+
+public fun <T> List<Weighted<T>>.weightedRandom(roll: Int): T {
+    var currentMax = 0
+    this.forEach { entry ->
+        currentMax += entry.weight
+        if (roll <= currentMax) {
+            return entry.value
         }
-        throw IllegalStateException("Didn't find a match, current max: $currentMax")
     }
+    throw IllegalStateException("Didn't find a match, current max: $currentMax")
+}
+
+public fun <T> Set<T>.pickN(count: Int): Set<T> {
+    return pickNInRange(count, count)
+}
+
+public fun <T> Set<T>.pickAtLeastN(minCount: Int): Set<T> {
+    return pickNInRange(minCount.coerceAtMost(this.size), this.size + 1)
+}
+
+public fun <T> Set<T>.pickAtMostN(maxCount: Int): Set<T> {
+    return pickNInRange(0, maxCount.coerceAtMost(this.size + 1))
+}
+
+/**
+ * Pick a number of elements from the set between [minCount] (inclusive) and [maxCount] (exclusive).
+ */
+public fun <T> Set<T>.pickNInRange(minCount: Int, maxCount: Int): Set<T> {
+    val count = random.nextInt(minCount.coerceAtMost(this.size), maxCount.coerceAtMost(this.size) + 1)
+    val results = mutableSetOf<T>()
+    repeat(count) {
+        results.add(this.minus(results).random())
+    }
+    return results
+}
+
+// endregion Random Tools
+
+// region Outside Us Nothing Probability Tools
+
+public const val STANDARD_DICE_SIDES: Int = 6
+
+public fun getOddsOfEvents(edgeCosts: List<Int>, eventOdds: Double = 0.5): Double {
+    return edgeCosts
+        .sumOf { it - 1 } * eventOdds
+}
+
+public fun rollForEvents(edgeCosts: List<Int>, eventOdds: Double = 0.5): Int {
+    return edgeCosts
+        .sumOf { it - 1 }
+        .generate { eventOdds > random.nextDouble() }
+        .sumOf { if (it) 1L else 0 }
+        .toInt()
+}
+
+private fun oddsOfRewards(diceToRoll: Int, sides: Int = STANDARD_DICE_SIDES): List<Double> {
+    val array = getOddsArray(diceToRoll, sides)
+    val sum = array.sum().toDouble()
+    return array.map { it / sum }
+}
+
+public fun <T> generate(count: Int, generator: () -> T): List<T> = count.generate(generator)
+
+@JvmName("generateExtension")
+public fun <T> Int.generate(generator: () -> T): List<T> = (0 until this).map { generator() }
+
+public fun printMinDiceRollsStuff() {
+    val probabilitiesToFind = listOf(
+        0.5,
+        0.75,
+        0.9,
+        0.95,
+        0.99,
+    )
+    repeat(10) {
+        val cost = it + 1
+        println("Using $STANDARD_DICE_SIDES-sided dice. Action requires $cost rolls")
+        findMinRollsForStandardProbabilities(cost, probabilitiesToFind, STANDARD_DICE_SIDES)
+
+        println()
+        println()
+    }
+}
+
+public fun printContractQualityStuff() {
+    ContractQuality.values().forEach {
+        println(it.humanReadable)
+        println("    Fuel range: ${getMinimumRollSum(it.fuelDice)} - ${getMaximumRollSum(it.fuelDice)}")
+        println("    ${(getMinimumRollSum(it.fuelDice)..getMaximumRollSum(it.fuelDice)).joinToString { String.format("%9d", it) }}")
+        println("    ${oddsOfRewards(it.fuelDice).dropWhile { it == 0.0 }.joinToString { String.format("%8.5f%%", it * 100) }}")
+        println()
+        println("    Supplies range: ${getMinimumRollSum(it.suppliesDice)} - ${getMaximumRollSum(it.suppliesDice)}")
+        println("    ${(getMinimumRollSum(it.suppliesDice)..getMaximumRollSum(it.suppliesDice)).joinToString { String.format("%9d", it) }}")
+        println("    ${oddsOfRewards(it.suppliesDice).dropWhile { it == 0.0 }.joinToString { String.format("%8.5f%%", it * 100) }}")
+        println()
+        println("    Item chance: ${String.format("%02.1f", calculateDiceOdds(2, it.itemDifficultly, 2) * 100)}%")
+        println()
+    }
+}
 
 public fun printTimeStuff() {
     println("1 nanoperiod = ${NANO_PERIOD.milliseconds}")
@@ -393,3 +350,5 @@ public fun printTimeStuff() {
     println(402.39712051787154 / nanometerPerYocto)
     println(555 * nanometerPerYocto)
 }
+
+// endregion Outside Us Nothing Probability Tools

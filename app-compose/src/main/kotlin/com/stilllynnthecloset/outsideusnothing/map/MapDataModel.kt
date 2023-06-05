@@ -133,7 +133,7 @@ internal class MapDataModel constructor(
 
             val existingConnections = findExistingConnections(node, edgeList)
 
-            val neighborsToConnectTo = rollDie(6)
+            val neighborsToConnectTo = rollDie()
 
             val newConnectionsNeeded = neighborsToConnectTo - existingConnections.size
             if (newConnectionsNeeded > 0) {
@@ -151,7 +151,7 @@ internal class MapDataModel constructor(
                         }
                         if (edgeList.none { (it.node1 == node.coordinate && it.node2 == newNeighbor) || (it.node1 == newNeighbor && it.node2 == node.coordinate) }) {
                             // We need to make a new edge connecting these nodes
-                            edgeList = edgeList + HexGridEdge(node.coordinate, newNeighbor, rollDie(6))
+                            edgeList = edgeList + HexGridEdge(node.coordinate, newNeighbor, rollDie())
                         }
                     }
             }
