@@ -1,5 +1,6 @@
 package com.stilllynnthecloset.outsideusnothing.theme
 
+import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.ui.graphics.Color
@@ -10,7 +11,7 @@ internal object Colors {
     private val fadedMagenta = Color(0xFF750d75)
 
     // secondary
-    private val poppyRed = Color(0xFFFF5727)
+    private val rad = Color(0xFFFF5727)
 
     // tertiary
     private val gren = Color(0xFF0D750D)
@@ -44,7 +45,7 @@ internal object Colors {
         background = washed,
         onBackground = blackCoal,
 
-        surface = marshmallow,
+        surface = silver,
         onSurface = blackCoal,
         surfaceVariant = washed,
         onSurfaceVariant = blackCoal,
@@ -52,7 +53,7 @@ internal object Colors {
 //        inverseSurface = ,
 //        inverseOnSurface = ,
 
-        error = poppyRed,
+        error = rad,
         onError = blackCoal,
 //        errorContainer = ,
 //        onErrorContainer = ,
@@ -90,7 +91,7 @@ internal object Colors {
 //        inverseSurface = ,
 //        inverseOnSurface = ,
 
-        error = poppyRed,
+        error = rad,
         onError = blackCoal,
 //        errorContainer = ,
 //        onErrorContainer = ,
@@ -99,4 +100,15 @@ internal object Colors {
         outlineVariant = darkClouds,
 //        scrim = ,
     )
+
+
+
+    val ColorScheme.positive: Color
+        get() = gren
+
+    val ColorScheme.neutral: Color
+        get() = onSurface
+
+    val ColorScheme.negative: Color
+        get() = rad
 }
