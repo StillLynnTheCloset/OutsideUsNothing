@@ -10,7 +10,6 @@ import com.stilllynnthecloset.outsideusnothing.library.map.HexGridEdge
 import com.stilllynnthecloset.outsideusnothing.library.map.HexGridMap
 import com.stilllynnthecloset.outsideusnothing.library.map.PlaceholderNode
 import com.stilllynnthecloset.outsideusnothing.library.map.PortNode
-import com.stilllynnthecloset.outsideusnothing.readFile
 import kotlinx.serialization.decodeFromString
 
 /**
@@ -58,8 +57,8 @@ public class PersistenceDesktop : Persistence {
     private val rockField = PortNode(HexGridCoordinate(-3, 0), portOfCall.copy(name = "Rock field"))
     private val bakunin = PortNode(HexGridCoordinate(-3, 1), portOfCall.copy(name = "Bakunin"))
     private val a = PlaceholderNode(HexGridCoordinate(-1, -2))
-    private val c = PlaceholderNode(HexGridCoordinate(-2, -1))
-    private val d = PlaceholderNode(HexGridCoordinate(-2, 0))
+    private val b = PlaceholderNode(HexGridCoordinate(-2, -1))
+    private val c = PlaceholderNode(HexGridCoordinate(-2, 0))
 
     private val sableMap = HexGridMap(
         nodes = listOf(
@@ -72,8 +71,8 @@ public class PersistenceDesktop : Persistence {
             newParabuteo,
             orbitalDescant,
             a,
+            b,
             c,
-            d,
             parabuteo,
             chapel,
             gentleJill,
@@ -84,8 +83,8 @@ public class PersistenceDesktop : Persistence {
             HexGridEdge(well409.coordinate, newParabuteo.coordinate, 2),
             HexGridEdge(well409.coordinate, orbitalDescant.coordinate, 3),
             HexGridEdge(well409.coordinate, a.coordinate, 5),
-            HexGridEdge(well409.coordinate, c.coordinate, 6),
-            HexGridEdge(well409.coordinate, d.coordinate, 5),
+            HexGridEdge(well409.coordinate, b.coordinate, 6),
+            HexGridEdge(well409.coordinate, c.coordinate, 5),
             HexGridEdge(well409.coordinate, hesperion.coordinate, 1),
             HexGridEdge(freeholdNone.coordinate, hesperion.coordinate, 3),
             HexGridEdge(freeholdNone.coordinate, orbitalDescant.coordinate, 2),

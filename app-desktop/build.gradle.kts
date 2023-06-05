@@ -40,6 +40,8 @@ dependencies {
     @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
     implementation(compose.material3)
 
+    implementation("com.squareup.okio:okio:2.10.0")
+
     ktlint("com.pinterest:ktlint:_")
 }
 

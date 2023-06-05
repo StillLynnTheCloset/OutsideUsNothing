@@ -1,4 +1,4 @@
-package com.stilllynnthecloset.outsideusnothing
+package com.stilllynnthecloset.outsideusnothing.desktop
 
 import okio.buffer
 import okio.source
