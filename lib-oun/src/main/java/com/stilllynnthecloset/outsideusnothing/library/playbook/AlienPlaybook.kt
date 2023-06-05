@@ -259,8 +259,12 @@ internal object AlienPlaybook {
             ChoiceSpecification(
                 questions = listOf(
                     Question(
-                        question = "Choose three people see looking at you, one you make sure they don't",
+                        question = "Choose three things people see looking at you",
                         answers = 3,
+                    ),
+                    Question(
+                        question = "Choose one thing you make sure they don't",
+                        answers = 1,
                     ),
                 ),
                 options = setOf(
