@@ -15,7 +15,7 @@ import com.stilllynnthecloset.outsideusnothing.library.model.Ship
 import com.stilllynnthecloset.outsideusnothing.library.model.Threat
 import com.stilllynnthecloset.outsideusnothing.library.model.UsefulItem
 import com.stilllynnthecloset.outsideusnothing.library.playbook.ShipPlaybook
-import com.stilllynnthecloset.outsideusnothing.library.weightedRandom
+import com.stilllynnthecloset.outsideusnothing.library.tools.weightedRandom
 
 /**
  * GeneratorDataModel - TODO: Documentation

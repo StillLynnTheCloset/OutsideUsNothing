@@ -1,6 +1,6 @@
 package com.stilllynnthecloset.outsideusnothing.library.map
 
-import com.stilllynnthecloset.outsideusnothing.library.SerializerTools
+import com.stilllynnthecloset.outsideusnothing.library.tools.SerializerTools
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString

@@ -4,7 +4,7 @@ import com.stilllynnthecloset.outsideusnothing.library.model.Player
 import com.stilllynnthecloset.outsideusnothing.library.model.PortOfCall
 import com.stilllynnthecloset.outsideusnothing.library.model.PortOfCallSpecification
 import com.stilllynnthecloset.outsideusnothing.Persistence
-import com.stilllynnthecloset.outsideusnothing.library.SerializerTools
+import com.stilllynnthecloset.outsideusnothing.library.tools.SerializerTools
 import com.stilllynnthecloset.outsideusnothing.library.map.HexGridCoordinate
 import com.stilllynnthecloset.outsideusnothing.library.map.HexGridEdge
 import com.stilllynnthecloset.outsideusnothing.library.map.HexGridMap

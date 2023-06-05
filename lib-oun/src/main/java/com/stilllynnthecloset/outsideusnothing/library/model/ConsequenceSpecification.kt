@@ -1,6 +1,6 @@
 package com.stilllynnthecloset.outsideusnothing.library.model
 
-import com.stilllynnthecloset.outsideusnothing.library.rollDice
+import com.stilllynnthecloset.outsideusnothing.library.tools.rollDice
 import kotlinx.serialization.Serializable
 import java.util.UUID
 

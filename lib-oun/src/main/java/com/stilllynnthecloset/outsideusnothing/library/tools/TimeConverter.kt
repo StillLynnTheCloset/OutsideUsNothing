@@ -1,4 +1,4 @@
-package com.stilllynnthecloset.outsideusnothing.library
+package com.stilllynnthecloset.outsideusnothing.library.tools
 
 /**
  * TimeConverter - TODO: Documentation

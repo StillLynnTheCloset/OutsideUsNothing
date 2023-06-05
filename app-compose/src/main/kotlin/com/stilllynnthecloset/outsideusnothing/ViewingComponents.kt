@@ -25,9 +25,9 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.stilllynnthecloset.outsideusnothing.library.calculateDiceOdds
-import com.stilllynnthecloset.outsideusnothing.library.getMaximumRollSum
-import com.stilllynnthecloset.outsideusnothing.library.getMinimumRollSum
+import com.stilllynnthecloset.outsideusnothing.library.tools.calculateDiceOdds
+import com.stilllynnthecloset.outsideusnothing.library.tools.getMaximumRollSum
+import com.stilllynnthecloset.outsideusnothing.library.tools.getMinimumRollSum
 import com.stilllynnthecloset.outsideusnothing.library.model.Action
 import com.stilllynnthecloset.outsideusnothing.library.model.AnsweredQuestion
 import com.stilllynnthecloset.outsideusnothing.library.model.Bastard

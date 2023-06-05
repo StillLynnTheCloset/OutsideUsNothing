@@ -1,6 +1,6 @@
 package com.stilllynnthecloset.outsideusnothing.library.model
 
-import com.stilllynnthecloset.outsideusnothing.library.SerializerTools
+import com.stilllynnthecloset.outsideusnothing.library.tools.SerializerTools
 import com.stilllynnthecloset.outsideusnothing.library.playbook.PlayerPlaybook
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString

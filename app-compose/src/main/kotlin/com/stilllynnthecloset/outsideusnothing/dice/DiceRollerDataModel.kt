@@ -4,9 +4,9 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import com.stilllynnthecloset.outsideusnothing.library.calculateDiceOdds
-import com.stilllynnthecloset.outsideusnothing.library.checkSuccess
-import com.stilllynnthecloset.outsideusnothing.library.rollDice
+import com.stilllynnthecloset.outsideusnothing.library.tools.calculateDiceOdds
+import com.stilllynnthecloset.outsideusnothing.library.tools.checkSuccess
+import com.stilllynnthecloset.outsideusnothing.library.tools.rollDice
 
 /**
  * DiceRollerDatamodel - TODO: Documentation

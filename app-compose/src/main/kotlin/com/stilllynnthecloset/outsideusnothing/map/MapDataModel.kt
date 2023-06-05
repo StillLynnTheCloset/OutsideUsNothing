@@ -7,11 +7,11 @@ import androidx.compose.ui.geometry.Offset
 import com.stilllynnthecloset.hexgridcompose.findEmptyNeighbors
 import com.stilllynnthecloset.hexgridcompose.findExistingConnections
 import com.stilllynnthecloset.hexgridcompose.findExistingNeighbors
-import com.stilllynnthecloset.outsideusnothing.library.getOddsOfEvents
+import com.stilllynnthecloset.outsideusnothing.library.tools.getOddsOfEvents
 import com.stilllynnthecloset.outsideusnothing.library.model.Playbook
-import com.stilllynnthecloset.outsideusnothing.library.pickN
-import com.stilllynnthecloset.outsideusnothing.library.rollDie
-import com.stilllynnthecloset.outsideusnothing.library.weightedRandom
+import com.stilllynnthecloset.outsideusnothing.library.tools.pickN
+import com.stilllynnthecloset.outsideusnothing.library.tools.rollDie
+import com.stilllynnthecloset.outsideusnothing.library.tools.weightedRandom
 import com.stilllynnthecloset.outsideusnothing.Platform
 import com.stilllynnthecloset.outsideusnothing.library.map.HexGridCoordinate
 import com.stilllynnthecloset.outsideusnothing.library.map.HexGridEdge

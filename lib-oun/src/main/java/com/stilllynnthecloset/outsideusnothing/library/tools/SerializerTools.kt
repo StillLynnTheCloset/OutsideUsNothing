@@ -1,4 +1,4 @@
-package com.stilllynnthecloset.outsideusnothing.library
+package com.stilllynnthecloset.outsideusnothing.library.tools
 
 import com.stilllynnthecloset.outsideusnothing.library.map.HexGridNode
 import com.stilllynnthecloset.outsideusnothing.library.map.PlaceholderNode

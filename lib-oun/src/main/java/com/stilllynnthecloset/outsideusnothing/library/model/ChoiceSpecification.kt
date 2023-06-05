@@ -1,6 +1,6 @@
 package com.stilllynnthecloset.outsideusnothing.library.model
 
-import com.stilllynnthecloset.outsideusnothing.library.pickN
+import com.stilllynnthecloset.outsideusnothing.library.tools.pickN
 import kotlinx.serialization.Serializable
 import java.util.UUID
 

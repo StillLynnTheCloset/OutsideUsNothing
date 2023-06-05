@@ -1,8 +1,8 @@
 package com.stilllynnthecloset.outsideusnothing.library.model
 
-import com.stilllynnthecloset.outsideusnothing.library.pickAtLeastN
-import com.stilllynnthecloset.outsideusnothing.library.rollDie
-import com.stilllynnthecloset.outsideusnothing.library.weightedRandom
+import com.stilllynnthecloset.outsideusnothing.library.tools.pickAtLeastN
+import com.stilllynnthecloset.outsideusnothing.library.tools.rollDie
+import com.stilllynnthecloset.outsideusnothing.library.tools.weightedRandom
 import kotlinx.serialization.Serializable
 import java.util.UUID
 
