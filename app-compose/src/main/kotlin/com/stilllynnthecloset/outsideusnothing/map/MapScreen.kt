@@ -3,6 +3,7 @@ package com.stilllynnthecloset.outsideusnothing.map
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -42,27 +43,45 @@ internal fun MapScreen(dataModel: MapDataModel, platform: Platform) {
         modifier = Modifier
             .fillMaxSize(),
     ) {
-        hexGrid(
+        Box(
             modifier = Modifier
                 .fillMaxSize()
                 .weight(1f),
-            nodes = dataModel.nodeList,
-            edges = dataModel.edgeList,
-            nodeSize = 70f,
-            nodeSpacing = 20f,
-            offset = dataModel.offset,
-            onOffsetChanged = dataModel::onOffsetChanged,
-            scale = dataModel.zoomLevel,
-            onScaleChanged = dataModel::onZoomLevelChanged,
-            highlightedNodes = dataModel.highlightedNodes.map {
-                it.first to when (it.second) {
-                    MapDataModel.NodeHighlight.SELECTED -> MaterialTheme.colorScheme.onPrimary
-                    MapDataModel.NodeHighlight.SHIP_LOCATION -> MaterialTheme.colorScheme.error
-                    MapDataModel.NodeHighlight.ON_PATH -> MaterialTheme.colorScheme.tertiary
-                }
-            },
-            onNodeSelected = dataModel::onNodeSelected,
-        )
+        ) {
+            hexGrid(
+                modifier = Modifier
+                    .fillMaxSize(),
+                nodes = dataModel.nodeList,
+                edges = dataModel.edgeList,
+                nodeSize = 70f,
+                nodeSpacing = 20f,
+                offset = dataModel.offset,
+                onOffsetChanged = dataModel::onOffsetChanged,
+                scale = dataModel.zoomLevel,
+                onScaleChanged = dataModel::onZoomLevelChanged,
+                highlightedNodes = dataModel.highlightedNodes.map {
+                    it.first to when (it.second) {
+                        MapDataModel.NodeHighlight.SELECTED -> MaterialTheme.colorScheme.onPrimary
+                        MapDataModel.NodeHighlight.SHIP_LOCATION -> MaterialTheme.colorScheme.error
+                        MapDataModel.NodeHighlight.ON_PATH -> MaterialTheme.colorScheme.tertiary
+                    }
+                },
+                onNodeSelected = dataModel::onNodeSelected,
+            )
+
+            Image(
+                painter = platform.imagePainter.getPainter(ImageReference.Delete),
+                colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurfaceVariant),
+                contentDescription = "Close",
+                modifier = Modifier
+                    .align(Alignment.TopEnd)
+                    .size(24.dp)
+                    .clickable {
+                        dataModel.clearMap()
+                    },
+            )
+
+        }
 
         val selectedNode = dataModel.selectedNode
 
@@ -103,6 +122,18 @@ internal fun MapScreen(dataModel: MapDataModel, platform: Platform) {
                             .size(24.dp)
                             .clickable {
                                 dataModel.onNodeSelected(null)
+                            },
+                    )
+
+                    Image(
+                        painter = platform.imagePainter.getPainter(ImageReference.Delete),
+                        colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurfaceVariant),
+                        contentDescription = "Close",
+                        modifier = Modifier
+                            .align(Alignment.CenterVertically)
+                            .size(24.dp)
+                            .clickable {
+                                dataModel.deleteNode(selectedNode)
                             },
                     )
                 }
