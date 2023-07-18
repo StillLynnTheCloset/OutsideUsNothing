@@ -18,29 +18,6 @@ import kotlinx.serialization.decodeFromString
  * Created by Lynn on 5/11/23
  */
 public class PersistenceDesktop : Persistence {
-    override fun loadCurrentMap(): HexGridMap {
-        return sableMap
-    }
-
-    override fun saveCurrentMap(newMap: HexGridMap) {
-        TODO("Not yet implemented")
-    }
-
-    override fun getPlayers(): List<Player> {
-        return SerializerTools.serializer.decodeFromString<PlayersList>(readFile("players.json")).players
-    }
-
-    override fun getActivePlayer(): Player? {
-        TODO("Not yet implemented")
-    }
-
-    override fun updatePlayer(newPlayer: Player) {
-        TODO("Not yet implemented")
-    }
-
-    override fun updateActivePlayer(newActivePlayer: Player) {
-        TODO("Not yet implemented")
-    }
 
     private val portOfCall = PortOfCall(PortOfCallSpecification("", "", listOf(), listOf(), 0), "", emptyList(), emptyList())
     private val orbitalDescant = PortNode(HexGridCoordinate(0, -1), portOfCall.copy(name = "Orbital Descant"))
@@ -92,7 +69,7 @@ public class PersistenceDesktop : Persistence {
             HexGridEdge(harfast.coordinate, hesperion.coordinate, 4),
             HexGridEdge(harfast.coordinate, mirandumsHideout.coordinate, 6),
             HexGridEdge(harfast.coordinate, machineHeaven.coordinate, 2),
-            HexGridEdge(mirandumsHideout.coordinate, machineHeaven.coordinate, null),
+            HexGridEdge(mirandumsHideout.coordinate, machineHeaven.coordinate, 5),
             HexGridEdge(chapel.coordinate, machineHeaven.coordinate, 2),
             HexGridEdge(parabuteo.coordinate, newParabuteo.coordinate, 4),
             HexGridEdge(chapel.coordinate, parabuteo.coordinate, 3),
@@ -105,12 +82,37 @@ public class PersistenceDesktop : Persistence {
         )
     )
 
+    private var currentMap: HexGridMap = sableMap
+    override fun loadCurrentMap(): HexGridMap {
+        return currentMap
+    }
+
+    override fun saveCurrentMap(newMap: HexGridMap) {
+        currentMap = newMap
+    }
+
+    override fun getPlayers(): List<Player> {
+        return SerializerTools.serializer.decodeFromString<PlayersList>(readFile("players.json")).players
+    }
+
+    override fun getActivePlayer(): Player? {
+        TODO("Not yet implemented")
+    }
+
+    override fun updatePlayer(newPlayer: Player) {
+        TODO("Not yet implemented")
+    }
+
+    override fun updateActivePlayer(newActivePlayer: Player) {
+        TODO("Not yet implemented")
+    }
+
+
     private fun getPlatformSpecificDataFolder(): String {
 
         // Windows: C:\Users\Username\AppData\outsideUsNothing
         // Linux: System.getenv("XDG_DATA_HOME") + "/outsideUsNothing
         // Mac: ~/Library/Application Support/outsideUsNothing
-
 
         return ""
     }

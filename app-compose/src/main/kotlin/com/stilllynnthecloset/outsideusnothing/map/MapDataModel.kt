@@ -51,9 +51,18 @@ internal class MapDataModel constructor(
         updateMap(platform.persistence.loadCurrentMap())
     }
 
+    fun clearMap() {
+        platform.persistence.saveCurrentMap(HexGridMap(listOf(blankStarter), emptyList()))
+        updateMap(platform.persistence.loadCurrentMap())
+    }
+
     fun updateMap(map: HexGridMap) {
         nodeList = map.nodes
         edgeList = map.edges
+    }
+
+    fun deleteNode(node: HexGridNode) {
+        // TODO: Delete node from nodes, delete any connected edges, and unselect/unhighlight
     }
 
     var zoomLevel: Float by mutableStateOf(1f)
@@ -119,7 +128,7 @@ internal class MapDataModel constructor(
             return node
         }
         generatePortNameEntry = null
-        if (node is PlaceholderNode) {
+        return if (node is PlaceholderNode) {
             // Replace existing node with new node with name and generated info.
             val generatedPortOfCall = playbook.ports.weightedRandom().randomize(playbook)
             val newCopy = PortNode(node.coordinate, generatedPortOfCall)
@@ -155,9 +164,11 @@ internal class MapDataModel constructor(
                         }
                     }
             }
-            return newCopy
+            platform.persistence.saveCurrentMap(HexGridMap(nodeList, edgeList))
+            newCopy
+        } else {
+            node
         }
-        return node
     }
 
     private fun updateHighlightedNodes() {
