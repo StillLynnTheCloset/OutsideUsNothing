@@ -18,7 +18,6 @@ import kotlinx.serialization.decodeFromString
  * Created by Lynn on 5/11/23
  */
 public class PersistenceDesktop : Persistence {
-
     private val portOfCall = PortOfCall(PortOfCallSpecification("", "", listOf(), listOf(), 0), "", emptyList(), emptyList())
     private val orbitalDescant = PortNode(HexGridCoordinate(0, -1), portOfCall.copy(name = "Orbital Descant"))
     private val hesperion = PortNode(HexGridCoordinate(0, 0), portOfCall.copy(name = "Hesperion"))
