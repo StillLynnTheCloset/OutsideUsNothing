@@ -14,6 +14,7 @@ import com.stilllynnthecloset.outsideusnothing.map.MapScreen
 import com.stilllynnthecloset.outsideusnothing.playbooks.PlaybooksScreen
 import com.stilllynnthecloset.outsideusnothing.reference.ReferenceScreen
 import com.stilllynnthecloset.outsideusnothing.theme.navigationContainer
+import com.stilllynnthecloset.outsideusnothing.timeconverter.TimeConverterScreen
 
 @Composable
 @ExperimentalComposeUiApi
@@ -66,6 +67,11 @@ public fun applicationContents(windowSize: DpSize, dataModel: MainDataModel, win
                 )
 
                 is NavigationDestination.EditPlaybook -> EditScreen(
+                    dataModel = currentScreen.dataModel,
+                    platform = platform,
+                )
+
+                is NavigationDestination.TimeConverter -> TimeConverterScreen(
                     dataModel = currentScreen.dataModel,
                     platform = platform,
                 )

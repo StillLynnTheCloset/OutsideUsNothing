@@ -194,6 +194,42 @@ internal fun longInputWidget(
 }
 
 @Composable
+@OptIn(ExperimentalMaterial3Api::class)
+internal fun doubleInputWidget(
+    value: Double?,
+    label: String,
+    modifier: Modifier,
+    onValueChange: (Double?) -> Unit,
+) {
+    TextField(
+        value = value?.let { String.format("%.10f", it) } ?: "",
+        singleLine = true,
+        label = {
+            Text(
+                text = label,
+                color = MaterialTheme.colorScheme.onSurface,
+                fontWeight = FontWeight.Light,
+            )
+        },
+        onValueChange = { onValueChange(it.filter { char -> char.isDigit() || char == '-' || char == '.' }.toDoubleOrNull()) },
+        modifier = modifier
+            .height(inputHeight)
+            .border(
+                1.dp,
+                MaterialTheme.colorScheme.outline,
+                MaterialTheme.shapes.small,
+            ),
+        shape = MaterialTheme.shapes.small,
+        colors = TextFieldDefaults.textFieldColors(
+            containerColor = Color.Transparent,
+            focusedIndicatorColor = Color.Transparent,
+            unfocusedIndicatorColor = Color.Transparent,
+            disabledIndicatorColor = Color.Transparent,
+        ),
+    )
+}
+
+@Composable
 internal fun outlinedButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,

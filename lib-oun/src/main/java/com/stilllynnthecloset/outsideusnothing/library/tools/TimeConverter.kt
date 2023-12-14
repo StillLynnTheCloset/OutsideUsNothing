@@ -30,3 +30,11 @@ internal const val MILLI_LIGHT_PERIOD: Double = LIGHT_PERIOD / 1_000.0 // miles
 internal const val ASTRONOMICAL_UNIT: Double = 92_960_000.0 // miles
 internal const val NANOMETER_PER_MILE: Double = 1609339999975.49
 internal const val METER_PER_MILE: Double = 1609.33999997549
+internal const val LIGHT_PERIOD_METERS: Double = LIGHT_PERIOD * METER_PER_MILE
+
+internal const val LITER_PER_METER_CUBED: Double = 1000.0
+
+public fun periodToMillis(period: Double): Double = period * PERIOD
+public fun millisToPeriod(millis: Double): Double = millis / PERIOD
+
+public fun literToCubicLightPeriod(liters: Double): Double = (liters / LITER_PER_METER_CUBED)

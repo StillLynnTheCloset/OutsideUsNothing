@@ -46,5 +46,6 @@ internal object ImagePainterDesktop : ImagePainter {
         ImageReference.GroupAdd -> painterResource("image/group_add.svg")
         ImageReference.GroupRemove -> painterResource("image/group_remove.svg")
         ImageReference.Ship -> painterResource("image/ship.svg")
+        ImageReference.Clock -> painterResource("image/clock.svg")
     }
 }

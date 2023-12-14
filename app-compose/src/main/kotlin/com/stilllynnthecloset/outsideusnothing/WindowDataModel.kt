@@ -10,6 +10,7 @@ import com.stilllynnthecloset.outsideusnothing.generator.GeneratorDataModel
 import com.stilllynnthecloset.outsideusnothing.map.MapDataModel
 import com.stilllynnthecloset.outsideusnothing.playbooks.PlaybooksViewModel
 import com.stilllynnthecloset.outsideusnothing.reference.ReferenceDataModel
+import com.stilllynnthecloset.outsideusnothing.timeconverter.TimeConverterDataModel
 
 /**
  * WindowDataModel - TODO: Documentation
@@ -44,6 +45,7 @@ public class WindowDataModel internal constructor(
             NavigationTabImpl.Map -> NavigationDestination.Map(MapDataModel(mainDataModel.mergedPlaybook, platform))
             NavigationTabImpl.Playbooks -> NavigationDestination.Playbooks(PlaybooksViewModel(mainDataModel))
             NavigationTabImpl.Reference -> NavigationDestination.Reference(ReferenceDataModel(mainDataModel))
+            NavigationTabImpl.TimeConverter -> NavigationDestination.TimeConverter(TimeConverterDataModel())
         }
     }
 

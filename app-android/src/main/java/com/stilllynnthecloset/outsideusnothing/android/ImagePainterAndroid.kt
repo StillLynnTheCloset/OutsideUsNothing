@@ -46,5 +46,6 @@ internal object ImagePainterAndroid : ImagePainter {
         ImageReference.GroupAdd -> painterResource(id = R.drawable.ic_group_add)
         ImageReference.GroupRemove -> painterResource(id = R.drawable.ic_group_remove)
         ImageReference.Ship -> painterResource(id = R.drawable.ic_rocket2)
+        ImageReference.Clock -> painterResource(id = R.drawable.ic_clock)
     }
 }

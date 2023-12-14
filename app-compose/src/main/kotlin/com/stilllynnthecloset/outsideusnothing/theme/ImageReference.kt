@@ -38,4 +38,5 @@ public enum class ImageReference {
     GroupAdd,
     GroupRemove,
     Ship,
+    Clock,
 }
