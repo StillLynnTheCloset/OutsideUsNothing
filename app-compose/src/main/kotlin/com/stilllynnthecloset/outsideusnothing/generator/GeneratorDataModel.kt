@@ -4,7 +4,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import com.stilllynnthecloset.outsideusnothing.library.model.Bastard
+import com.stilllynnthecloset.outsideusnothing.library.model.Contract
 import com.stilllynnthecloset.outsideusnothing.library.model.ContractDetail
+import com.stilllynnthecloset.outsideusnothing.library.model.ContractSpecification
 import com.stilllynnthecloset.outsideusnothing.library.model.Event
 import com.stilllynnthecloset.outsideusnothing.library.model.FlavorText
 import com.stilllynnthecloset.outsideusnothing.library.model.HealthCondition
@@ -32,6 +34,17 @@ internal class GeneratorDataModel constructor(private val playbook: Playbook) {
 
     fun clearPort() {
         generatedPort = null
+    }
+
+    var generatedContract: Contract? by mutableStateOf(null)
+        private set
+
+    fun generateContract() {
+        generatedContract = ContractSpecification.generateGenericContract(playbook).randomize()
+    }
+
+    fun clearContract() {
+        generatedContract = null
     }
 
     var generatedContractDetail: ContractDetail? by mutableStateOf(null)

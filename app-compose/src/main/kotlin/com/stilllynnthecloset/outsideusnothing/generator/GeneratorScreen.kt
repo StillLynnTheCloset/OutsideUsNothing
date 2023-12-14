@@ -71,6 +71,25 @@ internal fun GeneratorScreen(dataModel: GeneratorDataModel, platform: Platform) 
             modifier = Modifier.align(Alignment.CenterHorizontally),
         ) {
             Button(
+                onClick = dataModel::generateContract,
+                modifier = Modifier,
+            ) {
+                Text("Generate a contract")
+            }
+            Button(
+                onClick = dataModel::clearContract,
+                modifier = Modifier,
+            ) {
+                Text("Clear contract")
+            }
+        }
+        SelectionContainer {
+            dataModel.generatedContract?.compose(platform)
+        }
+        Row(
+            modifier = Modifier.align(Alignment.CenterHorizontally),
+        ) {
+            Button(
                 onClick = dataModel::generateContractItem,
                 modifier = Modifier,
             ) {
