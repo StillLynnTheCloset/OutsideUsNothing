@@ -195,8 +195,23 @@ public fun getOddsOfAtLeast(dice: Int, minimumNeeded: Int, sides: Int = STANDARD
 
 // region Simulation
 
-public fun rollDice(diceUsed: Int, diceSides: Int = STANDARD_DICE_SIDES): List<Int> {
-    return (0 until diceUsed).map { rollDie(diceSides) }
+public data class DieRoll constructor(
+    val sides: Int,
+    val value: Int,
+)
+
+public data class OunActionRoll constructor(
+    val dice: List<DieRoll>,
+    val actionCost: Int,
+    val actionDifficulty: Int,
+)
+
+public fun rollDice(diceUsed: Int, diceSides: Int = STANDARD_DICE_SIDES): List<DieRoll> {
+    return rollDice((0 until diceUsed).map { diceSides })
+}
+
+public fun rollDice(diceSides: List<Int>): List<DieRoll> {
+    return diceSides.map { DieRoll(it, rollDie(it)) }
 }
 
 private val random: Random = Random.Default
@@ -205,8 +220,8 @@ public fun rollDie(diceSides: Int = STANDARD_DICE_SIDES): Int {
     return random.nextInt(diceSides) + 1
 }
 
-public fun checkSuccess(actionCost: Int, actionDifficulty: Int, rolls: List<Int>): Boolean {
-    return rolls.count { it > actionDifficulty } >= actionCost
+public fun checkSuccess(actionCost: Int, actionDifficulty: Int, rolls: List<DieRoll>): Boolean {
+    return rolls.count { it.value > actionDifficulty } >= actionCost
 }
 
 public fun simulateOdds(simulations: Int, actionCost: Int, actionDifficulty: Int, diceUsed: Int, diceSides: Int = STANDARD_DICE_SIDES): Double {

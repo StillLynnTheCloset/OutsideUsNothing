@@ -22,7 +22,7 @@ public data class DiceConsequenceSpecification constructor(
     val diceSides: Int = 6,
     override val uuid: String = UUID.randomUUID().toString(),
 ) : ConsequenceSpecification() {
-    public override fun randomize(): DiceConsequence = DiceConsequence(this, rollDice(diceToRoll, diceSides).sum())
+    public override fun randomize(): DiceConsequence = DiceConsequence(this, rollDice(diceToRoll, diceSides).sumOf { it.value })
 }
 
 @Serializable

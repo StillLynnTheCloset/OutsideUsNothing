@@ -39,4 +39,9 @@ public enum class ImageReference {
     GroupRemove,
     Ship,
     Clock,
+    CircleDie,
+    TriangleDie,
+    SquareDie,
+    DiamondDie,
+    PentagonDie,
 }

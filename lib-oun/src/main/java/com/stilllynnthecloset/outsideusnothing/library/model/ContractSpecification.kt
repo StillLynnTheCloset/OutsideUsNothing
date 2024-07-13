@@ -42,8 +42,8 @@ public data class ContractSpecification constructor(
     public fun randomize(): Contract {
         return Contract(
             contractSpecification = this,
-            fuelReward = rollDice(quality.fuelDice).sum(),
-            suppliesReward = rollDice(quality.suppliesDice).sum(),
+            fuelReward = rollDice(quality.fuelDice).sumOf { it.value },
+            suppliesReward = rollDice(quality.suppliesDice).sumOf { it.value },
             itemReward = checkSuccess(2, quality.itemDifficultly, rollDice(2)),
         )
     }

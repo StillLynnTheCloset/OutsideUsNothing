@@ -47,5 +47,10 @@ internal object ImagePainterDesktop : ImagePainter {
         ImageReference.GroupRemove -> painterResource("image/group_remove.svg")
         ImageReference.Ship -> painterResource("image/ship.svg")
         ImageReference.Clock -> painterResource("image/clock.svg")
+        ImageReference.CircleDie -> painterResource("image/regularCircle.svg")
+        ImageReference.TriangleDie -> painterResource("image/regularTriangle.svg")
+        ImageReference.SquareDie -> painterResource("image/regularSquare.svg")
+        ImageReference.DiamondDie -> painterResource("image/regularDiamond.svg")
+        ImageReference.PentagonDie -> painterResource("image/regularPentagon.svg")
     }
 }

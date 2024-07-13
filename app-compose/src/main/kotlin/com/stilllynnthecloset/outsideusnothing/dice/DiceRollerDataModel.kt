@@ -4,6 +4,7 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import com.stilllynnthecloset.outsideusnothing.library.tools.DieRoll
 import com.stilllynnthecloset.outsideusnothing.library.tools.calculateDiceOdds
 import com.stilllynnthecloset.outsideusnothing.library.tools.checkSuccess
 import com.stilllynnthecloset.outsideusnothing.library.tools.rollDice
@@ -21,19 +22,20 @@ public data class DiceRollerState constructor(
     val diceSides: Long?,
     val dicePool: Long?,
 )
+
 internal class DiceRollerDataModel {
     var state by mutableStateOf(
         DiceRollerState(
             actionCost = 1,
             actionDifficulty = 1,
             diceSides = 6,
-            diceToRoll = 50,
+            diceToRoll = 5,
             dicePool = 100_000,
         ),
     )
         private set
 
-    var lastRoll by mutableStateOf<List<Pair<Int, Boolean>>?>(null)
+    var lastRoll by mutableStateOf<List<Pair<DieRoll, Boolean>>?>(null)
         private set
     var lastRollSuccessful by mutableStateOf<Boolean?>(null)
         private set
@@ -88,7 +90,7 @@ internal class DiceRollerDataModel {
             val roll = rollDice(diceToRoll.toInt(), diceSides.toInt())
             state = state.copy(dicePool = dicePool - diceToRoll)
 
-            lastRoll = roll.map { it to (it > actionDifficulty) }
+            lastRoll = roll.map { it to (it.value > actionDifficulty) }
             lastRollSuccessful = checkSuccess(actionCost.toInt(), actionDifficulty.toInt(), roll)
         }
 
@@ -111,7 +113,7 @@ internal class DiceRollerDataModel {
 
             val roll = lastRoll?.map { it.first }
             if (roll != null) {
-                lastRoll = roll.map { it to (it > actionDifficulty) }
+                lastRoll = roll.map { it to (it.value > actionDifficulty) }
                 lastRollSuccessful = checkSuccess(actionCost.toInt(), actionDifficulty.toInt(), roll)
             }
         }

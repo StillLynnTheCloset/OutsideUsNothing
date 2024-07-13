@@ -56,11 +56,13 @@ import androidx.compose.ui.input.pointer.PointerEventType
 import androidx.compose.ui.input.pointer.onPointerEvent
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.stilllynnthecloset.outsideusnothing.Platform
+import com.stilllynnthecloset.outsideusnothing.library.tools.DieRoll
 
 internal val appBarHeight: Dp = 64.dp
 
@@ -824,5 +826,62 @@ internal fun <T> radioButtons(
                 )
             }
         }
+    }
+}
+
+public enum class DieShape {
+    Circle,
+    Triangle,
+    Square,
+    Diamond,
+    Pentagon,
+}
+
+@Composable
+internal fun dieRoll(
+    dieRoll: DieRoll,
+    color: Color,
+    platform: Platform,
+    modifier: Modifier,
+) {
+    val shape: DieShape = when (dieRoll.sides) {
+        2 -> DieShape.Circle
+        4 -> DieShape.Triangle
+        6 -> DieShape.Square
+        8 -> DieShape.Triangle
+        10 -> DieShape.Diamond
+        12 -> DieShape.Pentagon
+        20 -> DieShape.Triangle
+        100 -> DieShape.Diamond
+        else -> DieShape.Triangle
+    }
+
+    val image = when (shape) {
+        DieShape.Circle -> ImageReference.CircleDie
+        DieShape.Triangle -> ImageReference.TriangleDie
+        DieShape.Square -> ImageReference.SquareDie
+        DieShape.Diamond -> ImageReference.DiamondDie
+        DieShape.Pentagon -> ImageReference.PentagonDie
+    }
+
+    Box(
+        modifier = modifier,
+    ) {
+        Image(
+            painter = platform.imagePainter.getPainter(image),
+            colorFilter = ColorFilter.tint(color),
+            contentDescription = "Die Roll",
+            modifier = Modifier
+                .align(Center)
+                .matchParentSize(),
+        )
+        Text(
+            text = dieRoll.value.toString(),
+            color = color,
+            textAlign = TextAlign.Center,
+            modifier = Modifier
+                .align(Center)
+                .matchParentSize(),
+        )
     }
 }

@@ -47,5 +47,10 @@ internal object ImagePainterAndroid : ImagePainter {
         ImageReference.GroupRemove -> painterResource(id = R.drawable.ic_group_remove)
         ImageReference.Ship -> painterResource(id = R.drawable.ic_rocket2)
         ImageReference.Clock -> painterResource(id = R.drawable.ic_clock)
+        ImageReference.CircleDie -> painterResource(id = R.drawable.ic_regularcircle)
+        ImageReference.TriangleDie -> painterResource(id = R.drawable.ic_regulartriangle)
+        ImageReference.SquareDie -> painterResource(id = R.drawable.ic_regularsquare)
+        ImageReference.DiamondDie -> painterResource(id = R.drawable.ic_regulardiamond)
+        ImageReference.PentagonDie -> painterResource(id = R.drawable.ic_regularpentagon)
     }
 }
