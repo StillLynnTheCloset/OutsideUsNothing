@@ -9,6 +9,7 @@ import com.stilllynnthecloset.outsideusnothing.WindowDataModel
 import com.stilllynnthecloset.outsideusnothing.library.model.AnsweredQuestion
 import com.stilllynnthecloset.outsideusnothing.library.model.Choice
 import com.stilllynnthecloset.outsideusnothing.library.model.ChoiceSpecification
+import com.stilllynnthecloset.outsideusnothing.library.model.FlavorText
 import com.stilllynnthecloset.outsideusnothing.library.model.HealthCondition
 import com.stilllynnthecloset.outsideusnothing.library.model.Option
 import com.stilllynnthecloset.outsideusnothing.library.model.PlaySheet
@@ -26,7 +27,7 @@ internal class CreatePlayerViewModel constructor(private val mainDataModel: Main
     private val dropdownDefault = PlaySheetSpecification(
         name = "Select a playsheet",
         description = "",
-        flavorText = null,
+        flavorText = FlavorText("", ""),
         choices = emptyList(),
         actions = emptyList(),
     )

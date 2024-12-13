@@ -6,7 +6,7 @@ import com.stilllynnthecloset.outsideusnothing.library.model.FlavorText
 import com.stilllynnthecloset.outsideusnothing.library.model.Option
 import com.stilllynnthecloset.outsideusnothing.library.model.PlaySheetSpecification
 import com.stilllynnthecloset.outsideusnothing.library.model.Question
-import com.stilllynnthecloset.outsideusnothing.library.model.Weighted
+import com.stilllynnthecloset.outsideusnothing.library.tools.WeightedSet
 
 /**
  * BackgroundPlaybook - TODO: Documentation
@@ -927,18 +927,18 @@ internal object BackgroundPlaybook {
         ),
     )
 
-    val backgrounds: List<Weighted<PlaySheetSpecification>> = listOf(
-        Weighted(1, corpoCitoyen),
-        Weighted(1, indenture),
-        Weighted(1, bornWanderer),
-        Weighted(1, veteran),
-        Weighted(1, exile),
-        Weighted(1, runaway),
-        Weighted(1, abductee),
-        Weighted(1, apprentice),
-        Weighted(1, snapcaster),
-        Weighted(1, reformed),
-        Weighted(1, prophesied),
-        Weighted(1, amnesiac),
+    val backgrounds: WeightedSet<PlaySheetSpecification> = WeightedSet(
+        corpoCitoyen to 1,
+        indenture to 1,
+        bornWanderer to 1,
+        veteran to 1,
+        exile to 1,
+        runaway to 1,
+        abductee to 1,
+        apprentice to 1,
+        snapcaster to 1,
+        reformed to 1,
+        prophesied to 1,
+        amnesiac to 1,
     )
 }

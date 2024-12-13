@@ -11,10 +11,11 @@ import com.stilllynnthecloset.outsideusnothing.library.model.Playbook
 import com.stilllynnthecloset.outsideusnothing.library.model.PortAdjective
 import com.stilllynnthecloset.outsideusnothing.library.model.PortType
 import com.stilllynnthecloset.outsideusnothing.library.model.Threat
-import com.stilllynnthecloset.outsideusnothing.library.model.Weighted
+import com.stilllynnthecloset.outsideusnothing.library.tools.Weighted
 import com.stilllynnthecloset.outsideusnothing.MainDataModel
 import com.stilllynnthecloset.outsideusnothing.PlaybookPage
 import com.stilllynnthecloset.outsideusnothing.WindowDataModel
+import com.stilllynnthecloset.outsideusnothing.library.tools.replace
 
 /**
  * EditViewModel - TODO: Documentation
@@ -44,13 +45,7 @@ internal class EditViewModel constructor(private val mainDataModel: MainDataMode
     fun updateThreat(new: Weighted<Threat>) {
         mainDataModel.updatePlaybook(
             currentPlaybook.copy(
-                threats = currentPlaybook.threats.map {
-                    if (it.value.uuid == new.value.uuid) {
-                        Weighted(new.weight, it.value.copy(name = new.value.name))
-                    } else {
-                        it
-                    }
-                },
+                threats = currentPlaybook.threats.replace(new),
             ),
         )
     }
@@ -74,13 +69,7 @@ internal class EditViewModel constructor(private val mainDataModel: MainDataMode
     fun updatePortAdjective(new: Weighted<PortAdjective>) {
         mainDataModel.updatePlaybook(
             currentPlaybook.copy(
-                portAdjectives = currentPlaybook.portAdjectives.map {
-                    if (it.value.uuid == new.value.uuid) {
-                        new
-                    } else {
-                        it
-                    }
-                },
+                portAdjectives = currentPlaybook.portAdjectives.replace(new),
             ),
         )
     }
@@ -104,13 +93,7 @@ internal class EditViewModel constructor(private val mainDataModel: MainDataMode
     fun updatePortType(new: Weighted<PortType>) {
         mainDataModel.updatePlaybook(
             currentPlaybook.copy(
-                portTypes = currentPlaybook.portTypes.map {
-                    if (it.value.uuid == new.value.uuid) {
-                        new
-                    } else {
-                        it
-                    }
-                },
+                portTypes = currentPlaybook.portTypes.replace(new),
             ),
         )
     }
@@ -134,13 +117,7 @@ internal class EditViewModel constructor(private val mainDataModel: MainDataMode
     fun updateNpcAdjective(new: Weighted<NpcAdjective>) {
         mainDataModel.updatePlaybook(
             currentPlaybook.copy(
-                npcAdjectives = currentPlaybook.npcAdjectives.map {
-                    if (it.value.uuid == new.value.uuid) {
-                        new
-                    } else {
-                        it
-                    }
-                },
+                npcAdjectives = currentPlaybook.npcAdjectives.replace(new),
             ),
         )
     }
@@ -164,13 +141,7 @@ internal class EditViewModel constructor(private val mainDataModel: MainDataMode
     fun updateNpcName(new: Weighted<NpcType>) {
         mainDataModel.updatePlaybook(
             currentPlaybook.copy(
-                npcTypes = currentPlaybook.npcTypes.map {
-                    if (it.value.uuid == new.value.uuid) {
-                        new
-                    } else {
-                        it
-                    }
-                },
+                npcTypes = currentPlaybook.npcTypes.replace(new),
             ),
         )
     }
@@ -194,13 +165,7 @@ internal class EditViewModel constructor(private val mainDataModel: MainDataMode
     fun updateContractItem(new: Weighted<ContractItem>) {
         mainDataModel.updatePlaybook(
             currentPlaybook.copy(
-                contractItems = currentPlaybook.contractItems.map {
-                    if (it.value.uuid == new.value.uuid) {
-                        new
-                    } else {
-                        it
-                    }
-                },
+                contractItems = currentPlaybook.contractItems.replace(new),
             ),
         )
     }
@@ -224,13 +189,7 @@ internal class EditViewModel constructor(private val mainDataModel: MainDataMode
     fun updateContractDestination(new: Weighted<ContractDestination>) {
         mainDataModel.updatePlaybook(
             currentPlaybook.copy(
-                contractDestinations = currentPlaybook.contractDestinations.map {
-                    if (it.value.uuid == new.value.uuid) {
-                        new
-                    } else {
-                        it
-                    }
-                },
+                contractDestinations = currentPlaybook.contractDestinations.replace(new),
             ),
         )
     }
@@ -254,13 +213,7 @@ internal class EditViewModel constructor(private val mainDataModel: MainDataMode
     fun updateFlavorText(new: Weighted<FlavorText>) {
         mainDataModel.updatePlaybook(
             currentPlaybook.copy(
-                flavorTexts = currentPlaybook.flavorTexts.map {
-                    if (it.value.uuid == new.value.uuid) {
-                        new
-                    } else {
-                        it
-                    }
-                },
+                flavorTexts = currentPlaybook.flavorTexts.replace(new),
             ),
         )
     }
@@ -284,13 +237,7 @@ internal class EditViewModel constructor(private val mainDataModel: MainDataMode
     fun updateBastard(new: Weighted<Bastard>) {
         mainDataModel.updatePlaybook(
             currentPlaybook.copy(
-                bastards = currentPlaybook.bastards.map {
-                    if (it.value.uuid == new.value.uuid) {
-                        new
-                    } else {
-                        it
-                    }
-                },
+                bastards = currentPlaybook.bastards.replace(new),
             ),
         )
     }

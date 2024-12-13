@@ -382,7 +382,7 @@ internal fun PlaySheetSpecification.compose(platform: Platform, modifier: Modifi
             text = name,
             fontSize = 32.sp,
         )
-        flavorText?.compose(platform, Modifier.padding(start = indentPadding))
+        flavorText.compose(platform, Modifier.padding(start = indentPadding))
         Text(
             text = description,
             fontSize = 12.sp,
@@ -415,7 +415,7 @@ internal fun PlaySheet.compose(platform: Platform, showActions: Boolean, modifie
             text = specification.name,
             fontSize = 32.sp,
         )
-        specification.flavorText?.compose(platform, Modifier.padding(start = indentPadding))
+        specification.flavorText.compose(platform, Modifier.padding(start = indentPadding))
         Text(
             text = specification.description,
             fontSize = 12.sp,

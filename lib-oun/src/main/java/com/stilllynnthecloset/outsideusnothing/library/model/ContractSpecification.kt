@@ -19,8 +19,9 @@ public data class ContractSpecification constructor(
     override val uuid: String = UUID.randomUUID().toString(),
 ) : UniversallyUnique {
     public companion object {
+        internal const val GENERATED_DESCRIPTION: String = "GENERATE_REPLACEMENT"
         public val generatedContract: ContractSpecification = ContractSpecification(
-            description = "GENERATE_REPLACEMENT",
+            description = GENERATED_DESCRIPTION,
             quality = ContractQuality.AVERAGE,
         )
 

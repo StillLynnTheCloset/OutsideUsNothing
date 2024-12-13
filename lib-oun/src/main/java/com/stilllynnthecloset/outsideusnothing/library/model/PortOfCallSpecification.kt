@@ -13,19 +13,20 @@ import java.util.UUID
 @Serializable
 public data class PortOfCallSpecification constructor(
     val name: String,
+    override val flavorText: FlavorText,
     val description: String,
     val choices: Collection<ChoiceSpecification>,
     val contracts: Collection<ContractSpecification>,
     val minContracts: Int,
     override val uuid: String = UUID.randomUUID().toString(),
-) : UniversallyUnique {
+) : UniversallyUnique, Flavored {
     public fun randomize(playbook: Playbook): PortOfCall {
         return PortOfCall(
             specification = this,
             name = "${playbook.portAdjectives.weightedRandom().text} ${playbook.portTypes.weightedRandom().text}",
             choices = choices.map { it.randomize() },
             contracts = contracts.toSet().pickAtLeastN(minContracts).map {
-                if (it.description == "GENERATE_REPLACEMENT") {
+                if (it.description == ContractSpecification.GENERATED_DESCRIPTION) {
                     ContractSpecification.generateGenericContract(playbook)
                 } else {
                     it

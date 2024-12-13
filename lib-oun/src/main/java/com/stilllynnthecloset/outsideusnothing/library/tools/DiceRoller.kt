@@ -1,7 +1,6 @@
 package com.stilllynnthecloset.outsideusnothing.library.tools
 
 import com.stilllynnthecloset.outsideusnothing.library.model.ContractQuality
-import com.stilllynnthecloset.outsideusnothing.library.model.Weighted
 import java.math.BigDecimal
 import java.math.BigInteger
 import kotlin.math.pow
@@ -234,13 +233,13 @@ public fun simulateOdds(simulations: Int, actionCost: Int, actionDifficulty: Int
 
 // region Random Tools
 
-public fun <T> List<Weighted<T>>.weightedRandom(): T {
+public fun <T> WeightedSet<T>.weightedRandom(): T {
     val totalWeight = this.sumOf { it.weight }
     val roll = rollDie(totalWeight)
     return this.weightedRandom(roll)
 }
 
-public fun <T> List<Weighted<T>>.weightedRandom(roll: Int): T {
+public fun <T> WeightedSet<T>.weightedRandom(roll: Int): T {
     var currentMax = 0
     this.forEach { entry ->
         currentMax += entry.weight
@@ -248,7 +247,7 @@ public fun <T> List<Weighted<T>>.weightedRandom(roll: Int): T {
             return entry.value
         }
     }
-    throw IllegalStateException("Didn't find a match, current max: $currentMax")
+    throw IllegalStateException("Didn't find a match, current max: $currentMax, roll: $roll")
 }
 
 public fun <T> Set<T>.pickN(count: Int): Set<T> {

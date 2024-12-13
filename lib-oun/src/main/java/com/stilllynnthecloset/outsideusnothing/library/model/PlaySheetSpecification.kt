@@ -12,10 +12,10 @@ import java.util.UUID
 public data class PlaySheetSpecification constructor(
     val name: String,
     val description: String,
-    val flavorText: FlavorText?,
+    override val flavorText: FlavorText,
     val choices: Collection<ChoiceSpecification>,
     val actions: Collection<Action>,
     override val uuid: String = UUID.randomUUID().toString(),
-) : UniversallyUnique {
+) : UniversallyUnique, Flavored {
     public fun randomize(): PlaySheet = PlaySheet(this, choices = choices.map { it.randomize() })
 }

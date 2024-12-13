@@ -1,6 +1,7 @@
 package com.stilllynnthecloset.outsideusnothing.library.playbook
 
 import com.stilllynnthecloset.outsideusnothing.library.model.ChoiceSpecification
+import com.stilllynnthecloset.outsideusnothing.library.model.FlavorText
 import com.stilllynnthecloset.outsideusnothing.library.model.Option
 import com.stilllynnthecloset.outsideusnothing.library.model.PlaySheetSpecification
 import com.stilllynnthecloset.outsideusnothing.library.model.Question
@@ -14,7 +15,7 @@ public object ShipPlaybook {
     public val shipPlaySheetSpecification: PlaySheetSpecification = PlaySheetSpecification(
         name = "Ship",
         description = "Your ship is your home, for better or worse",
-        flavorText = null,
+        flavorText = FlavorText("", ""),
         choices = listOf(
             ChoiceSpecification(
                 options = setOf(

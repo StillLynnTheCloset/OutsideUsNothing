@@ -2,7 +2,8 @@ package com.stilllynnthecloset.outsideusnothing.library.playbook
 
 import com.stilllynnthecloset.outsideusnothing.library.model.Action
 import com.stilllynnthecloset.outsideusnothing.library.model.UsefulItem
-import com.stilllynnthecloset.outsideusnothing.library.model.Weighted
+import com.stilllynnthecloset.outsideusnothing.library.tools.Weighted
+import com.stilllynnthecloset.outsideusnothing.library.tools.WeightedSet
 
 /**
  * UsefulItemPlaybook - TODO: Documentation
@@ -10,7 +11,7 @@ import com.stilllynnthecloset.outsideusnothing.library.model.Weighted
  * Created by Lynn on 5/1/23
  */
 internal object UsefulItemPlaybook {
-    val items: List<Weighted<UsefulItem>> = listOf(
+    val items: WeightedSet<UsefulItem> = WeightedSet(
         Weighted(
             weight = 1,
             value = UsefulItem(

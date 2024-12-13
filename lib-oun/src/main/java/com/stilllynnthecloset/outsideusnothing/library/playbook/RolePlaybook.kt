@@ -6,7 +6,7 @@ import com.stilllynnthecloset.outsideusnothing.library.model.FlavorText
 import com.stilllynnthecloset.outsideusnothing.library.model.Option
 import com.stilllynnthecloset.outsideusnothing.library.model.PlaySheetSpecification
 import com.stilllynnthecloset.outsideusnothing.library.model.Question
-import com.stilllynnthecloset.outsideusnothing.library.model.Weighted
+import com.stilllynnthecloset.outsideusnothing.library.tools.WeightedSet
 
 /**
  * RolePlaybook - TODO: Documentation
@@ -959,17 +959,17 @@ internal object RolePlaybook {
         ),
     )
 
-    val roles: List<Weighted<PlaySheetSpecification>> = listOf(
-        Weighted(1, wizard),
-        Weighted(1, witch),
-        Weighted(1, pilot),
-        Weighted(1, liaison),
-        Weighted(1, navigator),
-        Weighted(1, mechanic),
-        Weighted(1, explorer),
-        Weighted(1, gardener),
-        Weighted(1, tough),
-        Weighted(1, voidworker),
-        Weighted(1, newbie),
+    val roles: WeightedSet<PlaySheetSpecification> = WeightedSet(
+        wizard to 1,
+        witch to 1,
+        pilot to 1,
+        liaison to 1,
+        navigator to 1,
+        mechanic to 1,
+        explorer to 1,
+        gardener to 1,
+        tough to 1,
+        voidworker to 1,
+        newbie to 1,
     )
 }

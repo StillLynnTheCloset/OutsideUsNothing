@@ -11,6 +11,9 @@ import com.stilllynnthecloset.outsideusnothing.library.playbook.PortPlaybook
 import com.stilllynnthecloset.outsideusnothing.library.playbook.RolePlaybook
 import com.stilllynnthecloset.outsideusnothing.library.playbook.ThreatPlaybook
 import com.stilllynnthecloset.outsideusnothing.library.playbook.UsefulItemPlaybook
+import com.stilllynnthecloset.outsideusnothing.library.tools.Weighted
+import com.stilllynnthecloset.outsideusnothing.library.tools.WeightedSet
+import com.stilllynnthecloset.outsideusnothing.library.tools.emptyWeightedSet
 import kotlinx.serialization.Serializable
 
 /**
@@ -25,21 +28,21 @@ public data class Playbook constructor(
     val authors: List<Author>,
     override val uuid: String,
     val active: Boolean = false,
-    val aliens: List<Weighted<PlaySheetSpecification>> = emptyList(),
-    val backgrounds: List<Weighted<PlaySheetSpecification>> = emptyList(),
-    val roles: List<Weighted<PlaySheetSpecification>> = emptyList(),
-    val bastards: List<Weighted<Bastard>> = emptyList(),
-    val events: List<Weighted<EventSpecification>> = emptyList(),
-    val flavorTexts: List<Weighted<FlavorText>> = emptyList(),
-    val ports: List<Weighted<PortOfCallSpecification>> = emptyList(),
-    val threats: List<Weighted<Threat>> = emptyList(),
-    val usefulItems: List<Weighted<UsefulItem>> = emptyList(),
-    val npcAdjectives: List<Weighted<NpcAdjective>> = emptyList(),
-    val npcTypes: List<Weighted<NpcType>> = emptyList(),
-    val portAdjectives: List<Weighted<PortAdjective>> = emptyList(),
-    val portTypes: List<Weighted<PortType>> = emptyList(),
-    val contractItems: List<Weighted<ContractItem>> = emptyList(),
-    val contractDestinations: List<Weighted<ContractDestination>> = emptyList(),
+    val aliens: WeightedSet<PlaySheetSpecification> = emptyWeightedSet(),
+    val backgrounds: WeightedSet<PlaySheetSpecification> = emptyWeightedSet(),
+    val roles: WeightedSet<PlaySheetSpecification> = emptyWeightedSet(),
+    val bastards: WeightedSet<Bastard> = emptyWeightedSet(),
+    val events: WeightedSet<EventSpecification> = emptyWeightedSet(),
+    val flavorTexts: WeightedSet<FlavorText> = emptyWeightedSet(),
+    val ports: WeightedSet<PortOfCallSpecification> = emptyWeightedSet(),
+    val threats: WeightedSet<Threat> = emptyWeightedSet(),
+    val usefulItems: WeightedSet<UsefulItem> = emptyWeightedSet(),
+    val npcAdjectives: WeightedSet<NpcAdjective> = emptyWeightedSet(),
+    val npcTypes: WeightedSet<NpcType> = emptyWeightedSet(),
+    val portAdjectives: WeightedSet<PortAdjective> = emptyWeightedSet(),
+    val portTypes: WeightedSet<PortType> = emptyWeightedSet(),
+    val contractItems: WeightedSet<ContractItem> = emptyWeightedSet(),
+    val contractDestinations: WeightedSet<ContractDestination> = emptyWeightedSet(),
 ) : UniversallyUnique {
     public companion object {
         private const val DEFAULT_PLAYBOOK_UUID: String = "bd656fa0-b460-4cf3-852a-d5c7730d0028"
@@ -62,10 +65,10 @@ public data class Playbook constructor(
             ports = PortPlaybook.ports,
             threats = ThreatPlaybook.threats,
             usefulItems = UsefulItemPlaybook.items,
-            npcAdjectives = NamePlaybook.npcNames1,
-            npcTypes = NamePlaybook.npcNames2,
-            portAdjectives = NamePlaybook.locationNames1,
-            portTypes = NamePlaybook.locationNames2,
+            npcAdjectives = NamePlaybook.npcAdjectives,
+            npcTypes = NamePlaybook.npcTypes,
+            portAdjectives = NamePlaybook.portAdjectives,
+            portTypes = NamePlaybook.portTypes,
             contractItems = ContractItemPlaybook.contractItems,
             contractDestinations = ContractItemPlaybook.contractDestinations,
         )
@@ -76,32 +79,32 @@ public data class Playbook constructor(
             authors = listOf(Author("Lynn")),
             uuid = "0d851b76-3835-4d16-8a92-fb619fe13908",
             active = false,
-            npcAdjectives = listOf(
-                Weighted(weight = 1, value = NpcAdjective("ancient")),
-                Weighted(weight = 1, value = NpcAdjective("lost")),
-                Weighted(weight = 1, value = NpcAdjective("punk")),
-                Weighted(weight = 1, value = NpcAdjective("twitchy")),
-                Weighted(weight = 1, value = NpcAdjective("strangely calm")),
-                Weighted(weight = 1, value = NpcAdjective("extradimensional")),
-                Weighted(weight = 1, value = NpcAdjective("anteuniversalian")),
-                Weighted(weight = 1, value = NpcAdjective("entropic")),
-                Weighted(weight = 1, value = NpcAdjective("memetic")),
+            npcAdjectives = WeightedSet(
+                NpcAdjective("ancient") to 1,
+                NpcAdjective("lost") to 1,
+                NpcAdjective("punk") to 1,
+                NpcAdjective("twitchy") to 1,
+                NpcAdjective("strangely calm") to 1,
+                NpcAdjective("extradimensional") to 1,
+                NpcAdjective("anteuniversalian") to 1,
+                NpcAdjective("entropic") to 1,
+                NpcAdjective("memetic") to 1,
             ),
-            npcTypes = listOf(
-                Weighted(weight = 1, value = NpcType("cowboy")),
-                Weighted(weight = 1, value = NpcType("freetraveler")),
-                Weighted(weight = 1, value = NpcType("mafia")),
-                Weighted(weight = 1, value = NpcType("spy")),
-                Weighted(weight = 1, value = NpcType("scientist")),
-                Weighted(weight = 1, value = NpcType("ancient")),
+            npcTypes = WeightedSet(
+                NpcType("cowboy") to 1,
+                NpcType("freetraveler") to 1,
+                NpcType("mafia") to 1,
+                NpcType("spy") to 1,
+                NpcType("scientist") to 1,
+                NpcType("ancient") to 1,
             ),
-            contractItems = listOf(
-                Weighted(weight = 1, value = ContractItem("a platinum poker chip")),
-                Weighted(weight = 1, value = ContractItem("a family heirloom")),
-                Weighted(weight = 1, value = ContractItem("a sealed envelope")),
+            contractItems = WeightedSet(
+                ContractItem("a platinum poker chip") to 1,
+                ContractItem("a family heirloom") to 1,
+                ContractItem("a sealed envelope") to 1,
             ),
-            contractDestinations = listOf(
-                Weighted(weight = 1, value = ContractDestination("a casino")),
+            contractDestinations = WeightedSet(
+                ContractDestination("a casino") to 1,
             ),
         )
 
@@ -115,7 +118,7 @@ public data class Playbook constructor(
             ),
             active = false,
             uuid = "8df3484f-bda9-42d7-babc-70edf9ddc667",
-            aliens = listOf(
+            aliens = WeightedSet(
                 Weighted(
                     weight = 1,
                     value = PlaySheetSpecification(
@@ -205,11 +208,11 @@ public data class Playbook constructor(
                     ),
                 ),
             ),
-            npcAdjectives = listOf(
-                Weighted(weight = 1, value = NpcAdjective("anhedonic")),
+            npcAdjectives = WeightedSet(
+                NpcAdjective("anhedonic") to 1,
             ),
-            npcTypes = listOf(
-                Weighted(weight = 1, value = NpcType("wolf")),
+            npcTypes = WeightedSet(
+                NpcType("wolf") to 1,
             ),
         )
 

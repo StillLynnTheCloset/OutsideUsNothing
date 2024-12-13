@@ -6,7 +6,7 @@ import com.stilllynnthecloset.outsideusnothing.library.model.FlavorText
 import com.stilllynnthecloset.outsideusnothing.library.model.Option
 import com.stilllynnthecloset.outsideusnothing.library.model.PlaySheetSpecification
 import com.stilllynnthecloset.outsideusnothing.library.model.Question
-import com.stilllynnthecloset.outsideusnothing.library.model.Weighted
+import com.stilllynnthecloset.outsideusnothing.library.tools.WeightedSet
 
 /**
  * AlienPlaybook - TODO: Documentation
@@ -635,14 +635,14 @@ internal object AlienPlaybook {
         ),
     )
 
-    val aliens: List<Weighted<PlaySheetSpecification>> = listOf(
-        Weighted(1, terre),
-        Weighted(1, zMachine),
-        Weighted(1, angel),
-        Weighted(1, devil),
-        Weighted(1, bawalang),
-        Weighted(1, harrisi),
-        Weighted(1, zph),
-        Weighted(1, teuth),
+    val aliens: WeightedSet<PlaySheetSpecification> = WeightedSet(
+       terre to 1,
+       zMachine to 1,
+       angel to 1,
+       devil to 1,
+       bawalang to 1,
+       harrisi to 1,
+       zph to 1,
+       teuth to 1,
     )
 }

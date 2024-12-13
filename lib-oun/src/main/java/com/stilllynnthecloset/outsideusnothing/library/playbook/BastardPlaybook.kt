@@ -1,7 +1,8 @@
 package com.stilllynnthecloset.outsideusnothing.library.playbook
 
 import com.stilllynnthecloset.outsideusnothing.library.model.Bastard
-import com.stilllynnthecloset.outsideusnothing.library.model.Weighted
+import com.stilllynnthecloset.outsideusnothing.library.tools.Weighted
+import com.stilllynnthecloset.outsideusnothing.library.tools.WeightedSet
 
 /**
  * BastardPlaybook - TODO: Documentation
@@ -9,7 +10,7 @@ import com.stilllynnthecloset.outsideusnothing.library.model.Weighted
  * Created by Lynn on 5/1/23
  */
 internal object BastardPlaybook {
-    val bastards: List<Weighted<Bastard>> = listOf(
+    val bastards: WeightedSet<Bastard> = WeightedSet(
         Weighted(
             weight = 1,
             value = Bastard(

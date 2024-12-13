@@ -1,7 +1,8 @@
 package com.stilllynnthecloset.outsideusnothing.library.playbook
 
 import com.stilllynnthecloset.outsideusnothing.library.model.FlavorText
-import com.stilllynnthecloset.outsideusnothing.library.model.Weighted
+import com.stilllynnthecloset.outsideusnothing.library.tools.Weighted
+import com.stilllynnthecloset.outsideusnothing.library.tools.WeightedSet
 
 /**
  * FlavorTextPlaybook - TODO: Documentation
@@ -9,7 +10,7 @@ import com.stilllynnthecloset.outsideusnothing.library.model.Weighted
  * Created by Lynn on 5/2/23
  */
 internal object FlavorTextPlaybook {
-    val flavorTexts: List<Weighted<FlavorText>> = listOf(
+    val flavorTexts: WeightedSet<FlavorText> = WeightedSet(
         // region &ASBW Chapter introductions
         Weighted(
             weight = 1,

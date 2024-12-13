@@ -11,11 +11,12 @@ import java.util.UUID
 @Serializable
 public data class EventSpecification constructor(
     val name: String,
+    override val flavorText: FlavorText,
     val description: String,
     val choices: Collection<ChoiceSpecification>,
     val consequences: Collection<ConsequenceSpecification>,
     override val uuid: String = UUID.randomUUID().toString(),
-) : UniversallyUnique {
+) : UniversallyUnique, Flavored {
     public fun randomize(): Event {
         return Event(
             specification = this,

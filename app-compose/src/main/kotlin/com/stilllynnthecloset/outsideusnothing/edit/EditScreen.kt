@@ -30,7 +30,7 @@ import com.stilllynnthecloset.outsideusnothing.library.model.Playbook
 import com.stilllynnthecloset.outsideusnothing.library.model.PortAdjective
 import com.stilllynnthecloset.outsideusnothing.library.model.PortType
 import com.stilllynnthecloset.outsideusnothing.library.model.Threat
-import com.stilllynnthecloset.outsideusnothing.library.model.Weighted
+import com.stilllynnthecloset.outsideusnothing.library.tools.Weighted
 import com.stilllynnthecloset.outsideusnothing.Platform
 import com.stilllynnthecloset.outsideusnothing.PlaybookPage
 import com.stilllynnthecloset.outsideusnothing.compose
