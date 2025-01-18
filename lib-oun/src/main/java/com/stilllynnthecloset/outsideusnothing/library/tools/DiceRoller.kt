@@ -359,12 +359,15 @@ public fun printTimeStuff() {
     println("1 nanolightperiod = ${NANO_LIGHT_PERIOD * METER_PER_MILE / 1_000.0} kilometers")
     println("1 microlightperiod = ${MICRO_LIGHT_PERIOD * METER_PER_MILE / 1_000.0} kilometers")
     println("1 millilightperiod = ${MILLI_LIGHT_PERIOD * METER_PER_MILE / 1_000_000.0} megameters = ${MILLI_LIGHT_PERIOD / ASTRONOMICAL_UNIT} AU")
+    println("1 lightperiod = ${(LIGHT_PERIOD * METER_PER_MILE) / LIGHT_YEAR_METERS} lightyears = ${(LIGHT_PERIOD * METER_PER_MILE) / PARSEC_METERS} parsecs = ${LIGHT_PERIOD / ASTRONOMICAL_UNIT} AU")
+    println("1 kilolightperiod = ${(KILO_LIGHT_PERIOD * METER_PER_MILE) / LIGHT_YEAR_METERS} lightyears = ${(KILO_LIGHT_PERIOD * METER_PER_MILE) / PARSEC_METERS} parsecs = ${KILO_LIGHT_PERIOD / ASTRONOMICAL_UNIT} AU")
+    println("The Milky Way is = ${(MILKY_WAY_DIAMETER_METERS / LIGHT_PERIOD_METERS) / 1_000_000} megalightperiods in diameter")
     println()
 
-    val nanometerPerYocto = (YOCTO_LIGHT_PERIOD * NANOMETER_PER_MILE)
-    println(nanometerPerYocto)
-    println(402.39712051787154 / nanometerPerYocto)
-    println(555 * nanometerPerYocto)
+//    val nanometerPerYocto = (YOCTO_LIGHT_PERIOD * NANOMETER_PER_MILE)
+//    println(nanometerPerYocto)
+//    println(402.39712051787154 / nanometerPerYocto)
+//    println(555 * nanometerPerYocto)
 }
 
 // endregion Outside Us Nothing Probability Tools

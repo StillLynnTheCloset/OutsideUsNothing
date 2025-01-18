@@ -27,10 +27,14 @@ internal const val PICO_LIGHT_PERIOD: Double = LIGHT_PERIOD / 1_000_000_000_000.
 internal const val NANO_LIGHT_PERIOD: Double = LIGHT_PERIOD / 1_000_000_000.0 // miles
 internal const val MICRO_LIGHT_PERIOD: Double = LIGHT_PERIOD / 1_000_000.0 // miles
 internal const val MILLI_LIGHT_PERIOD: Double = LIGHT_PERIOD / 1_000.0 // miles
+internal const val KILO_LIGHT_PERIOD: Double = LIGHT_PERIOD * 1000.0 // miles
 internal const val ASTRONOMICAL_UNIT: Double = 92_960_000.0 // miles
 internal const val NANOMETER_PER_MILE: Double = 1609339999975.49
 internal const val METER_PER_MILE: Double = 1609.33999997549
 internal const val LIGHT_PERIOD_METERS: Double = LIGHT_PERIOD * METER_PER_MILE
+internal const val LIGHT_YEAR_METERS: Double = 9_460_730_472_580_800.0
+internal const val PARSEC_METERS: Double = 3.26156 * LIGHT_YEAR_METERS
+internal const val MILKY_WAY_DIAMETER_METERS: Double = 8000 * 1000 * PARSEC_METERS
 
 internal const val LITER_PER_METER_CUBED: Double = 1000.0
 
