@@ -11,5 +11,5 @@ import java.util.UUID
 @Serializable
 public data class Threat constructor(
     val name: String,
-    override val uuid: String = UUID.randomUUID().toString(),
+    override val uuid: String = "threat_" + UUID.randomUUID().toString(),
 ) : UniversallyUnique

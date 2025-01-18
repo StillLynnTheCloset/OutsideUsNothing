@@ -15,5 +15,5 @@ public data class Ship constructor(
     val supplies: Int = 8,
     val condition: HealthCondition = HealthCondition.HEALTHY,
     val playSheet: PlaySheet,
-    override val uuid: String = UUID.randomUUID().toString(),
+    override val uuid: String = "ship_" + UUID.randomUUID().toString(),
 ) : UniversallyUnique

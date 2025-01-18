@@ -15,7 +15,7 @@ public data class PlaySheetSpecification constructor(
     override val flavorText: FlavorText,
     val choices: Collection<ChoiceSpecification>,
     val actions: Collection<Action>,
-    override val uuid: String = UUID.randomUUID().toString(),
+    override val uuid: String = "playsheetspec_" + UUID.randomUUID().toString(),
 ) : UniversallyUnique, Latexible, Flavored, Randomizable<PlaySheet> {
     public override fun randomize(playbook: Playbook): PlaySheet = PlaySheet(this, choices = choices.map { it.randomize(playbook) })
 

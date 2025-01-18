@@ -25,7 +25,7 @@ internal object AlienPlaybook {
             ChoiceSpecification(
                 questions = listOf(
                     Question(
-                        question = "Choose one your are and describe the way it has changed your life",
+                        question = "Choose one you are and describe the way it has changed your life",
                         answers = 1,
                     ),
                 ),

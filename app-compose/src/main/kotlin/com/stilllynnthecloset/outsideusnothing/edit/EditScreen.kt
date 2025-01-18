@@ -25,10 +25,10 @@ import com.stilllynnthecloset.outsideusnothing.library.model.ContractDestination
 import com.stilllynnthecloset.outsideusnothing.library.model.ContractItem
 import com.stilllynnthecloset.outsideusnothing.library.model.FlavorText
 import com.stilllynnthecloset.outsideusnothing.library.model.NpcAdjective
-import com.stilllynnthecloset.outsideusnothing.library.model.NpcType
+import com.stilllynnthecloset.outsideusnothing.library.model.NpcNoun
 import com.stilllynnthecloset.outsideusnothing.library.model.Playbook
 import com.stilllynnthecloset.outsideusnothing.library.model.PortAdjective
-import com.stilllynnthecloset.outsideusnothing.library.model.PortType
+import com.stilllynnthecloset.outsideusnothing.library.model.PortNoun
 import com.stilllynnthecloset.outsideusnothing.library.model.Threat
 import com.stilllynnthecloset.outsideusnothing.library.tools.Weighted
 import com.stilllynnthecloset.outsideusnothing.Platform
@@ -129,8 +129,8 @@ private fun getCountForPage(playbook: Playbook, page: PlaybookPage): Int {
         PlaybookPage.USEFUL_ITEM -> playbook.usefulItems.size
         PlaybookPage.BASTARD -> playbook.bastards.size
         PlaybookPage.THREAT -> playbook.threats.size
-        PlaybookPage.PORT_NAME -> playbook.portAdjectives.size + playbook.portTypes.size
-        PlaybookPage.NPC_LABEL -> playbook.npcAdjectives.size + playbook.npcTypes.size
+        PlaybookPage.PORT_NAME -> playbook.portAdjectives.size + playbook.portNouns.size
+        PlaybookPage.NPC_LABEL -> playbook.npcAdjectives.size + playbook.npcNouns.size
         PlaybookPage.FLAVOR_TEXT -> playbook.flavorTexts.size
     }
 }
@@ -388,7 +388,7 @@ private fun portNames(dataModel: EditViewModel, playbook: Playbook, platform: Pl
             modifier = Modifier.weight(1f),
         ) {
             outlinedButton(
-                onClick = { dataModel.addPortType(Weighted(1, PortType(""))) },
+                onClick = { dataModel.addPortType(Weighted(1, PortNoun(""))) },
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally),
                 content = {
@@ -406,7 +406,7 @@ private fun portNames(dataModel: EditViewModel, playbook: Playbook, platform: Pl
                     )
                 },
             )
-            playbook.portTypes.forEach { weighted ->
+            playbook.portNouns.forEach { weighted ->
                 Row(
                     modifier = Modifier
                         .padding(vertical = 4.dp)
@@ -522,7 +522,7 @@ private fun npcLabels(dataModel: EditViewModel, playbook: Playbook, platform: Pl
             modifier = Modifier.weight(1f),
         ) {
             outlinedButton(
-                onClick = { dataModel.addNpcName(Weighted(1, NpcType(""))) },
+                onClick = { dataModel.addNpcName(Weighted(1, NpcNoun(""))) },
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally),
                 content = {
@@ -540,7 +540,7 @@ private fun npcLabels(dataModel: EditViewModel, playbook: Playbook, platform: Pl
                     )
                 },
             )
-            playbook.npcTypes.forEach { weighted ->
+            playbook.npcNouns.forEach { weighted ->
                 Row(
                     modifier = Modifier
                         .padding(vertical = 4.dp)

@@ -12,5 +12,9 @@ import java.util.UUID
 public data class Question constructor(
     val question: String,
     val answers: Int,
-    override val uuid: String = UUID.randomUUID().toString(),
-) : UniversallyUnique
+    override val uuid: String = "questionspec_" + UUID.randomUUID().toString(),
+) : UniversallyUnique, Latexible {
+    public override fun toLatex(builder: StringBuilder) {
+        builder.appendLine("\\question{$question}")
+    }
+}

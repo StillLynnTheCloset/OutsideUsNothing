@@ -12,7 +12,7 @@ import java.util.UUID
 public data class Action constructor(
     val description: String,
     val diceOffset: Int,
-    override val uuid: String = UUID.randomUUID().toString(),
+    override val uuid: String = "action_" + UUID.randomUUID().toString(),
 ) : UniversallyUnique, Latexible {
     override fun toLatex(builder: StringBuilder) {
         builder.appendLine("\\action($diceOffset,$description)")

@@ -4,12 +4,12 @@ import kotlinx.serialization.Serializable
 import java.util.UUID
 
 /**
- * NpcType - TODO: Documentation
+ * PortType - TODO: Documentation
  *
  * Created by Lynn on 5/7/23
  */
 @Serializable
-public data class NpcType constructor(
+public data class PortNoun constructor(
     val text: String,
-    override val uuid: String = UUID.randomUUID().toString(),
+    override val uuid: String = "portnoun_" + UUID.randomUUID().toString(),
 ) : UniversallyUnique

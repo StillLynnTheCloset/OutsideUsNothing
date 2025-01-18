@@ -40,7 +40,6 @@ public data class WeightedSet<T> constructor(
     }
 }
 
-
 public fun <T : UniversallyUnique> WeightedSet<T>.replace(item: Weighted<T>): WeightedSet<T> {
     return WeightedSet(
         set.map {

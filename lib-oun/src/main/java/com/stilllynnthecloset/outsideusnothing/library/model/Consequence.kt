@@ -17,11 +17,11 @@ public sealed class Consequence : UniversallyUnique {
 public data class DiceConsequence constructor(
     override val specification: DiceConsequenceSpecification,
     val roll: Int,
-    override val uuid: String = UUID.randomUUID().toString(),
+    override val uuid: String = "consequence_" + UUID.randomUUID().toString(),
 ) : Consequence()
 
 @Serializable
 public data class TextConsequence constructor(
     override val specification: TextConsequenceSpecification,
-    override val uuid: String = UUID.randomUUID().toString(),
+    override val uuid: String = "consequence_" + UUID.randomUUID().toString(),
 ) : Consequence()

@@ -98,7 +98,7 @@ internal class MapDataModel constructor(
     }
 
     fun pickRandomPortName() {
-        generatePortNameEntry = "${playbook.portAdjectives.weightedRandom().text} ${playbook.portTypes.weightedRandom().text}"
+        generatePortNameEntry = "${playbook.portAdjectives.weightedRandom().text} ${playbook.portNouns.weightedRandom().text}"
     }
 
     fun generateDegrees(node: HexGridNode, degrees: Int) {

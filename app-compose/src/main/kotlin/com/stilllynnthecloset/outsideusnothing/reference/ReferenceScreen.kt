@@ -276,7 +276,7 @@ private fun portName(dataModel: ReferenceDataModel, playbook: Playbook, platform
             Text(
                 text = "here:",
             )
-            playbook.portTypes.forEach {
+            playbook.portNouns.forEach {
                 SelectionContainer {
                     Text(
                         text = it.value.text,
@@ -319,7 +319,7 @@ private fun npcLabel(dataModel: ReferenceDataModel, playbook: Playbook, platform
             Text(
                 text = "here:",
             )
-            playbook.npcTypes.forEach {
+            playbook.npcNouns.forEach {
                 SelectionContainer {
                     Text(
                         text = it.value.text,

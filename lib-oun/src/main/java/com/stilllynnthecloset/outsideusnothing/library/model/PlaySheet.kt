@@ -12,5 +12,5 @@ import java.util.UUID
 public data class PlaySheet constructor(
     val specification: PlaySheetSpecification,
     val choices: Collection<Choice>,
-    override val uuid: String = UUID.randomUUID().toString(),
+    override val uuid: String = "playsheet_" + UUID.randomUUID().toString(),
 ) : UniversallyUnique

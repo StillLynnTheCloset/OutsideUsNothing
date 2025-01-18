@@ -12,5 +12,5 @@ import java.util.UUID
 public data class Bastard constructor(
     val name: String,
     val description: String,
-    override val uuid: String = UUID.randomUUID().toString(),
+    override val uuid: String = "bastard_" + UUID.randomUUID().toString(),
 ) : UniversallyUnique

@@ -11,7 +11,7 @@ import java.util.UUID
 @Serializable
 public data class Option constructor(
     val text: String,
-    override val uuid: String = UUID.randomUUID().toString(),
+    override val uuid: String = "option_" + UUID.randomUUID().toString(),
 ) : UniversallyUnique, Latexible {
     public override fun toLatex(builder: StringBuilder) {
         builder.appendLine("\\optiontext{$text}")

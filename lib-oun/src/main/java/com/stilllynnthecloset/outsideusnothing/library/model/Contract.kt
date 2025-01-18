@@ -14,5 +14,5 @@ public data class Contract constructor(
     val fuelReward: Int,
     val suppliesReward: Int,
     val itemReward: Boolean,
-    override val uuid: String = UUID.randomUUID().toString(),
+    override val uuid: String = "contract_" + UUID.randomUUID().toString(),
 ) : UniversallyUnique

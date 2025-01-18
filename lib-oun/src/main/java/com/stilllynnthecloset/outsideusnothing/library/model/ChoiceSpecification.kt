@@ -13,7 +13,7 @@ import java.util.UUID
 public data class ChoiceSpecification constructor(
     val options: Collection<Option>,
     val questions: Collection<Question>,
-    override val uuid: String = UUID.randomUUID().toString(),
+    override val uuid: String = "choicespec_" + UUID.randomUUID().toString(),
 ) : UniversallyUnique, Latexible, Randomizable<Choice> {
     public override fun randomize(playbook: Playbook): Choice {
         val accumulatedSelections = mutableSetOf<Option>()

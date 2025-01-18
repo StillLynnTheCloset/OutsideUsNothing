@@ -898,9 +898,9 @@ internal fun Playbook.compose(platform: Platform, listContents: Boolean, modifie
                 wasAnythingShown = true
             }
 
-            if (npcTypes.isNotEmpty()) {
+            if (npcNouns.isNotEmpty()) {
                 Text(
-                    text = "${npcTypes.size}: NPC types",
+                    text = "${npcNouns.size}: NPC types",
                     fontSize = 12.sp,
                     modifier = Modifier.padding(start = indentPadding * 2),
                 )
@@ -916,9 +916,9 @@ internal fun Playbook.compose(platform: Platform, listContents: Boolean, modifie
                 wasAnythingShown = true
             }
 
-            if (portTypes.isNotEmpty()) {
+            if (portNouns.isNotEmpty()) {
                 Text(
-                    text = "${portTypes.size}: Port names",
+                    text = "${portNouns.size}: Port names",
                     fontSize = 12.sp,
                     modifier = Modifier.padding(start = indentPadding * 2),
                 )

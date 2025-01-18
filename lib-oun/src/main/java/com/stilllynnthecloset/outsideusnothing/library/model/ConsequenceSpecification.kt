@@ -19,7 +19,7 @@ public data class DiceConsequenceSpecification constructor(
     override val name: String,
     val diceToRoll: Int = 1,
     val diceSides: Int = 6,
-    override val uuid: String = UUID.randomUUID().toString(),
+    override val uuid: String = "consequencespec_" + UUID.randomUUID().toString(),
 ) : ConsequenceSpecification() {
     public override fun randomize(playbook: Playbook): DiceConsequence = DiceConsequence(this, rollDice(diceToRoll, diceSides).sumOf { it.value })
 }
@@ -27,7 +27,7 @@ public data class DiceConsequenceSpecification constructor(
 @Serializable
 public data class TextConsequenceSpecification constructor(
     override val name: String,
-    override val uuid: String = UUID.randomUUID().toString(),
+    override val uuid: String = "consequencespec_" + UUID.randomUUID().toString(),
 ) : ConsequenceSpecification() {
     public override fun randomize(playbook: Playbook): TextConsequence = TextConsequence(this)
 }

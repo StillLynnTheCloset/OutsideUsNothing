@@ -12,5 +12,5 @@ import java.util.UUID
 public data class ContractDetail constructor(
     val item: ContractItem,
     val destination: ContractDestination,
-    override val uuid: String = UUID.randomUUID().toString(),
+    override val uuid: String = "contractdetail_" + UUID.randomUUID().toString(),
 ) : UniversallyUnique

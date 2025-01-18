@@ -12,5 +12,5 @@ import java.util.UUID
 public data class Choice constructor(
     val specification: ChoiceSpecification,
     val answeredQuestions: Collection<AnsweredQuestion>,
-    override val uuid: String = UUID.randomUUID().toString(),
+    override val uuid: String = "choice_" + UUID.randomUUID().toString(),
 ) : UniversallyUnique

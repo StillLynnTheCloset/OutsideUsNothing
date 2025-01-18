@@ -12,5 +12,5 @@ import java.util.UUID
 public data class AnsweredQuestion constructor(
     val question: Question,
     val answers: Collection<Option>,
-    override val uuid: String = UUID.randomUUID().toString(),
+    override val uuid: String = "answeredquestion_" + UUID.randomUUID().toString(),
 ) : UniversallyUnique

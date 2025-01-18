@@ -13,5 +13,5 @@ public data class Event constructor(
     val specification: EventSpecification,
     val choices: Collection<Choice>,
     val consequences: Collection<Consequence>,
-    override val uuid: String = UUID.randomUUID().toString(),
+    override val uuid: String = "event_" + UUID.randomUUID().toString(),
 ) : UniversallyUnique

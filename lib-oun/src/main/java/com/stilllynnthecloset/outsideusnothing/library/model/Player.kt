@@ -19,7 +19,7 @@ public data class Player constructor(
     val condition: HealthCondition,
     val playSheets: Collection<PlaySheet>,
     val items: Collection<UsefulItem>,
-    override val uuid: String = UUID.randomUUID().toString(),
+    override val uuid: String = "player_" + UUID.randomUUID().toString(),
 ) : UniversallyUnique {
     public companion object {
         public fun fromJson(string: String): Player = SerializerTools.serializer.decodeFromString(string)

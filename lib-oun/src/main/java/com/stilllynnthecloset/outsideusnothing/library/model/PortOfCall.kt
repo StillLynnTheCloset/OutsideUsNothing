@@ -14,5 +14,5 @@ public data class PortOfCall constructor(
     val name: String,
     val choices: Collection<Choice>,
     val contracts: Collection<Contract>,
-    override val uuid: String = UUID.randomUUID().toString(),
+    override val uuid: String = "port_" + UUID.randomUUID().toString(),
 ) : UniversallyUnique

@@ -11,5 +11,5 @@ import java.util.UUID
 @Serializable
 public data class PortAdjective constructor(
     val text: String,
-    override val uuid: String = UUID.randomUUID().toString(),
+    override val uuid: String = "portadj_" + UUID.randomUUID().toString(),
 ) : UniversallyUnique

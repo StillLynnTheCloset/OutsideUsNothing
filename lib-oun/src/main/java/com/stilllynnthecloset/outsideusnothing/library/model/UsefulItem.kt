@@ -12,5 +12,5 @@ import java.util.UUID
 public data class UsefulItem constructor(
     val name: String,
     val action: Action,
-    override val uuid: String = UUID.randomUUID().toString(),
+    override val uuid: String = "item_" + UUID.randomUUID().toString(),
 ) : UniversallyUnique

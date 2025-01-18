@@ -12,7 +12,7 @@ import java.util.UUID
 public data class FlavorText constructor(
     val text: String,
     val attribution: String,
-    override val uuid: String = UUID.randomUUID().toString(),
+    override val uuid: String = "flavor_" + UUID.randomUUID().toString(),
 ) : UniversallyUnique, Latexible {
     public override fun toLatex(builder: StringBuilder) {
         builder.appendLine("\\flavortext{${this.text}}")

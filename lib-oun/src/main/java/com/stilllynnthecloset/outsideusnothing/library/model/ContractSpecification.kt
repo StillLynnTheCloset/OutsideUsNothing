@@ -16,7 +16,7 @@ import java.util.UUID
 public data class ContractSpecification constructor(
     val description: String,
     val quality: ContractQuality,
-    override val uuid: String = UUID.randomUUID().toString(),
+    override val uuid: String = "contractspec_" + UUID.randomUUID().toString(),
 ) : UniversallyUnique, Randomizable<Contract>, Latexible {
     public companion object {
         internal const val GENERATED_DESCRIPTION: String = "GENERATE_REPLACEMENT"
@@ -30,12 +30,12 @@ public data class ContractSpecification constructor(
         )
 
         public fun generateGenericContract(playbook: Playbook): ContractSpecification {
-            val npc = "${playbook.npcAdjectives.weightedRandom().text} ${playbook.npcTypes.weightedRandom().text}"
+            val npc = "${playbook.npcAdjectives.weightedRandom().text} ${playbook.npcNouns.weightedRandom().text}"
             val item = playbook.contractItems.weightedRandom().name
             val destination = if (rollDie(2) == 1) {
                 playbook.contractDestinations.weightedRandom().name
             } else {
-                "to ${playbook.portAdjectives.weightedRandom().text} ${playbook.portTypes.weightedRandom().text}"
+                "to ${playbook.portAdjectives.weightedRandom().text} ${playbook.portNouns.weightedRandom().text}"
             }
             val quality = ContractQuality.values().random()
             return Companion.generatedContract.copy(
@@ -64,6 +64,6 @@ public data class ContractSpecification constructor(
     }
 
     public override fun toLatex(builder: StringBuilder) {
-
+        builder.appendLine("\\contractspecification{$description}")
     }
 }

@@ -6,10 +6,10 @@ import com.stilllynnthecloset.outsideusnothing.library.model.ContractDestination
 import com.stilllynnthecloset.outsideusnothing.library.model.ContractItem
 import com.stilllynnthecloset.outsideusnothing.library.model.FlavorText
 import com.stilllynnthecloset.outsideusnothing.library.model.NpcAdjective
-import com.stilllynnthecloset.outsideusnothing.library.model.NpcType
+import com.stilllynnthecloset.outsideusnothing.library.model.NpcNoun
 import com.stilllynnthecloset.outsideusnothing.library.model.Playbook
 import com.stilllynnthecloset.outsideusnothing.library.model.PortAdjective
-import com.stilllynnthecloset.outsideusnothing.library.model.PortType
+import com.stilllynnthecloset.outsideusnothing.library.model.PortNoun
 import com.stilllynnthecloset.outsideusnothing.library.model.Threat
 import com.stilllynnthecloset.outsideusnothing.library.tools.Weighted
 import com.stilllynnthecloset.outsideusnothing.MainDataModel
@@ -90,26 +90,26 @@ internal class EditViewModel constructor(private val mainDataModel: MainDataMode
         )
     }
 
-    fun updatePortType(new: Weighted<PortType>) {
+    fun updatePortType(new: Weighted<PortNoun>) {
         mainDataModel.updatePlaybook(
             currentPlaybook.copy(
-                portTypes = currentPlaybook.portTypes.replace(new),
+                portNouns = currentPlaybook.portNouns.replace(new),
             ),
         )
     }
 
-    fun addPortType(new: Weighted<PortType>) {
+    fun addPortType(new: Weighted<PortNoun>) {
         mainDataModel.updatePlaybook(
             currentPlaybook.copy(
-                portTypes = currentPlaybook.portTypes + new,
+                portNouns = currentPlaybook.portNouns + new,
             ),
         )
     }
 
-    fun removePortType(new: Weighted<PortType>) {
+    fun removePortType(new: Weighted<PortNoun>) {
         mainDataModel.updatePlaybook(
             currentPlaybook.copy(
-                portTypes = currentPlaybook.portTypes - new,
+                portNouns = currentPlaybook.portNouns - new,
             ),
         )
     }
@@ -138,26 +138,26 @@ internal class EditViewModel constructor(private val mainDataModel: MainDataMode
         )
     }
 
-    fun updateNpcName(new: Weighted<NpcType>) {
+    fun updateNpcName(new: Weighted<NpcNoun>) {
         mainDataModel.updatePlaybook(
             currentPlaybook.copy(
-                npcTypes = currentPlaybook.npcTypes.replace(new),
+                npcNouns = currentPlaybook.npcNouns.replace(new),
             ),
         )
     }
 
-    fun addNpcName(new: Weighted<NpcType>) {
+    fun addNpcName(new: Weighted<NpcNoun>) {
         mainDataModel.updatePlaybook(
             currentPlaybook.copy(
-                npcTypes = currentPlaybook.npcTypes + new,
+                npcNouns = currentPlaybook.npcNouns + new,
             ),
         )
     }
 
-    fun removeNpcName(new: Weighted<NpcType>) {
+    fun removeNpcName(new: Weighted<NpcNoun>) {
         mainDataModel.updatePlaybook(
             currentPlaybook.copy(
-                npcTypes = currentPlaybook.npcTypes - new,
+                npcNouns = currentPlaybook.npcNouns - new,
             ),
         )
     }

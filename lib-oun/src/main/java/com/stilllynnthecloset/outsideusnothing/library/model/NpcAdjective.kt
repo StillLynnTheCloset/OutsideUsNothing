@@ -11,5 +11,5 @@ import java.util.UUID
 @Serializable
 public data class NpcAdjective constructor(
     val text: String,
-    override val uuid: String = UUID.randomUUID().toString(),
+    override val uuid: String = "npcadj_" + UUID.randomUUID().toString(),
 ) : UniversallyUnique

@@ -15,7 +15,7 @@ public data class EventSpecification constructor(
     val description: String,
     val choices: Collection<ChoiceSpecification>,
     val consequences: Collection<ConsequenceSpecification>,
-    override val uuid: String = UUID.randomUUID().toString(),
+    override val uuid: String = "eventspec_" + UUID.randomUUID().toString(),
 ) : UniversallyUnique, Flavored, Randomizable<Event> {
     public override fun randomize(playbook: Playbook): Event {
         return Event(

@@ -38,15 +38,15 @@ public data class Playbook constructor(
     val threats: WeightedSet<Threat> = emptyWeightedSet(),
     val usefulItems: WeightedSet<UsefulItem> = emptyWeightedSet(),
     val npcAdjectives: WeightedSet<NpcAdjective> = emptyWeightedSet(),
-    val npcTypes: WeightedSet<NpcType> = emptyWeightedSet(),
+    val npcNouns: WeightedSet<NpcNoun> = emptyWeightedSet(),
     val portAdjectives: WeightedSet<PortAdjective> = emptyWeightedSet(),
-    val portTypes: WeightedSet<PortType> = emptyWeightedSet(),
+    val portNouns: WeightedSet<PortNoun> = emptyWeightedSet(),
     val contractItems: WeightedSet<ContractItem> = emptyWeightedSet(),
     val contractDestinations: WeightedSet<ContractDestination> = emptyWeightedSet(),
 ) : UniversallyUnique, Latexible {
     public companion object {
-        private const val DEFAULT_PLAYBOOK_UUID: String = "bd656fa0-b460-4cf3-852a-d5c7730d0028"
-        private const val MERGED_PLAYBOOKS_UUID: String = "5c63c40a-05c9-49ff-acfd-2a933c4b2c6f"
+        private const val DEFAULT_PLAYBOOK_UUID: String = "playbook_bd656fa0-b460-4cf3-852a-d5c7730d0028"
+        private const val MERGED_PLAYBOOKS_UUID: String = "playbook_5c63c40a-05c9-49ff-acfd-2a933c4b2c6f"
         private const val MERGED_PLAYBOOKS_NAME: String = "Merged Playbook"
         private const val MERGED_PLAYBOOKS_DESCRIPTION: String = "A playbook that is the merger of all active playbooks"
 
@@ -66,9 +66,9 @@ public data class Playbook constructor(
             threats = ThreatPlaybook.threats,
             usefulItems = UsefulItemPlaybook.items,
             npcAdjectives = NamePlaybook.npcAdjectives,
-            npcTypes = NamePlaybook.npcTypes,
+            npcNouns = NamePlaybook.npcNouns,
             portAdjectives = NamePlaybook.portAdjectives,
-            portTypes = NamePlaybook.portTypes,
+            portNouns = NamePlaybook.portNouns,
             contractItems = ContractItemPlaybook.contractItems,
             contractDestinations = ContractItemPlaybook.contractDestinations,
         )
@@ -77,7 +77,7 @@ public data class Playbook constructor(
             name = "Lynn's Cool Homebrew",
             description = "Some fun things I wanted to add",
             authors = listOf(Author("Lynn")),
-            uuid = "0d851b76-3835-4d16-8a92-fb619fe13908",
+            uuid = "playbook_0d851b76-3835-4d16-8a92-fb619fe13908",
             active = false,
             npcAdjectives = WeightedSet(
                 NpcAdjective("ancient") to 1,
@@ -90,13 +90,13 @@ public data class Playbook constructor(
                 NpcAdjective("entropic") to 1,
                 NpcAdjective("memetic") to 1,
             ),
-            npcTypes = WeightedSet(
-                NpcType("cowboy") to 1,
-                NpcType("freetraveler") to 1,
-                NpcType("mafia") to 1,
-                NpcType("spy") to 1,
-                NpcType("scientist") to 1,
-                NpcType("ancient") to 1,
+            npcNouns = WeightedSet(
+                NpcNoun("cowboy") to 1,
+                NpcNoun("freetraveler") to 1,
+                NpcNoun("mafia") to 1,
+                NpcNoun("spy") to 1,
+                NpcNoun("scientist") to 1,
+                NpcNoun("ancient") to 1,
             ),
             contractItems = WeightedSet(
                 ContractItem("a platinum poker chip") to 1,
@@ -117,7 +117,7 @@ public data class Playbook constructor(
                 ),
             ),
             active = false,
-            uuid = "8df3484f-bda9-42d7-babc-70edf9ddc667",
+            uuid = "playbook_8df3484f-bda9-42d7-babc-70edf9ddc667",
             aliens = WeightedSet(
                 Weighted(
                     weight = 1,
@@ -211,8 +211,8 @@ public data class Playbook constructor(
             npcAdjectives = WeightedSet(
                 NpcAdjective("anhedonic") to 1,
             ),
-            npcTypes = WeightedSet(
-                NpcType("wolf") to 1,
+            npcNouns = WeightedSet(
+                NpcNoun("wolf") to 1,
             ),
         )
 
@@ -221,7 +221,7 @@ public data class Playbook constructor(
             description = "An empty playbook, for testing",
             authors = listOf(),
             active = false,
-            uuid = "2a9e7353-707f-44f1-a22d-a9687f1457d6",
+            uuid = "playbook_2a9e7353-707f-44f1-a22d-a9687f1457d6",
         )
     }
 
@@ -242,9 +242,9 @@ public data class Playbook constructor(
             threats = this.threats + other.threats,
             usefulItems = this.usefulItems + other.usefulItems,
             npcAdjectives = this.npcAdjectives + other.npcAdjectives,
-            npcTypes = this.npcTypes + other.npcTypes,
+            npcNouns = this.npcNouns + other.npcNouns,
             portAdjectives = this.portAdjectives + other.portAdjectives,
-            portTypes = this.portTypes + other.portTypes,
+            portNouns = this.portNouns + other.portNouns,
             contractItems = this.contractItems + other.contractItems,
             contractDestinations = this.contractDestinations + other.contractDestinations,
         )
