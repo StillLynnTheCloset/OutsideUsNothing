@@ -13,4 +13,9 @@ public data class FlavorText constructor(
     val text: String,
     val attribution: String,
     override val uuid: String = UUID.randomUUID().toString(),
-) : UniversallyUnique
+) : UniversallyUnique, Latexible {
+    public override fun toLatex(builder: StringBuilder) {
+        builder.appendLine("\\flavortext{${this.text}}")
+        builder.appendLine("\\flavorattribution{${this.attribution}}")
+    }
+}

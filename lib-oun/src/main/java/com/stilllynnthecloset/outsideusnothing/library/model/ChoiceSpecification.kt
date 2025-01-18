@@ -14,8 +14,8 @@ public data class ChoiceSpecification constructor(
     val options: Collection<Option>,
     val questions: Collection<Question>,
     override val uuid: String = UUID.randomUUID().toString(),
-) : UniversallyUnique {
-    public fun randomize(): Choice {
+) : UniversallyUnique, Latexible, Randomizable<Choice> {
+    public override fun randomize(playbook: Playbook): Choice {
         val accumulatedSelections = mutableSetOf<Option>()
         val optionsSet = options.toSet()
         return Choice(
@@ -29,5 +29,10 @@ public data class ChoiceSpecification constructor(
                 )
             },
         )
+    }
+
+    public override fun toLatex(builder: StringBuilder) {
+        questions.forEach { it.toLatex(builder) }
+        options.forEach { it.toLatex(builder) }
     }
 }

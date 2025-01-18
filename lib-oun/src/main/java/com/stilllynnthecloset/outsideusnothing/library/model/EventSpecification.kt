@@ -16,12 +16,12 @@ public data class EventSpecification constructor(
     val choices: Collection<ChoiceSpecification>,
     val consequences: Collection<ConsequenceSpecification>,
     override val uuid: String = UUID.randomUUID().toString(),
-) : UniversallyUnique, Flavored {
-    public fun randomize(): Event {
+) : UniversallyUnique, Flavored, Randomizable<Event> {
+    public override fun randomize(playbook: Playbook): Event {
         return Event(
             specification = this,
-            choices = this.choices.map { it.randomize() },
-            consequences = this.consequences.map { it.randomize() },
+            choices = this.choices.map { it.randomize(playbook) },
+            consequences = this.consequences.map { it.randomize(playbook) },
         )
     }
 }

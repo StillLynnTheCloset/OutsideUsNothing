@@ -10,9 +10,8 @@ import java.util.UUID
  * Created by Lynn on 5/1/23
  */
 @Serializable
-public sealed class ConsequenceSpecification : UniversallyUnique {
+public sealed class ConsequenceSpecification : UniversallyUnique, Randomizable<Consequence> {
     public abstract val name: String
-    public abstract fun randomize(): Consequence
 }
 
 @Serializable
@@ -22,7 +21,7 @@ public data class DiceConsequenceSpecification constructor(
     val diceSides: Int = 6,
     override val uuid: String = UUID.randomUUID().toString(),
 ) : ConsequenceSpecification() {
-    public override fun randomize(): DiceConsequence = DiceConsequence(this, rollDice(diceToRoll, diceSides).sumOf { it.value })
+    public override fun randomize(playbook: Playbook): DiceConsequence = DiceConsequence(this, rollDice(diceToRoll, diceSides).sumOf { it.value })
 }
 
 @Serializable
@@ -30,5 +29,5 @@ public data class TextConsequenceSpecification constructor(
     override val name: String,
     override val uuid: String = UUID.randomUUID().toString(),
 ) : ConsequenceSpecification() {
-    public override fun randomize(): TextConsequence = TextConsequence(this)
+    public override fun randomize(playbook: Playbook): TextConsequence = TextConsequence(this)
 }

@@ -19,19 +19,27 @@ public data class PortOfCallSpecification constructor(
     val contracts: Collection<ContractSpecification>,
     val minContracts: Int,
     override val uuid: String = UUID.randomUUID().toString(),
-) : UniversallyUnique, Flavored {
-    public fun randomize(playbook: Playbook): PortOfCall {
+) : UniversallyUnique, Latexible, Flavored, Randomizable<PortOfCall> {
+    public override fun randomize(playbook: Playbook): PortOfCall {
         return PortOfCall(
             specification = this,
             name = "${playbook.portAdjectives.weightedRandom().text} ${playbook.portTypes.weightedRandom().text}",
-            choices = choices.map { it.randomize() },
+            choices = choices.map { it.randomize(playbook) },
             contracts = contracts.toSet().pickAtLeastN(minContracts).map {
                 if (it.description == ContractSpecification.GENERATED_DESCRIPTION) {
                     ContractSpecification.generateGenericContract(playbook)
                 } else {
                     it
-                }.randomize()
+                }.randomize(playbook)
             },
         )
+    }
+
+    public override fun toLatex(builder: StringBuilder) {
+        builder.appendLine("\\portname{$name}")
+        flavorText.toLatex(builder)
+        builder.appendLine("\\description{$description}")
+        choices.forEach { it.toLatex(builder) }
+        contracts.forEach { it.toLatex(builder) }
     }
 }

@@ -17,11 +17,15 @@ public data class ContractSpecification constructor(
     val description: String,
     val quality: ContractQuality,
     override val uuid: String = UUID.randomUUID().toString(),
-) : UniversallyUnique {
+) : UniversallyUnique, Randomizable<Contract>, Latexible {
     public companion object {
         internal const val GENERATED_DESCRIPTION: String = "GENERATE_REPLACEMENT"
         public val generatedContract: ContractSpecification = ContractSpecification(
             description = GENERATED_DESCRIPTION,
+            quality = ContractQuality.AVERAGE,
+        )
+        internal val wildernessContract: ContractSpecification = ContractSpecification(
+            description = "There may or may not be fuel, supplies, or powerful items here. Along with traps and monsters.",
             quality = ContractQuality.AVERAGE,
         )
 
@@ -40,12 +44,26 @@ public data class ContractSpecification constructor(
             )
         }
     }
-    public fun randomize(): Contract {
-        return Contract(
-            contractSpecification = this,
-            fuelReward = rollDice(quality.fuelDice).sumOf { it.value },
-            suppliesReward = rollDice(quality.suppliesDice).sumOf { it.value },
-            itemReward = checkSuccess(2, quality.itemDifficultly, rollDice(2)),
-        )
+
+    public override fun randomize(playbook: Playbook): Contract {
+        return if (this == wildernessContract) {
+            Contract(
+                contractSpecification = this,
+                fuelReward = rollDice(ContractQuality.values().random().fuelDice).sumOf { it.value },
+                suppliesReward = rollDice(ContractQuality.values().random().suppliesDice).sumOf { it.value },
+                itemReward = checkSuccess(2, ContractQuality.values().random().itemDifficultly, rollDice(2)),
+            )
+        } else {
+            Contract(
+                contractSpecification = this,
+                fuelReward = rollDice(quality.fuelDice).sumOf { it.value },
+                suppliesReward = rollDice(quality.suppliesDice).sumOf { it.value },
+                itemReward = checkSuccess(2, quality.itemDifficultly, rollDice(2)),
+            )
+        }
+    }
+
+    public override fun toLatex(builder: StringBuilder) {
+
     }
 }

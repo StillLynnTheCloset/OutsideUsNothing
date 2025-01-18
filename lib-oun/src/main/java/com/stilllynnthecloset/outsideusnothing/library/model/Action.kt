@@ -13,4 +13,8 @@ public data class Action constructor(
     val description: String,
     val diceOffset: Int,
     override val uuid: String = UUID.randomUUID().toString(),
-) : UniversallyUnique
+) : UniversallyUnique, Latexible {
+    override fun toLatex(builder: StringBuilder) {
+        builder.appendLine("\\action($diceOffset,$description)")
+    }
+}

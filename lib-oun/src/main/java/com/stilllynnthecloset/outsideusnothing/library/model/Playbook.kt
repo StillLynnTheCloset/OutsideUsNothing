@@ -43,7 +43,7 @@ public data class Playbook constructor(
     val portTypes: WeightedSet<PortType> = emptyWeightedSet(),
     val contractItems: WeightedSet<ContractItem> = emptyWeightedSet(),
     val contractDestinations: WeightedSet<ContractDestination> = emptyWeightedSet(),
-) : UniversallyUnique {
+) : UniversallyUnique, Latexible {
     public companion object {
         private const val DEFAULT_PLAYBOOK_UUID: String = "bd656fa0-b460-4cf3-852a-d5c7730d0028"
         private const val MERGED_PLAYBOOKS_UUID: String = "5c63c40a-05c9-49ff-acfd-2a933c4b2c6f"
@@ -248,5 +248,11 @@ public data class Playbook constructor(
             contractItems = this.contractItems + other.contractItems,
             contractDestinations = this.contractDestinations + other.contractDestinations,
         )
+    }
+
+    public override fun toLatex(builder: StringBuilder) {
+        aliens.forEach { it.value.toLatex(builder) }
+        backgrounds.forEach { it.value.toLatex(builder) }
+        roles.forEach { it.value.toLatex(builder) }
     }
 }

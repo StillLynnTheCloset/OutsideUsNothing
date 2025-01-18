@@ -16,6 +16,14 @@ public data class PlaySheetSpecification constructor(
     val choices: Collection<ChoiceSpecification>,
     val actions: Collection<Action>,
     override val uuid: String = UUID.randomUUID().toString(),
-) : UniversallyUnique, Flavored {
-    public fun randomize(): PlaySheet = PlaySheet(this, choices = choices.map { it.randomize() })
+) : UniversallyUnique, Latexible, Flavored, Randomizable<PlaySheet> {
+    public override fun randomize(playbook: Playbook): PlaySheet = PlaySheet(this, choices = choices.map { it.randomize(playbook) })
+
+    public override fun toLatex(builder: StringBuilder) {
+        builder.appendLine("\\playsheetname{${name}}")
+        builder.appendLine("\\playsheetdescription{${description}}")
+        this.flavorText.toLatex(builder)
+        this.choices.forEach { it.toLatex(builder) }
+        this.actions.forEach { it.toLatex(builder) }
+    }
 }

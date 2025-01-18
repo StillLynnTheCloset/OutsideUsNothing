@@ -40,7 +40,7 @@ internal class GeneratorDataModel constructor(private val playbook: Playbook) {
         private set
 
     fun generateContract() {
-        generatedContract = ContractSpecification.generateGenericContract(playbook).randomize()
+        generatedContract = ContractSpecification.generateGenericContract(playbook).randomize(playbook)
     }
 
     fun clearContract() {
@@ -73,7 +73,7 @@ internal class GeneratorDataModel constructor(private val playbook: Playbook) {
         private set
 
     fun generateEvent() {
-        generatedEvent = playbook.events.weightedRandom().randomize()
+        generatedEvent = playbook.events.weightedRandom().randomize(playbook)
     }
 
     fun clearEvent() {
@@ -111,7 +111,7 @@ internal class GeneratorDataModel constructor(private val playbook: Playbook) {
             fuel = (0..20).random(),
             supplies = (0..20).random(),
             condition = HealthCondition.values().random(),
-            playSheet = ShipPlaybook.shipPlaySheetSpecification.randomize(),
+            playSheet = ShipPlaybook.shipPlaySheetSpecification.randomize(playbook),
         )
     }
 
@@ -128,9 +128,9 @@ internal class GeneratorDataModel constructor(private val playbook: Playbook) {
             dicePool = (0..20).random(),
             condition = HealthCondition.values().random(),
             playSheets = listOf(
-                playbook.aliens.weightedRandom().randomize(),
-                playbook.backgrounds.weightedRandom().randomize(),
-                playbook.roles.weightedRandom().randomize(),
+                playbook.aliens.weightedRandom().randomize(playbook),
+                playbook.backgrounds.weightedRandom().randomize(playbook),
+                playbook.roles.weightedRandom().randomize(playbook),
             ),
             items = emptyList(),
         )
