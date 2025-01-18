@@ -11,7 +11,7 @@ plugins {
     id("com.android.application") apply false
     id("com.android.library") apply false
 
-    id("com.squareup.sqldelight") version "1.5.5" apply false
+    id("com.squareup.sqldelight") apply false
 }
 
 group = "com.stilllynnthecloset.outsideusnothing"
@@ -25,9 +25,9 @@ buildscript {
         maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
     }
     dependencies {
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:_")
-        classpath("org.jetbrains.kotlin:kotlin-serialization:_")
-        classpath("com.squareup.sqldelight:gradle-plugin:1.5.5")
+        classpath(libs.kotlin.gradle.plugin)
+        classpath(libs.kotlin.serialization)
+        classpath(libs.gradle.plugin)
     }
 }
 

@@ -68,7 +68,7 @@ dependencies {
     implementation(compose.preview)
     implementation(AndroidX.compose.material3)
 
-    ktlint("com.pinterest:ktlint:_")
+    ktlint(libs.ktlint)
 }
 
 val outputDir = "${project.buildDir}/reports/ktlint/"

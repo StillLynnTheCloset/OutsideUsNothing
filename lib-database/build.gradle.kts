@@ -54,7 +54,7 @@ sqldelight {
 }
 
 dependencies {
-    implementation("com.squareup.sqldelight:sqlite-driver:1.5.5")
+    implementation(libs.sqlite.driver)
     implementation(project(":lib-oun"))
     implementation(project(":lib-hexgrid-compose"))
 }

@@ -39,7 +39,7 @@ dependencies {
     @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
     implementation(compose.material3)
 
-    ktlint("com.pinterest:ktlint:_")
+    ktlint(libs.ktlint)
 }
 
 tasks.withType<KotlinCompile>().all {

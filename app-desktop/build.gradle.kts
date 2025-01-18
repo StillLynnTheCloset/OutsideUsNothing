@@ -40,9 +40,9 @@ dependencies {
     @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
     implementation(compose.material3)
 
-    implementation("com.squareup.okio:okio:2.10.0")
+    implementation(libs.okio)
 
-    ktlint("com.pinterest:ktlint:_")
+    ktlint(libs.ktlint)
 }
 
 tasks.withType<KotlinCompile>().all {

@@ -20,11 +20,7 @@ dependencies {
     implementation(KotlinX.coroutines.core)
     implementation(KotlinX.serialization.json)
 
-//    implementation(Square.moshi.kotlinReflect)
-//    implementation(Square.moshi.adapters)
-//    kapt(Square.moshi.kotlinCodegen)
-
-    ktlint("com.pinterest:ktlint:_")
+    ktlint(libs.ktlint)
 }
 
 tasks.withType<KotlinCompile>().all {
