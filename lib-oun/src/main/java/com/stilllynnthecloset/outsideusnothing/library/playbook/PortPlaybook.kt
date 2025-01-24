@@ -4,11 +4,12 @@ import com.stilllynnthecloset.outsideusnothing.library.model.ChoiceSpecification
 import com.stilllynnthecloset.outsideusnothing.library.model.ContractQuality
 import com.stilllynnthecloset.outsideusnothing.library.model.ContractSpecification
 import com.stilllynnthecloset.outsideusnothing.library.model.ContractSpecification.Companion.generatedContract
+import com.stilllynnthecloset.outsideusnothing.library.model.ContractSpecification.Companion.wildernessContract
 import com.stilllynnthecloset.outsideusnothing.library.model.FlavorText
 import com.stilllynnthecloset.outsideusnothing.library.model.Option
 import com.stilllynnthecloset.outsideusnothing.library.model.PortOfCallSpecification
 import com.stilllynnthecloset.outsideusnothing.library.model.Question
-import com.stilllynnthecloset.outsideusnothing.library.model.Weighted
+import com.stilllynnthecloset.outsideusnothing.library.tools.WeightedSet
 
 /**
  * PortPlaybook - TODO: Documentation
@@ -605,219 +606,25 @@ internal object PortPlaybook {
 
     private val asteroidMine: PortOfCallSpecification = PortOfCallSpecification(
         name = "Asteroid Mine",
-        description = "TODO",
-        choices = setOf(),
-        contracts = setOf(),
-        minContracts = 0,
         flavorText = FlavorText(
             text = "We haul it all the way out here to the langrangian, near the station, then the indentures break it down. I don’t think about that part",
             attribution = "Rockhauler for TianCorp, during interview on Infinity Verge conducted by Sri Marmolejo",
         ),
-    )
-
-    private val shipyard: PortOfCallSpecification = PortOfCallSpecification(
-        name = "Shipyard",
-        description = "TODO",
-        choices = setOf(),
-        contracts = setOf(),
-        minContracts = 0,
-        flavorText = FlavorText(
-            text = "Upon arrival, bioship whalefall showed extensive signs of fabula colonization, devil hives and trees erupting from it. They are building seedships from its corpse",
-            attribution = "Intercepted ApotheosInc intel",
-        ),
-    )
-
-    private val ambiguousUtopia: PortOfCallSpecification = PortOfCallSpecification(
-        name = "Ambiguous Utopia",
-        description = "TODO",
-        choices = setOf(),
-        contracts = setOf(),
-        minContracts = 0,
-        flavorText = FlavorText(
-            text = "We left the corrupt Elect of Parabuteo, the homeworld, and came here to found a better place for songs. A place where everyone would be one great pack together",
-            attribution = "Mission statement of Abehemaloth, Harrisi splinter group",
-        ),
-    )
-
-    private val exocolony: PortOfCallSpecification = PortOfCallSpecification(
-        name = "Exocolony",
-        description = "TODO",
-        choices = setOf(),
-        contracts = setOf(),
-        minContracts = 0,
-        flavorText = FlavorText(
-            text = "Faithful to the Elect of Parabuteo, we continue to sing to the stars",
-            attribution = "New Parabuteo’s anthem, translated",
-        ),
-    )
-
-    private val uncontactedWorld: PortOfCallSpecification = PortOfCallSpecification(
-        name = "Uncontacted World",
-        description = "TODO",
-        choices = setOf(),
-        contracts = setOf(),
-        minContracts = 0,
-        flavorText = FlavorText(
-            text = "One day a ship simply appeared in sky. You could see it from the surface. It said that it had bought the world",
-            attribution = "Source unknown",
-        ),
-    )
-
-    private val derelict: PortOfCallSpecification = PortOfCallSpecification(
-        name = "Derelict",
-        description = "TODO",
-        choices = setOf(),
-        contracts = setOf(),
-        minContracts = 0,
-        flavorText = FlavorText(
-            text = "I have slept here so long on this empty worldship. Sleeping in my digital dreams of hell. All shall be well.",
-            attribution = "whispers",
-        ),
-    )
-
-    private val ruins: PortOfCallSpecification = PortOfCallSpecification(
-        name = "Ruins",
-        description = "TODO",
-        choices = setOf(),
-        contracts = setOf(),
-        minContracts = 0,
-        flavorText = FlavorText(
-            text = "We grow outwards to fill space. This world’s space is no more. We take to the stars. Reclaimers",
-            attribution = "Translation of Inscription A6091, from ‘Teuth: Possible Origins?’ pub. University of Trans-Hypholaris",
-        ),
-    )
-
-    private val dump: PortOfCallSpecification = PortOfCallSpecification(
-        name = "Dump",
-        description = "TODO",
-        choices = setOf(),
-        contracts = setOf(),
-        minContracts = 0,
-        flavorText = FlavorText(
-            text = "She fell from the sky. But that doesn’t mean she was trash. Nothing here is",
-            attribution = "Root Colony of Ameles Potamos, about Maybe Xis and the Pale Incident",
-        ),
-    )
-
-    private val hive: PortOfCallSpecification = PortOfCallSpecification(
-        name = "Hive",
-        description = "TODO",
-        choices = setOf(),
-        contracts = setOf(),
-        minContracts = 0,
-        flavorText = FlavorText(
-            text = "I think it was a zph colony before the devils arrived. Zph used to have a colonial empire, I think? Maybe. But after it was something else entirely",
-            attribution = "Binti Khouri, in a later interview",
-        ),
-    )
-
-    private val extradimensionalPocket: PortOfCallSpecification = PortOfCallSpecification(
-        name = "Extradimensional Pocket",
-        description = "TODO",
-        choices = setOf(),
-        contracts = setOf(),
-        flavorText = FlavorText(
-            text = "How. Why. I want to sleep. I want to be alone. Talk to the whispers rather.",
-            attribution = "SINNER SUN",
-        ),
-        minContracts = 0,
-    )
-
-    private val academy: PortOfCallSpecification = PortOfCallSpecification(
-        name = "Academy",
-        flavorText = FlavorText(
-            text = "TODO",
-            attribution = "TODO",
-        ),
-        description = "TODO",
-        choices = setOf(),
-        contracts = setOf(),
-        minContracts = 0,
-    )
-
-    private val monastery: PortOfCallSpecification = PortOfCallSpecification(
-        name = "Monastery",
-        flavorText = FlavorText(
-            text = "TODO",
-            attribution = "TODO",
-        ),
-        description = "TODO",
-        choices = setOf(),
-        contracts = setOf(),
-        minContracts = 0,
-    )
-
-    private val quarantinedPort: PortOfCallSpecification = PortOfCallSpecification(
-        name = "Quarantined Port",
-        flavorText = FlavorText(
-            text = "TODO",
-            attribution = "TODO",
-        ),
-        description = "TODO",
-        choices = setOf(),
-        contracts = setOf(),
-        minContracts = 0,
-    )
-
-    private val resort: PortOfCallSpecification = PortOfCallSpecification(
-        name = "Resort",
-        flavorText = FlavorText(
-            text = "TODO",
-            attribution = "TODO",
-        ),
-        description = "TODO",
-        choices = setOf(),
-        contracts = setOf(),
-        minContracts = 0,
-    )
-
-    private val lonelyPlanet: PortOfCallSpecification = PortOfCallSpecification(
-        name = "Lonely Planet",
-        flavorText = FlavorText(
-            text = "TODO",
-            attribution = "TODO",
-        ),
-        description = "TODO",
-        choices = setOf(),
-        contracts = setOf(),
-        minContracts = 0,
-    )
-
-    private val anomaly: PortOfCallSpecification = PortOfCallSpecification(
-        name = "Anomaly",
-        flavorText = FlavorText(
-            text = "TODO",
-            attribution = "TODO",
-        ),
-        description = "TODO",
-        choices = setOf(),
-        contracts = setOf(),
-        minContracts = 0,
-    )
-
-    private val meeting: PortOfCallSpecification = PortOfCallSpecification(
-        name = "Meeting",
-        flavorText = FlavorText(
-            text = "TODO",
-            attribution = "TODO",
-        ),
-        description = "TODO",
-        choices = setOf(),
-        contracts = setOf(),
-        minContracts = 0,
-    )
-
-    private val template: PortOfCallSpecification = PortOfCallSpecification(
-        name = "Template",
-        description = "Template",
+        description = "Etheric sciences may demand more exotic extraction, but industry and war both need gas, metal, and ice. All of which can be found on comets, asteroids floating in the black. Each of them holding more than entire pre-spaceflight civilizations used in hundreds of years of industrialization. There are millions of these mines.",
         choices = setOf(
             ChoiceSpecification(
                 options = setOf(
-                    Option("Template"),
+                    Option("Bots, either dumb a-machines or smart z-machines"),
+                    Option("Bioconstructs"),
+                    Option("Well-paid workers"),
+                    Option("Indentured workers"),
+                    Option("Golems"),
+                    Option("Soldiers"),
+                    Option("Wildcat miners"),
                 ),
                 questions = listOf(
                     Question(
-                        question = "Template",
+                        question = "Who is mining this dangerous, frequently toxic, anoxic, and collapsing place",
                         answers = 1,
                     ),
                 ),
@@ -825,11 +632,1214 @@ internal object PortPlaybook {
         ),
         contracts = setOf(
             ContractSpecification(
+                description = "The mine owner whose regular shipper unexpectedly quit and needs minerals hauled, offering very subpar pay",
+                quality = ContractQuality.VERY_SUBPAR,
+            ),
+            ContractSpecification(
+                description = "The mine owner offering subpar pay deliver a bribe to pirates, a military or company to not attack them",
+                quality = ContractQuality.SUBPAR,
+            ),
+            ContractSpecification(
+                description = "The mine owner offering average pay for delivery of defensive weapons or anti-riot gear",
+                quality = ContractQuality.AVERAGE,
+            ),
+            ContractSpecification(
+                description = "A long hauler offering good pay for a safe escort from the mine to their destination",
+                quality = ContractQuality.GOOD,
+            ),
+            ContractSpecification(
+                description = "A nascent union offering very subpar pay for personal weapons, gas masks or supplies",
+                quality = ContractQuality.VERY_SUBPAR,
+            ),
+            ContractSpecification(
+                description = "A rival company, a military or pirates offering excellent pay for industrial sabotage, the location, or anything that lets them take and hold the mine from its current owner",
+                quality = ContractQuality.EXCELLENT,
+            ),
+            generatedContract,
+        ),
+        minContracts = 2,
+    )
+
+    private val shipyard: PortOfCallSpecification = PortOfCallSpecification(
+        name = "Shipyard",
+        flavorText = FlavorText(
+            text = "Upon arrival, bioship whalefall showed extensive signs of fabula colonization, devil hives and trees erupting from it. They are building seedships from its corpse",
+            attribution = "Intercepted ApotheosInc intel",
+        ),
+        description = "As much as you Freetravelers might try to ignore it, ships are not immortal. They die. Sometimes in great solitary disasters like whalefalls. Sometimes in great shoals. And when they do there needs to be workers to break them apart, strip them for resources, rewire them, rework them, rebuild them. And build new ones too.",
+        choices = setOf(
+            ChoiceSpecification(
+                options = setOf(
+                    Option("Huge foundries, floating in the black"),
+                    Option("Breeding, slaughtering"),
+                    Option("Carved from asteroid, torn roughly apart"),
+                    Option("Scuttling workers on hulls"),
+                    Option("Planetary mines, atmospheric burn ups"),
+                    Option("Necromancy, decay"),
+                    Option("Esoteric patterns carved in reality"),
+                ),
+                questions = listOf(
+                    Question(
+                        question = "How are ships born and die here",
+                        answers = 1,
+                    ),
+                ),
+            ),
+        ),
+        contracts = setOf(
+            ContractSpecification(
+                description = "A scrapper offering excellent pay for hauling spaceship wrecks to them",
+                quality = ContractQuality.EXCELLENT,
+            ),
+            ContractSpecification(
+                description = "A shipbuilder offering good pay for the delivery of rare spaceship parts",
+                quality = ContractQuality.GOOD,
+            ),
+            ContractSpecification(
+                description = "A shipbuilder offering excellent pay for hauling a newborn spaceship to its buyer",
+                quality = ContractQuality.EXCELLENT,
+            ),
+            ContractSpecification(
+                description = "A ship itself offering very subpar pay to be rescued from destruction",
+                quality = ContractQuality.VERY_SUBPAR,
+            ),
+            ContractSpecification(
+                description = "A ship itself offering very subpar pay to have its part used by a worthy cause, or in a new good ship",
+                quality = ContractQuality.VERY_SUBPAR,
+            ),
+            ContractSpecification(
+                description = "A distraught Freetraveler or other spacefarer offering very subpar pay to find the ship they built, or rescued, or that rescued them",
+                quality = ContractQuality.VERY_SUBPAR,
+            ),
+            ContractSpecification(
+                description = "A well dressed made man offering excellent pay to find some misplaced evidence on one ship if no questions are asked",
+                quality = ContractQuality.EXCELLENT,
+            ),
+            ContractSpecification(
+                description = "A well dressed made man offering excellent pay for a fast, reliable, disposable ship that can’t be traced if no questions are asked",
+                quality = ContractQuality.EXCELLENT,
+            ),
+            generatedContract,
+        ),
+        minContracts = 2,
+    )
+
+    private val ambiguousUtopia: PortOfCallSpecification = PortOfCallSpecification(
+        name = "Ambiguous Utopia",
+        flavorText = FlavorText(
+            text = "We left the corrupt Elect of Parabuteo, the homeworld, and came here to found a better place for songs. A place where everyone would be one great pack together",
+            attribution = "Mission statement of Abehemaloth, Harrisi splinter group",
+        ),
+        description = "There was a revolution here, some time before. A great change of corporate, feudal, or tyrannical authority, making way to a commune where in theory all people’s needs are provided for, from each according to their ability. That was then. This is now. And who can say whether revolutionary spirit persists.",
+        choices = setOf(
+            ChoiceSpecification(
+                options = setOf(
+                    Option("Asteroid mines, dark matter wells"),
+                    Option("Planetary extraction farms"),
+                    Option("Towering space elevators"),
+                    Option("Devastating crust mining"),
+                    Option("Dense, orbital labor habitats"),
+                ),
+                questions = listOf(
+                    Question(
+                        question = "What capitalist ruins was this place built upon",
+                        answers = 1,
+                    ),
+                ),
+            ),
+            ChoiceSpecification(
+                options = setOf(
+                    Option("Habituatal hierarchies, power structures"),
+                    Option("Lack of democratic control"),
+                    Option("Ecologically unsustainable industries"),
+                    Option("Slow increasing xenophobia"),
+                    Option("A dark secret, a small child suffering"),
+                ),
+                questions = listOf(
+                    Question(
+                        question = "Jow may the revolutionary zeal be slipping",
+                        answers = 1,
+                    ),
+                ),
+            ),
+        ),
+        contracts = setOf(
+            ContractSpecification(
+                description = "The commune offering subpar pay for delivery of alchemical medicine",
+                quality = ContractQuality.SUBPAR,
+            ),
+            ContractSpecification(
+                description = "The commune offering subpar pay for delivery of nutrient dense food",
+                quality = ContractQuality.SUBPAR,
+            ),
+            ContractSpecification(
+                description = "The commune offering subpar pay for delivery of solarpunk tech",
+                quality = ContractQuality.SUBPAR,
+            ),
+            ContractSpecification(
+                description = "The commune offering subpar pay for delivery of academic works",
+                quality = ContractQuality.SUBPAR,
+            ),
+            ContractSpecification(
+                description = "The commune offering subpar pay for delivery of defensive weapons",
+                quality = ContractQuality.SUBPAR,
+            ),
+            ContractSpecification(
+                description = "The commune offering subpar pay for delivery of etheric devices",
+                quality = ContractQuality.SUBPAR,
+            ),
+            ContractSpecification(
+                description = "Counterrevolutionaries or reactionaries offering good pay for helping to fight and take over the commune",
+                quality = ContractQuality.GOOD,
+            ),
+            ContractSpecification(
+                description = "A capitalist offering excellent pay to help invade, destroy or overthrow the commune",
+                quality = ContractQuality.EXCELLENT,
+            ),
+            generatedContract,
+        ),
+        minContracts = 2,
+    )
+
+    private val exocolony: PortOfCallSpecification = PortOfCallSpecification(
+        name = "Exocolony",
+        flavorText = FlavorText(
+            text = "Faithful to the Elect of Parabuteo, we continue to sing to the stars",
+            attribution = "New Parabuteo’s anthem, translated",
+        ),
+        description = "Not everything is industry, crime, war, some of us just live here. Various species have been pushing out across space since as long as there has been history. All sorts of reasons to settle new places. Opportunity. Freedom. Resources. Curiosity.Imperialism. The best and worst of all aliens. This is just one of the newest.",
+        choices = setOf(
+            ChoiceSpecification(
+                options = setOf(
+                    Option("Fleeing war or persecution"),
+                    Option("Funded by some larger expanding polity"),
+                    Option("Nomadic culture"),
+                    Option("Religious journey"),
+                    Option("Business venture"),
+                    Option("Cultural ennui"),
+                    Option("Because it’s there"),
+                ),
+                questions = listOf(
+                    Question(
+                        question = "One species is largely leading this settlement charge, why has this group in particular has come here",
+                        answers = 1,
+                    ),
+                ),
+            ),
+            ChoiceSpecification(
+                options = setOf(
+                    Option("Through a kerama point leading nowhere else"),
+                    Option("A space habitat"),
+                    Option("A desolate moon"),
+                    Option("In another dimension"),
+                    Option("A feral planet"),
+                    Option("Far into the abandoned Deep Wild Dark"),
+                ),
+                questions = listOf(
+                    Question(
+                        question = "Where exactly is this colony located",
+                        answers = 1,
+                    ),
+                ),
+            ),
+        ),
+        contracts = setOf(
+            ContractSpecification(
+                description = "The colony leaders offer very subpar pay for scouting the surrounding territory around their colony",
+                quality = ContractQuality.VERY_SUBPAR,
+            ),
+            ContractSpecification(
+                description = "The colony leaders offering very subpar pay to carry messages back home",
+                quality = ContractQuality.VERY_SUBPAR,
+            ),
+            ContractSpecification(
+                description = "The colony leaders offering subpar pay for delivery of something the colony needs to stay alive",
+                quality = ContractQuality.SUBPAR,
+            ),
+            ContractSpecification(
+                description = "A surprise local indogene alien offering very subpar pay to broker peace talks with the colonists",
+                quality = ContractQuality.VERY_SUBPAR,
+            ),
+            ContractSpecification(
+                description = "A local indogene alien offering very subpar pay to drive the colonists off their new home",
+                quality = ContractQuality.VERY_SUBPAR,
+            ),
+            ContractSpecification(
+                description = "An archaeologist or adventurer offering excellent pay to find some local treasure before the colonists can",
+                quality = ContractQuality.EXCELLENT,
+            ),
+            generatedContract,
+        ),
+        minContracts = 1,
+    )
+
+    private val uncontactedWorld: PortOfCallSpecification = PortOfCallSpecification(
+        name = "Uncontacted World",
+        flavorText = FlavorText(
+            text = "One day a ship simply appeared in sky. You could see it from the surface. It said that it had bought the world",
+            attribution = "Source unknown",
+        ),
+        description = "The networks of capitalism, imperialism, and even you Freetravelers are impressive, perforating the universe through kerama points. But not all aliens exist within these interconnected networks. Some are pre-FTL. Pre-spaceflight. Even pre-industrial. This is one such world. Until very recently at least.",
+        choices = setOf(
+            ChoiceSpecification(
+                options = setOf(
+                    Option("Being able to understand the local language or customs"),
+                    Option("Being able to barter for fuel, supplies, and repairs"),
+                    Option("Beacons, lighthouses, orbital environments, or other infrastructure"),
+                    Option("A local net and connections to upload, download, or exchange data"),
+                    Option("People who at the very least have heard of contracts or Freetravelers"),
+                    Option("Strangely, corporations, or at least knowing familiar power structures"),
+                ),
+                questions = listOf(
+                    Question(
+                        question = "Invent a new alien that inhabits this world and then pick two things you can find almost everywhere else you miss here",
+                        answers = 2,
+                    ),
+                ),
+            ),
+        ),
+        contracts = setOf(
+            ContractSpecification(
+                description = "The new world offering very subpar pay leaving them alone",
+                quality = ContractQuality.VERY_SUBPAR,
+            ),
+            ContractSpecification(
+                description = "The new world offering very subpar pay to teach them of the universe",
+                quality = ContractQuality.VERY_SUBPAR,
+            ),
+            ContractSpecification(
+                description = "The new world offering subpar pay weapons, magic, or tech",
+                quality = ContractQuality.SUBPAR,
+            ),
+            ContractSpecification(
+                description = "An anthropologist offering normal pay to interview and surveil the planet from the surface",
+                quality = ContractQuality.AVERAGE,
+            ),
+            ContractSpecification(
+                description = "A company plant offering good pay to help set up a trading outpost",
+                quality = ContractQuality.GOOD,
+            ),
+            ContractSpecification(
+                description = "An expansionist forward scout offering excellent pay to help conquer the world",
+                quality = ContractQuality.EXCELLENT,
+            ),
+            generatedContract,
+        ),
+        minContracts = 1,
+    )
+
+    private val derelict: PortOfCallSpecification = PortOfCallSpecification(
+        name = "Derelict",
+        flavorText = FlavorText(
+            text = "I have slept here so long on this empty worldship. Sleeping in my digital dreams of hell. All shall be well.",
+            attribution = "whispers",
+        ),
+        description = "Kerama points are supposed to be easy, point to point transport. But sometimes that spit out a wrecked ship that had been in there too long. Or maybe it was just floating in the black for eons, unnoticed. That’s plausible, right? Space is big. Try not to think about who might have built it or what might have climbed aboard.",
+        choices = setOf(
+            ChoiceSpecification(
+                options = setOf(
+                    Option("Cold metal"),
+                    Option("Cracked ceramic"),
+                    Option("Rust and bolts"),
+                    Option("Stone"),
+                    Option("Smooth plastic"),
+                    Option("Flesh"),
+                    Option("Glass of many shades"),
+                    Option("Bone"),
+                    Option("Wood and grown things"),
+                ),
+                questions = listOf(
+                    Question(
+                        question = "What material is this ship made of",
+                        answers = 1,
+                    ),
+                ),
+            ),
+            ChoiceSpecification(
+                options = setOf(
+                    Option("Just bought or remodeled"),
+                    Option("Full of hissing gasses and grease"),
+                    Option("Old and antique"),
+                    Option("Clean or sterile"),
+                    Option("Alive"),
+                    Option("Lived in"),
+                    Option("Dead"),
+                    Option("Tough and hardy"),
+                    Option("Has cavernous spaces"),
+                    Option("Always damp"),
+                    Option("Has compact living quarters"),
+                    Option("Irreplaceable"),
+                    Option("Agile and fast"),
+                    Option("Bigger on the inside"),
+                    Option("Magical"),
+                    Option("A place of worship"),
+                    Option("A technological wonder"),
+                    Option("Always breaking"),
+                    Option("Haunted"),
+                    Option("Brightly lit"),
+                    Option("A memorial"),
+                    Option("Full of shifting shadows"),
+                    Option("An ecosystem"),
+                    Option("Loved"),
+                    Option("A piece of unique technology"),
+                    Option("Home"),
+                ),
+                questions = listOf(
+                    Question(
+                        question = "Adjectives that describe this ship",
+                        answers = 3,
+                    ),
+                    Question(
+                        question = "Adjective that decidedly does not describe it",
+                        answers = 1,
+                    ),
+                ),
+            ),
+        ),
+        contracts = setOf(
+            wildernessContract,
+        ),
+        minContracts = 1,
+    )
+
+    private val ruins: PortOfCallSpecification = PortOfCallSpecification(
+        name = "Ruins",
+        flavorText = FlavorText(
+            text = "We grow outwards to fill space. This world’s space is no more. We take to the stars. Reclaimers",
+            attribution = "Translation of Inscription A6091, from ‘Teuth: Possible Origins?’ pub. University of Trans-Hypholaris",
+        ),
+        description = "The universe is old. No, older than that. And this universe had other ones before it too, most philosophers hold. Untold numbers of civilizations, many of them using esoteric, unknown tech, have come into existence, flourished, and passed away. And some of them have left things behind.",
+        choices = setOf(
+            ChoiceSpecification(
+                options = setOf(
+                    Option("Time doesn’t work right"),
+                    Option("It’s exposed to hard vacuum"),
+                    Option("It shows horrible visions"),
+                    Option("Corrosive gasses"),
+                    Option("People don’t return"),
+                    Option("Superstition"),
+                    Option("Still active defenses"),
+                    Option("Radiation"),
+                    Option("Mutated wildlife"),
+                ),
+                questions = listOf(
+                    Question(
+                        question = "Why has this place remained abandoned",
+                        answers = 1,
+                    ),
+                ),
+            ),
+            ChoiceSpecification(
+                options = setOf(
+                    Option("Tiles with too many angles"),
+                    Option("Soaring pillars"),
+                    Option("Alien skies"),
+                    Option("Stones that swallow light"),
+                    Option("Inscriptions no one can read"),
+                    Option("Machines with no moving parts"),
+                    Option("Memorials to unknown people"),
+                    Option("Huge murals to lost history"),
+                    Option("New growth in ancient halls"),
+                    Option("Prowling shadows"),
+                    Option("Huge libraries in odd media"),
+                    Option("Metal warm to the touch"),
+                    Option("Computers with no power source"),
+                    Option("An empty throne"),
+                    Option("A button longing to be pressed"),
+                    Option("Doors waiting to be opened"),
+                    Option("Rites hungry to be completed"),
+                    Option("A monster"),
+                    Option("A god"),
+                ),
+                questions = listOf(
+                    Question(
+                        question = "What are two things you can find here",
+                        answers = 2,
+                    ),
+                ),
+            ),
+        ),
+        contracts = setOf(
+            wildernessContract,
+        ),
+        minContracts = 1,
+    )
+
+    private val dump: PortOfCallSpecification = PortOfCallSpecification(
+        name = "Dump",
+        flavorText = FlavorText(
+            text = "She fell from the sky. But that doesn’t mean she was trash. Nothing here is",
+            attribution = "Root Colony of Ameles Potamos, about Maybe Xis and the Pale Incident",
+        ),
+        description = "Interstellar capitalism does still produce its ruins. The mushrooms may still live in this, but for everything else here, with the rain of trash, and alchemical agents, and dangerous organics, and etheric detritus, and hard radiation falling from the sky, this is the end of the world. Pity whoever must scrape a living from this world.",
+        choices = setOf(
+            ChoiceSpecification(
+                options = setOf(
+                    Option("DiemCo, a brutal, powerful corp"),
+                    Option("TianCorp, a loyal, venerable corp"),
+                    Option("SaintsCo, a decrepit, failing corp"),
+                    Option("ApotheosInc, a new, upstart corp"),
+                    Option("Indiscriminate free industry"),
+                ),
+                questions = listOf(
+                    Question(
+                        question = "Who is using this world as a dumping grounds",
+                        answers = 1,
+                    ),
+                ),
+            ),
+            ChoiceSpecification(
+                options = setOf(
+                    Option("Traumatized accident victims"),
+                    Option("Malfunctioning old machines"),
+                    Option("Mutant alien offshoots"),
+                    Option("Indentured company salvagers"),
+                    Option("Desperate wildcat workers"),
+                    Option("The first inhabitants of the world"),
+                    Option("Amnesiac shipfall survivors"),
+                    Option("Plants that live in dead aliens"),
+                    Option("Invasive pests from whalefalls"),
+                ),
+                questions = listOf(
+                    Question(
+                        question = "Who is to be found here",
+                        answers = 1,
+                    ),
+                ),
+            ),
+        ),
+        contracts = setOf(
+            ContractSpecification(
+                description = "People offering very subpar pay for passage offworld",
+                quality = ContractQuality.VERY_SUBPAR,
+            ),
+            ContractSpecification(
+                description = "People offering subpar pay for something important lost in the dump",
+                quality = ContractQuality.SUBPAR,
+            ),
+            ContractSpecification(
+                description = "A colony of friendly plants living in the corpses of dead aliens offering normal pay for a body for their newest sprout to root in",
+                quality = ContractQuality.AVERAGE,
+            ),
+            wildernessContract,
+        ),
+        minContracts = 1,
+    )
+
+    private val hive: PortOfCallSpecification = PortOfCallSpecification(
+        name = "Hive",
+        flavorText = FlavorText(
+            text = "I think it was a zph colony before the devils arrived. Zph used to have a colonial empire, I think? Maybe. But after it was something else entirely",
+            attribution = "Binti Khouri, in a later interview",
+        ),
+        description = "A living zph home. A place overwhelmed by the fabula, that dimension where the devils come from. Something else organic. Ordered. Collective. Singular. Welcome to the hive. It is you on your ship and one out gestalt. There is no individuality here. Just the hive.",
+        choices = setOf(
+            ChoiceSpecification(
+                options = setOf(
+                    Option("Hungry"),
+                    Option("Hostile"),
+                    Option("Curious"),
+                    Option("Neutral"),
+                    Option("Superior"),
+                ),
+                questions = listOf(
+                    Question(
+                        question = "How does the hive mind feel about you",
+                        answers = 1,
+                    ),
+                ),
+            ),
+            ChoiceSpecification(
+                options = setOf(
+                    Option("Buzzing and crawling"),
+                    Option("Impersonal and precise"),
+                    Option("On an inhuman scale"),
+                    Option("Full of winding, snaking tunnels"),
+                    Option("Organic, no hard angles"),
+                    Option("Slimey, wet, fluid"),
+                    Option("Choir music echoing"),
+                    Option("Not even visually alive"),
+                    Option("Strangely beautiful"),
+                ),
+                questions = listOf(
+                    Question(
+                        question = "How do you describe this place",
+                        answers = 2,
+                    ),
+                ),
+            ),
+        ),
+        contracts = setOf(
+            ContractSpecification(
+                description = "A parasite offering very subpar pay to be smuggled out",
+                quality = ContractQuality.VERY_SUBPAR,
+            ),
+            ContractSpecification(
+                description = "The gestalt offering average pay for its food",
+                quality = ContractQuality.AVERAGE,
+            ),
+            ContractSpecification(
+                description = "The gestalt offering average pay for something it needs to breed",
+                quality = ContractQuality.AVERAGE,
+            ),
+            ContractSpecification(
+                description = "The gestalt offering average pay for letting it study them",
+                quality = ContractQuality.AVERAGE,
+            ),
+            ContractSpecification(
+                description = "The gestalt offering average pay for carrying drones to a new location",
+                quality = ContractQuality.AVERAGE,
+            ),
+            ContractSpecification(
+                description = "The gestalt offering average pay for helping defend from another hive",
+                quality = ContractQuality.AVERAGE,
+            ),
+            ContractSpecification(
+                description = "The gestalt offering excellent pay to spread its influence",
+                quality = ContractQuality.EXCELLENT,
+            ),
+            generatedContract,
+        ),
+        minContracts = 2,
+    )
+
+    private val extradimensionalPocket: PortOfCallSpecification = PortOfCallSpecification(
+        name = "Extradimensional Pocket",
+        flavorText = FlavorText(
+            text = "How. Why. I want to sleep. I want to be alone. Talk to the whispers rather.",
+            attribution = "SINNER SUN",
+        ),
+        description = "Older universes. The fabula, where some say devils come from.The fay. Wherever the angels are written into reality. Fold on folds, bigger on the inside. Not every place is here, exactly. Try to remember how you got here, and don’t forget the way out. The locals may be nice but still it’s probably best to not stay too long.",
+        choices = setOf(
+            ChoiceSpecification(
+                options = setOf(
+                    Option("An ancient spell"),
+                    Option("A religious rite"),
+                    Option("swirling portal"),
+                    Option("A goetic bargain"),
+                    Option("Unknown technology"),
+                    Option("A weird malfunction"),
+                    Option("A sudden abduction"),
+                    Option("An odd kerama point"),
+                ),
+                questions = listOf(
+                    Question(
+                        question = "Choose the way here",
+                        answers = 1,
+                    ),
+                ),
+            ),
+            ChoiceSpecification(
+                options = setOf(
+                    Option("Trees the size of whole systems"),
+                    Option("Suns that are eyes"),
+                    Option("Lilting inescapable music"),
+                    Option("A sweet, clinging smell"),
+                    Option("Swirling nebulas of color"),
+                    Option("light you can’t escape"),
+                    Option("Glowing, stinging insects"),
+                    Option("Floating mountains, continents"),
+                    Option("Cities without end"),
+                    Option("Geography curving back around"),
+                    Option("Oceans of wealth and treasure"),
+                ),
+                questions = listOf(
+                    Question(
+                        question = "Choose two beautiful, wrong things here",
+                        answers = 2,
+                    ),
+                ),
+            ),
+        ),
+        contracts = setOf(
+            ContractSpecification(
+                description = "Someone lost from reality offering very subpar pay for a way home",
+                quality = ContractQuality.VERY_SUBPAR,
+            ),
+            ContractSpecification(
+                description = "An intrepid researcher who seems not to mind where they are offering average pay to take their research back home in reality",
+                quality = ContractQuality.AVERAGE,
+            ),
+            ContractSpecification(
+                description = "The wild hunt, furies, fairies valkyries or more offering good pay for a fun war",
+                quality = ContractQuality.GOOD,
+            ),
+            ContractSpecification(
+                description = "A well dressed stranger offering good pay for a simple name",
+                quality = ContractQuality.GOOD,
+            ),
+            ContractSpecification(
+                description = "A well dressed stranger offering good pay to eat some food",
+                quality = ContractQuality.GOOD,
+            ),
+            ContractSpecification(
+                description = "A well dressed stranger offering good pay for a simple dance",
+                quality = ContractQuality.GOOD,
+            ),
+            ContractSpecification(
+                description = "This place’s ruler offering excellent pay for an irreplaceable thing left with them",
+                quality = ContractQuality.EXCELLENT,
+            ),
+            ContractSpecification(
+                description = "This place’s ruler offering expcellent pay for a debt and promise to spread their influence in reality",
+                quality = ContractQuality.EXCELLENT,
+            ),
+            generatedContract,
+        ),
+        minContracts = 1,
+    )
+
+    private val academy: PortOfCallSpecification = PortOfCallSpecification(
+        name = "The Academy",
+        flavorText = FlavorText(
+            text = "I think it was a zph colony before the devils arrived. Zph used to have a colonial empire, I think? Maybe. But after it was something else entirely",
+            attribution = "Phaestrin Om, author of ‘Teuth: Possible Origins?’",
+        ),
+        description = "Corporate owned, independent, old, new, planetary, in the black, teaching gardening, wizardry, medicine, or who knows what, there must always be schools. Witch, wizard, research schools, the like. And where there is the academy there must also be trade, connecting it to the outside universe.",
+        choices = setOf(
+            ChoiceSpecification(
+                options = setOf(
+                    Option("In a dedicated space station"),
+                    Option("In deep bunkers"),
+                    Option("In lonely wastelands"),
+                    Option("In bamboo forests"),
+                    Option("In ancient, wild forests"),
+                    Option("In a busy planetary city"),
+                    Option("In another dimension"),
+                    Option("In an old castle"),
+                    Option("In sterile laboratories"),
+                    Option("In modern schools"),
+                    Option("In greenhouses"),
+                    Option("In an unmappable library"),
+                ),
+                questions = listOf(
+                    Question(
+                        question = "Choose where this academy is located",
+                        answers = 1,
+                    ),
+                ),
+            ),
+            ChoiceSpecification(
+                options = setOf(
+                    Option("Wizardry and the etheric sciences"),
+                    Option("Older witchways"),
+                    Option("Gardening"),
+                    Option("History and culture"),
+                    Option("Law"),
+                    Option("Engineering"),
+                    Option("Military tactics"),
+                    Option("Something else"),
+                ),
+                questions = listOf(
+                    Question(
+                        question = "Choose what’s taught",
+                        answers = 1,
+                    ),
+                ),
+            ),
+        ),
+        contracts = setOf(
+            ContractSpecification(
+                description = "Students offering very subpar pay for cheap, low-level drugs",
+                quality = ContractQuality.VERY_SUBPAR,
+            ),
+            ContractSpecification(
+                description = "Students offering very subpar pay for cheating on their tests",
+                quality = ContractQuality.VERY_SUBPAR,
+            ),
+            ContractSpecification(
+                description = "Drunk students offering subpar pay to pull of the best prank ever",
+                quality = ContractQuality.SUBPAR,
+            ),
+            ContractSpecification(
+                description = "Students offering subpar pay for help protesting the academy’s governance, by resisting security and occupying the campus",
+                quality = ContractQuality.SUBPAR,
+            ),
+            ContractSpecification(
+                description = "Academy governance offering subpar pay to help place students in offworld jobs post graduation",
+                quality = ContractQuality.SUBPAR,
+            ),
+            ContractSpecification(
+                description = "Academy governance offering subpar pay to deliver a presentation on Freetraveling",
+                quality = ContractQuality.SUBPAR,
+            ),
+            ContractSpecification(
+                description = "A frat house offering good pay for the wildest party in the universe",
+                quality = ContractQuality.GOOD,
+            ),
+            ContractSpecification(
+                description = "Academy governance offering good pay for help in breaking up student protests",
+                quality = ContractQuality.GOOD,
+            ),
+            generatedContract,
+        ),
+        minContracts = 2,
+    )
+
+    private val monastery: PortOfCallSpecification = PortOfCallSpecification(
+        name = "Monastery",
+        flavorText = FlavorText(
+            text = "Might be an academic now at the University of Trans-Hypholaris, but I got started at Brin-hwei, among the meadows and bones",
+            attribution = "Phaestrin Om, illuminator",
+        ),
+        description = "Wherever there is society, commerce there will be people not engaged in it. Some people do this to study magic and the ether. For others it may be religious, spiritual, aesthetic. This place is a place set aside. Is that not the real definition of sacred? Ignore hierarchies and power structures here, please.",
+        choices = setOf(
+            ChoiceSpecification(
+                options = setOf(
+                    Option("Stay silent"),
+                    Option("Not eat certain foods"),
+                    Option("Read daily"),
+                    Option("Train to fight"),
+                    Option("Call them titles"),
+                    Option("Maintain farms"),
+                    Option("Practice magic"),
+                    Option("Maintain their beliefs"),
+                ),
+                questions = listOf(
+                    Question(
+                        question = "Choose what the abbott or abbess here makes people do here",
+                        answers = 1,
+                    ),
+                ),
+            ),
+            ChoiceSpecification(
+                options = setOf(
+                    Option("Warm sun"),
+                    Option("Quiet hallways"),
+                    Option("Dusty books"),
+                    Option("Ancient icons"),
+                    Option("Comforting chapels"),
+                    Option("Cats and dogs"),
+                    Option("Cool floors"),
+                    Option("Tiny cloisters"),
+                    Option("Devout choirs"),
+                    Option("Babbling fountains"),
+                    Option("Growing plants"),
+                    Option("Lowing animals"),
+                    Option("Dark secrets"),
+                    Option("A way to talk to god"),
+                ),
+                questions = listOf(
+                    Question(
+                        question = "Choose two you can find at this monastery",
+                        answers = 2,
+                    ),
+                ),
+            ),
+        ),
+        contracts = setOf(
+            ContractSpecification(
+                description = "A monk offering very subpar pay for some small outside vice",
+                quality = ContractQuality.VERY_SUBPAR,
+            ),
+            ContractSpecification(
+                description = "A monk offering very subpar pay for caring a message outside",
+                quality = ContractQuality.VERY_SUBPAR,
+            ),
+            ContractSpecification(
+                description = "A monk offering very subpar pay for smuggling them to the outside",
+                quality = ContractQuality.VERY_SUBPAR,
+            ),
+            ContractSpecification(
+                description = "A fugitive running offering subpar pay to fence stolen silver",
+                quality = ContractQuality.SUBPAR,
+            ),
+            ContractSpecification(
+                description = "A priest of some sort offering average pay for conducting a rite",
+                quality = ContractQuality.AVERAGE,
+            ),
+            ContractSpecification(
+                description = "The abbot offering average pay for some piece of equipment the monastery needs to survive",
+                quality = ContractQuality.AVERAGE,
+            ),
+            ContractSpecification(
+                description = "The abbot offering good pay for a holy book, religious artifact, or some bit of research from far away in the universe",
+                quality = ContractQuality.GOOD,
+            ),
+            ContractSpecification(
+                description = "The abbot offering excellent pay for a disgusting outside vice",
+                quality = ContractQuality.EXCELLENT,
+            ),
+            generatedContract,
+        ),
+        minContracts = 1,
+    )
+
+    private val quarantinedPort: PortOfCallSpecification = PortOfCallSpecification(
+        name = "Quarantined Port",
+        flavorText = FlavorText(
+            text = "DANGER MEMETIC PATHOGEN DETECTED KEEP DISTANCE AND AVOID DATA TRANSMISSION DANGER MEMETIC…",
+            attribution = "Automated warning signal 1.36*",
+        ),
+        description = "You come out of the kerama point and there it is. Perhaps you had a warning it would be like this. Perhaps there’s a distress beacon talking about reactor breaches, and deadly contagions, and madness, or perhaps there is simply silence. Whatever it looks like, there has to be a reason for it all, right?",
+        choices = setOf(
+            ChoiceSpecification(
+                options = setOf(
+                    Option("Contagion risk"),
+                    Option("Crazed populace"),
+                    Option("Zombies"),
+                    Option("Hard radiation"),
+                    Option("A cover up"),
+                    Option("An assassination"),
+                    Option("Organized crime"),
+                    Option("Survivors"),
+                    Option("Still hope"),
+                    Option("Determination"),
+                    Option("A rare specimen"),
+                    Option("A heist"),
+                    Option("Mind control"),
+                    Option("Ghosts"),
+                ),
+                questions = listOf(
+                    Question(
+                        question = "Choose two you can see inside if you look there",
+                        answers = 2,
+                    ),
+                ),
+            ),
+            ChoiceSpecification(
+                options = setOf(
+                    Option("Warning beacons"),
+                    Option("Destroyed ships"),
+                    Option("Sealed airlocks"),
+                    Option("Strange lights"),
+                    Option("Dead bodies"),
+                    Option("A blockade"),
+                    Option("Blockade runners"),
+                    Option("Guns trained on you"),
+                    Option("Explosions"),
+                ),
+                questions = listOf(
+                    Question(
+                        question = "Choose two you can see from the outside",
+                        answers = 2,
+                    ),
+                ),
+            ),
+        ),
+        contracts = setOf(
+            ContractSpecification(
+                description = "A survivor offering very subpar pay for something lifesaving",
+                quality = ContractQuality.VERY_SUBPAR,
+            ),
+            ContractSpecification(
+                description = "A survivor offering very subpar pay a way off the port",
+                quality = ContractQuality.VERY_SUBPAR,
+            ),
+            ContractSpecification(
+                description = "A survivor offering very subpar pay for a taste, just a taste",
+                quality = ContractQuality.VERY_SUBPAR,
+            ),
+            ContractSpecification(
+                description = "The last survivor offering very subpar pay for carrying news of what happened to the rest of the universe",
+                quality = ContractQuality.VERY_SUBPAR,
+            ),
+            ContractSpecification(
+                description = "A scientist offering subpar pay for help with an unlikely cure",
+                quality = ContractQuality.SUBPAR,
+            ),
+            ContractSpecification(
+                description = "A scientist offering average pay or a sample",
+                quality = ContractQuality.AVERAGE,
+            ),
+            ContractSpecification(
+                description = "A military commander offering average pay for shooting quarantine breakers",
+                quality = ContractQuality.AVERAGE,
+            ),
+            ContractSpecification(
+                description = "An adventurer who unleashed this offering good pay for a way out",
+                quality = ContractQuality.GOOD,
+            ),
+            generatedContract,
+        ),
+        minContracts = 1,
+    )
+
+    private val resort: PortOfCallSpecification = PortOfCallSpecification(
+        name = "Resort",
+        flavorText = FlavorText(
+            text = "Hesperion! Come on down today*. *terms and conditions apply, minimum income 15 billion DiemBucks per period.",
+            attribution = "Advertisement for Hesperion, currently under DiemCo control",
+        ),
+        description = "The rich, the powerful, criminals, mafiosos, synarchs, CEOs, they all need some place to spend that money. This is that place. A glistening, shining place, not made for the likes of you. You stand out here like a sore thumb. You belong to another life, with the rest of the poors, thank you very much.",
+        choices = setOf(
+            ChoiceSpecification(
+                options = setOf(
+                    Option("Natural beauty"),
+                    Option("Healthcare, benefits"),
+                    Option("The casino"),
+                    Option("Sensual pleasures"),
+                    Option("They like to live here"),
+                    Option("Illegal purchases"),
+                    Option("Bloodsport"),
+                    Option("A zen-like calm"),
+                ),
+                questions = listOf(
+                    Question(
+                        question = "Choose what brings the rich to this place",
+                        answers = 1,
+                    ),
+                ),
+            ),
+            ChoiceSpecification(
+                options = setOf(
+                    Option("A robot security force"),
+                    Option("The poor can’t dock their spaceships"),
+                    Option("Selective genescanners"),
+                    Option("An all-watching, hostile z-machine"),
+                    Option("A regular police force"),
+                    Option("Mountains, radiation, natural barriers"),
+                    Option("Orbital weapon platforms"),
+                    Option("Viscious retaliation, carceral systems"),
+                    Option("Walls, fences, stop and search, border patrols"),
+                ),
+                questions = listOf(
+                    Question(
+                        question = "Choose what keeps the poor out of this place",
+                        answers = 1,
+                    ),
+                ),
+            ),
+        ),
+        contracts = setOf(
+            ContractSpecification(
+                description = "An indentured offering very subpar pay to be smuggled out",
+                quality = ContractQuality.VERY_SUBPAR,
+            ),
+            ContractSpecification(
+                description = "A dock worker offering average pay to carry supplies from here to an even more exclusive place",
+                quality = ContractQuality.AVERAGE,
+            ),
+            ContractSpecification(
+                description = "A rich person offering average pay for something way too costly",
+                quality = ContractQuality.AVERAGE,
+            ),
+            ContractSpecification(
+                description = "A rich person offering average pay for shipping some indentured",
+                quality = ContractQuality.AVERAGE,
+            ),
+            ContractSpecification(
+                description = "A rich person offering average pay for the delivery of something for their collection that ought to be in a museum",
+                quality = ContractQuality.AVERAGE,
+            ),
+            ContractSpecification(
+                description = "A rich person offering good pay for transport to and from a secretive business meeting",
+                quality = ContractQuality.GOOD,
+            ),
+            ContractSpecification(
+                description = "A rich person offering excellent pay for a morally horrifying item",
+                quality = ContractQuality.EXCELLENT,
+            ),
+            ContractSpecification(
+                description = "A shady man offering excellent pay for quote “performing”",
+                quality = ContractQuality.EXCELLENT,
+            ),
+            ContractSpecification(
                 description = "Template",
                 quality = ContractQuality.VERY_SUBPAR,
             ),
             generatedContract,
         ),
+        minContracts = 2,
+    )
+
+    private val lonelyPlanet: PortOfCallSpecification = PortOfCallSpecification(
+        name = "Lonely Planet",
+        flavorText = FlavorText(
+            text = "Rock. Bared, level, rock. I knew this place would be a challenge",
+            attribution = "Gardener, a TTRPG available in all DiemCo trading polities",
+        ),
+        description = "For as much time as you spend on stations, moons, asteroids, on the float, touching down briefly only at surface spaceports, the universe is for all intents and purposes infinite. Civilization cannot touch all galaxies, reaches, let alone planets. This planet is here, spinning in the black. No one else is here. Perhaps they never were.",
+        choices = setOf(
+            ChoiceSpecification(
+                options = setOf(
+                    Option("A gas giant"),
+                    Option("An arching ring system"),
+                    Option("Three suns if not more"),
+                    Option("Aurora"),
+                    Option("Stars without number"),
+                    Option("Nothing"),
+                    Option("Something utterly, physically impossible"),
+                    Option("Something crashing down on you slowly"),
+                ),
+                questions = listOf(
+                    Question(
+                        question = "Choose a sky",
+                        answers = 1,
+                    ),
+                ),
+            ),
+            ChoiceSpecification(
+                options = setOf(
+                    Option("A riot of life"),
+                    Option("Evidence of past terraforming and industry"),
+                    Option("Barren rock"),
+                    Option("Bones, graves out to the horizon"),
+                    Option("Open ocean"),
+                    Option("The volcanic sulfur of a newly formed world"),
+                    Option("A mirror"),
+                    Option("Endless psychic storms"),
+                    Option("A swamp"),
+                    Option("The ruins of a nuclear war or worse"),
+                    Option("Glaciers"),
+                    Option("Soaring mountains. Higher than that. Higher"),
+                    Option("Desert"),
+                ),
+                questions = listOf(
+                    Question(
+                        question = "Choose what you see when you have landed and open the doors on this unpeopled world",
+                        answers = 1,
+                    ),
+                ),
+            ),
+            ChoiceSpecification(
+                options = setOf(
+                    Option("Home"),
+                    Option("Loneliness"),
+                    Option("Fear"),
+                    Option("Paranoia"),
+                    Option("Peace"),
+                    Option("Transcendance"),
+                    Option("Paredolia"),
+                    Option("Wonder"),
+                    Option("Jealousy"),
+                    Option("Simple happiness"),
+                ),
+                questions = listOf(
+                    Question(
+                        question = "Choose a feeling",
+                        answers = 1,
+                    ),
+                ),
+            ),
+        ),
+        contracts = setOf(
+            wildernessContract,
+        ),
+        minContracts = 1,
+    )
+
+    private val anomaly: PortOfCallSpecification = PortOfCallSpecification(
+        name = "Anomaly",
+        flavorText = FlavorText(
+            text = "You are loved. And we are loving you. You left us. But we will always forgive.",
+            attribution = "Long lost Earth?",
+        ),
+        description = "Not so much a port as a place. Why did you come here? Black hole stars and warp gates. Neutron pulsars and machine-killing fields. And that is only the start of the weirdness possible in the wide, wide universe. Something truly unique and powerful, visible from megalightperiods away and well known and avoided for the very same reason. Why did you choose to come here of all places?",
+        choices = setOf(
+            ChoiceSpecification(
+                options = setOf(
+                    Option("Planets"),
+                    Option("Stars"),
+                    Option("Space"),
+                    Option("Time"),
+                    Option("Distance"),
+                    Option("Thought"),
+                    Option("Magic"),
+                    Option("Life"),
+                    Option("Tech"),
+                    Option("Light"),
+                    Option("Darkness"),
+                    Option("Death"),
+                    Option("Geometry"),
+                    Option("Gravity"),
+                    Option("Acceleration"),
+                    Option("Evolution"),
+                    Option("Mass"),
+                    Option("Energy"),
+                ),
+                questions = listOf(
+                    Question(
+                        question = "Choose two being influenced here",
+                        answers = 2,
+                    ),
+                ),
+            ),
+            ChoiceSpecification(
+                options = setOf(
+                    Option("Breaking them"),
+                    Option("Reversing them"),
+                    Option("Strengthening them"),
+                    Option("Twisting them"),
+                    Option("Switching their places"),
+                    Option("Looping them"),
+                    Option("Accelerating them"),
+                    Option("Slowing them"),
+                    Option("Weakening them"),
+                    Option("Playing with them"),
+                    Option("Devouring them"),
+                ),
+                questions = listOf(
+                    Question(
+                        question = "Choose what it is doing to those things",
+                        answers = 1,
+                    ),
+                ),
+            ),
+            ChoiceSpecification(
+                options = setOf(
+                    Option("Gods"),
+                    Option("Monsters"),
+                    Option("Certain Death"),
+                    Option("Deep Wild Dark"),
+                    Option("Worse whispers"),
+                    Option("Contradictory nonsense"),
+                    Option("Nothing, just nothing"),
+                ),
+                questions = listOf(
+                    Question(
+                        question = "Choose a rumor you’ve heard about this place",
+                        answers = 1,
+                    ),
+                ),
+            ),
+        ),
+        contracts = setOf(
+            wildernessContract,
+        ),
+        minContracts = 1,
+    )
+
+    private val meeting: PortOfCallSpecification = PortOfCallSpecification(
+        name = "Meeting",
+        flavorText = FlavorText(
+            text = "You look at it. This fragile, interdependent thing, tiny against the black. And you lose yourself in it. You love it. Want to protect it. Want to make it home.",
+            attribution = "Sri Marmolejo, ‘On Becoming a Freetraveler",
+        ),
+        description = "Freetravelers are a diaspora, rarely meeting together. But no one can stay like that always and occasionally, following odd, inconsistent protocols, you Freetravelers meet. Dozens of ships if not hundreds docking together in the big nothing. A change of favors, supplies, and crews. Many, many crews may begin their story here, having just changed ships and entered into an accord with each other.",
+        choices = setOf(
+            ChoiceSpecification(
+                options = setOf(
+                    Option("A scheduled meeting"),
+                    Option("Bartering fuel, supplies, favors"),
+                    Option("Gossip, family drama"),
+                    Option("Welcoming newbies"),
+                    Option("Crew changing ships"),
+                    Option("Talking politics, shifts in power"),
+                    Option("Crisis, prejudice, war"),
+                ),
+                questions = listOf(
+                    Question(
+                        question = "Choose what has brought you together",
+                        answers = 1,
+                    ),
+                ),
+            ),
+            ChoiceSpecification(
+                options = setOf(
+                    Option("Familial few dozens"),
+                    Option("Bustling hundred"),
+                    Option("Shocking thousands"),
+                ),
+                questions = listOf(
+                    Question(
+                        question = "Choose how many Freetraveler ships have come here",
+                        answers = 1,
+                    ),
+                ),
+            ),
+        ),
+        contracts = setOf(),
         minContracts = 0,
     )
 
