@@ -26,6 +26,14 @@ public class WindowDataModel internal constructor(
     internal var currentScreen: NavigationDestination by mutableStateOf(screen)
         private set
 
+    private val diceDM = DiceRollerDataModel()
+    private val generatorDM = GeneratorDataModel(mainDataModel.mergedPlaybook)
+    private val playerDM = CreatePlayerViewModel(mainDataModel)
+    private val mapDM = MapDataModel(mainDataModel.mergedPlaybook, platform)
+    private val playbooksDM = PlaybooksViewModel(mainDataModel)
+    private val referenceDM = ReferenceDataModel(mainDataModel)
+    private val timeDM = TimeConverterDataModel()
+
     internal fun popBackStack() {
         navigate(NavigationAction.PopBackStack)
     }
@@ -39,13 +47,13 @@ public class WindowDataModel internal constructor(
     internal fun updateCurrentTab(newTab: NavigationTabImpl) {
         backstack.clear()
         currentScreen = when (newTab) {
-            NavigationTabImpl.DiceRoller -> NavigationDestination.DiceRoller(DiceRollerDataModel())
-            NavigationTabImpl.Generator -> NavigationDestination.Generator(GeneratorDataModel(mainDataModel.mergedPlaybook))
-            NavigationTabImpl.Players -> NavigationDestination.CreatePlayer(CreatePlayerViewModel(mainDataModel))
-            NavigationTabImpl.Map -> NavigationDestination.Map(MapDataModel(mainDataModel.mergedPlaybook, platform))
-            NavigationTabImpl.Playbooks -> NavigationDestination.Playbooks(PlaybooksViewModel(mainDataModel))
-            NavigationTabImpl.Reference -> NavigationDestination.Reference(ReferenceDataModel(mainDataModel))
-            NavigationTabImpl.TimeConverter -> NavigationDestination.TimeConverter(TimeConverterDataModel())
+            NavigationTabImpl.DiceRoller -> NavigationDestination.DiceRoller(diceDM)
+            NavigationTabImpl.Generator -> NavigationDestination.Generator(generatorDM)
+            NavigationTabImpl.Players -> NavigationDestination.CreatePlayer(playerDM)
+            NavigationTabImpl.Map -> NavigationDestination.Map(mapDM)
+            NavigationTabImpl.Playbooks -> NavigationDestination.Playbooks(playbooksDM)
+            NavigationTabImpl.Reference -> NavigationDestination.Reference(referenceDM)
+            NavigationTabImpl.TimeConverter -> NavigationDestination.TimeConverter(timeDM)
         }
     }
 

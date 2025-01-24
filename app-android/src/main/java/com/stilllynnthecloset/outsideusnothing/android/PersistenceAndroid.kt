@@ -94,14 +94,14 @@ public class PersistenceAndroid : Persistence {
     }
 
     override fun getActivePlayer(): Player? {
-        TODO("Not yet implemented")
+        return null // TODO("Not yet implemented")
     }
 
     override fun updatePlayer(newPlayer: Player) {
-        TODO("Not yet implemented")
+        // TODO("Not yet implemented")
     }
 
     override fun updateActivePlayer(newActivePlayer: Player) {
-        TODO("Not yet implemented")
+        // TODO("Not yet implemented")
     }
 }
