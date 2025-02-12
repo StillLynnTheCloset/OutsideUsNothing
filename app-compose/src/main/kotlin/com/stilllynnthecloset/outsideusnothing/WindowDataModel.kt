@@ -11,6 +11,7 @@ import com.stilllynnthecloset.outsideusnothing.map.MapDataModel
 import com.stilllynnthecloset.outsideusnothing.playbooks.PlaybooksViewModel
 import com.stilllynnthecloset.outsideusnothing.reference.ReferenceDataModel
 import com.stilllynnthecloset.outsideusnothing.timeconverter.TimeConverterDataModel
+import com.stilllynnthecloset.outsideusnothing.viewplayers.ViewPlayersViewModel
 
 /**
  * WindowDataModel - TODO: Documentation
@@ -29,6 +30,7 @@ public class WindowDataModel internal constructor(
     private val diceDM = DiceRollerDataModel()
     private val generatorDM = GeneratorDataModel(mainDataModel.mergedPlaybook)
     private val playerDM = CreatePlayerViewModel(mainDataModel)
+    private val playersDM = ViewPlayersViewModel(mainDataModel)
     private val mapDM = MapDataModel(mainDataModel.mergedPlaybook, platform)
     private val playbooksDM = PlaybooksViewModel(mainDataModel)
     private val referenceDM = ReferenceDataModel(mainDataModel)
@@ -49,7 +51,8 @@ public class WindowDataModel internal constructor(
         currentScreen = when (newTab) {
             NavigationTabImpl.DiceRoller -> NavigationDestination.DiceRoller(diceDM)
             NavigationTabImpl.Generator -> NavigationDestination.Generator(generatorDM)
-            NavigationTabImpl.Players -> NavigationDestination.CreatePlayer(playerDM)
+            NavigationTabImpl.Player -> NavigationDestination.CreatePlayer(playerDM)
+            NavigationTabImpl.Players -> NavigationDestination.ViewPlayers(playersDM)
             NavigationTabImpl.Map -> NavigationDestination.Map(mapDM)
             NavigationTabImpl.Playbooks -> NavigationDestination.Playbooks(playbooksDM)
             NavigationTabImpl.Reference -> NavigationDestination.Reference(referenceDM)

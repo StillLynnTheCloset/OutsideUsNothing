@@ -11,6 +11,7 @@ import com.stilllynnthecloset.outsideusnothing.library.map.HexGridMap
 import com.stilllynnthecloset.outsideusnothing.library.map.PlaceholderNode
 import com.stilllynnthecloset.outsideusnothing.library.map.PortNode
 import com.stilllynnthecloset.outsideusnothing.library.model.FlavorText
+import com.stilllynnthecloset.outsideusnothing.library.model.PlayersList
 import kotlinx.serialization.decodeFromString
 
 /**

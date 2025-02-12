@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import com.stilllynnthecloset.outsideusnothing.library.model.Playbook
 import com.stilllynnthecloset.outsideusnothing.dice.DiceRollerDataModel
+import com.stilllynnthecloset.outsideusnothing.library.model.Player
 
 public class MainDataModel public constructor(private val platform: Platform) {
     public var isDarkTheme: Boolean by mutableStateOf(true)
@@ -84,11 +85,19 @@ public class MainDataModel public constructor(private val platform: Platform) {
         return listOf(Playbook.defaultPlaybook) + playbooks
     }
 
+    public fun getPlayers(): Collection<Player> {
+        return platform.persistence.getPlayers()
+    }
+
     public fun openWindow() {
-        this.windows = windows + WindowDataModel(this, NavigationDestination.DiceRoller(DiceRollerDataModel()), platform)
+        this.windows += WindowDataModel(
+            this,
+            NavigationDestination.DiceRoller(DiceRollerDataModel()),
+            platform
+        )
     }
 
     public fun closeWindow(window: WindowDataModel) {
-        this.windows = windows - window
+        this.windows -= window
     }
 }

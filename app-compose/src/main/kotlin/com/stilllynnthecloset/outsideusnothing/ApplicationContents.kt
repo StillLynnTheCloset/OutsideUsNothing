@@ -15,6 +15,7 @@ import com.stilllynnthecloset.outsideusnothing.playbooks.PlaybooksScreen
 import com.stilllynnthecloset.outsideusnothing.reference.ReferenceScreen
 import com.stilllynnthecloset.outsideusnothing.theme.navigationContainer
 import com.stilllynnthecloset.outsideusnothing.timeconverter.TimeConverterScreen
+import com.stilllynnthecloset.outsideusnothing.viewplayers.ViewPlayersScreen
 
 @Composable
 @ExperimentalComposeUiApi
@@ -45,6 +46,11 @@ public fun applicationContents(windowSize: DpSize, dataModel: MainDataModel, win
                 )
 
                 is NavigationDestination.CreatePlayer -> CreatePlayerScreen(
+                    dataModel = currentScreen.dataModel,
+                    platform = platform,
+                )
+
+                is NavigationDestination.ViewPlayers -> ViewPlayersScreen(
                     dataModel = currentScreen.dataModel,
                     platform = platform,
                 )
