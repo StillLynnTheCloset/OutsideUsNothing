@@ -1,5 +1,7 @@
 package com.stilllynnthecloset.outsideusnothing.library.model
 
+import com.stilllynnthecloset.outsideusnothing.library.interfaces.Randomizable
+import com.stilllynnthecloset.outsideusnothing.library.interfaces.UniversallyUnique
 import com.stilllynnthecloset.outsideusnothing.library.tools.rollDice
 import kotlinx.serialization.Serializable
 import java.util.UUID

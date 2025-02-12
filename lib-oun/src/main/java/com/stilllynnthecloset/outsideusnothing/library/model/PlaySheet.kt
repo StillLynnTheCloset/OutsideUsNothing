@@ -1,5 +1,6 @@
 package com.stilllynnthecloset.outsideusnothing.library.model
 
+import com.stilllynnthecloset.outsideusnothing.library.interfaces.UniversallyUnique
 import kotlinx.serialization.Serializable
 import java.util.UUID
 

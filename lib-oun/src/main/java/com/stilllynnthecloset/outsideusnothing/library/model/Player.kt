@@ -1,5 +1,6 @@
 package com.stilllynnthecloset.outsideusnothing.library.model
 
+import com.stilllynnthecloset.outsideusnothing.library.interfaces.UniversallyUnique
 import com.stilllynnthecloset.outsideusnothing.library.tools.SerializerTools
 import com.stilllynnthecloset.outsideusnothing.library.playbook.PlayerPlaybook
 import kotlinx.serialization.Serializable

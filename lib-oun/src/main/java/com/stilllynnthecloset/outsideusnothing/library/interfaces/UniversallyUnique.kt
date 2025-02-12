@@ -1,4 +1,4 @@
-package com.stilllynnthecloset.outsideusnothing.library.model
+package com.stilllynnthecloset.outsideusnothing.library.interfaces
 
 /**
  * UniversallyUnique - TODO: Documentation

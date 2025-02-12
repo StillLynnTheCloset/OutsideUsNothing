@@ -80,7 +80,28 @@ public class PersistenceAndroid : Persistence {
         )
     )
 
-    private var currentMap: HexGridMap = sableMap
+    private val demesne = PortNode(HexGridCoordinate(0,0), portOfCall.copy(name = "Demesne"))
+    private val hell = PortNode(HexGridCoordinate(-1,0), portOfCall.copy(name = "Demesne"))
+    private val emptySystem = PortNode(HexGridCoordinate(1,0), portOfCall.copy(name = "Demesne"))
+    private val well073 = PortNode(HexGridCoordinate(0,-1), portOfCall.copy(name = "Demesne"))
+
+    private val publicDemesne = HexGridMap(
+        nodes = listOf(
+            demesne,
+            hell,
+            emptySystem,
+            well073,
+        ),
+        edges = listOf(
+            HexGridEdge(demesne.coordinate, hell.coordinate, 1),
+            HexGridEdge(demesne.coordinate, emptySystem.coordinate, 1),
+            HexGridEdge(demesne.coordinate, well073.coordinate, 2),
+            HexGridEdge(well073.coordinate, emptySystem.coordinate, 1),
+            HexGridEdge(well073.coordinate, hell.coordinate, 1),
+        ),
+    )
+
+    private var currentMap: HexGridMap = publicDemesne
     override fun loadCurrentMap(): HexGridMap {
         return currentMap
     }

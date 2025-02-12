@@ -1,5 +1,7 @@
 package com.stilllynnthecloset.outsideusnothing.library.model
 
+import com.stilllynnthecloset.outsideusnothing.library.interfaces.Latexible
+import com.stilllynnthecloset.outsideusnothing.library.interfaces.UniversallyUnique
 import com.stilllynnthecloset.outsideusnothing.library.playbook.AlienPlaybook
 import com.stilllynnthecloset.outsideusnothing.library.playbook.BackgroundPlaybook
 import com.stilllynnthecloset.outsideusnothing.library.playbook.BastardPlaybook

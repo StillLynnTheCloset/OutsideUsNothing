@@ -1,5 +1,8 @@
 package com.stilllynnthecloset.outsideusnothing.library.model
 
+import com.stilllynnthecloset.outsideusnothing.library.interfaces.Latexible
+import com.stilllynnthecloset.outsideusnothing.library.interfaces.Randomizable
+import com.stilllynnthecloset.outsideusnothing.library.interfaces.UniversallyUnique
 import com.stilllynnthecloset.outsideusnothing.library.tools.checkSuccess
 import com.stilllynnthecloset.outsideusnothing.library.tools.rollDice
 import com.stilllynnthecloset.outsideusnothing.library.tools.rollDie

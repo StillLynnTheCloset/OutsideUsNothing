@@ -1,6 +1,10 @@
 package com.stilllynnthecloset.outsideusnothing.library.model
 
-import com.stilllynnthecloset.outsideusnothing.library.tools.pickAtLeastN
+import com.stilllynnthecloset.outsideusnothing.library.interfaces.Flavored
+import com.stilllynnthecloset.outsideusnothing.library.interfaces.Latexible
+import com.stilllynnthecloset.outsideusnothing.library.interfaces.Randomizable
+import com.stilllynnthecloset.outsideusnothing.library.interfaces.UniversallyUnique
+import com.stilllynnthecloset.outsideusnothing.library.tools.pickN
 import com.stilllynnthecloset.outsideusnothing.library.tools.weightedRandom
 import kotlinx.serialization.Serializable
 import java.util.UUID
@@ -25,7 +29,7 @@ public data class PortOfCallSpecification constructor(
             specification = this,
             name = "${playbook.portAdjectives.weightedRandom().text} ${playbook.portNouns.weightedRandom().text}",
             choices = choices.map { it.randomize(playbook) },
-            contracts = contracts.toSet().pickAtLeastN(minContracts).map {
+            contracts = contracts.toSet().pickN(minContracts).map {
                 if (it.description == ContractSpecification.GENERATED_DESCRIPTION) {
                     ContractSpecification.generateGenericContract(playbook)
                 } else {

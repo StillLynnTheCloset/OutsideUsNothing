@@ -1,6 +1,6 @@
 package com.stilllynnthecloset.outsideusnothing.library.tools
 
-import com.stilllynnthecloset.outsideusnothing.library.model.UniversallyUnique
+import com.stilllynnthecloset.outsideusnothing.library.interfaces.UniversallyUnique
 import kotlinx.serialization.Serializable
 
 /**
@@ -14,9 +14,9 @@ public data class Weighted<T> constructor(
     val value: T,
 )
 
-@Serializable
+@Serializable //(with = WeightedSetSerializer::class)
 public data class WeightedSet<T> constructor(
-    val set: Set<Weighted<T>>,
+    private val set: Set<Weighted<T>>,
 ) : Set<Weighted<T>> by set {
     public constructor(vararg pairs: Pair<T, Int>) : this(pairs.map {
         Weighted(
@@ -40,16 +40,22 @@ public data class WeightedSet<T> constructor(
     }
 }
 
-public fun <T : UniversallyUnique> WeightedSet<T>.replace(item: Weighted<T>): WeightedSet<T> {
-    return WeightedSet(
-        set.map {
-            if (it.value.uuid == item.value.uuid) {
-                item
-            } else {
-                it
-            }
-        }.toSet()
-    )
+public fun <T : UniversallyUnique> WeightedSet<T>.replace(item: Weighted<T>): WeightedSet<T> = WeightedSet(
+    map {
+        if (it.value.uuid == item.value.uuid) {
+            item
+        } else {
+            it
+        }
+    }.toSet()
+)
+
+public fun <T : UniversallyUnique> Collection<T>.replace(item: T): Collection<T> = map {
+    if (it.uuid == item.uuid) {
+        item
+    } else {
+        it
+    }
 }
 
 public fun <T> emptyWeightedSet(): WeightedSet<T> = WeightedSet(emptySet())

@@ -1,4 +1,6 @@
-package com.stilllynnthecloset.outsideusnothing.library.model
+package com.stilllynnthecloset.outsideusnothing.library.interfaces
+
+import com.stilllynnthecloset.outsideusnothing.library.model.FlavorText
 
 /**
  * Flavored - TODO: Documentation

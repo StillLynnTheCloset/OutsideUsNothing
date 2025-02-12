@@ -1,5 +1,9 @@
 package com.stilllynnthecloset.outsideusnothing.library.model
 
+import com.stilllynnthecloset.outsideusnothing.library.interfaces.Flavored
+import com.stilllynnthecloset.outsideusnothing.library.interfaces.Latexible
+import com.stilllynnthecloset.outsideusnothing.library.interfaces.Randomizable
+import com.stilllynnthecloset.outsideusnothing.library.interfaces.UniversallyUnique
 import kotlinx.serialization.Serializable
 import java.util.UUID
 
