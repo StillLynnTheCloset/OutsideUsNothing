@@ -2,6 +2,10 @@ package com.stilllynnthecloset.outsideusnothing.edit
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.gestures.draggable
+import androidx.compose.foundation.gestures.rememberDraggableState
+import androidx.compose.foundation.gestures.scrollBy
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
@@ -40,6 +44,7 @@ import com.stilllynnthecloset.outsideusnothing.theme.imageButton
 import com.stilllynnthecloset.outsideusnothing.theme.incrementInput
 import com.stilllynnthecloset.outsideusnothing.theme.outlinedButton
 import com.stilllynnthecloset.outsideusnothing.theme.textInputWidget
+import kotlinx.coroutines.runBlocking
 
 /**
  * EditScreen - TODO: Documentation
@@ -52,6 +57,11 @@ internal fun EditScreen(dataModel: EditViewModel, platform: Platform) {
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .draggable(rememberDraggableState { delta ->
+                runBlocking {
+                    scrollState.scrollBy(-delta)
+                }
+            }, orientation = Orientation.Vertical)
             .verticalScroll(scrollState),
     ) {
         Text(

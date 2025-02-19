@@ -1,5 +1,9 @@
 package com.stilllynnthecloset.outsideusnothing.dice
 
+import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.gestures.draggable
+import androidx.compose.foundation.gestures.rememberDraggableState
+import androidx.compose.foundation.gestures.scrollBy
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -24,6 +28,7 @@ import com.stilllynnthecloset.outsideusnothing.theme.dieRoll
 import com.stilllynnthecloset.outsideusnothing.theme.incrementInput
 import com.stilllynnthecloset.outsideusnothing.theme.outlinedButton
 import com.stilllynnthecloset.outsideusnothing.theme.text
+import kotlinx.coroutines.runBlocking
 
 /**
  * DiceRollerScreen - TODO: Documentation
@@ -42,6 +47,11 @@ internal fun DiceRollerScreen(dataModel: DiceRollerDataModel, platform: Platform
             modifier = Modifier
                 .align(Center)
                 .fillMaxSize()
+                .draggable(rememberDraggableState { delta ->
+                    runBlocking {
+                        scrollState.scrollBy(-delta)
+                    }
+                }, orientation = Orientation.Vertical)
                 .verticalScroll(scrollState),
         ) {
             incrementInput(

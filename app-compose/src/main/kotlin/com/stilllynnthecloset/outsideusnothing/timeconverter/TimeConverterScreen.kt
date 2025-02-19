@@ -1,5 +1,9 @@
 package com.stilllynnthecloset.outsideusnothing.timeconverter
 
+import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.gestures.draggable
+import androidx.compose.foundation.gestures.rememberDraggableState
+import androidx.compose.foundation.gestures.scrollBy
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,8 +16,10 @@ import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.stilllynnthecloset.outsideusnothing.Platform
+import com.stilllynnthecloset.outsideusnothing.indentPadding
 import com.stilllynnthecloset.outsideusnothing.theme.doubleInputWidget
 import com.stilllynnthecloset.outsideusnothing.theme.text
+import kotlinx.coroutines.runBlocking
 
 /**
  * DiceRollerScreen - TODO: Documentation
@@ -32,7 +38,13 @@ internal fun TimeConverterScreen(dataModel: TimeConverterDataModel, platform: Pl
             modifier = Modifier
                 .align(Center)
                 .fillMaxSize()
-                .verticalScroll(scrollState),
+                .draggable(rememberDraggableState { delta ->
+                    runBlocking {
+                        scrollState.scrollBy(-delta)
+                    }
+                }, orientation = Orientation.Vertical)
+                .verticalScroll(scrollState)
+                .padding(indentPadding),
         ) {
             doubleInputWidget(
                 label = "Periods",

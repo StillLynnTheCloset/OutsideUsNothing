@@ -1,5 +1,9 @@
 package com.stilllynnthecloset.outsideusnothing.generator
 
+import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.gestures.draggable
+import androidx.compose.foundation.gestures.rememberDraggableState
+import androidx.compose.foundation.gestures.scrollBy
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,6 +19,7 @@ import androidx.compose.ui.Modifier
 import com.stilllynnthecloset.outsideusnothing.Platform
 import com.stilllynnthecloset.outsideusnothing.compose
 import com.stilllynnthecloset.outsideusnothing.indentPadding
+import kotlinx.coroutines.runBlocking
 
 /**
  * OrganizerScreen - TODO: Documentation
@@ -23,10 +28,16 @@ import com.stilllynnthecloset.outsideusnothing.indentPadding
  */
 @Composable
 internal fun GeneratorScreen(dataModel: GeneratorViewModel, platform: Platform) {
+    val scrollState = rememberScrollState()
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .verticalScroll(rememberScrollState())
+            .draggable(rememberDraggableState { delta ->
+                runBlocking {
+                    scrollState.scrollBy(-delta)
+                }
+            }, orientation = Orientation.Vertical)
+            .verticalScroll(scrollState)
             .padding(indentPadding),
     ) {
         Row(

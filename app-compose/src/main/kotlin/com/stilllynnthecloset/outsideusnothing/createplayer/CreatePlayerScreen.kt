@@ -1,5 +1,9 @@
 package com.stilllynnthecloset.outsideusnothing.createplayer
 
+import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.gestures.draggable
+import androidx.compose.foundation.gestures.rememberDraggableState
+import androidx.compose.foundation.gestures.scrollBy
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.rememberScrollState
@@ -13,6 +17,7 @@ import com.stilllynnthecloset.outsideusnothing.theme.dropDown
 import com.stilllynnthecloset.outsideusnothing.theme.radioButtons
 import com.stilllynnthecloset.outsideusnothing.theme.text
 import com.stilllynnthecloset.outsideusnothing.theme.textInputWidget
+import kotlinx.coroutines.runBlocking
 
 /**
  * CreatePlayerScreen - TODO: Documentation
@@ -25,6 +30,12 @@ internal fun CreatePlayerScreen(dataModel: CreatePlayerViewModel, platform: Plat
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .draggable(rememberDraggableState { delta ->
+                println("delta=$delta")
+                runBlocking {
+                    scrollState.scrollBy(-delta)
+                }
+            }, orientation = Orientation.Vertical)
             .verticalScroll(scrollState),
     ) {
         textInputWidget(
