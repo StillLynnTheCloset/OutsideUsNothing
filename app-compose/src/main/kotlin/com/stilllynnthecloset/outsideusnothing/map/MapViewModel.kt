@@ -26,7 +26,7 @@ import java.util.PriorityQueue
  *
  * Created by Lynn on 4/14/23
  */
-internal class MapDataModel constructor(
+internal class MapViewModel constructor(
     val playbook: Playbook,
     val platform: Platform,
 ) {

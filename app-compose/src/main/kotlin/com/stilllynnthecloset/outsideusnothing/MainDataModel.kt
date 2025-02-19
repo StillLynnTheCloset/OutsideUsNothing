@@ -16,7 +16,7 @@ public class MainDataModel public constructor(private val platform: Platform) {
 
     private var playbooks: List<Playbook> by mutableStateOf(emptyList())
 
-    public var windows: List<WindowDataModel> by mutableStateOf(listOf(WindowDataModel(this, NavigationDestination.DiceRoller(DiceRollerDataModel()), platform)))
+    public var windows: List<WindowViewModel> by mutableStateOf(listOf(WindowViewModel(this, NavigationDestination.DiceRoller(DiceRollerDataModel()), platform)))
         private set
 
     init {
@@ -90,14 +90,14 @@ public class MainDataModel public constructor(private val platform: Platform) {
     }
 
     public fun openWindow() {
-        this.windows += WindowDataModel(
+        this.windows += WindowViewModel(
             this,
             NavigationDestination.DiceRoller(DiceRollerDataModel()),
             platform
         )
     }
 
-    public fun closeWindow(window: WindowDataModel) {
+    public fun closeWindow(window: WindowViewModel) {
         this.windows -= window
     }
 }

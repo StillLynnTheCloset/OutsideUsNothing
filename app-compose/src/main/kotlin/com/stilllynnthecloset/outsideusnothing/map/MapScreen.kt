@@ -38,7 +38,7 @@ import kotlinx.coroutines.launch
  * Created by Lynn on 4/14/23
  */
 @Composable
-internal fun MapScreen(dataModel: MapDataModel, platform: Platform) {
+internal fun MapScreen(dataModel: MapViewModel, platform: Platform) {
     Column(
         modifier = Modifier
             .fillMaxSize(),
@@ -61,9 +61,9 @@ internal fun MapScreen(dataModel: MapDataModel, platform: Platform) {
                 onScaleChanged = dataModel::onZoomLevelChanged,
                 highlightedNodes = dataModel.highlightedNodes.map {
                     it.first to when (it.second) {
-                        MapDataModel.NodeHighlight.SELECTED -> MaterialTheme.colorScheme.onPrimary
-                        MapDataModel.NodeHighlight.SHIP_LOCATION -> MaterialTheme.colorScheme.error
-                        MapDataModel.NodeHighlight.ON_PATH -> MaterialTheme.colorScheme.tertiary
+                        MapViewModel.NodeHighlight.SELECTED -> MaterialTheme.colorScheme.onPrimary
+                        MapViewModel.NodeHighlight.SHIP_LOCATION -> MaterialTheme.colorScheme.error
+                        MapViewModel.NodeHighlight.ON_PATH -> MaterialTheme.colorScheme.tertiary
                     }
                 },
                 onNodeSelected = dataModel::onNodeSelected,
@@ -147,7 +147,7 @@ internal fun MapScreen(dataModel: MapDataModel, platform: Platform) {
                         )
 
                         Text(
-                            text = "Generate 20 degrees",
+                            text = "Generate a bunch more ports",
                             modifier = Modifier
                                 .clickable {
                                     CoroutineScope(Dispatchers.IO + SupervisorJob()).launch {

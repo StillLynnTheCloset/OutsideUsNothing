@@ -22,7 +22,7 @@ import com.stilllynnthecloset.outsideusnothing.indentPadding
  * Created by Lynn on 4/14/23
  */
 @Composable
-internal fun GeneratorScreen(dataModel: GeneratorDataModel, platform: Platform) {
+internal fun GeneratorScreen(dataModel: GeneratorViewModel, platform: Platform) {
     Column(
         modifier = Modifier
             .fillMaxSize()

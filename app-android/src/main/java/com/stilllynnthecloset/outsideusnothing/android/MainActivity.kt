@@ -63,7 +63,7 @@ fun Content() {
                 applicationContents(
                     windowSize = DpSize(screenWidth, screenHeight),
                     dataModel = dataModel,
-                    windowDataModel = dataModel.windows.first(),
+                    windowViewModel = dataModel.windows.first(),
                     platform = platform,
                 )
             }

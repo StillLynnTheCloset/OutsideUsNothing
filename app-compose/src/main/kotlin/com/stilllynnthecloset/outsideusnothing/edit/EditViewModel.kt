@@ -14,7 +14,7 @@ import com.stilllynnthecloset.outsideusnothing.library.model.Threat
 import com.stilllynnthecloset.outsideusnothing.library.tools.Weighted
 import com.stilllynnthecloset.outsideusnothing.MainDataModel
 import com.stilllynnthecloset.outsideusnothing.PlaybookPage
-import com.stilllynnthecloset.outsideusnothing.WindowDataModel
+import com.stilllynnthecloset.outsideusnothing.WindowViewModel
 import com.stilllynnthecloset.outsideusnothing.library.tools.replace
 
 /**
@@ -22,7 +22,7 @@ import com.stilllynnthecloset.outsideusnothing.library.tools.replace
  *
  * Created by Lynn on 5/5/23
  */
-internal class EditViewModel constructor(private val mainDataModel: MainDataModel, private val windowDataModel: WindowDataModel, val currentPage: PlaybookPage, val playbookUuid: String) {
+internal class EditViewModel constructor(private val mainDataModel: MainDataModel, private val windowViewModel: WindowViewModel, val currentPage: PlaybookPage, val playbookUuid: String) {
     val currentPlaybook: Playbook
         get() = mainDataModel.getPlaybooks().first { it.uuid == playbookUuid }
 
@@ -39,7 +39,7 @@ internal class EditViewModel constructor(private val mainDataModel: MainDataMode
     }
 
     fun setPage(page: PlaybookPage) {
-        windowDataModel.openEditPlaybook(playbookUuid, page)
+        windowViewModel.openEditPlaybook(playbookUuid, page)
     }
 
     fun updateThreat(new: Weighted<Threat>) {

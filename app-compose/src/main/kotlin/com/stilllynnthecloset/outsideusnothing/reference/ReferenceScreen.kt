@@ -29,7 +29,7 @@ import com.stilllynnthecloset.outsideusnothing.indentPadding
  * Created by Lynn on 5/3/23
  */
 @Composable
-internal fun ReferenceScreen(dataModel: ReferenceDataModel, platform: Platform) {
+internal fun ReferenceScreen(dataModel: ReferenceViewModel, platform: Platform) {
     val scrollState = rememberScrollState()
 
     Column(
@@ -64,7 +64,7 @@ internal fun ReferenceScreen(dataModel: ReferenceDataModel, platform: Platform) 
 }
 
 @Composable
-private fun ColumnScope.tableOfContents(dataModel: ReferenceDataModel, playbook: Playbook, platform: Platform) {
+private fun ColumnScope.tableOfContents(dataModel: ReferenceViewModel, playbook: Playbook, platform: Platform) {
     PlaybookPage.values().forEach {
         if (it != PlaybookPage.PLAYBOOK) {
             Text(
@@ -81,7 +81,7 @@ private fun ColumnScope.tableOfContents(dataModel: ReferenceDataModel, playbook:
 }
 
 @Composable
-private fun alien(dataModel: ReferenceDataModel, playbook: Playbook, platform: Platform) {
+private fun alien(dataModel: ReferenceViewModel, playbook: Playbook, platform: Platform) {
     Button(
         onClick = { dataModel.setPage(PlaybookPage.PLAYBOOK) },
     ) {
@@ -97,7 +97,7 @@ private fun alien(dataModel: ReferenceDataModel, playbook: Playbook, platform: P
 }
 
 @Composable
-private fun background(dataModel: ReferenceDataModel, playbook: Playbook, platform: Platform) {
+private fun background(dataModel: ReferenceViewModel, playbook: Playbook, platform: Platform) {
     Button(
         onClick = { dataModel.setPage(PlaybookPage.PLAYBOOK) },
     ) {
@@ -113,7 +113,7 @@ private fun background(dataModel: ReferenceDataModel, playbook: Playbook, platfo
 }
 
 @Composable
-private fun role(dataModel: ReferenceDataModel, playbook: Playbook, platform: Platform) {
+private fun role(dataModel: ReferenceViewModel, playbook: Playbook, platform: Platform) {
     Button(
         onClick = { dataModel.setPage(PlaybookPage.PLAYBOOK) },
     ) {
@@ -129,7 +129,7 @@ private fun role(dataModel: ReferenceDataModel, playbook: Playbook, platform: Pl
 }
 
 @Composable
-private fun port(dataModel: ReferenceDataModel, playbook: Playbook, platform: Platform) {
+private fun port(dataModel: ReferenceViewModel, playbook: Playbook, platform: Platform) {
     Button(
         onClick = { dataModel.setPage(PlaybookPage.PLAYBOOK) },
     ) {
@@ -145,7 +145,7 @@ private fun port(dataModel: ReferenceDataModel, playbook: Playbook, platform: Pl
 }
 
 @Composable
-private fun event(dataModel: ReferenceDataModel, playbook: Playbook, platform: Platform) {
+private fun event(dataModel: ReferenceViewModel, playbook: Playbook, platform: Platform) {
     Button(
         onClick = { dataModel.setPage(PlaybookPage.PLAYBOOK) },
     ) {
@@ -161,7 +161,7 @@ private fun event(dataModel: ReferenceDataModel, playbook: Playbook, platform: P
 }
 
 @Composable
-private fun contractItem(dataModel: ReferenceDataModel, playbook: Playbook, platform: Platform) {
+private fun contractItem(dataModel: ReferenceViewModel, playbook: Playbook, platform: Platform) {
     Button(
         onClick = { dataModel.setPage(PlaybookPage.PLAYBOOK) },
     ) {
@@ -198,7 +198,7 @@ private fun contractItem(dataModel: ReferenceDataModel, playbook: Playbook, plat
 }
 
 @Composable
-private fun usefulItem(dataModel: ReferenceDataModel, playbook: Playbook, platform: Platform) {
+private fun usefulItem(dataModel: ReferenceViewModel, playbook: Playbook, platform: Platform) {
     Button(
         onClick = { dataModel.setPage(PlaybookPage.PLAYBOOK) },
     ) {
@@ -214,7 +214,7 @@ private fun usefulItem(dataModel: ReferenceDataModel, playbook: Playbook, platfo
 }
 
 @Composable
-private fun bastard(dataModel: ReferenceDataModel, playbook: Playbook, platform: Platform) {
+private fun bastard(dataModel: ReferenceViewModel, playbook: Playbook, platform: Platform) {
     Button(
         onClick = { dataModel.setPage(PlaybookPage.PLAYBOOK) },
     ) {
@@ -230,7 +230,7 @@ private fun bastard(dataModel: ReferenceDataModel, playbook: Playbook, platform:
 }
 
 @Composable
-private fun threat(dataModel: ReferenceDataModel, playbook: Playbook, platform: Platform) {
+private fun threat(dataModel: ReferenceViewModel, playbook: Playbook, platform: Platform) {
     Button(
         onClick = { dataModel.setPage(PlaybookPage.PLAYBOOK) },
     ) {
@@ -246,7 +246,7 @@ private fun threat(dataModel: ReferenceDataModel, playbook: Playbook, platform: 
 }
 
 @Composable
-private fun portName(dataModel: ReferenceDataModel, playbook: Playbook, platform: Platform) {
+private fun portName(dataModel: ReferenceViewModel, playbook: Playbook, platform: Platform) {
     Button(
         onClick = { dataModel.setPage(PlaybookPage.PLAYBOOK) },
     ) {
@@ -289,7 +289,7 @@ private fun portName(dataModel: ReferenceDataModel, playbook: Playbook, platform
 }
 
 @Composable
-private fun npcLabel(dataModel: ReferenceDataModel, playbook: Playbook, platform: Platform) {
+private fun npcLabel(dataModel: ReferenceViewModel, playbook: Playbook, platform: Platform) {
     Button(
         onClick = { dataModel.setPage(PlaybookPage.PLAYBOOK) },
     ) {
@@ -332,7 +332,7 @@ private fun npcLabel(dataModel: ReferenceDataModel, playbook: Playbook, platform
 }
 
 @Composable
-private fun flavorText(dataModel: ReferenceDataModel, playbook: Playbook, platform: Platform) {
+private fun flavorText(dataModel: ReferenceViewModel, playbook: Playbook, platform: Platform) {
     Button(
         onClick = { dataModel.setPage(PlaybookPage.PLAYBOOK) },
     ) {

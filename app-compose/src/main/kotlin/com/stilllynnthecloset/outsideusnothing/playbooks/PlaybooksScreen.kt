@@ -10,7 +10,7 @@ import androidx.compose.ui.unit.sp
 import com.stilllynnthecloset.outsideusnothing.library.model.Playbook
 import com.stilllynnthecloset.outsideusnothing.MainDataModel
 import com.stilllynnthecloset.outsideusnothing.Platform
-import com.stilllynnthecloset.outsideusnothing.WindowDataModel
+import com.stilllynnthecloset.outsideusnothing.WindowViewModel
 import com.stilllynnthecloset.outsideusnothing.compose
 import com.stilllynnthecloset.outsideusnothing.indentPadding
 import com.stilllynnthecloset.outsideusnothing.theme.ImageReference
@@ -25,7 +25,7 @@ import java.util.UUID
 @Composable
 internal fun PlaybooksScreen(
     mainDataModel: MainDataModel,
-    windowDataModel: WindowDataModel,
+    windowViewModel: WindowViewModel,
     dataModel: PlaybooksViewModel,
     platform: Platform,
 ) {
@@ -45,7 +45,7 @@ internal fun PlaybooksScreen(
                         uuid = UUID.randomUUID().toString(),
                     )
                     mainDataModel.addPlaybook(playbook)
-                    windowDataModel.openEditPlaybook(playbook.uuid)
+                    windowViewModel.openEditPlaybook(playbook.uuid)
                 },
                 contentDescription = "Add",
                 imageReference = ImageReference.Add,
@@ -68,7 +68,7 @@ internal fun PlaybooksScreen(
 
                 imageButton(
                     onClick = {
-                        windowDataModel.openEditPlaybook(playbook.uuid)
+                        windowViewModel.openEditPlaybook(playbook.uuid)
                     },
                     contentDescription = "Edit",
                     imageReference = ImageReference.Edit,

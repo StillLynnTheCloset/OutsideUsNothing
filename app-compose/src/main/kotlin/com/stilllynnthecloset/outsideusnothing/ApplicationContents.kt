@@ -19,22 +19,22 @@ import com.stilllynnthecloset.outsideusnothing.viewplayers.ViewPlayersScreen
 
 @Composable
 @ExperimentalComposeUiApi
-public fun applicationContents(windowSize: DpSize, dataModel: MainDataModel, windowDataModel: WindowDataModel, platform: Platform) {
+public fun applicationContents(windowSize: DpSize, dataModel: MainDataModel, windowViewModel: WindowViewModel, platform: Platform) {
     navigationContainer(
         windowSize = windowSize,
         currentTab = NavigationTabImpl.values()
-            .find { it.description == windowDataModel.currentScreen.description },
+            .find { it.description == windowViewModel.currentScreen.description },
         tabs = NavigationTabImpl.values().toList(),
-        isThereBackButton = windowDataModel.isThereBackstack(),
-        onNavigationClick = { windowDataModel.updateCurrentTab(it) },
-        onBackClick = { windowDataModel.popBackStack() },
+        isThereBackButton = windowViewModel.isThereBackstack(),
+        onNavigationClick = { windowViewModel.updateCurrentTab(it) },
+        onBackClick = { windowViewModel.popBackStack() },
         platform = platform,
     ) { bottomPadding ->
         Column(
             modifier = Modifier
                 .padding(bottom = bottomPadding),
         ) {
-            when (val currentScreen = windowDataModel.currentScreen) {
+            when (val currentScreen = windowViewModel.currentScreen) {
                 is NavigationDestination.DiceRoller -> DiceRollerScreen(
                     dataModel = currentScreen.dataModel,
                     platform = platform,
@@ -62,7 +62,7 @@ public fun applicationContents(windowSize: DpSize, dataModel: MainDataModel, win
 
                 is NavigationDestination.Playbooks -> PlaybooksScreen(
                     mainDataModel = dataModel,
-                    windowDataModel = windowDataModel,
+                    windowViewModel = windowViewModel,
                     dataModel = currentScreen.dataModel,
                     platform = platform,
                 )

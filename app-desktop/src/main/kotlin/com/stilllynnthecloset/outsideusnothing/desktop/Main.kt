@@ -20,7 +20,7 @@ import androidx.compose.ui.window.WindowPosition
 import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.application
 import com.stilllynnthecloset.outsideusnothing.MainDataModel
-import com.stilllynnthecloset.outsideusnothing.WindowDataModel
+import com.stilllynnthecloset.outsideusnothing.WindowViewModel
 import com.stilllynnthecloset.outsideusnothing.applicationContents
 import com.stilllynnthecloset.outsideusnothing.theme.LynnTheme
 import com.stilllynnthecloset.outsideusnothing.theme.appWindowTitleBar
@@ -31,7 +31,7 @@ import com.stilllynnthecloset.outsideusnothing.theme.appWindowTitleBar
 @ExperimentalMaterial3Api
 public fun main() {
     application {
-        val windowStates = remember { mutableMapOf<WindowDataModel, WindowState>() }
+        val windowStates = remember { mutableMapOf<WindowViewModel, WindowState>() }
         val platform = remember { PlatformDesktop() }
         val dataModel = remember { MainDataModel(platform) }
         dataModel.windows.forEach { window ->
@@ -69,7 +69,7 @@ public fun main() {
                             applicationContents(
                                 windowSize = windowState.size,
                                 dataModel = dataModel,
-                                windowDataModel = window,
+                                windowViewModel = window,
                                 platform = platform,
                             )
                         }

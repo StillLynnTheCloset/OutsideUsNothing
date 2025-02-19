@@ -24,7 +24,7 @@ import com.stilllynnthecloset.outsideusnothing.library.tools.weightedRandom
  *
  * Created by Lynn on 4/14/23
  */
-internal class GeneratorDataModel constructor(private val playbook: Playbook) {
+internal class GeneratorViewModel constructor(private val playbook: Playbook) {
     var generatedPort: PortOfCall? by mutableStateOf(null)
         private set
 

@@ -3,9 +3,7 @@ package com.stilllynnthecloset.outsideusnothing.createplayer
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.geometry.Offset
 import com.stilllynnthecloset.outsideusnothing.MainDataModel
-import com.stilllynnthecloset.outsideusnothing.WindowDataModel
 import com.stilllynnthecloset.outsideusnothing.library.model.AnsweredQuestion
 import com.stilllynnthecloset.outsideusnothing.library.model.Choice
 import com.stilllynnthecloset.outsideusnothing.library.model.ChoiceSpecification

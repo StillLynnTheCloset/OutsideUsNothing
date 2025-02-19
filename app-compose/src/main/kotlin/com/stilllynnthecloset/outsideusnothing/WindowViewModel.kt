@@ -6,10 +6,10 @@ import androidx.compose.runtime.setValue
 import com.stilllynnthecloset.outsideusnothing.createplayer.CreatePlayerViewModel
 import com.stilllynnthecloset.outsideusnothing.dice.DiceRollerDataModel
 import com.stilllynnthecloset.outsideusnothing.edit.EditViewModel
-import com.stilllynnthecloset.outsideusnothing.generator.GeneratorDataModel
-import com.stilllynnthecloset.outsideusnothing.map.MapDataModel
+import com.stilllynnthecloset.outsideusnothing.generator.GeneratorViewModel
+import com.stilllynnthecloset.outsideusnothing.map.MapViewModel
 import com.stilllynnthecloset.outsideusnothing.playbooks.PlaybooksViewModel
-import com.stilllynnthecloset.outsideusnothing.reference.ReferenceDataModel
+import com.stilllynnthecloset.outsideusnothing.reference.ReferenceViewModel
 import com.stilllynnthecloset.outsideusnothing.timeconverter.TimeConverterDataModel
 import com.stilllynnthecloset.outsideusnothing.viewplayers.ViewPlayersViewModel
 
@@ -18,7 +18,7 @@ import com.stilllynnthecloset.outsideusnothing.viewplayers.ViewPlayersViewModel
  *
  * Created by Lynn on 4/14/23
  */
-public class WindowDataModel internal constructor(
+public class WindowViewModel internal constructor(
     private val mainDataModel: MainDataModel,
     private val screen: NavigationDestination,
     private val platform: Platform,
@@ -28,12 +28,12 @@ public class WindowDataModel internal constructor(
         private set
 
     private val diceDM = DiceRollerDataModel()
-    private val generatorDM = GeneratorDataModel(mainDataModel.mergedPlaybook)
+    private val generatorDM = GeneratorViewModel(mainDataModel.mergedPlaybook)
     private val playerDM = CreatePlayerViewModel(mainDataModel)
     private val playersDM = ViewPlayersViewModel(mainDataModel)
-    private val mapDM = MapDataModel(mainDataModel.mergedPlaybook, platform)
+    private val mapDM = MapViewModel(mainDataModel.mergedPlaybook, platform)
     private val playbooksDM = PlaybooksViewModel(mainDataModel)
-    private val referenceDM = ReferenceDataModel(mainDataModel)
+    private val referenceDM = ReferenceViewModel(mainDataModel)
     private val timeDM = TimeConverterDataModel()
 
     internal fun popBackStack() {
