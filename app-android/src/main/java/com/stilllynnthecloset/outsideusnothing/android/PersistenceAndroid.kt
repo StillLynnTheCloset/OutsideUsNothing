@@ -81,9 +81,14 @@ public class PersistenceAndroid : Persistence {
     )
 
     private val demesne = PortNode(HexGridCoordinate(0,0), portOfCall.copy(name = "Demesne"))
-    private val hell = PortNode(HexGridCoordinate(-1,0), portOfCall.copy(name = "Demesne"))
-    private val emptySystem = PortNode(HexGridCoordinate(1,0), portOfCall.copy(name = "Demesne"))
-    private val well073 = PortNode(HexGridCoordinate(0,-1), portOfCall.copy(name = "Demesne"))
+    private val hell = PortNode(HexGridCoordinate(-1,-1), portOfCall.copy(name = "Hell"))
+    private val emptySystem = PortNode(HexGridCoordinate(1,-1), portOfCall.copy(name = "Empty System\nX-04351-A"))
+    private val well073 = PortNode(HexGridCoordinate(0,-1), portOfCall.copy(name = "Well 073"))
+    private val minefield43 = PortNode(HexGridCoordinate(-2,0), portOfCall.copy(name = "Minefield 43"))
+    private val researchSite = PortNode(HexGridCoordinate(-2,-1), portOfCall.copy(name = "Research Site\nA-Star"))
+    private val hotZone = PortNode(HexGridCoordinate(-3,-1), portOfCall.copy(name = "The Hot Zone"))
+    private val unknownA = PortNode(HexGridCoordinate(-3,-2), portOfCall.copy(name = "???"))
+    private val unknownB = PortNode(HexGridCoordinate(-3,0), portOfCall.copy(name = "???"))
 
     private val publicDemesne = HexGridMap(
         nodes = listOf(
@@ -91,6 +96,11 @@ public class PersistenceAndroid : Persistence {
             hell,
             emptySystem,
             well073,
+            minefield43,
+            researchSite,
+            hotZone,
+            unknownA,
+            unknownB,
         ),
         edges = listOf(
             HexGridEdge(demesne.coordinate, hell.coordinate, 1),
@@ -98,6 +108,18 @@ public class PersistenceAndroid : Persistence {
             HexGridEdge(demesne.coordinate, well073.coordinate, 2),
             HexGridEdge(well073.coordinate, emptySystem.coordinate, 1),
             HexGridEdge(well073.coordinate, hell.coordinate, 1),
+
+            HexGridEdge(well073.coordinate, researchSite.coordinate, 2),
+            HexGridEdge(hell.coordinate, researchSite.coordinate, 2),
+            HexGridEdge(hell.coordinate, minefield43.coordinate, 2),
+            HexGridEdge(demesne.coordinate, minefield43.coordinate, 3),
+            HexGridEdge(researchSite.coordinate, hotZone.coordinate, 4),
+            HexGridEdge(minefield43.coordinate, hotZone.coordinate, 6),
+
+            HexGridEdge(researchSite.coordinate, unknownA.coordinate, 4),
+            HexGridEdge(unknownA.coordinate, hotZone.coordinate, 6),
+            HexGridEdge(unknownB.coordinate, hotZone.coordinate, 6),
+            HexGridEdge(minefield43.coordinate, unknownB.coordinate, 2),
         ),
     )
 
