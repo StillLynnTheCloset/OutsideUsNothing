@@ -80,6 +80,8 @@ public class PersistenceAndroid : Persistence {
         )
     )
 
+    private val escape1 = PortNode(HexGridCoordinate(2,2), portOfCall.copy(name = "Escape 1"))
+    private val escape2 = PortNode(HexGridCoordinate(2,-3), portOfCall.copy(name = "Escape 2"))
     private val demesne = PortNode(HexGridCoordinate(0,0), portOfCall.copy(name = "Demesne"))
     private val hell = PortNode(HexGridCoordinate(-1,-1), portOfCall.copy(name = "Hell"))
     private val emptySystem = PortNode(HexGridCoordinate(1,-1), portOfCall.copy(name = "Empty System\nX-04351-A"))
@@ -92,6 +94,8 @@ public class PersistenceAndroid : Persistence {
 
     private val publicDemesne = HexGridMap(
         nodes = listOf(
+            escape1,
+            escape2,
             demesne,
             hell,
             emptySystem,
@@ -103,6 +107,8 @@ public class PersistenceAndroid : Persistence {
             unknownB,
         ),
         edges = listOf(
+            HexGridEdge(escape1.coordinate, demesne.coordinate, 7),
+            HexGridEdge(escape2.coordinate, well073.coordinate, 7),
             HexGridEdge(demesne.coordinate, hell.coordinate, 1),
             HexGridEdge(demesne.coordinate, emptySystem.coordinate, 1),
             HexGridEdge(demesne.coordinate, well073.coordinate, 2),
