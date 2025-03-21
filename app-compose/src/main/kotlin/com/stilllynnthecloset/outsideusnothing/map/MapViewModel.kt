@@ -48,7 +48,8 @@ internal class MapViewModel constructor(
     var currentPathEventOdds: Double by mutableStateOf(0.0)
 
     init {
-        updateMap(platform.persistence.loadCurrentMap())
+        updateMap(currentMap)
+        platform.persistence.saveCurrentMap(currentMap)
     }
 
     fun clearMap() {
