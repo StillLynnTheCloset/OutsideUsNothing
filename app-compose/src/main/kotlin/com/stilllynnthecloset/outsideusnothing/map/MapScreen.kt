@@ -98,7 +98,7 @@ internal fun MapScreen(dataModel: MapViewModel, platform: Platform) {
                     Modifier
                         .fillMaxWidth(),
                 ) {
-                    Text("Selected Node: ${selectedNode.label}")
+                    Text("Selected Node: ${selectedNode.label.replace(Regex("\\s"), " ")}")
 
                     Spacer(
                         modifier = Modifier

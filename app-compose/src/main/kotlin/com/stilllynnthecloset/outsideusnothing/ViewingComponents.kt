@@ -73,7 +73,7 @@ internal fun PortOfCallSpecification.compose(platform: Platform, modifier: Modif
             .padding(vertical = betweenItemPadding),
     ) {
         Text(
-            text = name,
+            text = name.replace(Regex("\\s"), " "),
             fontSize = 32.sp,
         )
         Text(
@@ -107,7 +107,7 @@ internal fun PortOfCall.compose(platform: Platform, modifier: Modifier = Modifie
             .padding(vertical = betweenItemPadding),
     ) {
         Text(
-            text = specification.name,
+            text = specification.name.replace(Regex("\\s"), " "),
             fontSize = 32.sp,
         )
         Text(

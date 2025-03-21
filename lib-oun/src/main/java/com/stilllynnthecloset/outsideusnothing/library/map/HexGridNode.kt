@@ -36,9 +36,3 @@ public data class PortNode constructor(
     @Transient
     override val label: String = portOfCall.name
 }
-
-
-
-
-
-

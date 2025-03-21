@@ -27,7 +27,7 @@ private val a = PlaceholderNode(HexGridCoordinate(-1, -2))
 private val b = PlaceholderNode(HexGridCoordinate(-2, -1))
 private val c = PlaceholderNode(HexGridCoordinate(-2, 0))
 
-private val sableMap = HexGridMap(
+private val firstCampaign = HexGridMap(
     nodes = listOf(
         hesperion,
         well409,
@@ -72,8 +72,8 @@ private val sableMap = HexGridMap(
     )
 )
 
-private val escape1 = PortNode(HexGridCoordinate(2,2), portOfCall.copy(name = "Escape 1"))
-private val escape2 = PortNode(HexGridCoordinate(2,-3), portOfCall.copy(name = "Escape 2"))
+private val escape1 = PortNode(HexGridCoordinate(2,2), portOfCall.copy(name = "Lys Don Reach"))
+private val escape2 = PortNode(HexGridCoordinate(2,-3), portOfCall.copy(name = "Angelic Kingdoms"))
 private val demesne = PortNode(HexGridCoordinate(0,0), portOfCall.copy(name = "Demesne"))
 private val hell = PortNode(HexGridCoordinate(-1,-1), portOfCall.copy(name = "Hell"))
 private val emptySystem = PortNode(HexGridCoordinate(1,-1), portOfCall.copy(name = "Empty System\nX-04351-A"))
@@ -82,9 +82,20 @@ private val minefield43 = PortNode(HexGridCoordinate(-2,0), portOfCall.copy(name
 private val researchSite = PortNode(HexGridCoordinate(-2,-1), portOfCall.copy(name = "Research Site\nA-Star"))
 private val hotZone = PortNode(HexGridCoordinate(-3,-1), portOfCall.copy(name = "The Hot Zone"))
 private val wellWorld = PortNode(HexGridCoordinate(-3,-2), portOfCall.copy(name = "Well World"))
-private val unknownB = PlaceholderNode(HexGridCoordinate(-3,0))
-private val unknownC = PlaceholderNode(HexGridCoordinate(-4,-2))
-private val unknownD = PlaceholderNode(HexGridCoordinate(-4,-1))
+private val unknownB = PortNode(HexGridCoordinate(-3,0), portOfCall.copy(name = "???"))
+private val unknownC = PortNode(HexGridCoordinate(-4,-2), portOfCall.copy(name = "???"))
+private val unknownD = PortNode(HexGridCoordinate(-4,-1), portOfCall.copy(name = "???"))
+private val unknownE = PortNode(HexGridCoordinate(-4,0), portOfCall.copy(name = "???"))
+private val unknownF = PortNode(HexGridCoordinate(-4,1), portOfCall.copy(name = "???"))
+private val unknownG = PortNode(HexGridCoordinate(-5,-2), portOfCall.copy(name = "???"))
+private val unknownH = PortNode(HexGridCoordinate(-5,-1), portOfCall.copy(name = "???"))
+private val unknownI = PortNode(HexGridCoordinate(-5,0), portOfCall.copy(name = "???"))
+private val unknownJ = PortNode(HexGridCoordinate(-6,-1), portOfCall.copy(name = "???"))
+private val unknownK = PortNode(HexGridCoordinate(-6,0), portOfCall.copy(name = "???"))
+private val unknownL = PortNode(HexGridCoordinate(-6,1), portOfCall.copy(name = "???"))
+private val unknownM = PortNode(HexGridCoordinate(-7,-1), portOfCall.copy(name = "???"))
+private val unknownN = PortNode(HexGridCoordinate(-7,1), portOfCall.copy(name = "Place with\na name"))
+private val unknownO = PortNode(HexGridCoordinate(-8,0), portOfCall.copy(name = "???"))
 
 private val publicDemesne = HexGridMap(
     nodes = listOf(
@@ -101,6 +112,17 @@ private val publicDemesne = HexGridMap(
         unknownB,
         unknownC,
         unknownD,
+        unknownE,
+        unknownF,
+        unknownG,
+        unknownH,
+        unknownI,
+        unknownJ,
+        unknownK,
+        unknownL,
+        unknownM,
+        unknownN,
+        unknownO,
     ),
     edges = listOf(
         HexGridEdge(escape1.coordinate, demesne.coordinate, 7),
@@ -124,7 +146,31 @@ private val publicDemesne = HexGridMap(
         HexGridEdge(minefield43.coordinate, unknownB.coordinate, 2),
 
         HexGridEdge(wellWorld.coordinate, unknownC.coordinate, 2),
+        HexGridEdge(unknownC.coordinate, unknownD.coordinate, 1),
         HexGridEdge(wellWorld.coordinate, unknownD.coordinate, 2),
+        HexGridEdge(unknownD.coordinate, hotZone.coordinate, 5),
+        HexGridEdge(hotZone.coordinate, unknownE.coordinate, 4),
+        HexGridEdge(unknownE.coordinate, unknownF.coordinate, 1),
+        HexGridEdge(unknownB.coordinate, unknownF.coordinate, 2),
+
+        HexGridEdge(unknownC.coordinate, unknownG.coordinate, 3),
+        HexGridEdge(unknownG.coordinate, unknownH.coordinate, 1),
+        HexGridEdge(unknownD.coordinate, unknownH.coordinate, 2),
+        HexGridEdge(unknownE.coordinate, unknownI.coordinate, 4),
+        HexGridEdge(unknownF.coordinate, unknownI.coordinate, 4),
+
+        HexGridEdge(unknownG.coordinate, unknownJ.coordinate, 2),
+        HexGridEdge(unknownH.coordinate, unknownJ.coordinate, 3),
+        HexGridEdge(unknownJ.coordinate, unknownK.coordinate, 3),
+        HexGridEdge(unknownH.coordinate, unknownK.coordinate, 4),
+        HexGridEdge(unknownI.coordinate, unknownK.coordinate, 2),
+        HexGridEdge(unknownI.coordinate, unknownL.coordinate, 2),
+
+        HexGridEdge(unknownJ.coordinate, unknownM.coordinate, 6),
+        HexGridEdge(unknownK.coordinate, unknownM.coordinate, 5),
+        HexGridEdge(unknownL.coordinate, unknownN.coordinate, 6),
+
+        HexGridEdge(unknownM.coordinate, unknownO.coordinate, 6),
     ),
 )
 
