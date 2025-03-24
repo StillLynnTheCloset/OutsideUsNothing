@@ -1,9 +1,9 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm")
-    kotlin("plugin.serialization")
-    id("kotlin-kapt")
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.kotlin.kapt)
 }
 
 group = "com.stilllynnthecloset.outsideusnothing"
@@ -16,9 +16,9 @@ kotlin {
 val ktlint by configurations.creating
 
 dependencies {
-    implementation(kotlin("stdlib"))
-    implementation(KotlinX.coroutines.core)
-    implementation(KotlinX.serialization.json)
+    implementation(libs.kotlin.stdlib)
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.serialization.json)
 
     ktlint(libs.ktlint)
 }

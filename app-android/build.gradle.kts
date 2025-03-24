@@ -1,9 +1,7 @@
-import org.jetbrains.compose.desktop.application.dsl.TargetFormat.*
-
 plugins {
-    kotlin("android")
-    id("com.android.application")
-    id("org.jetbrains.compose")
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.jetbrains.compose)
 }
 
 android {
@@ -40,7 +38,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.4"
+        kotlinCompilerExtensionVersion = libs.versions.androidx.compose.compiler.get()
     }
     packagingOptions {
         resources {
@@ -60,13 +58,13 @@ dependencies {
     implementation(project(":lib-oun"))
     implementation(project(":lib-hexgrid-compose"))
 
-    implementation(AndroidX.core.ktx)
-    implementation(AndroidX.lifecycle.runtime.ktx)
-    implementation(AndroidX.activity.compose)
-    implementation(compose.ui)
-    implementation(compose.uiTooling)
-    implementation(compose.preview)
-    implementation(AndroidX.compose.material3)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.jetbrains.compose.ui)
+    implementation(libs.jetbrains.compose.uiTooling)
+    implementation(libs.jetbrains.compose.uiToolingPreview)
+    implementation(libs.jetbrains.compose.material3)
 
     ktlint(libs.ktlint)
 }

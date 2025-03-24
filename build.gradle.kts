@@ -1,17 +1,16 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") apply false
-    kotlin("kapt") apply false
-    kotlin("multiplatform") apply false
-    kotlin("android") apply false
-    id("org.jetbrains.compose") apply false
-    application
+    alias(libs.plugins.kotlin.jvm) apply false
+    alias(libs.plugins.kotlin.kapt) apply false
+    alias(libs.plugins.kotlin.multiplatform) apply false
+    alias(libs.plugins.kotlin.android) apply false
+    alias(libs.plugins.kotlin.serialization) apply false
 
-    id("com.android.application") apply false
-    id("com.android.library") apply false
+    alias(libs.plugins.android.application) apply false
+    alias(libs.plugins.android.library) apply false
 
-    id("com.squareup.sqldelight") apply false
+    alias(libs.plugins.sqldelight) apply false
 }
 
 group = "com.stilllynnthecloset.outsideusnothing"
@@ -27,7 +26,7 @@ buildscript {
     dependencies {
         classpath(libs.kotlin.gradle.plugin)
         classpath(libs.kotlin.serialization)
-        classpath(libs.gradle.plugin)
+        classpath(libs.android.build.tools)
     }
 }
 

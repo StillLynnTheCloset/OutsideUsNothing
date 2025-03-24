@@ -4,8 +4,8 @@ import java.util.Properties
 
 plugins {
     id("java-library")
-    kotlin("jvm")
-    id("com.squareup.sqldelight")
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.sqldelight)
 }
 
 val versionPropertiesFile = System.getenv("APP_VERSION_PROPERTIES")?.let { FileInputStream(it) } ?: FileInputStream(rootProject.file("app-desktop/app-version.properties"))
@@ -54,7 +54,8 @@ sqldelight {
 }
 
 dependencies {
-    implementation(libs.sqlite.driver)
     implementation(project(":lib-oun"))
     implementation(project(":lib-hexgrid-compose"))
+
+    implementation(libs.sqlite.driver)
 }

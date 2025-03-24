@@ -1,13 +1,12 @@
-import org.jetbrains.compose.desktop.application.dsl.TargetFormat.*
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.io.FileInputStream
 import java.util.Properties
 
 plugins {
-    kotlin("jvm")
-    kotlin("plugin.serialization")
-    id("org.jetbrains.compose")
-    id("kotlin-kapt")
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.jetbrains.compose)
+    alias(libs.plugins.kotlin.kapt)
 }
 
 val versionPropertiesFile = System.getenv("APP_VERSION_PROPERTIES")?.let { FileInputStream(it) } ?: FileInputStream(rootProject.file("app-compose/app-version.properties"))
@@ -25,20 +24,20 @@ version = "$major.$minor.$patch-$build"
 val ktlint by configurations.creating
 
 dependencies {
-    implementation(kotlin("stdlib"))
-
     implementation(project(":lib-oun"))
     implementation(project(":lib-hexgrid-compose"))
 
-    implementation(AndroidX.annotation)
-    implementation(KotlinX.serialization.json)
+    implementation(libs.kotlin.stdlib)
 
-    implementation(compose.runtime)
-    implementation(compose.uiTooling)
-    implementation(compose.preview)
-    implementation(compose.ui)
+    implementation(libs.androidx.annotation)
+    implementation(libs.kotlinx.serialization.json)
+
+    implementation(libs.jetbrains.compose.runtime)
+    implementation(libs.jetbrains.compose.ui)
+    implementation(libs.jetbrains.compose.uiTooling)
+    implementation(libs.jetbrains.compose.uiToolingPreview)
     @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
-    implementation(compose.material3)
+    implementation(libs.jetbrains.compose.material3)
 
     ktlint(libs.ktlint)
 }

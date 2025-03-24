@@ -4,9 +4,9 @@ import java.io.FileInputStream
 import java.util.Properties
 
 plugins {
-    kotlin("jvm")
-    id("org.jetbrains.compose")
-    id("kotlin-kapt")
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.jetbrains.compose)
+    alias(libs.plugins.kotlin.kapt)
 }
 val versionPropertiesFile = System.getenv("APP_VERSION_PROPERTIES")?.let { FileInputStream(it) } ?: FileInputStream(rootProject.file("app-desktop/app-version.properties"))
 val versionProperties = Properties()
@@ -23,22 +23,22 @@ version = "$major.$minor.$patch-$build"
 val ktlint by configurations.creating
 
 dependencies {
-    implementation(kotlin("stdlib"))
-
     implementation(project(":app-compose"))
     implementation(project(":lib-oun"))
     implementation(project(":lib-hexgrid-compose"))
 
-    implementation(KotlinX.coroutines.swing)
-    implementation(KotlinX.serialization.json)
+    implementation(libs.kotlin.stdlib)
 
-    implementation(AndroidX.annotation)
+    implementation(libs.kotlinx.coroutines.swing)
+    implementation(libs.kotlinx.serialization.json)
+
+    implementation(libs.androidx.annotation)
 
     implementation(compose.desktop.currentOs)
-    implementation(compose.uiTooling)
-    implementation(compose.preview)
+    implementation(libs.jetbrains.compose.uiTooling)
+    implementation(libs.jetbrains.compose.uiToolingPreview)
     @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
-    implementation(compose.material3)
+    implementation(libs.jetbrains.compose.material3)
 
     implementation(libs.okio)
 
