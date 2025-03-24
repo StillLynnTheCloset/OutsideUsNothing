@@ -94,7 +94,7 @@ private val unknownJ = PortNode(HexGridCoordinate(-6,-1), portOfCall.copy(name =
 private val unknownK = PortNode(HexGridCoordinate(-6,0), portOfCall.copy(name = "???"))
 private val unknownL = PortNode(HexGridCoordinate(-6,1), portOfCall.copy(name = "???"))
 private val unknownM = PortNode(HexGridCoordinate(-7,-1), portOfCall.copy(name = "???"))
-private val unknownN = PortNode(HexGridCoordinate(-7,1), portOfCall.copy(name = "Place with\na name"))
+private val unknownN = PortNode(HexGridCoordinate(-7,1), portOfCall.copy(name = "The Hollowing\nof Ways"))
 private val unknownO = PortNode(HexGridCoordinate(-8,0), portOfCall.copy(name = "???"))
 
 private val publicDemesne = HexGridMap(
