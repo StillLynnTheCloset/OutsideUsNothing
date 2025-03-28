@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.compose)
+    alias(libs.plugins.kotlin.compose.compiler)
 }
 
 android {
@@ -40,7 +41,7 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.androidx.compose.compiler.get()
     }
-    packagingOptions {
+    packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
@@ -69,7 +70,7 @@ dependencies {
     ktlint(libs.ktlint)
 }
 
-val outputDir = "${project.buildDir}/reports/ktlint/"
+val outputDir = "${project.layout.buildDirectory}/reports/ktlint/"
 val inputFiles = project.fileTree(mapOf("dir" to "src", "include" to "**/*.kt"))
 
 val ktlintCheck by tasks.creating(JavaExec::class) {

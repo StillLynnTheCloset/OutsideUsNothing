@@ -1,3 +1,4 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.io.FileInputStream
 import java.util.Properties
@@ -6,6 +7,7 @@ plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.jetbrains.compose)
+    alias(libs.plugins.kotlin.compose.compiler)
     alias(libs.plugins.kotlin.kapt)
 }
 
@@ -42,7 +44,9 @@ dependencies {
 }
 
 tasks.withType<KotlinCompile>().all {
-    kotlinOptions.jvmTarget = "17"
+    compilerOptions {
+        jvmTarget.set(JvmTarget.JVM_17)
+    }
 }
 tasks.withType<JavaCompile>().all {
     targetCompatibility = "17"
@@ -53,7 +57,7 @@ kotlin {
     explicitApi()
 }
 
-val outputDir = "${project.buildDir}/reports/ktlint/"
+val outputDir = "${project.layout.buildDirectory}/reports/ktlint/"
 val inputFiles = project.fileTree(mapOf("dir" to "src", "include" to "**/*.kt"))
 
 val ktlintCheck by tasks.creating(JavaExec::class) {

@@ -1,4 +1,5 @@
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat.*
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.io.FileInputStream
 import java.util.Properties
@@ -6,6 +7,7 @@ import java.util.Properties
 plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.jetbrains.compose)
+    alias(libs.plugins.kotlin.compose.compiler)
     alias(libs.plugins.kotlin.kapt)
 }
 val versionPropertiesFile = System.getenv("APP_VERSION_PROPERTIES")?.let { FileInputStream(it) } ?: FileInputStream(rootProject.file("app-desktop/app-version.properties"))
@@ -46,7 +48,9 @@ dependencies {
 }
 
 tasks.withType<KotlinCompile>().all {
-    kotlinOptions.jvmTarget = "17"
+    compilerOptions {
+        jvmTarget.set(JvmTarget.JVM_17)
+    }
 }
 tasks.withType<JavaCompile>().all {
     targetCompatibility = "17"
@@ -65,7 +69,7 @@ compose.desktop {
 
         nativeDistributions {
             targetFormats(Dmg, Msi, Deb, Rpm, Exe)
-            outputBaseDir.set(project.buildDir.resolve("packages"))
+            outputBaseDir.set(project.layout.buildDirectory.dir("packages"))
             packageName = "Outside us Nothing"
             packageVersion = "$major.$minor.$patch"
             description = "Outside us Nothing"
@@ -108,7 +112,7 @@ compose.desktop {
     }
 }
 
-val outputDir = "${project.buildDir}/reports/ktlint/"
+val outputDir = "${project.layout.buildDirectory}/reports/ktlint/"
 val inputFiles = project.fileTree(mapOf("dir" to "src", "include" to "**/*.kt"))
 
 val ktlintCheck by tasks.creating(JavaExec::class) {
@@ -122,7 +126,7 @@ val ktlintCheck by tasks.creating(JavaExec::class) {
 }
 
 val installDebian by tasks.creating(Exec::class) {
-    workingDir("${buildDir}/")
+    workingDir("${project.layout.buildDirectory}/")
     commandLine(listOf("sudo", "dpkg", "-i", "packages/main/deb/outside-us-nothing_$major.$minor.$patch-${build}_amd64.deb"))
     dependsOn("packageDeb")
 }
