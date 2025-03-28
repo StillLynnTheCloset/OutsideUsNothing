@@ -124,7 +124,6 @@ public fun appWindowTitleBar(
 private val inputHeight = 64.dp
 
 @Composable
-@OptIn(ExperimentalMaterial3Api::class)
 internal fun textInputWidget(
     value: String,
     label: String,
@@ -150,17 +149,20 @@ internal fun textInputWidget(
                 MaterialTheme.shapes.small,
             ),
         shape = MaterialTheme.shapes.small,
-        colors = TextFieldDefaults.textFieldColors(
-            containerColor = Color.Transparent,
+        colors = TextFieldDefaults.colors(
+            focusedContainerColor = Color.Transparent,
+            unfocusedContainerColor = Color.Transparent,
+            disabledContainerColor = Color.Transparent,
+            errorContainerColor = Color.Transparent,
             focusedIndicatorColor = Color.Transparent,
             unfocusedIndicatorColor = Color.Transparent,
             disabledIndicatorColor = Color.Transparent,
+            errorIndicatorColor = Color.Transparent,
         ),
     )
 }
 
 @Composable
-@OptIn(ExperimentalMaterial3Api::class)
 internal fun longInputWidget(
     value: Long?,
     label: String,
@@ -186,17 +188,20 @@ internal fun longInputWidget(
                 MaterialTheme.shapes.small,
             ),
         shape = MaterialTheme.shapes.small,
-        colors = TextFieldDefaults.textFieldColors(
-            containerColor = Color.Transparent,
+        colors = TextFieldDefaults.colors(
+            focusedContainerColor = Color.Transparent,
+            unfocusedContainerColor = Color.Transparent,
+            disabledContainerColor = Color.Transparent,
+            errorContainerColor = Color.Transparent,
             focusedIndicatorColor = Color.Transparent,
             unfocusedIndicatorColor = Color.Transparent,
             disabledIndicatorColor = Color.Transparent,
+            errorIndicatorColor = Color.Transparent,
         ),
     )
 }
 
 @Composable
-@OptIn(ExperimentalMaterial3Api::class)
 internal fun doubleInputWidget(
     value: Double?,
     label: String,
@@ -222,11 +227,15 @@ internal fun doubleInputWidget(
                 MaterialTheme.shapes.small,
             ),
         shape = MaterialTheme.shapes.small,
-        colors = TextFieldDefaults.textFieldColors(
-            containerColor = Color.Transparent,
+        colors = TextFieldDefaults.colors(
+            focusedContainerColor = Color.Transparent,
+            unfocusedContainerColor = Color.Transparent,
+            disabledContainerColor = Color.Transparent,
+            errorContainerColor = Color.Transparent,
             focusedIndicatorColor = Color.Transparent,
             unfocusedIndicatorColor = Color.Transparent,
             disabledIndicatorColor = Color.Transparent,
+            errorIndicatorColor = Color.Transparent,
         ),
     )
 }
