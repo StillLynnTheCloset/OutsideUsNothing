@@ -1,32 +1,33 @@
+rootProject.name = "OutsideUsNothing"
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
 pluginManagement {
     repositories {
-        google()
+        google {
+            mavenContent {
+                includeGroupAndSubgroups("androidx")
+                includeGroupAndSubgroups("com.android")
+                includeGroupAndSubgroups("com.google")
+            }
+        }
         mavenCentral()
         gradlePluginPortal()
-        maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
-    }
-}
-plugins {
-    id("de.fayard.refreshVersions") version "0.60.5"
-}
-
-refreshVersions {
-    rejectVersionIf {
-        candidate.stabilityLevel.isLessStableThan(current.stabilityLevel)
     }
 }
 
 dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
-        google()
+        google {
+            mavenContent {
+                includeGroupAndSubgroups("androidx")
+                includeGroupAndSubgroups("com.android")
+                includeGroupAndSubgroups("com.google")
+            }
+        }
         mavenCentral()
     }
 }
-rootProject.name = "OutsideUsNothing"
-include(":lib-oun")
-include(":lib-hexgrid-compose")
-include(":app-compose")
-include(":app-android")
-include(":app-desktop")
-include(":lib-database")
+
+include(":appCompose")
+include(":libOun")
+include(":libHexgridCompose")
