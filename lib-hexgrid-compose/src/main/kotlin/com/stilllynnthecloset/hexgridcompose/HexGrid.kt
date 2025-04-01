@@ -23,8 +23,8 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.drawText
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.text.style.TextAlign
-import com.stilllynnthecloset.outsideusnothing.library.map.HexGridEdge
 import com.stilllynnthecloset.outsideusnothing.library.map.HexGridCoordinate
+import com.stilllynnthecloset.outsideusnothing.library.map.HexGridEdge
 import com.stilllynnthecloset.outsideusnothing.library.map.HexGridNode
 import com.stilllynnthecloset.outsideusnothing.library.map.PlaceholderNode
 import kotlin.math.cos
@@ -208,7 +208,6 @@ private fun <T : HexGridNode> nodeScreenBounds(
     return nodes.map { it to hexagonOffsets(offsetOfNode(offset, it.coordinate, nodeSize, nodeSpacing), nodeSize) }
 }
 
-@OptIn(ExperimentalTextApi::class)
 private fun <T : HexGridNode> DrawScope.drawHexagon(
     node: T,
     offset: Offset,

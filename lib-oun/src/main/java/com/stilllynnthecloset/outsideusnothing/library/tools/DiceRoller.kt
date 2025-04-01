@@ -4,6 +4,8 @@ import com.stilllynnthecloset.outsideusnothing.library.model.ContractQuality
 import java.math.BigDecimal
 import java.math.BigInteger
 import kotlin.math.pow
+import kotlin.math.roundToInt
+import kotlin.math.roundToLong
 import kotlin.random.Random
 import kotlin.time.Duration.Companion.milliseconds
 
@@ -55,7 +57,7 @@ public fun findMinRollsForStandardProbabilities(actionCost: Int, probabilitiesTo
         print("Difficulty: $actionDifficulty   ")
         probabilitiesToFind.map { desiredOdds ->
             val neededDice = findMinDiceToRollToGetOdds(desiredOdds, actionCost, actionDifficulty, diceSides)
-            print(" ${(desiredOdds * 100).toInt()}%: ${String.format("%3d", neededDice)}, ")
+            print(" ${(desiredOdds * 100).toInt()}%: ${neededDice.toString().padStart(3)}, ")
         }
         println()
     }
@@ -323,17 +325,17 @@ public fun printMinDiceRollsStuff() {
 }
 
 public fun printContractQualityStuff() {
-    ContractQuality.values().forEach {
+    ContractQuality.entries.forEach {
         println(it.humanReadable)
         println("    Fuel range: ${getMinimumRollSum(it.fuelDice)} - ${getMaximumRollSum(it.fuelDice)}")
-        println("    ${(getMinimumRollSum(it.fuelDice)..getMaximumRollSum(it.fuelDice)).joinToString { String.format("%9d", it) }}")
-        println("    ${oddsOfRewards(it.fuelDice).dropWhile { it == 0.0 }.joinToString { String.format("%8.5f%%", it * 100) }}")
+        println("    ${(getMinimumRollSum(it.fuelDice)..getMaximumRollSum(it.fuelDice)).joinToString { it.toString().padStart(9) }}")
+        println("    ${oddsOfRewards(it.fuelDice).dropWhile { it == 0.0 }.joinToString { "${(it * 100).toString(5)}%".padStart(9) }}")
         println()
         println("    Supplies range: ${getMinimumRollSum(it.suppliesDice)} - ${getMaximumRollSum(it.suppliesDice)}")
-        println("    ${(getMinimumRollSum(it.suppliesDice)..getMaximumRollSum(it.suppliesDice)).joinToString { String.format("%9d", it) }}")
-        println("    ${oddsOfRewards(it.suppliesDice).dropWhile { it == 0.0 }.joinToString { String.format("%8.5f%%", it * 100) }}")
+        println("    ${(getMinimumRollSum(it.suppliesDice)..getMaximumRollSum(it.suppliesDice)).joinToString { it.toString().padStart(9) }}")
+        println("    ${oddsOfRewards(it.suppliesDice).dropWhile { it == 0.0 }.joinToString { "${(it * 100).toString(5)}%".padStart(9) }}")
         println()
-        println("    Item chance: ${String.format("%02.1f", calculateDiceOdds(2, it.itemDifficultly, 2) * 100)}%")
+        println("    Item chance: ${(calculateDiceOdds(2, it.itemDifficultly, 2) * 100).toString(5)}%")
         println()
     }
 }
@@ -371,3 +373,29 @@ public fun printTimeStuff() {
 }
 
 // endregion Outside Us Nothing Probability Tools
+
+/**
+ * Return the float receiver as a string display with numOfDec after the decimal (rounded)
+ * (e.g. 35.72 with numOfDec = 1 will be 35.7, 35.78 with numOfDec = 2 will be 35.80)
+ *
+ * @param numOfDec number of decimal places to show (receiver is rounded to that number)
+ * @return the String representation of the receiver up to numOfDec decimal places
+ */
+public fun Float.toString(numOfDec: Int): String {
+    val integerDigits = this.toInt()
+    val floatDigits = ((this - integerDigits) * 10f.pow(numOfDec)).roundToInt()
+    return "${integerDigits}.${floatDigits}"
+}
+
+/**
+ * Return the float receiver as a string display with numOfDec after the decimal (rounded)
+ * (e.g. 35.72 with numOfDec = 1 will be 35.7, 35.78 with numOfDec = 2 will be 35.80)
+ *
+ * @param numOfDec number of decimal places to show (receiver is rounded to that number)
+ * @return the String representation of the receiver up to numOfDec decimal places
+ */
+public fun Double.toString(numOfDec: Int): String {
+    val integerDigits = this.toLong()
+    val floatDigits = ((this - integerDigits) * 10f.pow(numOfDec)).roundToLong()
+    return "${integerDigits}.${floatDigits}"
+}
