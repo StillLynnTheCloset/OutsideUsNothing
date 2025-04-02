@@ -79,9 +79,11 @@ public fun <T : HexGridNode> hexGrid(
 
     Canvas(
         modifier = modifier
+            // web scroll changes by 138 per step
+            // desktop scroll changes by 1 per step
             .onPointerEvent(PointerEventType.Scroll) {
-                val scrollChange = it.changes.firstOrNull()?.scrollDelta?.y ?: 0f
-                val newScale = (scale + scrollChange / 10f).coerceAtLeast(0.1f).coerceAtMost(5f)
+                val scrollChange = it.changes.firstOrNull()?.scrollDelta?.y?.coerceIn(-1f..1f) ?: 0f
+                val newScale = (scale + scrollChange / 10f).coerceIn(0.1f..5f)
                 onScaleChanged(newScale)
             }
             .onPointerEvent(PointerEventType.Move) {

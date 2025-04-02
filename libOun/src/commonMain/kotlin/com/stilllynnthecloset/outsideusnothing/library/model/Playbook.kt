@@ -35,7 +35,7 @@ public data class Playbook constructor(
     val roles: WeightedSet<PlaySheetSpecification> = emptyWeightedSet(),
     val bastards: WeightedSet<Bastard> = emptyWeightedSet(),
     val events: WeightedSet<EventSpecification> = emptyWeightedSet(),
-    val flavorTexts: WeightedSet<com.stilllynnthecloset.outsideusnothing.library.model.FlavorText> = emptyWeightedSet(),
+    val flavorTexts: WeightedSet<FlavorText> = emptyWeightedSet(),
     val ports: WeightedSet<PortOfCallSpecification> = emptyWeightedSet(),
     val threats: WeightedSet<Threat> = emptyWeightedSet(),
     val usefulItems: WeightedSet<UsefulItem> = emptyWeightedSet(),

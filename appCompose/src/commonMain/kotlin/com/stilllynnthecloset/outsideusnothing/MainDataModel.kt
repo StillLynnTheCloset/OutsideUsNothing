@@ -6,8 +6,12 @@ import androidx.compose.runtime.setValue
 import com.stilllynnthecloset.outsideusnothing.library.model.Playbook
 import com.stilllynnthecloset.outsideusnothing.dice.DiceRollerDataModel
 import com.stilllynnthecloset.outsideusnothing.library.model.Player
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 public class MainDataModel public constructor(private val platform: Platform) {
+    private val coroutineScope = CoroutineScope(Dispatchers.Default)
     public var isDarkTheme: Boolean by mutableStateOf(true)
         private set
 
@@ -20,14 +24,11 @@ public class MainDataModel public constructor(private val platform: Platform) {
         private set
 
     init {
-        updatePlaybooks(
-            // TODO: Replace with load from DB.
-            listOf(
-                Playbook.lynnsPlaybook,
-                Playbook.wolf,
-                Playbook.emptyPlaybook,
-            ),
-        )
+        coroutineScope.launch {
+            updatePlaybooks(
+                platform.persistence.getPlaybooks().toList()
+            )
+        }
     }
 
     public fun updateIsDarkTheme(isDarkTheme: Boolean) {
