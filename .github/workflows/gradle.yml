@@ -19,6 +19,8 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+      pages: write
+      id-token: write
 
     steps:
     - uses: actions/checkout@v4
@@ -43,11 +45,11 @@ jobs:
         mv appCompose/build/kotlin-webpack/wasmJs/productionExecutable/* appCompose/build/artifacts/
 
     - name: Upload static files as artifact
-      id: deployment
+      id: upload
       uses: actions/upload-pages-artifact@v3 # or specific "vX.X.X" version tag for this action
       with:
         path: appCompose/build/artifacts/
-        
+
     - name: Deploy to GitHub Pages
       id: deployment
       uses: actions/deploy-pages@v4 # or specific "vX.X.X" version tag for this action
