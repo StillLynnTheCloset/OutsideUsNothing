@@ -39,8 +39,8 @@ jobs:
     - shell: bash
       run: |
         mkdir appCompose/build/artifacts
-        mv appCompose/build/processedResources/wasmJs/* appcompose/build/artifacts/
-        mv appCompose/build/kotlin-webpack/wasmJs/productionExecutable/* appcompose/build/artifacts/
+        mv appCompose/build/processedResources/wasmJs/main/* appCompose/build/artifacts/
+        mv appCompose/build/kotlin-webpack/wasmJs/productionExecutable/* appCompose/build/artifacts/
 
     - name: Upload static files as artifact
       id: deployment
