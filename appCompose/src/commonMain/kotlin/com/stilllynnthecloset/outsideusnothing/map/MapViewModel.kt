@@ -7,6 +7,7 @@ import androidx.compose.ui.geometry.Offset
 import com.stilllynnthecloset.hexgridcompose.findEmptyNeighbors
 import com.stilllynnthecloset.hexgridcompose.findExistingConnections
 import com.stilllynnthecloset.hexgridcompose.findExistingNeighbors
+import com.stilllynnthecloset.outsideusnothing.MainDataModel
 import com.stilllynnthecloset.outsideusnothing.library.tools.getOddsOfEvents
 import com.stilllynnthecloset.outsideusnothing.library.model.Playbook
 import com.stilllynnthecloset.outsideusnothing.library.tools.pickN
@@ -30,11 +31,14 @@ import kotlinx.coroutines.launch
  * Created by Lynn on 4/14/23
  */
 internal class MapViewModel constructor(
-    val playbook: Playbook,
-    val platform: Platform,
+    private val mainDataModel: MainDataModel,
+    private val platform: Platform,
 ) {
     private val blankStarter = PlaceholderNode(HexGridCoordinate(0, 0))
     private val scope = CoroutineScope(Dispatchers.Main + SupervisorJob())
+
+    val playbook: Playbook
+        get() = mainDataModel.mergedPlaybook
 
     var nodeList: List<HexGridNode> by mutableStateOf(
         listOf(blankStarter),

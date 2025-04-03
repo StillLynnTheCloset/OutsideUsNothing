@@ -3,6 +3,7 @@ package com.stilllynnthecloset.outsideusnothing.generator
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import com.stilllynnthecloset.outsideusnothing.MainDataModel
 import com.stilllynnthecloset.outsideusnothing.library.model.Bastard
 import com.stilllynnthecloset.outsideusnothing.library.model.Contract
 import com.stilllynnthecloset.outsideusnothing.library.model.ContractDetail
@@ -24,7 +25,10 @@ import com.stilllynnthecloset.outsideusnothing.library.tools.weightedRandom
  *
  * Created by Lynn on 4/14/23
  */
-internal class GeneratorViewModel constructor(private val playbook: Playbook) {
+internal class GeneratorViewModel constructor(private val mainDataModel: MainDataModel) {
+    val playbook: Playbook
+        get() = mainDataModel.mergedPlaybook
+
     var generatedPort: PortOfCall? by mutableStateOf(null)
         private set
 

@@ -28,10 +28,10 @@ public class WindowViewModel internal constructor(
         private set
 
     private val diceDM = DiceRollerDataModel()
-    private val generatorDM = GeneratorViewModel(mainDataModel.mergedPlaybook)
+    private val generatorDM = GeneratorViewModel(mainDataModel)
     private val playerDM = CreatePlayerViewModel(mainDataModel)
     private val playersDM = ViewPlayersViewModel(mainDataModel)
-    private val mapDM = MapViewModel(mainDataModel.mergedPlaybook, platform)
+    private val mapDM = MapViewModel(mainDataModel, platform)
     private val playbooksDM = PlaybooksViewModel(mainDataModel)
     private val referenceDM = ReferenceViewModel(mainDataModel)
     private val timeDM = TimeConverterDataModel()
