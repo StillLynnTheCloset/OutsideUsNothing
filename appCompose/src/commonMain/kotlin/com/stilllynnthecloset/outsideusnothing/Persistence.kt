@@ -40,6 +40,10 @@ public class Persistence {
         TODO("Not yet implemented")
     }
 
+    public suspend fun getDefaultPlaybook(): Playbook {
+        return getPlaybook("playbook_vanillaOuN.json")
+    }
+
     public suspend fun getPlaybooks(): Collection<Playbook> {
         return listOf(
             getPlaybook("playbook_wolf.json"),

@@ -15,16 +15,19 @@ public class MainDataModel public constructor(private val platform: Platform) {
     public var isDarkTheme: Boolean by mutableStateOf(true)
         private set
 
-    internal var mergedPlaybook: Playbook by mutableStateOf(Playbook.defaultPlaybook)
+    internal var defaultPlaybook: Playbook? by mutableStateOf(null)
+
+    internal var mergedPlaybook: Playbook by mutableStateOf(Playbook.mergedPlaybook)
         private set
 
-    private var playbooks: List<Playbook> by mutableStateOf(emptyList())
+    private var dynamicPlaybooks: List<Playbook> by mutableStateOf(emptyList())
 
     public var windows: List<WindowViewModel> by mutableStateOf(listOf(WindowViewModel(this, NavigationDestination.DiceRoller(DiceRollerDataModel()), platform)))
         private set
 
     init {
         coroutineScope.launch {
+            defaultPlaybook = platform.persistence.getDefaultPlaybook()
             updatePlaybooks(
                 platform.persistence.getPlaybooks().toList()
             )
@@ -36,13 +39,13 @@ public class MainDataModel public constructor(private val platform: Platform) {
     }
 
     internal fun updatePlaybooks(playbooks: List<Playbook>) {
-        this.playbooks = playbooks
+        this.dynamicPlaybooks = playbooks
         this.mergedPlaybook = getPlaybooks().mapNotNull { if (it.active) it else null }.reduce { a, b -> a + b }
     }
 
     internal fun setPlaybookState(playbook: Playbook, active: Boolean) {
         updatePlaybooks(
-            playbooks.map {
+            dynamicPlaybooks.map {
                 if (it.uuid == playbook.uuid) {
                     it.copy(active = active)
                 } else {
@@ -54,7 +57,7 @@ public class MainDataModel public constructor(private val platform: Platform) {
 
     internal fun updatePlaybook(playbook: Playbook) {
         updatePlaybooks(
-            playbooks.map {
+            dynamicPlaybooks.map {
                 if (it.uuid == playbook.uuid) {
                     playbook
                 } else {
@@ -66,13 +69,13 @@ public class MainDataModel public constructor(private val platform: Platform) {
 
     internal fun addPlaybook(playbook: Playbook) {
         updatePlaybooks(
-            playbooks + playbook,
+            dynamicPlaybooks + playbook,
         )
     }
 
     internal fun removePlaybook(playbook: Playbook) {
         updatePlaybooks(
-            playbooks.mapNotNull {
+            dynamicPlaybooks.mapNotNull {
                 if (it.uuid == playbook.uuid) {
                     null
                 } else {
@@ -83,7 +86,7 @@ public class MainDataModel public constructor(private val platform: Platform) {
     }
 
     internal fun getPlaybooks(): Collection<Playbook> {
-        return listOf(Playbook.defaultPlaybook) + playbooks
+        return listOf(defaultPlaybook ?: Playbook.mergedPlaybook) + dynamicPlaybooks
     }
 
     public suspend fun getPlayers(): Collection<Player> {

@@ -91,7 +91,6 @@ internal class CreatePlayerViewModel constructor(private val mainDataModel: Main
     }
 
     private fun updateChoices(prevChoices: List<Choice>, choiceSpecification: ChoiceSpecification, question: Question, optionSelected: Option): List<Choice> {
-        println("Before: $prevChoices")
         val choice = prevChoices.firstOrNull { it.specification == choiceSpecification }
         val result = if (choice == null) {
             // No choice has been made here before, we can just add a new choice to the list.
@@ -134,7 +133,6 @@ internal class CreatePlayerViewModel constructor(private val mainDataModel: Main
                 }
             }
         }
-        println("After: $result")
         return result
     }
 
@@ -162,7 +160,6 @@ internal class CreatePlayerViewModel constructor(private val mainDataModel: Main
             )
         )
         player = newPlayer
-        println(newPlayer)
         println(newPlayer.toJson())
     }
 }

@@ -84,7 +84,7 @@ internal fun PlaybooksScreen(
                     onClick = {
                         dataModel.changePlaybookState(playbook, !playbook.active)
                     },
-                    enabled = playbook.uuid != Playbook.defaultPlaybook.uuid,
+                    enabled = playbook.uuid != Playbook.DEFAULT_PLAYBOOK_UUID,
                     contentDescription = "Active",
                     imageReference = if (playbook.active) ImageReference.RadioButtonChecked else ImageReference.RadioButtonUnchecked,
                     platform = platform,
@@ -103,7 +103,7 @@ internal fun PlaybooksScreen(
                     onClick = {
                         mainDataModel.removePlaybook(playbook)
                     },
-                    enabled = playbook.uuid != Playbook.defaultPlaybook.uuid,
+                    enabled = playbook.uuid != Playbook.DEFAULT_PLAYBOOK_UUID,
                     contentDescription = "Delete",
                     imageReference = ImageReference.Delete,
                     platform = platform,

@@ -47,33 +47,43 @@ public data class Playbook constructor(
     val contractDestinations: WeightedSet<ContractDestination> = emptyWeightedSet(),
 ) : UniversallyUnique, Latexible {
     public companion object {
-        private const val DEFAULT_PLAYBOOK_UUID: String = "playbook_bd656fa0-b460-4cf3-852a-d5c7730d0028"
+        public const val DEFAULT_PLAYBOOK_UUID: String = "playbook_bd656fa0-b460-4cf3-852a-d5c7730d0028"
         private const val MERGED_PLAYBOOKS_UUID: String = "playbook_5c63c40a-05c9-49ff-acfd-2a933c4b2c6f"
         private const val MERGED_PLAYBOOKS_NAME: String = "Merged Playbook"
         private const val MERGED_PLAYBOOKS_DESCRIPTION: String = "A playbook that is the merger of all active playbooks"
 
-        public val defaultPlaybook: Playbook = Playbook(
-            name = "Vanilla Outside Us Nothing",
-            description = "The default playbook of Outside Us Nothing",
-            authors = listOf(Author("Sable Sy")),
-            uuid = DEFAULT_PLAYBOOK_UUID,
+        // Used as a default while the vanilla book loads.
+        public val mergedPlaybook: Playbook = Playbook(
+            name = MERGED_PLAYBOOKS_NAME,
+            description = MERGED_PLAYBOOKS_DESCRIPTION,
+            authors = listOf(),
             active = true,
-            aliens = AlienPlaybook.aliens,
-            backgrounds = BackgroundPlaybook.backgrounds,
-            roles = RolePlaybook.roles,
-            bastards = BastardPlaybook.bastards,
-            events = EventPlaybook.events,
-            flavorTexts = FlavorTextPlaybook.flavorTexts,
-            ports = PortPlaybook.ports,
-            threats = ThreatPlaybook.threats,
-            usefulItems = UsefulItemPlaybook.items,
-            npcAdjectives = NamePlaybook.npcAdjectives,
-            npcNouns = NamePlaybook.npcNouns,
-            portAdjectives = NamePlaybook.portAdjectives,
-            portNouns = NamePlaybook.portNouns,
-            contractItems = ContractItemPlaybook.contractItems,
-            contractDestinations = ContractItemPlaybook.contractDestinations,
+            uuid = MERGED_PLAYBOOKS_UUID,
         )
+
+        // Commented so you can't use it, but still here for when I need to re-generate the contents
+        // public val defaultPlaybook: Playbook = Playbook(
+        //     name = "Vanilla Outside Us Nothing",
+        //     description = "The default playbook of Outside Us Nothing",
+        //     authors = listOf(Author("Sable Sy")),
+        //     uuid = DEFAULT_PLAYBOOK_UUID,
+        //     active = true,
+        //     aliens = AlienPlaybook.aliens,
+        //     backgrounds = BackgroundPlaybook.backgrounds,
+        //     roles = RolePlaybook.roles,
+        //     bastards = BastardPlaybook.bastards,
+        //     events = EventPlaybook.events,
+        //     flavorTexts = FlavorTextPlaybook.flavorTexts,
+        //     ports = PortPlaybook.ports,
+        //     threats = ThreatPlaybook.threats,
+        //     usefulItems = UsefulItemPlaybook.items,
+        //     npcAdjectives = NamePlaybook.npcAdjectives,
+        //     npcNouns = NamePlaybook.npcNouns,
+        //     portAdjectives = NamePlaybook.portAdjectives,
+        //     portNouns = NamePlaybook.portNouns,
+        //     contractItems = ContractItemPlaybook.contractItems,
+        //     contractDestinations = ContractItemPlaybook.contractDestinations,
+        // )
     }
 
     public operator fun plus(other: Playbook): Playbook {
