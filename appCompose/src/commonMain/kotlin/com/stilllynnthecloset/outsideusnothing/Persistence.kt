@@ -42,7 +42,6 @@ public class Persistence {
 
     public suspend fun getPlaybooks(): Collection<Playbook> {
         return listOf(
-            getPlaybook("playbook_vanillaOuN.json"),
             getPlaybook("playbook_wolf.json"),
             getPlaybook("playbook_lynnHomebrew.json"),
             getPlaybook("playbook_empty.json"),
