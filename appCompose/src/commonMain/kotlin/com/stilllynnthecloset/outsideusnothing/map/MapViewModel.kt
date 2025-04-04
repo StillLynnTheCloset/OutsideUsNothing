@@ -15,6 +15,7 @@ import com.stilllynnthecloset.outsideusnothing.library.map.HexGridMap
 import com.stilllynnthecloset.outsideusnothing.library.map.HexGridNode
 import com.stilllynnthecloset.outsideusnothing.library.map.PlaceholderNode
 import com.stilllynnthecloset.outsideusnothing.library.map.PortNode
+import com.stilllynnthecloset.outsideusnothing.library.map.publicDemesne
 import com.stilllynnthecloset.outsideusnothing.library.model.Playbook
 import com.stilllynnthecloset.outsideusnothing.library.tools.getOddsOfEvents
 import com.stilllynnthecloset.outsideusnothing.library.tools.pickN
@@ -57,8 +58,8 @@ internal class MapViewModel constructor(
 
     init {
         scope.launch {
-            updateMap(currentMap)
-            persistence.saveCurrentMap(currentMap)
+            updateMap(publicDemesne)
+            persistence.saveCurrentMap(publicDemesne)
         }
     }
 

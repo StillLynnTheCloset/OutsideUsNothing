@@ -1,10 +1,5 @@
-package com.stilllynnthecloset.outsideusnothing.map
+package com.stilllynnthecloset.outsideusnothing.library.map
 
-import com.stilllynnthecloset.outsideusnothing.library.map.HexGridCoordinate
-import com.stilllynnthecloset.outsideusnothing.library.map.HexGridEdge
-import com.stilllynnthecloset.outsideusnothing.library.map.HexGridMap
-import com.stilllynnthecloset.outsideusnothing.library.map.PlaceholderNode
-import com.stilllynnthecloset.outsideusnothing.library.map.PortNode
 import com.stilllynnthecloset.outsideusnothing.library.model.FlavorText
 import com.stilllynnthecloset.outsideusnothing.library.model.PortOfCall
 import com.stilllynnthecloset.outsideusnothing.library.model.PortOfCallSpecification
@@ -97,7 +92,7 @@ private val unknownM = PortNode(HexGridCoordinate(-7,-1), portOfCall.copy(name =
 private val unknownN = PortNode(HexGridCoordinate(-7,1), portOfCall.copy(name = "The Hollowing\nof Ways"))
 private val unknownO = PortNode(HexGridCoordinate(-8,0), portOfCall.copy(name = "???"))
 
-private val publicDemesne = HexGridMap(
+public val publicDemesne: HexGridMap = HexGridMap(
     nodes = listOf(
         escape1,
         escape2,
@@ -173,5 +168,3 @@ private val publicDemesne = HexGridMap(
         HexGridEdge(unknownM.coordinate, unknownO.coordinate, 6),
     ),
 )
-
-internal val currentMap: HexGridMap = publicDemesne
