@@ -16,7 +16,6 @@ import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.stilllynnthecloset.outsideusnothing.Platform
 import com.stilllynnthecloset.outsideusnothing.indentPadding
 import com.stilllynnthecloset.outsideusnothing.library.tools.toString
 import com.stilllynnthecloset.outsideusnothing.theme.doubleInputWidget
@@ -30,7 +29,7 @@ import kotlinx.coroutines.launch
  * Created by Lynn on 3/22/23
  */
 @Composable
-internal fun TimeConverterScreen(dataModel: TimeConverterDataModel, platform: Platform) {
+internal fun TimeConverterScreen(dataModel: TimeConverterDataModel) {
     Box(
         modifier = Modifier
             .fillMaxSize()

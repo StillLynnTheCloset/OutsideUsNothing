@@ -6,7 +6,6 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Surface
@@ -39,8 +38,8 @@ public class MainActivity : ComponentActivity() {
 @ExperimentalMaterial3Api
 @Composable
 public fun Content() {
-    val platform = remember { Platform() }
-    val dataModel = remember { MainDataModel(platform) }
+    val persistence = remember { Persistence() }
+    val dataModel = remember { MainDataModel(persistence) }
 
     LynnTheme(dataModel.isDarkTheme) {
         Surface(
@@ -55,7 +54,6 @@ public fun Content() {
                 appWindowTitleBar(
                     currentIsDarkTheme = dataModel.isDarkTheme,
                     onDarkThemeChanged = dataModel::updateIsDarkTheme,
-                    platform = platform,
                 )
                 HorizontalDivider(thickness = 1.dp)
 
@@ -63,7 +61,6 @@ public fun Content() {
                     windowSize = DpSize(screenWidth, screenHeight),
                     dataModel = dataModel,
                     windowViewModel = dataModel.windows.first(),
-                    platform = platform,
                 )
             }
         }

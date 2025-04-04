@@ -5,7 +5,6 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.window.WindowDraggableArea
-import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Surface
@@ -21,7 +20,7 @@ import androidx.compose.ui.window.WindowPosition
 import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.application
 import com.stilllynnthecloset.outsideusnothing.MainDataModel
-import com.stilllynnthecloset.outsideusnothing.Platform
+import com.stilllynnthecloset.outsideusnothing.Persistence
 import com.stilllynnthecloset.outsideusnothing.WindowViewModel
 import com.stilllynnthecloset.outsideusnothing.applicationContents
 import com.stilllynnthecloset.outsideusnothing.theme.LynnTheme
@@ -34,8 +33,8 @@ import com.stilllynnthecloset.outsideusnothing.theme.appWindowTitleBar
 public fun main() {
     application {
         val windowStates = remember { mutableMapOf<WindowViewModel, WindowState>() }
-        val platform = remember { Platform() }
-        val dataModel = remember { MainDataModel(platform) }
+        val persistence = remember { Persistence() }
+        val dataModel = remember { MainDataModel(persistence) }
         dataModel.windows.forEach { window ->
             val windowState = windowStates[window] ?: WindowState(
                 placement = WindowPlacement.Floating,
@@ -63,7 +62,6 @@ public fun main() {
                                     currentIsDarkTheme = dataModel.isDarkTheme,
                                     onDarkThemeChanged = dataModel::updateIsDarkTheme,
                                     onOpenWindow = dataModel::openWindow,
-                                    platform = platform,
                                 )
                             }
                             HorizontalDivider(thickness = 1.dp)
@@ -72,7 +70,6 @@ public fun main() {
                                 windowSize = windowState.size,
                                 dataModel = dataModel,
                                 windowViewModel = window,
-                                platform = platform,
                             )
                         }
                     }

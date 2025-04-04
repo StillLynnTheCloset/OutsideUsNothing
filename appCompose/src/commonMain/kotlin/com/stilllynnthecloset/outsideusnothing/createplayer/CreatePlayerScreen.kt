@@ -11,7 +11,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import com.stilllynnthecloset.outsideusnothing.Platform
 import com.stilllynnthecloset.outsideusnothing.compose
 import com.stilllynnthecloset.outsideusnothing.library.model.Choice
 import com.stilllynnthecloset.outsideusnothing.theme.dropDown
@@ -27,7 +26,7 @@ import kotlinx.coroutines.launch
  * Created by Lynn on 5/5/23
  */
 @Composable
-internal fun CreatePlayerScreen(dataModel: CreatePlayerViewModel, platform: Platform) {
+internal fun CreatePlayerScreen(dataModel: CreatePlayerViewModel) {
     val scrollState = rememberScrollState()
     val scope = rememberCoroutineScope { Dispatchers.Default }
     Column(
@@ -52,7 +51,6 @@ internal fun CreatePlayerScreen(dataModel: CreatePlayerViewModel, platform: Plat
             items = dataModel.currentPlaybook.aliens.map { it.value },
             selected = dataModel.selectedAlien,
             modifier = Modifier,
-            platform = platform,
             onItemClick = dataModel::onAlienChanged,
             composeItem = { item, childModifier ->
                 text(
@@ -92,7 +90,6 @@ internal fun CreatePlayerScreen(dataModel: CreatePlayerViewModel, platform: Plat
             items = dataModel.currentPlaybook.backgrounds.map { it.value },
             selected = dataModel.selectedBackground,
             modifier = Modifier,
-            platform = platform,
             onItemClick = dataModel::onBackgroundChanged,
             composeItem = { item, childModifier ->
                 text(
@@ -132,7 +129,6 @@ internal fun CreatePlayerScreen(dataModel: CreatePlayerViewModel, platform: Plat
             items = dataModel.currentPlaybook.roles.map { it.value },
             selected = dataModel.selectedRole,
             modifier = Modifier,
-            platform = platform,
             onItemClick = dataModel::onRoleChanged,
             composeItem = { item, childModifier ->
                 text(
@@ -169,6 +165,6 @@ internal fun CreatePlayerScreen(dataModel: CreatePlayerViewModel, platform: Plat
         }
 
 //        val theMurder = SerializerTools.serializer.decodeFromString<Player>(readFile("theMurder.json"))
-        dataModel.player.compose(platform)
+        dataModel.player.compose()
     }
 }

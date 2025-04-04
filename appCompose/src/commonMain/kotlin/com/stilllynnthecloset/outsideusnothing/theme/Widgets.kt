@@ -22,10 +22,8 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material3.Divider
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -48,7 +46,6 @@ import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Alignment.Companion.Start
 import androidx.compose.ui.Alignment.Companion.TopStart
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
@@ -62,9 +59,22 @@ import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.stilllynnthecloset.hexgridcompose.onPointerEvent
-import com.stilllynnthecloset.outsideusnothing.Platform
 import com.stilllynnthecloset.outsideusnothing.library.tools.DieRoll
 import com.stilllynnthecloset.outsideusnothing.library.tools.toString
+import org.jetbrains.compose.resources.DrawableResource
+import org.jetbrains.compose.resources.painterResource
+import outsideusnothing.appcompose.generated.resources.Res
+import outsideusnothing.appcompose.generated.resources.ic_add
+import outsideusnothing.appcompose.generated.resources.ic_chevron_left
+import outsideusnothing.appcompose.generated.resources.ic_chevron_right
+import outsideusnothing.appcompose.generated.resources.ic_dark_mode
+import outsideusnothing.appcompose.generated.resources.ic_light_mode
+import outsideusnothing.appcompose.generated.resources.ic_regularcircle
+import outsideusnothing.appcompose.generated.resources.ic_regulardiamond
+import outsideusnothing.appcompose.generated.resources.ic_regularpentagon
+import outsideusnothing.appcompose.generated.resources.ic_regularsquare
+import outsideusnothing.appcompose.generated.resources.ic_regulartriangle
+import outsideusnothing.appcompose.generated.resources.ic_remove
 
 internal val appBarHeight: Dp = 64.dp
 
@@ -74,7 +84,6 @@ public fun appWindowTitleBar(
     currentIsDarkTheme: Boolean,
     onDarkThemeChanged: (Boolean) -> Unit,
     onOpenWindow: (() -> Unit)? = null,
-    platform: Platform,
 ): Unit =
     Box(
         modifier = Modifier
@@ -99,7 +108,7 @@ public fun appWindowTitleBar(
 
             if (onOpenWindow != null) {
                 Image(
-                    painter = platform.imagePainter.getPainter(ImageReference.Add),
+                    painter = painterResource(Res.drawable.ic_add),
                     contentDescription = "Open New Window",
                     colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
                     modifier = Modifier
@@ -110,7 +119,7 @@ public fun appWindowTitleBar(
             }
 
             Image(
-                painter = platform.imagePainter.getPainter(if (currentIsDarkTheme) ImageReference.LightMode else ImageReference.DarkMode),
+                painter = painterResource(if (currentIsDarkTheme) Res.drawable.ic_light_mode else Res.drawable.ic_dark_mode),
                 contentDescription = "Toggle Dark Mode",
                 colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
                 modifier = Modifier
@@ -263,9 +272,8 @@ internal fun imageButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    imageReference: ImageReference,
+    imageReference: DrawableResource,
     contentDescription: String,
-    platform: Platform,
 ): Unit = OutlinedButton(
     onClick = onClick,
     modifier = modifier
@@ -274,7 +282,7 @@ internal fun imageButton(
     shape = MaterialTheme.shapes.small,
     content = {
         Image(
-            painter = platform.imagePainter.getPainter(imageReference),
+            painter = painterResource(imageReference),
             colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
             contentDescription = contentDescription,
             modifier = Modifier
@@ -288,14 +296,13 @@ internal fun imageButton(
 internal fun backButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    platform: Platform,
 ) {
     Box(
         modifier = modifier
             .clickable { onClick() },
     ) {
         Image(
-            painter = platform.imagePainter.getPainter(ImageReference.ChevronLeft),
+            painter = painterResource(Res.drawable.ic_chevron_left),
             colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
             contentDescription = "Back",
             modifier = Modifier
@@ -332,10 +339,9 @@ internal fun <T> resultsTable(
     columns: List<TableColumn<T>>,
     results: List<T>,
     lazyListState: LazyListState = rememberLazyListState(),
-    platform: Platform,
     onClick: (T) -> Unit,
 ) {
-    headerRow(columns.map { it.getTitle() }, platform)
+    headerRow(columns.map { it.getTitle() })
     if (results.isEmpty()) {
         Box(
             modifier = Modifier
@@ -354,14 +360,16 @@ internal fun <T> resultsTable(
         ) {
             items(results.size) {
                 val result = results[it]
-                resultRow(columns.map { column -> column.getValue(result) }, platform, onClick = { onClick(result) })
+                resultRow(
+                    columns.map { column -> column.getValue(result) },
+                    onClick = { onClick(result) })
             }
         }
     }
 }
 
 @Composable
-private fun headerRow(titles: List<String>, platform: Platform) {
+private fun headerRow(titles: List<String>) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -378,7 +386,7 @@ private fun headerRow(titles: List<String>, platform: Platform) {
 
         // Draw an invisible image to make sure the weights are the same as in the result rows.
         Image(
-            painter = platform.imagePainter.getPainter(ImageReference.ChevronRight),
+            painter = painterResource(Res.drawable.ic_chevron_right),
             contentDescription = "",
             modifier = Modifier.height(24.dp),
             alpha = 0.0f,
@@ -403,7 +411,7 @@ private fun RowScope.TableHeader(
 }
 
 @Composable
-private fun resultRow(cells: List<String>, platform: Platform, onClick: () -> Unit) {
+private fun resultRow(cells: List<String>, onClick: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -419,7 +427,7 @@ private fun resultRow(cells: List<String>, platform: Platform, onClick: () -> Un
             TableCell(text = cell)
         }
         Image(
-            painter = platform.imagePainter.getPainter(ImageReference.ChevronRight),
+            painter = painterResource(Res.drawable.ic_chevron_right),
             colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
             contentDescription = "View Details",
             modifier = Modifier
@@ -445,7 +453,7 @@ private fun RowScope.TableCell(
 
 internal interface NavigationTab {
     public val description: String
-    public val imageReference: ImageReference
+    public val imageReference: DrawableResource
     public val label: String
 }
 
@@ -457,7 +465,6 @@ internal fun <T : NavigationTab> navigationContainer(
     isThereBackButton: Boolean,
     onNavigationClick: (T) -> Unit,
     onBackClick: () -> Unit,
-    platform: Platform,
     content: @Composable (bottomPadding: Dp) -> Unit,
 ) {
     if (windowSize.width > 800.dp) {
@@ -467,7 +474,6 @@ internal fun <T : NavigationTab> navigationContainer(
                 tabs = tabs,
                 onNavigationClick = onNavigationClick,
                 content = content,
-                platform = platform,
             )
             if (isThereBackButton) {
                 backButton(
@@ -475,7 +481,6 @@ internal fun <T : NavigationTab> navigationContainer(
                     modifier = Modifier
                         .size(navBarSize)
                         .align(TopStart),
-                    platform = platform,
                 )
             }
         }
@@ -487,7 +492,6 @@ internal fun <T : NavigationTab> navigationContainer(
                     modifier = Modifier
                         .size(navBarSize)
                         .align(Start),
-                    platform = platform,
                 )
             }
             navigationBarContainer(
@@ -495,7 +499,6 @@ internal fun <T : NavigationTab> navigationContainer(
                 tabs = tabs,
                 onClick = onNavigationClick,
                 content = content,
-                platform = platform,
             )
         }
     }
@@ -509,7 +512,6 @@ internal fun <T : NavigationTab> navigationRailContainer(
     tabs: List<T>,
     onNavigationClick: (T) -> Unit,
     content: @Composable (bottomPadding: Dp) -> Unit,
-    platform: Platform,
 ) {
     Row {
         NavigationRail(
@@ -527,7 +529,7 @@ internal fun <T : NavigationTab> navigationRailContainer(
                     onClick = { onNavigationClick(tab) },
                     icon = {
                         Image(
-                            painter = platform.imagePainter.getPainter(tab.imageReference),
+                            painter = painterResource(tab.imageReference),
                             colorFilter = ColorFilter.tint(
                                 if (isSelected) MaterialTheme.colorScheme.onSecondaryContainer else MaterialTheme.colorScheme.onSurfaceVariant,
                             ),
@@ -550,13 +552,11 @@ internal fun <T : NavigationTab> navigationRailContainer(
 }
 
 @Composable
-@OptIn(ExperimentalMaterial3Api::class)
 internal fun <T : NavigationTab> navigationBarContainer(
     currentTab: T?,
     tabs: List<T>,
     onClick: (T) -> Unit,
     content: @Composable (bottomPadding: Dp) -> Unit,
-    platform: Platform,
 ) {
     Scaffold(
         containerColor = MaterialTheme.colorScheme.surface,
@@ -573,7 +573,7 @@ internal fun <T : NavigationTab> navigationBarContainer(
                         onClick = { onClick(tab) },
                         icon = {
                             Icon(
-                                painter = platform.imagePainter.getPainter(tab.imageReference),
+                                painter = painterResource(tab.imageReference),
                                 tint = if (isSelected) MaterialTheme.colorScheme.onSecondaryContainer else MaterialTheme.colorScheme.onSurfaceVariant,
                                 contentDescription = "Open ${tab.label}",
                                 modifier = Modifier
@@ -601,7 +601,6 @@ internal fun incrementInput(
     modifier: Modifier,
     value: Long?,
     onValueChange: (Long?) -> Unit,
-    platform: Platform,
     width: Dp = 200.dp,
 ) {
     Row(modifier = modifier) {
@@ -609,10 +608,9 @@ internal fun incrementInput(
             onClick = {
                 value?.let { onValueChange(it - 1L) }
             },
-            imageReference = ImageReference.Remove,
-            contentDescription = "Decrement Counter",
             modifier = Modifier,
-            platform = platform,
+            imageReference = Res.drawable.ic_remove,
+            contentDescription = "Decrement Counter",
         )
         longInputWidget(
             value,
@@ -628,10 +626,9 @@ internal fun incrementInput(
             onClick = {
                 value?.let { onValueChange(it + 1L) }
             },
-            imageReference = ImageReference.Add,
-            contentDescription = "Increment Counter",
             modifier = Modifier,
-            platform = platform,
+            imageReference = Res.drawable.ic_add,
+            contentDescription = "Increment Counter",
         )
     }
 }
@@ -650,12 +647,10 @@ internal fun text(
 }
 
 @Composable
-@OptIn(ExperimentalComposeUiApi::class)
 public fun <T> dropDown(
     items: List<T>,
     selected: T,
     modifier: Modifier,
-    platform: Platform,
     onItemClick: (T) -> Unit,
     composeItem: @Composable (item: T, childModifier: Modifier) -> Unit,
 ) {
@@ -721,13 +716,11 @@ public enum class SortDirection {
 }
 
 @Composable
-@OptIn(ExperimentalComposeUiApi::class)
 public fun <T> dropDownSort(
     items: List<T>,
     selected: T,
     sortDirection: SortDirection,
     modifier: Modifier,
-    platform: Platform,
     onItemClick: (T) -> Unit,
     onDirectionClick: (SortDirection) -> Unit,
     composeItem: @Composable (item: T, childModifier: Modifier) -> Unit,
@@ -769,10 +762,10 @@ public fun <T> dropDownSort(
                     .clickable { expanded.value = true },
             )
             Image(
-                painter = platform.imagePainter.getPainter(
+                painter = painterResource(
                     when (sortDirection) {
-                        SortDirection.ASC -> ImageReference.Remove // Down
-                        SortDirection.DESC -> ImageReference.Add // Up
+                        SortDirection.ASC -> Res.drawable.ic_remove // Down
+                        SortDirection.DESC -> Res.drawable.ic_add // Up
                     },
                 ),
                 colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
@@ -852,7 +845,6 @@ public enum class DieShape {
 internal fun dieRoll(
     dieRoll: DieRoll,
     color: Color,
-    platform: Platform,
     modifier: Modifier,
 ) {
     val shape: DieShape = when (dieRoll.sides) {
@@ -868,18 +860,18 @@ internal fun dieRoll(
     }
 
     val image = when (shape) {
-        DieShape.Circle -> ImageReference.CircleDie
-        DieShape.Triangle -> ImageReference.TriangleDie
-        DieShape.Square -> ImageReference.SquareDie
-        DieShape.Diamond -> ImageReference.DiamondDie
-        DieShape.Pentagon -> ImageReference.PentagonDie
+        DieShape.Circle -> Res.drawable.ic_regularcircle
+        DieShape.Triangle -> Res.drawable.ic_regulartriangle
+        DieShape.Square -> Res.drawable.ic_regularsquare
+        DieShape.Diamond -> Res.drawable.ic_regulardiamond
+        DieShape.Pentagon -> Res.drawable.ic_regularpentagon
     }
 
     Box(
         modifier = modifier,
     ) {
         Image(
-            painter = platform.imagePainter.getPainter(image),
+            painter = painterResource(image),
             colorFilter = ColorFilter.tint(color),
             contentDescription = "Die Roll",
             modifier = Modifier

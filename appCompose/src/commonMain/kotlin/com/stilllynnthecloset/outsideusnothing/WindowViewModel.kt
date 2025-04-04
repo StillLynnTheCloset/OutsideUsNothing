@@ -21,7 +21,7 @@ import com.stilllynnthecloset.outsideusnothing.viewplayers.ViewPlayersViewModel
 public class WindowViewModel internal constructor(
     private val mainDataModel: MainDataModel,
     private val screen: NavigationDestination,
-    private val platform: Platform,
+    private val persistence: Persistence,
 ) {
     private val backstack = ArrayDeque<NavigationDestination>(5)
     internal var currentScreen: NavigationDestination by mutableStateOf(screen)
@@ -31,7 +31,7 @@ public class WindowViewModel internal constructor(
     private val generatorDM = GeneratorViewModel(mainDataModel)
     private val playerDM = CreatePlayerViewModel(mainDataModel)
     private val playersDM = ViewPlayersViewModel(mainDataModel)
-    private val mapDM = MapViewModel(mainDataModel, platform)
+    private val mapDM = MapViewModel(mainDataModel, persistence)
     private val playbooksDM = PlaybooksViewModel(mainDataModel)
     private val referenceDM = ReferenceViewModel(mainDataModel)
     private val timeDM = TimeConverterDataModel()

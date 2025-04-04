@@ -24,7 +24,6 @@ import androidx.compose.ui.unit.dp
 import com.stilllynnthecloset.outsideusnothing.FlowCrossAxisAlignment
 import com.stilllynnthecloset.outsideusnothing.FlowMainAxisAlignment
 import com.stilllynnthecloset.outsideusnothing.FlowRow
-import com.stilllynnthecloset.outsideusnothing.Platform
 import com.stilllynnthecloset.outsideusnothing.library.tools.toString
 import com.stilllynnthecloset.outsideusnothing.theme.dieRoll
 import com.stilllynnthecloset.outsideusnothing.theme.incrementInput
@@ -39,7 +38,7 @@ import kotlinx.coroutines.launch
  * Created by Lynn on 3/22/23
  */
 @Composable
-internal fun DiceRollerScreen(dataModel: DiceRollerDataModel, platform: Platform) {
+internal fun DiceRollerScreen(dataModel: DiceRollerDataModel) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -65,7 +64,6 @@ internal fun DiceRollerScreen(dataModel: DiceRollerDataModel, platform: Platform
                     .padding(8.dp),
                 value = dataModel.state.actionCost,
                 onValueChange = dataModel::updateActionCost,
-                platform = platform,
             )
             incrementInput(
                 label = "Action Difficulty",
@@ -74,7 +72,6 @@ internal fun DiceRollerScreen(dataModel: DiceRollerDataModel, platform: Platform
                     .padding(8.dp),
                 value = dataModel.state.actionDifficulty,
                 onValueChange = dataModel::updateActionDifficulty,
-                platform = platform,
             )
             incrementInput(
                 label = "Dice to Roll",
@@ -83,7 +80,6 @@ internal fun DiceRollerScreen(dataModel: DiceRollerDataModel, platform: Platform
                     .padding(8.dp),
                 value = dataModel.state.diceToRoll,
                 onValueChange = dataModel::updateDiceToRoll,
-                platform = platform,
             )
             incrementInput(
                 label = "Dice Sides",
@@ -92,7 +88,6 @@ internal fun DiceRollerScreen(dataModel: DiceRollerDataModel, platform: Platform
                     .padding(8.dp),
                 value = dataModel.state.diceSides,
                 onValueChange = dataModel::updateDiceSides,
-                platform = platform,
             )
 
             text(
@@ -112,7 +107,6 @@ internal fun DiceRollerScreen(dataModel: DiceRollerDataModel, platform: Platform
                     .padding(8.dp),
                 value = dataModel.state.dicePool,
                 onValueChange = dataModel::updateDicePool,
-                platform = platform,
             )
 
             outlinedButton(
@@ -145,7 +139,6 @@ internal fun DiceRollerScreen(dataModel: DiceRollerDataModel, platform: Platform
                     dieRoll(
                         dieRoll = roll.first,
                         color = if (roll.second) Color.Green else Color.Red,
-                        platform = platform,
                         modifier = Modifier.width(48.dp).height(48.dp),
                     )
                 }

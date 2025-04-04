@@ -8,18 +8,18 @@ import com.stilllynnthecloset.hexgridcompose.findEmptyNeighbors
 import com.stilllynnthecloset.hexgridcompose.findExistingConnections
 import com.stilllynnthecloset.hexgridcompose.findExistingNeighbors
 import com.stilllynnthecloset.outsideusnothing.MainDataModel
-import com.stilllynnthecloset.outsideusnothing.library.tools.getOddsOfEvents
-import com.stilllynnthecloset.outsideusnothing.library.model.Playbook
-import com.stilllynnthecloset.outsideusnothing.library.tools.pickN
-import com.stilllynnthecloset.outsideusnothing.library.tools.rollDie
-import com.stilllynnthecloset.outsideusnothing.library.tools.weightedRandom
-import com.stilllynnthecloset.outsideusnothing.Platform
+import com.stilllynnthecloset.outsideusnothing.Persistence
 import com.stilllynnthecloset.outsideusnothing.library.map.HexGridCoordinate
 import com.stilllynnthecloset.outsideusnothing.library.map.HexGridEdge
 import com.stilllynnthecloset.outsideusnothing.library.map.HexGridMap
 import com.stilllynnthecloset.outsideusnothing.library.map.HexGridNode
 import com.stilllynnthecloset.outsideusnothing.library.map.PlaceholderNode
 import com.stilllynnthecloset.outsideusnothing.library.map.PortNode
+import com.stilllynnthecloset.outsideusnothing.library.model.Playbook
+import com.stilllynnthecloset.outsideusnothing.library.tools.getOddsOfEvents
+import com.stilllynnthecloset.outsideusnothing.library.tools.pickN
+import com.stilllynnthecloset.outsideusnothing.library.tools.rollDie
+import com.stilllynnthecloset.outsideusnothing.library.tools.weightedRandom
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -32,7 +32,7 @@ import kotlinx.coroutines.launch
  */
 internal class MapViewModel constructor(
     private val mainDataModel: MainDataModel,
-    private val platform: Platform,
+    private val persistence: Persistence,
 ) {
     private val blankStarter = PlaceholderNode(HexGridCoordinate(0, 0))
     private val scope = CoroutineScope(Dispatchers.Main + SupervisorJob())
@@ -58,14 +58,14 @@ internal class MapViewModel constructor(
     init {
         scope.launch {
             updateMap(currentMap)
-            platform.persistence.saveCurrentMap(currentMap)
+            persistence.saveCurrentMap(currentMap)
         }
     }
 
     fun clearMap() {
         scope.launch {
-            platform.persistence.saveCurrentMap(HexGridMap(listOf(blankStarter), emptyList()))
-            updateMap(platform.persistence.loadCurrentMap())
+            persistence.saveCurrentMap(HexGridMap(listOf(blankStarter), emptyList()))
+            updateMap(persistence.loadCurrentMap())
         }
     }
 
@@ -177,7 +177,7 @@ internal class MapViewModel constructor(
                         }
                     }
             }
-            platform.persistence.saveCurrentMap(HexGridMap(nodeList, edgeList))
+            persistence.saveCurrentMap(HexGridMap(nodeList, edgeList))
             newCopy
         } else {
             node

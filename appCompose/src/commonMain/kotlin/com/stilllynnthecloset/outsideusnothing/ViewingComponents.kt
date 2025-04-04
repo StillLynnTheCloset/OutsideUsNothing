@@ -1,6 +1,5 @@
 package com.stilllynnthecloset.outsideusnothing
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -28,9 +27,6 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.stilllynnthecloset.outsideusnothing.library.tools.calculateDiceOdds
-import com.stilllynnthecloset.outsideusnothing.library.tools.getMaximumRollSum
-import com.stilllynnthecloset.outsideusnothing.library.tools.getMinimumRollSum
 import com.stilllynnthecloset.outsideusnothing.library.model.Action
 import com.stilllynnthecloset.outsideusnothing.library.model.AnsweredQuestion
 import com.stilllynnthecloset.outsideusnothing.library.model.Bastard
@@ -58,11 +54,21 @@ import com.stilllynnthecloset.outsideusnothing.library.model.Question
 import com.stilllynnthecloset.outsideusnothing.library.model.Ship
 import com.stilllynnthecloset.outsideusnothing.library.model.Threat
 import com.stilllynnthecloset.outsideusnothing.library.model.UsefulItem
+import com.stilllynnthecloset.outsideusnothing.library.tools.calculateDiceOdds
+import com.stilllynnthecloset.outsideusnothing.library.tools.getMaximumRollSum
+import com.stilllynnthecloset.outsideusnothing.library.tools.getMinimumRollSum
 import com.stilllynnthecloset.outsideusnothing.library.tools.toString
 import com.stilllynnthecloset.outsideusnothing.theme.Colors.negative
 import com.stilllynnthecloset.outsideusnothing.theme.Colors.neutral
 import com.stilllynnthecloset.outsideusnothing.theme.Colors.positive
-import com.stilllynnthecloset.outsideusnothing.theme.ImageReference
+import org.jetbrains.compose.resources.painterResource
+import outsideusnothing.appcompose.generated.resources.Res
+import outsideusnothing.appcompose.generated.resources.ic_add
+import outsideusnothing.appcompose.generated.resources.ic_food
+import outsideusnothing.appcompose.generated.resources.ic_fuel
+import outsideusnothing.appcompose.generated.resources.ic_radio_button_unchecked
+import outsideusnothing.appcompose.generated.resources.ic_remove
+import outsideusnothing.appcompose.generated.resources.ic_swords
 import kotlin.math.absoluteValue
 
 internal val indentPadding: Dp = 32.dp
@@ -71,7 +77,7 @@ internal val betweenItemPadding: Dp = 4.dp
 internal val tooltipPadding: Dp = 4.dp
 
 @Composable
-internal fun PortOfCallSpecification.compose(platform: Platform, modifier: Modifier = Modifier) {
+internal fun PortOfCallSpecification.compose(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .padding(vertical = betweenItemPadding),
@@ -88,7 +94,7 @@ internal fun PortOfCallSpecification.compose(platform: Platform, modifier: Modif
         Spacer(
             modifier = Modifier.height(separatorPadding),
         )
-        choices.forEach { it.compose(platform) }
+        choices.forEach { it.compose() }
         Spacer(
             modifier = Modifier.height(separatorPadding),
         )
@@ -99,13 +105,13 @@ internal fun PortOfCallSpecification.compose(platform: Platform, modifier: Modif
             .filterNot { it == ContractSpecification.generatedContract }
             .sortedBy { it.quality }
             .forEach {
-                it.compose(platform, Modifier.padding(start = indentPadding))
+                it.compose(Modifier.padding(start = indentPadding))
             }
     }
 }
 
 @Composable
-internal fun PortOfCall.compose(platform: Platform, modifier: Modifier = Modifier) {
+internal fun PortOfCall.compose(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .padding(vertical = betweenItemPadding),
@@ -122,7 +128,7 @@ internal fun PortOfCall.compose(platform: Platform, modifier: Modifier = Modifie
         Spacer(
             modifier = Modifier.height(separatorPadding),
         )
-        choices.forEach { it.compose(platform) }
+        choices.forEach { it.compose() }
         Spacer(
             modifier = Modifier.height(separatorPadding),
         )
@@ -130,34 +136,34 @@ internal fun PortOfCall.compose(platform: Platform, modifier: Modifier = Modifie
             Text(
                 text = "Available Contracts:",
             )
-            contracts.forEach { it.compose(platform) }
+            contracts.forEach { it.compose() }
         }
     }
 }
 
 @Composable
-internal fun ChoiceSpecification.compose(platform: Platform, modifier: Modifier = Modifier) {
+internal fun ChoiceSpecification.compose(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .padding(vertical = betweenItemPadding),
     ) {
-        questions.forEach { it.compose(platform) }
-        options.forEach { it.compose(platform, Modifier.padding(start = indentPadding)) }
+        questions.forEach { it.compose() }
+        options.forEach { it.compose(Modifier.padding(start = indentPadding)) }
     }
 }
 
 @Composable
-internal fun Choice.compose(platform: Platform, modifier: Modifier = Modifier) {
+internal fun Choice.compose(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .padding(vertical = betweenItemPadding),
     ) {
-        answeredQuestions.forEach { it.compose(platform) }
+        answeredQuestions.forEach { it.compose() }
     }
 }
 
 @Composable
-internal fun Question.compose(platform: Platform, modifier: Modifier = Modifier) {
+internal fun Question.compose(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .padding(vertical = betweenItemPadding),
@@ -169,7 +175,7 @@ internal fun Question.compose(platform: Platform, modifier: Modifier = Modifier)
 }
 
 @Composable
-internal fun AnsweredQuestion.compose(platform: Platform, modifier: Modifier = Modifier) {
+internal fun AnsweredQuestion.compose(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .padding(vertical = betweenItemPadding),
@@ -179,7 +185,6 @@ internal fun AnsweredQuestion.compose(platform: Platform, modifier: Modifier = M
         )
         answers.forEach {
             it.compose(
-                platform = platform,
                 modifier = Modifier.padding(start = indentPadding),
             )
         }
@@ -187,13 +192,12 @@ internal fun AnsweredQuestion.compose(platform: Platform, modifier: Modifier = M
 }
 
 @Composable
-internal fun ContractSpecification.compose(platform: Platform, modifier: Modifier = Modifier) {
+internal fun ContractSpecification.compose(modifier: Modifier = Modifier) {
     Row(
         modifier = modifier
             .padding(vertical = betweenItemPadding),
     ) {
         quality.compose(
-            platform = platform,
             modifier = Modifier
                 .align(Alignment.CenterVertically)
                 .width(128.dp),
@@ -209,7 +213,7 @@ internal fun ContractSpecification.compose(platform: Platform, modifier: Modifie
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
-internal fun ContractQuality.compose(platform: Platform, modifier: Modifier = Modifier) {
+internal fun ContractQuality.compose(modifier: Modifier = Modifier) {
     TooltipBox(
         positionProvider = TooltipDefaults.rememberRichTooltipPositionProvider(),
         state = rememberTooltipState(),
@@ -234,7 +238,7 @@ internal fun ContractQuality.compose(platform: Platform, modifier: Modifier = Mo
                             .weight(1f),
                     )
                     Image(
-                        painter = platform.imagePainter.getPainter(ImageReference.Food),
+                        painter = painterResource(Res.drawable.ic_food),
                         colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
                         contentDescription = "Supplies",
                         modifier = Modifier
@@ -256,7 +260,7 @@ internal fun ContractQuality.compose(platform: Platform, modifier: Modifier = Mo
                             .weight(1f),
                     )
                     Image(
-                        painter = platform.imagePainter.getPainter(ImageReference.Fuel),
+                        painter = painterResource(Res.drawable.ic_fuel),
                         colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
                         contentDescription = "Fuel",
                         modifier = Modifier
@@ -278,7 +282,7 @@ internal fun ContractQuality.compose(platform: Platform, modifier: Modifier = Mo
                             .weight(1f),
                     )
                     Image(
-                        painter = platform.imagePainter.getPainter(ImageReference.Swords),
+                        painter = painterResource(Res.drawable.ic_swords),
                         colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
                         contentDescription = "Item",
                         modifier = Modifier
@@ -309,7 +313,7 @@ internal fun ContractQuality.compose(platform: Platform, modifier: Modifier = Mo
 }
 
 @Composable
-internal fun EventSpecification.compose(platform: Platform, modifier: Modifier = Modifier) {
+internal fun EventSpecification.compose(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .padding(vertical = betweenItemPadding),
@@ -327,7 +331,7 @@ internal fun EventSpecification.compose(platform: Platform, modifier: Modifier =
             Spacer(
                 modifier = Modifier.height(separatorPadding),
             )
-            choices.forEach { it.compose(platform) }
+            choices.forEach { it.compose() }
         }
         if (consequences.isNotEmpty()) {
             Spacer(
@@ -337,14 +341,14 @@ internal fun EventSpecification.compose(platform: Platform, modifier: Modifier =
                 text = "Consequences:",
             )
             consequences.forEach {
-                it.compose(platform, Modifier.padding(start = indentPadding))
+                it.compose(Modifier.padding(start = indentPadding))
             }
         }
     }
 }
 
 @Composable
-internal fun Event.compose(platform: Platform, modifier: Modifier = Modifier) {
+internal fun Event.compose(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .padding(vertical = betweenItemPadding),
@@ -362,7 +366,7 @@ internal fun Event.compose(platform: Platform, modifier: Modifier = Modifier) {
             Spacer(
                 modifier = Modifier.height(separatorPadding),
             )
-            choices.forEach { it.compose(platform) }
+            choices.forEach { it.compose() }
         }
         if (consequences.isNotEmpty()) {
             Spacer(
@@ -372,14 +376,14 @@ internal fun Event.compose(platform: Platform, modifier: Modifier = Modifier) {
                 text = "Consequences:",
             )
             consequences.forEach {
-                it.compose(platform, Modifier.padding(start = indentPadding))
+                it.compose(Modifier.padding(start = indentPadding))
             }
         }
     }
 }
 
 @Composable
-internal fun PlaySheetSpecification.compose(platform: Platform, modifier: Modifier = Modifier) {
+internal fun PlaySheetSpecification.compose(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .padding(vertical = betweenItemPadding),
@@ -388,7 +392,7 @@ internal fun PlaySheetSpecification.compose(platform: Platform, modifier: Modifi
             text = name,
             fontSize = 32.sp,
         )
-        flavorText.compose(platform, Modifier.padding(start = indentPadding))
+        flavorText.compose(Modifier.padding(start = indentPadding))
         Text(
             text = description,
             fontSize = 12.sp,
@@ -398,7 +402,7 @@ internal fun PlaySheetSpecification.compose(platform: Platform, modifier: Modifi
             Spacer(
                 modifier = Modifier.height(separatorPadding),
             )
-            choices.forEach { it.compose(platform, Modifier.padding(start = indentPadding)) }
+            choices.forEach { it.compose(Modifier.padding(start = indentPadding)) }
         }
 
         if (actions.isNotEmpty()) {
@@ -406,13 +410,13 @@ internal fun PlaySheetSpecification.compose(platform: Platform, modifier: Modifi
                 text = "Actions:",
                 Modifier.padding(top = separatorPadding, start = indentPadding),
             )
-            actions.forEach { it.compose(platform, Modifier.padding(start = indentPadding * 2)) }
+            actions.forEach { it.compose(Modifier.padding(start = indentPadding * 2)) }
         }
     }
 }
 
 @Composable
-internal fun PlaySheet.compose(platform: Platform, showActions: Boolean, modifier: Modifier = Modifier) {
+internal fun PlaySheet.compose(showActions: Boolean, modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .padding(vertical = betweenItemPadding),
@@ -421,7 +425,7 @@ internal fun PlaySheet.compose(platform: Platform, showActions: Boolean, modifie
             text = specification.name,
             fontSize = 32.sp,
         )
-        specification.flavorText.compose(platform, Modifier.padding(start = indentPadding))
+        specification.flavorText.compose(Modifier.padding(start = indentPadding))
         Text(
             text = specification.description,
             fontSize = 12.sp,
@@ -431,7 +435,7 @@ internal fun PlaySheet.compose(platform: Platform, showActions: Boolean, modifie
             Spacer(
                 modifier = Modifier.height(separatorPadding),
             )
-            choices.forEach { it.compose(platform) }
+            choices.forEach { it.compose() }
         }
 
         if (specification.actions.isNotEmpty() && showActions) {
@@ -439,13 +443,13 @@ internal fun PlaySheet.compose(platform: Platform, showActions: Boolean, modifie
                 text = "Actions:",
                 Modifier.padding(top = separatorPadding),
             )
-            specification.actions.forEach { it.compose(platform, Modifier.padding(start = indentPadding)) }
+            specification.actions.forEach { it.compose(Modifier.padding(start = indentPadding)) }
         }
     }
 }
 
 @Composable
-internal fun Ship.compose(platform: Platform, modifier: Modifier = Modifier) {
+internal fun Ship.compose(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .padding(vertical = betweenItemPadding),
@@ -473,13 +477,13 @@ internal fun Ship.compose(platform: Platform, modifier: Modifier = Modifier) {
             Spacer(
                 modifier = Modifier.height(separatorPadding),
             )
-            playSheet.choices.forEach { it.compose(platform) }
+            playSheet.choices.forEach { it.compose() }
         }
     }
 }
 
 @Composable
-internal fun FlavorText.compose(platform: Platform, modifier: Modifier = Modifier) {
+internal fun FlavorText.compose(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .padding(vertical = betweenItemPadding),
@@ -498,13 +502,13 @@ internal fun FlavorText.compose(platform: Platform, modifier: Modifier = Modifie
 }
 
 @Composable
-internal fun Option.compose(platform: Platform, modifier: Modifier = Modifier) {
+internal fun Option.compose(modifier: Modifier = Modifier) {
     Row(
         modifier = modifier
             .padding(vertical = betweenItemPadding),
     ) {
         Image(
-            painter = platform.imagePainter.getPainter(ImageReference.RadioButtonUnchecked),
+            painter = painterResource(Res.drawable.ic_radio_button_unchecked),
             colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
             contentDescription = "Radio Button",
             modifier = Modifier
@@ -521,13 +525,13 @@ internal fun Option.compose(platform: Platform, modifier: Modifier = Modifier) {
 }
 
 @Composable
-internal fun Contract.compose(platform: Platform, modifier: Modifier = Modifier) {
+internal fun Contract.compose(modifier: Modifier = Modifier) {
     Row(
         modifier = modifier
             .padding(vertical = betweenItemPadding),
     ) {
         Image(
-            painter = platform.imagePainter.getPainter(ImageReference.Food),
+            painter = painterResource(Res.drawable.ic_food),
             colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
             contentDescription = "Supplies",
             modifier = Modifier
@@ -542,7 +546,7 @@ internal fun Contract.compose(platform: Platform, modifier: Modifier = Modifier)
         )
 
         Image(
-            painter = platform.imagePainter.getPainter(ImageReference.Fuel),
+            painter = painterResource(Res.drawable.ic_fuel),
             colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
             contentDescription = "Fuel",
             modifier = Modifier
@@ -557,7 +561,7 @@ internal fun Contract.compose(platform: Platform, modifier: Modifier = Modifier)
         )
 
         Image(
-            painter = platform.imagePainter.getPainter(ImageReference.Swords),
+            painter = painterResource(Res.drawable.ic_swords),
             colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
             contentDescription = "Item",
             modifier = Modifier
@@ -577,7 +581,7 @@ internal fun Contract.compose(platform: Platform, modifier: Modifier = Modifier)
 }
 
 @Composable
-internal fun Bastard.compose(platform: Platform, modifier: Modifier = Modifier) {
+internal fun Bastard.compose(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .padding(vertical = betweenItemPadding),
@@ -595,7 +599,7 @@ internal fun Bastard.compose(platform: Platform, modifier: Modifier = Modifier) 
 }
 
 @Composable
-internal fun ContractItem.compose(platform: Platform, modifier: Modifier = Modifier) {
+internal fun ContractItem.compose(modifier: Modifier = Modifier) {
     Row(
         modifier = modifier
             .padding(vertical = betweenItemPadding),
@@ -609,7 +613,7 @@ internal fun ContractItem.compose(platform: Platform, modifier: Modifier = Modif
 }
 
 @Composable
-internal fun ContractDestination.compose(platform: Platform, modifier: Modifier = Modifier) {
+internal fun ContractDestination.compose(modifier: Modifier = Modifier) {
     Row(
         modifier = modifier
             .padding(vertical = betweenItemPadding),
@@ -623,7 +627,7 @@ internal fun ContractDestination.compose(platform: Platform, modifier: Modifier 
 }
 
 @Composable
-internal fun ContractDetail.compose(platform: Platform, modifier: Modifier = Modifier) {
+internal fun ContractDetail.compose(modifier: Modifier = Modifier) {
     Row(
         modifier = modifier
             .padding(vertical = betweenItemPadding),
@@ -637,7 +641,7 @@ internal fun ContractDetail.compose(platform: Platform, modifier: Modifier = Mod
 }
 
 @Composable
-internal fun Threat.compose(platform: Platform, modifier: Modifier = Modifier) {
+internal fun Threat.compose(modifier: Modifier = Modifier) {
     Row(
         modifier = modifier
             .padding(vertical = betweenItemPadding),
@@ -651,7 +655,7 @@ internal fun Threat.compose(platform: Platform, modifier: Modifier = Modifier) {
 }
 
 @Composable
-internal fun Consequence.compose(platform: Platform, modifier: Modifier = Modifier) {
+internal fun Consequence.compose(modifier: Modifier = Modifier) {
     Row(
         modifier = modifier
             .padding(vertical = betweenItemPadding),
@@ -665,7 +669,7 @@ internal fun Consequence.compose(platform: Platform, modifier: Modifier = Modifi
 }
 
 @Composable
-internal fun ConsequenceSpecification.compose(platform: Platform, modifier: Modifier = Modifier) {
+internal fun ConsequenceSpecification.compose(modifier: Modifier = Modifier) {
     Row(
         modifier = modifier
             .padding(vertical = betweenItemPadding),
@@ -679,18 +683,18 @@ internal fun ConsequenceSpecification.compose(platform: Platform, modifier: Modi
 }
 
 @Composable
-internal fun UsefulItem.compose(platform: Platform, modifier: Modifier = Modifier) {
+internal fun UsefulItem.compose(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .padding(vertical = betweenItemPadding),
     ) {
         Text("$name:")
-        action.compose(platform, Modifier.padding(start = indentPadding))
+        action.compose(Modifier.padding(start = indentPadding))
     }
 }
 
 @Composable
-internal fun Action.compose(platform: Platform, modifier: Modifier = Modifier) {
+internal fun Action.compose(modifier: Modifier = Modifier) {
     Row(
         modifier = modifier
             .padding(vertical = betweenItemPadding),
@@ -702,7 +706,7 @@ internal fun Action.compose(platform: Platform, modifier: Modifier = Modifier) {
         }
         if (diceOffset > 0) {
             Image(
-                painter = platform.imagePainter.getPainter(ImageReference.Add),
+                painter = painterResource(Res.drawable.ic_add),
                 colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.positive),
                 contentDescription = "Positive",
                 modifier = Modifier
@@ -718,7 +722,7 @@ internal fun Action.compose(platform: Platform, modifier: Modifier = Modifier) {
             )
         } else if (diceOffset < 0) {
             Image(
-                painter = platform.imagePainter.getPainter(ImageReference.Remove),
+                painter = painterResource(Res.drawable.ic_remove),
                 colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.negative),
                 contentDescription = "Negative",
                 modifier = Modifier
@@ -734,7 +738,7 @@ internal fun Action.compose(platform: Platform, modifier: Modifier = Modifier) {
             )
         } else {
             Image(
-                painter = platform.imagePainter.getPainter(ImageReference.RadioButtonUnchecked),
+                painter = painterResource(Res.drawable.ic_radio_button_unchecked),
                 colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.neutral),
                 contentDescription = "Radio Button",
                 modifier = Modifier
@@ -758,7 +762,7 @@ internal fun Action.compose(platform: Platform, modifier: Modifier = Modifier) {
 }
 
 @Composable
-internal fun Player.compose(platform: Platform, modifier: Modifier = Modifier) {
+internal fun Player.compose(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .padding(vertical = betweenItemPadding),
@@ -778,24 +782,27 @@ internal fun Player.compose(platform: Platform, modifier: Modifier = Modifier) {
         Text(
             text = "Playsheets:",
         )
-        playSheets.forEach { it.compose(platform, showActions = false, modifier = Modifier.padding(start = indentPadding)) }
+        playSheets.forEach { it.compose(
+            showActions = false,
+            modifier = Modifier.padding(start = indentPadding)
+        ) }
 
         Text(
             text = "Actions:",
         )
-        actions.forEach { it.compose(platform, modifier = Modifier.padding(start = indentPadding)) }
+        actions.forEach { it.compose(modifier = Modifier.padding(start = indentPadding)) }
 
         if (items.isNotEmpty()) {
             Text(
                 text = "Items:",
             )
-            items.forEach { it.compose(platform, modifier = Modifier.padding(start = indentPadding)) }
+            items.forEach { it.compose(modifier = Modifier.padding(start = indentPadding)) }
         }
     }
 }
 
 @Composable
-internal fun Playbook.compose(platform: Platform, listContents: Boolean, modifier: Modifier = Modifier) {
+internal fun Playbook.compose(listContents: Boolean, modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .padding(vertical = betweenItemPadding),

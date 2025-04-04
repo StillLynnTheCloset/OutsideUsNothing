@@ -23,7 +23,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.stilllynnthecloset.outsideusnothing.library.model.Playbook
-import com.stilllynnthecloset.outsideusnothing.Platform
 import com.stilllynnthecloset.outsideusnothing.PlaybookPage
 import com.stilllynnthecloset.outsideusnothing.compose
 import com.stilllynnthecloset.outsideusnothing.indentPadding
@@ -36,7 +35,7 @@ import kotlinx.coroutines.launch
  * Created by Lynn on 5/3/23
  */
 @Composable
-internal fun ReferenceScreen(dataModel: ReferenceViewModel, platform: Platform) {
+internal fun ReferenceScreen(dataModel: ReferenceViewModel) {
     val scrollState = rememberScrollState()
     val scope = rememberCoroutineScope { Dispatchers.Default }
     Column(
@@ -59,26 +58,38 @@ internal fun ReferenceScreen(dataModel: ReferenceViewModel, platform: Platform) 
                 .padding(bottom = 16.dp),
         )
         when (dataModel.currentPage) {
-            PlaybookPage.PLAYBOOK -> tableOfContents(dataModel, dataModel.mainDataModel.mergedPlaybook, platform)
-            PlaybookPage.ALIEN -> alien(dataModel, dataModel.mainDataModel.mergedPlaybook, platform)
-            PlaybookPage.BACKGROUND -> background(dataModel, dataModel.mainDataModel.mergedPlaybook, platform)
-            PlaybookPage.ROLE -> role(dataModel, dataModel.mainDataModel.mergedPlaybook, platform)
-            PlaybookPage.PORT -> port(dataModel, dataModel.mainDataModel.mergedPlaybook, platform)
-            PlaybookPage.EVENT -> event(dataModel, dataModel.mainDataModel.mergedPlaybook, platform)
-            PlaybookPage.CONTRACT_ITEM -> contractItem(dataModel, dataModel.mainDataModel.mergedPlaybook, platform)
-            PlaybookPage.USEFUL_ITEM -> usefulItem(dataModel, dataModel.mainDataModel.mergedPlaybook, platform)
-            PlaybookPage.BASTARD -> bastard(dataModel, dataModel.mainDataModel.mergedPlaybook, platform)
-            PlaybookPage.THREAT -> threat(dataModel, dataModel.mainDataModel.mergedPlaybook, platform)
-            PlaybookPage.PORT_NAME -> portName(dataModel, dataModel.mainDataModel.mergedPlaybook, platform)
-            PlaybookPage.NPC_LABEL -> npcLabel(dataModel, dataModel.mainDataModel.mergedPlaybook, platform)
-            PlaybookPage.FLAVOR_TEXT -> flavorText(dataModel, dataModel.mainDataModel.mergedPlaybook, platform)
+            PlaybookPage.PLAYBOOK -> tableOfContents(
+                dataModel,
+                dataModel.mainDataModel.mergedPlaybook
+            )
+            PlaybookPage.ALIEN -> alien(dataModel, dataModel.mainDataModel.mergedPlaybook)
+            PlaybookPage.BACKGROUND -> background(dataModel, dataModel.mainDataModel.mergedPlaybook)
+            PlaybookPage.ROLE -> role(dataModel, dataModel.mainDataModel.mergedPlaybook)
+            PlaybookPage.PORT -> port(dataModel, dataModel.mainDataModel.mergedPlaybook)
+            PlaybookPage.EVENT -> event(dataModel, dataModel.mainDataModel.mergedPlaybook)
+            PlaybookPage.CONTRACT_ITEM -> contractItem(
+                dataModel,
+                dataModel.mainDataModel.mergedPlaybook
+            )
+            PlaybookPage.USEFUL_ITEM -> usefulItem(
+                dataModel,
+                dataModel.mainDataModel.mergedPlaybook
+            )
+            PlaybookPage.BASTARD -> bastard(dataModel, dataModel.mainDataModel.mergedPlaybook)
+            PlaybookPage.THREAT -> threat(dataModel, dataModel.mainDataModel.mergedPlaybook)
+            PlaybookPage.PORT_NAME -> portName(dataModel, dataModel.mainDataModel.mergedPlaybook)
+            PlaybookPage.NPC_LABEL -> npcLabel(dataModel, dataModel.mainDataModel.mergedPlaybook)
+            PlaybookPage.FLAVOR_TEXT -> flavorText(
+                dataModel,
+                dataModel.mainDataModel.mergedPlaybook
+            )
         }
     }
 }
 
 @Composable
-private fun ColumnScope.tableOfContents(dataModel: ReferenceViewModel, playbook: Playbook, platform: Platform) {
-    PlaybookPage.values().forEach {
+private fun ColumnScope.tableOfContents(dataModel: ReferenceViewModel, playbook: Playbook) {
+    PlaybookPage.entries.forEach {
         if (it != PlaybookPage.PLAYBOOK) {
             Text(
                 text = it.humanReadable,
@@ -94,7 +105,7 @@ private fun ColumnScope.tableOfContents(dataModel: ReferenceViewModel, playbook:
 }
 
 @Composable
-private fun alien(dataModel: ReferenceViewModel, playbook: Playbook, platform: Platform) {
+private fun alien(dataModel: ReferenceViewModel, playbook: Playbook) {
     Button(
         onClick = { dataModel.setPage(PlaybookPage.PLAYBOOK) },
     ) {
@@ -104,13 +115,13 @@ private fun alien(dataModel: ReferenceViewModel, playbook: Playbook, platform: P
     }
     playbook.aliens.forEach {
         SelectionContainer {
-            it.value.compose(platform, Modifier.padding(start = indentPadding))
+            it.value.compose(Modifier.padding(start = indentPadding))
         }
     }
 }
 
 @Composable
-private fun background(dataModel: ReferenceViewModel, playbook: Playbook, platform: Platform) {
+private fun background(dataModel: ReferenceViewModel, playbook: Playbook) {
     Button(
         onClick = { dataModel.setPage(PlaybookPage.PLAYBOOK) },
     ) {
@@ -120,13 +131,13 @@ private fun background(dataModel: ReferenceViewModel, playbook: Playbook, platfo
     }
     playbook.backgrounds.forEach {
         SelectionContainer {
-            it.value.compose(platform, Modifier.padding(start = indentPadding))
+            it.value.compose(Modifier.padding(start = indentPadding))
         }
     }
 }
 
 @Composable
-private fun role(dataModel: ReferenceViewModel, playbook: Playbook, platform: Platform) {
+private fun role(dataModel: ReferenceViewModel, playbook: Playbook) {
     Button(
         onClick = { dataModel.setPage(PlaybookPage.PLAYBOOK) },
     ) {
@@ -136,13 +147,13 @@ private fun role(dataModel: ReferenceViewModel, playbook: Playbook, platform: Pl
     }
     playbook.roles.forEach {
         SelectionContainer {
-            it.value.compose(platform, Modifier.padding(start = indentPadding))
+            it.value.compose(Modifier.padding(start = indentPadding))
         }
     }
 }
 
 @Composable
-private fun port(dataModel: ReferenceViewModel, playbook: Playbook, platform: Platform) {
+private fun port(dataModel: ReferenceViewModel, playbook: Playbook) {
     Button(
         onClick = { dataModel.setPage(PlaybookPage.PLAYBOOK) },
     ) {
@@ -152,13 +163,13 @@ private fun port(dataModel: ReferenceViewModel, playbook: Playbook, platform: Pl
     }
     playbook.ports.forEach {
         SelectionContainer {
-            it.value.compose(platform, Modifier.padding(start = indentPadding))
+            it.value.compose(Modifier.padding(start = indentPadding))
         }
     }
 }
 
 @Composable
-private fun event(dataModel: ReferenceViewModel, playbook: Playbook, platform: Platform) {
+private fun event(dataModel: ReferenceViewModel, playbook: Playbook) {
     Button(
         onClick = { dataModel.setPage(PlaybookPage.PLAYBOOK) },
     ) {
@@ -168,13 +179,13 @@ private fun event(dataModel: ReferenceViewModel, playbook: Playbook, platform: P
     }
     playbook.events.forEach {
         SelectionContainer {
-            it.value.compose(platform, Modifier.padding(start = indentPadding))
+            it.value.compose(Modifier.padding(start = indentPadding))
         }
     }
 }
 
 @Composable
-private fun contractItem(dataModel: ReferenceViewModel, playbook: Playbook, platform: Platform) {
+private fun contractItem(dataModel: ReferenceViewModel, playbook: Playbook) {
     Button(
         onClick = { dataModel.setPage(PlaybookPage.PLAYBOOK) },
     ) {
@@ -191,7 +202,7 @@ private fun contractItem(dataModel: ReferenceViewModel, playbook: Playbook, plat
             )
             playbook.contractItems.forEach {
                 SelectionContainer {
-                    it.value.compose(platform, Modifier.padding(start = indentPadding))
+                    it.value.compose(Modifier.padding(start = indentPadding))
                 }
             }
         }
@@ -203,7 +214,7 @@ private fun contractItem(dataModel: ReferenceViewModel, playbook: Playbook, plat
             )
             playbook.contractDestinations.forEach {
                 SelectionContainer {
-                    it.value.compose(platform, Modifier.padding(start = indentPadding))
+                    it.value.compose(Modifier.padding(start = indentPadding))
                 }
             }
         }
@@ -211,7 +222,7 @@ private fun contractItem(dataModel: ReferenceViewModel, playbook: Playbook, plat
 }
 
 @Composable
-private fun usefulItem(dataModel: ReferenceViewModel, playbook: Playbook, platform: Platform) {
+private fun usefulItem(dataModel: ReferenceViewModel, playbook: Playbook) {
     Button(
         onClick = { dataModel.setPage(PlaybookPage.PLAYBOOK) },
     ) {
@@ -221,13 +232,13 @@ private fun usefulItem(dataModel: ReferenceViewModel, playbook: Playbook, platfo
     }
     playbook.usefulItems.forEach {
         SelectionContainer {
-            it.value.compose(platform, Modifier.padding(start = indentPadding))
+            it.value.compose(Modifier.padding(start = indentPadding))
         }
     }
 }
 
 @Composable
-private fun bastard(dataModel: ReferenceViewModel, playbook: Playbook, platform: Platform) {
+private fun bastard(dataModel: ReferenceViewModel, playbook: Playbook) {
     Button(
         onClick = { dataModel.setPage(PlaybookPage.PLAYBOOK) },
     ) {
@@ -237,13 +248,13 @@ private fun bastard(dataModel: ReferenceViewModel, playbook: Playbook, platform:
     }
     playbook.bastards.forEach {
         SelectionContainer {
-            it.value.compose(platform, Modifier.padding(start = indentPadding))
+            it.value.compose(Modifier.padding(start = indentPadding))
         }
     }
 }
 
 @Composable
-private fun threat(dataModel: ReferenceViewModel, playbook: Playbook, platform: Platform) {
+private fun threat(dataModel: ReferenceViewModel, playbook: Playbook) {
     Button(
         onClick = { dataModel.setPage(PlaybookPage.PLAYBOOK) },
     ) {
@@ -253,13 +264,13 @@ private fun threat(dataModel: ReferenceViewModel, playbook: Playbook, platform: 
     }
     playbook.threats.forEach {
         SelectionContainer {
-            it.value.compose(platform, Modifier.padding(start = indentPadding))
+            it.value.compose(Modifier.padding(start = indentPadding))
         }
     }
 }
 
 @Composable
-private fun portName(dataModel: ReferenceViewModel, playbook: Playbook, platform: Platform) {
+private fun portName(dataModel: ReferenceViewModel, playbook: Playbook) {
     Button(
         onClick = { dataModel.setPage(PlaybookPage.PLAYBOOK) },
     ) {
@@ -302,7 +313,7 @@ private fun portName(dataModel: ReferenceViewModel, playbook: Playbook, platform
 }
 
 @Composable
-private fun npcLabel(dataModel: ReferenceViewModel, playbook: Playbook, platform: Platform) {
+private fun npcLabel(dataModel: ReferenceViewModel, playbook: Playbook) {
     Button(
         onClick = { dataModel.setPage(PlaybookPage.PLAYBOOK) },
     ) {
@@ -345,7 +356,7 @@ private fun npcLabel(dataModel: ReferenceViewModel, playbook: Playbook, platform
 }
 
 @Composable
-private fun flavorText(dataModel: ReferenceViewModel, playbook: Playbook, platform: Platform) {
+private fun flavorText(dataModel: ReferenceViewModel, playbook: Playbook) {
     Button(
         onClick = { dataModel.setPage(PlaybookPage.PLAYBOOK) },
     ) {
@@ -355,7 +366,7 @@ private fun flavorText(dataModel: ReferenceViewModel, playbook: Playbook, platfo
     }
     playbook.flavorTexts.forEach {
         SelectionContainer {
-            it.value.compose(platform, Modifier.padding(start = indentPadding))
+            it.value.compose(Modifier.padding(start = indentPadding))
         }
     }
 }

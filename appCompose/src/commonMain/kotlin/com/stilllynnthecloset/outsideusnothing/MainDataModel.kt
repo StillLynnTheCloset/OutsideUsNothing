@@ -10,7 +10,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-public class MainDataModel public constructor(private val platform: Platform) {
+public class MainDataModel public constructor(private val persistence: Persistence) {
     private val coroutineScope = CoroutineScope(Dispatchers.Default)
     public var isDarkTheme: Boolean by mutableStateOf(true)
         private set
@@ -22,14 +22,14 @@ public class MainDataModel public constructor(private val platform: Platform) {
 
     private var dynamicPlaybooks: List<Playbook> by mutableStateOf(emptyList())
 
-    public var windows: List<WindowViewModel> by mutableStateOf(listOf(WindowViewModel(this, NavigationDestination.DiceRoller(DiceRollerDataModel()), platform)))
+    public var windows: List<WindowViewModel> by mutableStateOf(listOf(WindowViewModel(this, NavigationDestination.DiceRoller(DiceRollerDataModel()), persistence)))
         private set
 
     init {
         coroutineScope.launch {
-            defaultPlaybook = platform.persistence.getDefaultPlaybook()
+            defaultPlaybook = persistence.getDefaultPlaybook()
             updatePlaybooks(
-                platform.persistence.getPlaybooks().toList()
+                persistence.getPlaybooks().toList()
             )
         }
     }
@@ -90,14 +90,14 @@ public class MainDataModel public constructor(private val platform: Platform) {
     }
 
     public suspend fun getPlayers(): Collection<Player> {
-        return platform.persistence.getPlayers()
+        return persistence.getPlayers()
     }
 
     public fun openWindow() {
         this.windows += WindowViewModel(
             this,
             NavigationDestination.DiceRoller(DiceRollerDataModel()),
-            platform
+            persistence
         )
     }
 

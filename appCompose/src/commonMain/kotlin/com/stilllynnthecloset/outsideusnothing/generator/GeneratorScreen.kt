@@ -17,7 +17,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.stilllynnthecloset.outsideusnothing.Platform
 import com.stilllynnthecloset.outsideusnothing.compose
 import com.stilllynnthecloset.outsideusnothing.indentPadding
 import kotlinx.coroutines.Dispatchers
@@ -29,7 +28,7 @@ import kotlinx.coroutines.launch
  * Created by Lynn on 4/14/23
  */
 @Composable
-internal fun GeneratorScreen(dataModel: GeneratorViewModel, platform: Platform) {
+internal fun GeneratorScreen(dataModel: GeneratorViewModel) {
     val scrollState = rememberScrollState()
     val scope = rememberCoroutineScope { Dispatchers.Default }
     Column(
@@ -60,7 +59,7 @@ internal fun GeneratorScreen(dataModel: GeneratorViewModel, platform: Platform) 
             }
         }
         SelectionContainer {
-            dataModel.generatedPort?.compose(platform)
+            dataModel.generatedPort?.compose()
         }
         Row(
             modifier = Modifier.align(Alignment.CenterHorizontally),
@@ -79,7 +78,7 @@ internal fun GeneratorScreen(dataModel: GeneratorViewModel, platform: Platform) 
             }
         }
         SelectionContainer {
-            dataModel.generatedBastard?.compose(platform)
+            dataModel.generatedBastard?.compose()
         }
         Row(
             modifier = Modifier.align(Alignment.CenterHorizontally),
@@ -98,7 +97,7 @@ internal fun GeneratorScreen(dataModel: GeneratorViewModel, platform: Platform) 
             }
         }
         SelectionContainer {
-            dataModel.generatedContract?.compose(platform)
+            dataModel.generatedContract?.compose()
         }
         Row(
             modifier = Modifier.align(Alignment.CenterHorizontally),
@@ -117,7 +116,7 @@ internal fun GeneratorScreen(dataModel: GeneratorViewModel, platform: Platform) 
             }
         }
         SelectionContainer {
-            dataModel.generatedContractDetail?.compose(platform)
+            dataModel.generatedContractDetail?.compose()
         }
         Row(
             modifier = Modifier.align(Alignment.CenterHorizontally),
@@ -136,7 +135,7 @@ internal fun GeneratorScreen(dataModel: GeneratorViewModel, platform: Platform) 
             }
         }
         SelectionContainer {
-            dataModel.generatedEvent?.compose(platform)
+            dataModel.generatedEvent?.compose()
         }
         Row(
             modifier = Modifier.align(Alignment.CenterHorizontally),
@@ -155,7 +154,7 @@ internal fun GeneratorScreen(dataModel: GeneratorViewModel, platform: Platform) 
             }
         }
         SelectionContainer {
-            dataModel.generatedThreat?.compose(platform)
+            dataModel.generatedThreat?.compose()
         }
         Row(
             modifier = Modifier.align(Alignment.CenterHorizontally),
@@ -174,7 +173,7 @@ internal fun GeneratorScreen(dataModel: GeneratorViewModel, platform: Platform) 
             }
         }
         SelectionContainer {
-            dataModel.generatedUsefulItem?.compose(platform)
+            dataModel.generatedUsefulItem?.compose()
         }
         Row(
             modifier = Modifier.align(Alignment.CenterHorizontally),
@@ -193,7 +192,7 @@ internal fun GeneratorScreen(dataModel: GeneratorViewModel, platform: Platform) 
             }
         }
         SelectionContainer {
-            dataModel.generatedShip?.compose(platform)
+            dataModel.generatedShip?.compose()
         }
         Row(
             modifier = Modifier.align(Alignment.CenterHorizontally),
@@ -212,7 +211,7 @@ internal fun GeneratorScreen(dataModel: GeneratorViewModel, platform: Platform) 
             }
         }
         SelectionContainer {
-            dataModel.generatedPlayer?.compose(platform)
+            dataModel.generatedPlayer?.compose()
         }
         Row(
             modifier = Modifier.align(Alignment.CenterHorizontally),
@@ -231,7 +230,7 @@ internal fun GeneratorScreen(dataModel: GeneratorViewModel, platform: Platform) 
             }
         }
         SelectionContainer {
-            dataModel.generatedFlavorText?.compose(platform)
+            dataModel.generatedFlavorText?.compose()
         }
         Row(
             modifier = Modifier.align(Alignment.CenterHorizontally),

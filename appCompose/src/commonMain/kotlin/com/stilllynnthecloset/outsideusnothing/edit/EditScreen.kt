@@ -25,6 +25,9 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.stilllynnthecloset.outsideusnothing.PlaybookPage
+import com.stilllynnthecloset.outsideusnothing.compose
+import com.stilllynnthecloset.outsideusnothing.indentPadding
 import com.stilllynnthecloset.outsideusnothing.library.model.Bastard
 import com.stilllynnthecloset.outsideusnothing.library.model.ContractDestination
 import com.stilllynnthecloset.outsideusnothing.library.model.ContractItem
@@ -36,17 +39,16 @@ import com.stilllynnthecloset.outsideusnothing.library.model.PortAdjective
 import com.stilllynnthecloset.outsideusnothing.library.model.PortNoun
 import com.stilllynnthecloset.outsideusnothing.library.model.Threat
 import com.stilllynnthecloset.outsideusnothing.library.tools.Weighted
-import com.stilllynnthecloset.outsideusnothing.Platform
-import com.stilllynnthecloset.outsideusnothing.PlaybookPage
-import com.stilllynnthecloset.outsideusnothing.compose
-import com.stilllynnthecloset.outsideusnothing.indentPadding
-import com.stilllynnthecloset.outsideusnothing.theme.ImageReference
 import com.stilllynnthecloset.outsideusnothing.theme.imageButton
 import com.stilllynnthecloset.outsideusnothing.theme.incrementInput
 import com.stilllynnthecloset.outsideusnothing.theme.outlinedButton
 import com.stilllynnthecloset.outsideusnothing.theme.textInputWidget
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.jetbrains.compose.resources.painterResource
+import outsideusnothing.appcompose.generated.resources.Res
+import outsideusnothing.appcompose.generated.resources.ic_add
+import outsideusnothing.appcompose.generated.resources.ic_delete
 
 /**
  * EditScreen - TODO: Documentation
@@ -54,7 +56,7 @@ import kotlinx.coroutines.launch
  * Created by Lynn on 5/5/23
  */
 @Composable
-internal fun EditScreen(dataModel: EditViewModel, platform: Platform) {
+internal fun EditScreen(dataModel: EditViewModel) {
     val scrollState = rememberScrollState()
     val scope = rememberCoroutineScope { Dispatchers.Default }
     Column(
@@ -76,25 +78,25 @@ internal fun EditScreen(dataModel: EditViewModel, platform: Platform) {
                 .padding(bottom = 16.dp),
         )
         when (dataModel.currentPage) {
-            PlaybookPage.PLAYBOOK -> playbookPage(dataModel, platform)
-            PlaybookPage.ALIEN -> aliens(dataModel, dataModel.currentPlaybook, platform)
-            PlaybookPage.BACKGROUND -> backgrounds(dataModel, dataModel.currentPlaybook, platform)
-            PlaybookPage.ROLE -> roles(dataModel, dataModel.currentPlaybook, platform)
-            PlaybookPage.PORT -> ports(dataModel, dataModel.currentPlaybook, platform)
-            PlaybookPage.EVENT -> events(dataModel, dataModel.currentPlaybook, platform)
-            PlaybookPage.CONTRACT_ITEM -> contractItems(dataModel, dataModel.currentPlaybook, platform)
-            PlaybookPage.USEFUL_ITEM -> usefulItems(dataModel, dataModel.currentPlaybook, platform)
-            PlaybookPage.BASTARD -> bastards(dataModel, dataModel.currentPlaybook, platform)
-            PlaybookPage.THREAT -> threats(dataModel, dataModel.currentPlaybook, platform)
-            PlaybookPage.PORT_NAME -> portNames(dataModel, dataModel.currentPlaybook, platform)
-            PlaybookPage.NPC_LABEL -> npcLabels(dataModel, dataModel.currentPlaybook, platform)
-            PlaybookPage.FLAVOR_TEXT -> flavorTexts(dataModel, dataModel.currentPlaybook, platform)
+            PlaybookPage.PLAYBOOK -> playbookPage(dataModel)
+            PlaybookPage.ALIEN -> aliens(dataModel, dataModel.currentPlaybook)
+            PlaybookPage.BACKGROUND -> backgrounds(dataModel, dataModel.currentPlaybook)
+            PlaybookPage.ROLE -> roles(dataModel, dataModel.currentPlaybook)
+            PlaybookPage.PORT -> ports(dataModel, dataModel.currentPlaybook)
+            PlaybookPage.EVENT -> events(dataModel, dataModel.currentPlaybook)
+            PlaybookPage.CONTRACT_ITEM -> contractItems(dataModel, dataModel.currentPlaybook)
+            PlaybookPage.USEFUL_ITEM -> usefulItems(dataModel, dataModel.currentPlaybook)
+            PlaybookPage.BASTARD -> bastards(dataModel, dataModel.currentPlaybook)
+            PlaybookPage.THREAT -> threats(dataModel, dataModel.currentPlaybook)
+            PlaybookPage.PORT_NAME -> portNames(dataModel, dataModel.currentPlaybook)
+            PlaybookPage.NPC_LABEL -> npcLabels(dataModel, dataModel.currentPlaybook)
+            PlaybookPage.FLAVOR_TEXT -> flavorTexts(dataModel, dataModel.currentPlaybook)
         }
     }
 }
 
 @Composable
-private fun ColumnScope.playbookPage(dataModel: EditViewModel, platform: Platform) {
+private fun ColumnScope.playbookPage(dataModel: EditViewModel) {
     textInputWidget(
         value = dataModel.currentPlaybook.name,
         label = "Name",
@@ -114,7 +116,7 @@ private fun ColumnScope.playbookPage(dataModel: EditViewModel, platform: Platfor
         onValueChange = dataModel::onAuthorsChanged,
     )
 
-    PlaybookPage.values().forEach {
+    PlaybookPage.entries.forEach {
         if (it != PlaybookPage.PLAYBOOK) {
             Text(
                 text = "${it.humanReadable}: ${getCountForPage(dataModel.currentPlaybook, it)}",
@@ -149,56 +151,56 @@ private fun getCountForPage(playbook: Playbook, page: PlaybookPage): Int {
 }
 
 @Composable
-private fun aliens(dataModel: EditViewModel, playbook: Playbook, platform: Platform) {
+private fun aliens(dataModel: EditViewModel, playbook: Playbook) {
     playbook.aliens.forEach {
-        it.value.compose(platform, Modifier.padding(start = indentPadding))
+        it.value.compose(Modifier.padding(start = indentPadding))
     }
 }
 
 @Composable
-private fun backgrounds(dataModel: EditViewModel, playbook: Playbook, platform: Platform) {
+private fun backgrounds(dataModel: EditViewModel, playbook: Playbook) {
     playbook.backgrounds.forEach {
-        it.value.compose(platform, Modifier.padding(start = indentPadding))
+        it.value.compose(Modifier.padding(start = indentPadding))
     }
 }
 
 @Composable
-private fun roles(dataModel: EditViewModel, playbook: Playbook, platform: Platform) {
+private fun roles(dataModel: EditViewModel, playbook: Playbook) {
     playbook.roles.forEach {
-        it.value.compose(platform, Modifier.padding(start = indentPadding))
+        it.value.compose(Modifier.padding(start = indentPadding))
     }
 }
 
 @Composable
-private fun ports(dataModel: EditViewModel, playbook: Playbook, platform: Platform) {
+private fun ports(dataModel: EditViewModel, playbook: Playbook) {
     playbook.ports.forEach {
-        it.value.compose(platform, Modifier.padding(start = indentPadding))
+        it.value.compose(Modifier.padding(start = indentPadding))
     }
 }
 
 @Composable
-private fun events(dataModel: EditViewModel, playbook: Playbook, platform: Platform) {
+private fun events(dataModel: EditViewModel, playbook: Playbook) {
     playbook.events.forEach {
-        it.value.compose(platform, Modifier.padding(start = indentPadding))
+        it.value.compose(Modifier.padding(start = indentPadding))
     }
 }
 
 @Composable
-private fun usefulItems(dataModel: EditViewModel, playbook: Playbook, platform: Platform) {
+private fun usefulItems(dataModel: EditViewModel, playbook: Playbook) {
     playbook.usefulItems.forEach {
-        it.value.compose(platform, Modifier.padding(start = indentPadding))
+        it.value.compose(Modifier.padding(start = indentPadding))
     }
 }
 
 @Composable
-private fun ColumnScope.bastards(dataModel: EditViewModel, playbook: Playbook, platform: Platform) {
+private fun ColumnScope.bastards(dataModel: EditViewModel, playbook: Playbook) {
     outlinedButton(
         onClick = { dataModel.addBastard(Weighted(1, Bastard("", ""))) },
         modifier = Modifier
             .align(Alignment.CenterHorizontally),
         content = {
             Image(
-                painter = platform.imagePainter.getPainter(ImageReference.Add),
+                painter = painterResource(Res.drawable.ic_add),
                 colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
                 contentDescription = "Add Bastard",
                 modifier = Modifier
@@ -247,11 +249,10 @@ private fun ColumnScope.bastards(dataModel: EditViewModel, playbook: Playbook, p
                     .align(Alignment.CenterVertically)
                     .padding(horizontal = 4.dp),
                 value = weighted.weight.toLong(),
-                width = 100.dp,
                 onValueChange = {
                     dataModel.updateBastard(weighted.copy(weight = it?.toInt() ?: 1))
                 },
-                platform = platform,
+                width = 100.dp,
             )
             imageButton(
                 onClick = {
@@ -259,23 +260,22 @@ private fun ColumnScope.bastards(dataModel: EditViewModel, playbook: Playbook, p
                 },
                 modifier = Modifier
                     .align(Alignment.CenterVertically),
-                imageReference = ImageReference.Delete,
+                imageReference = Res.drawable.ic_delete,
                 contentDescription = "Delete",
-                platform = platform,
             )
         }
     }
 }
 
 @Composable
-private fun ColumnScope.threats(dataModel: EditViewModel, playbook: Playbook, platform: Platform) {
+private fun ColumnScope.threats(dataModel: EditViewModel, playbook: Playbook) {
     outlinedButton(
         onClick = { dataModel.addThreat(Weighted(1, Threat(""))) },
         modifier = Modifier
             .align(Alignment.CenterHorizontally),
         content = {
             Image(
-                painter = platform.imagePainter.getPainter(ImageReference.Add),
+                painter = painterResource(Res.drawable.ic_add),
                 colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
                 contentDescription = "Add Threat",
                 modifier = Modifier
@@ -310,11 +310,10 @@ private fun ColumnScope.threats(dataModel: EditViewModel, playbook: Playbook, pl
                     .align(Alignment.CenterVertically)
                     .padding(horizontal = 4.dp),
                 value = weighted.weight.toLong(),
-                width = 100.dp,
                 onValueChange = {
                     dataModel.updateThreat(weighted.copy(weight = it?.toInt() ?: 1))
                 },
-                platform = platform,
+                width = 100.dp,
             )
             imageButton(
                 onClick = {
@@ -322,16 +321,15 @@ private fun ColumnScope.threats(dataModel: EditViewModel, playbook: Playbook, pl
                 },
                 modifier = Modifier
                     .align(Alignment.CenterVertically),
-                imageReference = ImageReference.Delete,
+                imageReference = Res.drawable.ic_delete,
                 contentDescription = "Delete",
-                platform = platform,
             )
         }
     }
 }
 
 @Composable
-private fun portNames(dataModel: EditViewModel, playbook: Playbook, platform: Platform) {
+private fun portNames(dataModel: EditViewModel, playbook: Playbook) {
     Row {
         Column(
             modifier = Modifier.weight(1f),
@@ -342,7 +340,7 @@ private fun portNames(dataModel: EditViewModel, playbook: Playbook, platform: Pl
                     .align(Alignment.CenterHorizontally),
                 content = {
                     Image(
-                        painter = platform.imagePainter.getPainter(ImageReference.Add),
+                        painter = painterResource(Res.drawable.ic_add),
                         colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
                         contentDescription = "Add Port Adjective",
                         modifier = Modifier
@@ -377,11 +375,10 @@ private fun portNames(dataModel: EditViewModel, playbook: Playbook, platform: Pl
                             .align(Alignment.CenterVertically)
                             .padding(horizontal = 4.dp),
                         value = weighted.weight.toLong(),
-                        width = 100.dp,
                         onValueChange = {
                             dataModel.updatePortAdjective(weighted.copy(weight = it?.toInt() ?: 1))
                         },
-                        platform = platform,
+                        width = 100.dp,
                     )
 
                     imageButton(
@@ -390,9 +387,8 @@ private fun portNames(dataModel: EditViewModel, playbook: Playbook, platform: Pl
                         },
                         modifier = Modifier
                             .align(Alignment.CenterVertically),
-                        imageReference = ImageReference.Delete,
+                        imageReference = Res.drawable.ic_delete,
                         contentDescription = "Delete",
-                        platform = platform,
                     )
                 }
             }
@@ -406,7 +402,7 @@ private fun portNames(dataModel: EditViewModel, playbook: Playbook, platform: Pl
                     .align(Alignment.CenterHorizontally),
                 content = {
                     Image(
-                        painter = platform.imagePainter.getPainter(ImageReference.Add),
+                        painter = painterResource(Res.drawable.ic_add),
                         colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
                         contentDescription = "Add Port Name",
                         modifier = Modifier
@@ -441,11 +437,10 @@ private fun portNames(dataModel: EditViewModel, playbook: Playbook, platform: Pl
                             .align(Alignment.CenterVertically)
                             .padding(horizontal = 4.dp),
                         value = weighted.weight.toLong(),
-                        width = 100.dp,
                         onValueChange = {
                             dataModel.updatePortType(weighted.copy(weight = it?.toInt() ?: 1))
                         },
-                        platform = platform,
+                        width = 100.dp,
                     )
 
                     imageButton(
@@ -454,9 +449,8 @@ private fun portNames(dataModel: EditViewModel, playbook: Playbook, platform: Pl
                         },
                         modifier = Modifier
                             .align(Alignment.CenterVertically),
-                        imageReference = ImageReference.Delete,
+                        imageReference = Res.drawable.ic_delete,
                         contentDescription = "Delete",
-                        platform = platform,
                     )
                 }
             }
@@ -465,7 +459,7 @@ private fun portNames(dataModel: EditViewModel, playbook: Playbook, platform: Pl
 }
 
 @Composable
-private fun npcLabels(dataModel: EditViewModel, playbook: Playbook, platform: Platform) {
+private fun npcLabels(dataModel: EditViewModel, playbook: Playbook) {
     Row {
         Column(
             modifier = Modifier.weight(1f),
@@ -476,7 +470,7 @@ private fun npcLabels(dataModel: EditViewModel, playbook: Playbook, platform: Pl
                     .align(Alignment.CenterHorizontally),
                 content = {
                     Image(
-                        painter = platform.imagePainter.getPainter(ImageReference.Add),
+                        painter = painterResource(Res.drawable.ic_add),
                         colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
                         contentDescription = "Add NPC Adjective",
                         modifier = Modifier
@@ -511,11 +505,10 @@ private fun npcLabels(dataModel: EditViewModel, playbook: Playbook, platform: Pl
                             .align(Alignment.CenterVertically)
                             .padding(horizontal = 4.dp),
                         value = weighted.weight.toLong(),
-                        width = 100.dp,
                         onValueChange = {
                             dataModel.updateNpcAdjective(weighted.copy(weight = it?.toInt() ?: 1))
                         },
-                        platform = platform,
+                        width = 100.dp,
                     )
 
                     imageButton(
@@ -524,9 +517,8 @@ private fun npcLabels(dataModel: EditViewModel, playbook: Playbook, platform: Pl
                         },
                         modifier = Modifier
                             .align(Alignment.CenterVertically),
-                        imageReference = ImageReference.Delete,
+                        imageReference = Res.drawable.ic_delete,
                         contentDescription = "Delete",
-                        platform = platform,
                     )
                 }
             }
@@ -540,7 +532,7 @@ private fun npcLabels(dataModel: EditViewModel, playbook: Playbook, platform: Pl
                     .align(Alignment.CenterHorizontally),
                 content = {
                     Image(
-                        painter = platform.imagePainter.getPainter(ImageReference.Add),
+                        painter = painterResource(Res.drawable.ic_add),
                         colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
                         contentDescription = "Add NPC Type",
                         modifier = Modifier
@@ -575,11 +567,10 @@ private fun npcLabels(dataModel: EditViewModel, playbook: Playbook, platform: Pl
                             .align(Alignment.CenterVertically)
                             .padding(horizontal = 4.dp),
                         value = weighted.weight.toLong(),
-                        width = 100.dp,
                         onValueChange = {
                             dataModel.updateNpcName(weighted.copy(weight = it?.toInt() ?: 1))
                         },
-                        platform = platform,
+                        width = 100.dp,
                     )
 
                     imageButton(
@@ -588,9 +579,8 @@ private fun npcLabels(dataModel: EditViewModel, playbook: Playbook, platform: Pl
                         },
                         modifier = Modifier
                             .align(Alignment.CenterVertically),
-                        imageReference = ImageReference.Delete,
+                        imageReference = Res.drawable.ic_delete,
                         contentDescription = "Delete",
-                        platform = platform,
                     )
                 }
             }
@@ -599,7 +589,7 @@ private fun npcLabels(dataModel: EditViewModel, playbook: Playbook, platform: Pl
 }
 
 @Composable
-private fun contractItems(dataModel: EditViewModel, playbook: Playbook, platform: Platform) {
+private fun contractItems(dataModel: EditViewModel, playbook: Playbook) {
     Row {
         Column(
             modifier = Modifier.weight(1f),
@@ -610,7 +600,7 @@ private fun contractItems(dataModel: EditViewModel, playbook: Playbook, platform
                     .align(Alignment.CenterHorizontally),
                 content = {
                     Image(
-                        painter = platform.imagePainter.getPainter(ImageReference.Add),
+                        painter = painterResource(Res.drawable.ic_add),
                         colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
                         contentDescription = "Add Contract Item",
                         modifier = Modifier
@@ -645,11 +635,10 @@ private fun contractItems(dataModel: EditViewModel, playbook: Playbook, platform
                             .align(Alignment.CenterVertically)
                             .padding(horizontal = 4.dp),
                         value = weighted.weight.toLong(),
-                        width = 100.dp,
                         onValueChange = {
                             dataModel.updateContractItem(weighted.copy(weight = it?.toInt() ?: 1))
                         },
-                        platform = platform,
+                        width = 100.dp,
                     )
 
                     imageButton(
@@ -658,9 +647,8 @@ private fun contractItems(dataModel: EditViewModel, playbook: Playbook, platform
                         },
                         modifier = Modifier
                             .align(Alignment.CenterVertically),
-                        imageReference = ImageReference.Delete,
+                        imageReference = Res.drawable.ic_delete,
                         contentDescription = "Delete",
-                        platform = platform,
                     )
                 }
             }
@@ -674,7 +662,7 @@ private fun contractItems(dataModel: EditViewModel, playbook: Playbook, platform
                     .align(Alignment.CenterHorizontally),
                 content = {
                     Image(
-                        painter = platform.imagePainter.getPainter(ImageReference.Add),
+                        painter = painterResource(Res.drawable.ic_add),
                         colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
                         contentDescription = "Add Contract Destination",
                         modifier = Modifier
@@ -709,11 +697,10 @@ private fun contractItems(dataModel: EditViewModel, playbook: Playbook, platform
                             .align(Alignment.CenterVertically)
                             .padding(horizontal = 4.dp),
                         value = weighted.weight.toLong(),
-                        width = 100.dp,
                         onValueChange = {
                             dataModel.updateContractDestination(weighted.copy(weight = it?.toInt() ?: 1))
                         },
-                        platform = platform,
+                        width = 100.dp,
                     )
 
                     imageButton(
@@ -722,9 +709,8 @@ private fun contractItems(dataModel: EditViewModel, playbook: Playbook, platform
                         },
                         modifier = Modifier
                             .align(Alignment.CenterVertically),
-                        imageReference = ImageReference.Delete,
+                        imageReference = Res.drawable.ic_delete,
                         contentDescription = "Delete",
-                        platform = platform,
                     )
                 }
             }
@@ -733,14 +719,14 @@ private fun contractItems(dataModel: EditViewModel, playbook: Playbook, platform
 }
 
 @Composable
-private fun ColumnScope.flavorTexts(dataModel: EditViewModel, playbook: Playbook, platform: Platform) {
+private fun ColumnScope.flavorTexts(dataModel: EditViewModel, playbook: Playbook) {
     outlinedButton(
         onClick = { dataModel.addFlavorText(Weighted(1, FlavorText("", ""))) },
         modifier = Modifier
             .align(Alignment.CenterHorizontally),
         content = {
             Image(
-                painter = platform.imagePainter.getPainter(ImageReference.Add),
+                painter = painterResource(Res.drawable.ic_add),
                 colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
                 contentDescription = "Add Flavor Text",
                 modifier = Modifier
@@ -789,11 +775,10 @@ private fun ColumnScope.flavorTexts(dataModel: EditViewModel, playbook: Playbook
                     .align(Alignment.CenterVertically)
                     .padding(horizontal = 4.dp),
                 value = weighted.weight.toLong(),
-                width = 100.dp,
                 onValueChange = {
                     dataModel.updateFlavorText(weighted.copy(weight = it?.toInt() ?: 1))
                 },
-                platform = platform,
+                width = 100.dp,
             )
             imageButton(
                 onClick = {
@@ -801,9 +786,8 @@ private fun ColumnScope.flavorTexts(dataModel: EditViewModel, playbook: Playbook
                 },
                 modifier = Modifier
                     .align(Alignment.CenterVertically),
-                imageReference = ImageReference.Delete,
+                imageReference = Res.drawable.ic_delete,
                 contentDescription = "Delete",
-                platform = platform,
             )
         }
     }

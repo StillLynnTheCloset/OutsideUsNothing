@@ -22,15 +22,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.unit.dp
 import com.stilllynnthecloset.hexgridcompose.hexGrid
-import com.stilllynnthecloset.outsideusnothing.Platform
 import com.stilllynnthecloset.outsideusnothing.compose
 import com.stilllynnthecloset.outsideusnothing.library.map.PortNode
-import com.stilllynnthecloset.outsideusnothing.theme.ImageReference
 import com.stilllynnthecloset.outsideusnothing.theme.textInputWidget
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
+import org.jetbrains.compose.resources.painterResource
+import outsideusnothing.appcompose.generated.resources.Res
+import outsideusnothing.appcompose.generated.resources.ic_delete
+import outsideusnothing.appcompose.generated.resources.ic_dice5
+import outsideusnothing.appcompose.generated.resources.ic_remove
 import kotlin.time.measureTime
 
 /**
@@ -39,7 +42,7 @@ import kotlin.time.measureTime
  * Created by Lynn on 4/14/23
  */
 @Composable
-internal fun MapScreen(dataModel: MapViewModel, platform: Platform) {
+internal fun MapScreen(dataModel: MapViewModel) {
     Column(
         modifier = Modifier
             .fillMaxSize(),
@@ -71,7 +74,7 @@ internal fun MapScreen(dataModel: MapViewModel, platform: Platform) {
             )
 
             Image(
-                painter = platform.imagePainter.getPainter(ImageReference.Delete),
+                painter = painterResource(Res.drawable.ic_delete),
                 colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurfaceVariant),
                 contentDescription = "Close",
                 modifier = Modifier
@@ -115,7 +118,7 @@ internal fun MapScreen(dataModel: MapViewModel, platform: Platform) {
                     )
 
                     Image(
-                        painter = platform.imagePainter.getPainter(ImageReference.Remove),
+                        painter = painterResource(Res.drawable.ic_remove),
                         colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurfaceVariant),
                         contentDescription = "Close",
                         modifier = Modifier
@@ -127,7 +130,7 @@ internal fun MapScreen(dataModel: MapViewModel, platform: Platform) {
                     )
 
                     Image(
-                        painter = platform.imagePainter.getPainter(ImageReference.Delete),
+                        painter = painterResource(Res.drawable.ic_delete),
                         colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurfaceVariant),
                         contentDescription = "Close",
                         modifier = Modifier
@@ -161,7 +164,7 @@ internal fun MapScreen(dataModel: MapViewModel, platform: Platform) {
                                 },
                         )
                         Image(
-                            painter = platform.imagePainter.getPainter(ImageReference.Dice5),
+                            painter = painterResource(Res.drawable.ic_dice5),
                             colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurfaceVariant),
                             contentDescription = "Random Name",
                             modifier = Modifier
@@ -185,7 +188,7 @@ internal fun MapScreen(dataModel: MapViewModel, platform: Platform) {
                         )
                     }
                 } else {
-                    selectedNode.portOfCall.compose(platform)
+                    selectedNode.portOfCall.compose()
                 }
             }
         }

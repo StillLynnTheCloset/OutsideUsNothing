@@ -23,8 +23,8 @@ public fun main() {
 
         val screenWidth = configuration.width.dp
         val screenHeight = configuration.height.dp
-        val platform = remember { Platform() }
-        val dataModel = remember { MainDataModel(platform) }
+        val persistence = remember { Persistence() }
+        val dataModel = remember { MainDataModel(persistence) }
 
         LynnTheme(dataModel.isDarkTheme) {
             Surface(
@@ -35,7 +35,6 @@ public fun main() {
                         currentIsDarkTheme = dataModel.isDarkTheme,
                         onDarkThemeChanged = dataModel::updateIsDarkTheme,
                         onOpenWindow = null,
-                        platform = platform,
                     )
 
                     HorizontalDivider(thickness = 1.dp)
@@ -44,7 +43,6 @@ public fun main() {
                         windowSize = DpSize(screenWidth, screenHeight),
                         dataModel = dataModel,
                         windowViewModel = dataModel.windows.first(),
-                        platform = platform,
                     )
                 }
             }

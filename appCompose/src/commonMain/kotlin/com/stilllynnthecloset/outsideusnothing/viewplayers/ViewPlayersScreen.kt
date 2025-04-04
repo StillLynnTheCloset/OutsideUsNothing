@@ -11,7 +11,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import com.stilllynnthecloset.outsideusnothing.Platform
 import com.stilllynnthecloset.outsideusnothing.compose
 import com.stilllynnthecloset.outsideusnothing.theme.dropDown
 import com.stilllynnthecloset.outsideusnothing.theme.text
@@ -24,7 +23,7 @@ import kotlinx.coroutines.launch
  * Created by Lynn on 2/12/25
  */
 @Composable
-internal fun ViewPlayersScreen(dataModel: ViewPlayersViewModel, platform: Platform) {
+internal fun ViewPlayersScreen(dataModel: ViewPlayersViewModel) {
     val scrollState = rememberScrollState()
     val scope = rememberCoroutineScope { Dispatchers.Default }
     Column(
@@ -41,7 +40,6 @@ internal fun ViewPlayersScreen(dataModel: ViewPlayersViewModel, platform: Platfo
             items = dataModel.players,
             selected = dataModel.selectedPlayer,
             modifier = Modifier,
-            platform = platform,
             onItemClick = dataModel::onPlayerChanged,
             composeItem = { item, childModifier ->
                 text(
@@ -51,6 +49,6 @@ internal fun ViewPlayersScreen(dataModel: ViewPlayersViewModel, platform: Platfo
             }
         )
 
-        dataModel.selectedPlayer.compose(platform)
+        dataModel.selectedPlayer.compose()
     }
 }

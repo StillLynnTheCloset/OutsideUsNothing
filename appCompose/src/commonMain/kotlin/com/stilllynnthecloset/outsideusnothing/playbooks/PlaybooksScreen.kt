@@ -15,16 +15,20 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.sp
-import com.stilllynnthecloset.outsideusnothing.library.model.Playbook
 import com.stilllynnthecloset.outsideusnothing.MainDataModel
-import com.stilllynnthecloset.outsideusnothing.Platform
 import com.stilllynnthecloset.outsideusnothing.WindowViewModel
 import com.stilllynnthecloset.outsideusnothing.compose
 import com.stilllynnthecloset.outsideusnothing.indentPadding
-import com.stilllynnthecloset.outsideusnothing.theme.ImageReference
+import com.stilllynnthecloset.outsideusnothing.library.model.Playbook
 import com.stilllynnthecloset.outsideusnothing.theme.imageButton
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import outsideusnothing.appcompose.generated.resources.Res
+import outsideusnothing.appcompose.generated.resources.ic_add
+import outsideusnothing.appcompose.generated.resources.ic_delete
+import outsideusnothing.appcompose.generated.resources.ic_edit
+import outsideusnothing.appcompose.generated.resources.ic_radio_button_checked
+import outsideusnothing.appcompose.generated.resources.ic_radio_button_unchecked
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
@@ -39,7 +43,6 @@ internal fun PlaybooksScreen(
     mainDataModel: MainDataModel,
     windowViewModel: WindowViewModel,
     dataModel: PlaybooksViewModel,
-    platform: Platform,
 ) {
     val scrollState = rememberScrollState()
     val scope = rememberCoroutineScope { Dispatchers.Default }
@@ -71,9 +74,8 @@ internal fun PlaybooksScreen(
                     mainDataModel.addPlaybook(playbook)
                     windowViewModel.openEditPlaybook(playbook.uuid)
                 },
+                imageReference = Res.drawable.ic_add,
                 contentDescription = "Add",
-                imageReference = ImageReference.Add,
-                platform = platform,
             )
         }
         dataModel.mainDataModel.getPlaybooks().forEach { playbook ->
@@ -85,18 +87,16 @@ internal fun PlaybooksScreen(
                         dataModel.changePlaybookState(playbook, !playbook.active)
                     },
                     enabled = playbook.uuid != Playbook.DEFAULT_PLAYBOOK_UUID,
+                    imageReference = if (playbook.active) Res.drawable.ic_radio_button_checked else Res.drawable.ic_radio_button_unchecked,
                     contentDescription = "Active",
-                    imageReference = if (playbook.active) ImageReference.RadioButtonChecked else ImageReference.RadioButtonUnchecked,
-                    platform = platform,
                 )
 
                 imageButton(
                     onClick = {
                         windowViewModel.openEditPlaybook(playbook.uuid)
                     },
+                    imageReference = Res.drawable.ic_edit,
                     contentDescription = "Edit",
-                    imageReference = ImageReference.Edit,
-                    platform = platform,
                 )
 
                 imageButton(
@@ -104,12 +104,11 @@ internal fun PlaybooksScreen(
                         mainDataModel.removePlaybook(playbook)
                     },
                     enabled = playbook.uuid != Playbook.DEFAULT_PLAYBOOK_UUID,
+                    imageReference = Res.drawable.ic_delete,
                     contentDescription = "Delete",
-                    imageReference = ImageReference.Delete,
-                    platform = platform,
                 )
 
-                playbook.compose(platform, true, modifier = Modifier.padding(start = indentPadding))
+                playbook.compose(true, modifier = Modifier.padding(start = indentPadding))
             }
         }
     }
