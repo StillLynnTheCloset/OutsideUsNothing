@@ -11,11 +11,8 @@ import com.stilllynnthecloset.outsideusnothing.PlaybookPage
  *
  * Created by Lynn on 4/14/23
  */
-internal class ReferenceViewModel constructor(val mainDataModel: MainDataModel) {
-    var currentPage: PlaybookPage by mutableStateOf(PlaybookPage.PLAYBOOK)
-        private set
-
-    fun setPage(newPage: PlaybookPage) {
-        currentPage = newPage
-    }
-}
+internal class ReferenceViewModel constructor(
+    val mainDataModel: MainDataModel,
+    val currentPage: PlaybookPage = PlaybookPage.PLAYBOOK,
+    val subpage: Any? = null,
+)

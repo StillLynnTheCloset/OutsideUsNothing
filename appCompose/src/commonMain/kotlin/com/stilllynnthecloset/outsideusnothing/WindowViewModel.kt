@@ -46,6 +46,10 @@ public class WindowViewModel internal constructor(
         navigate(NavigationAction.NavigateTo(NavigationDestination.EditPlaybook(EditViewModel(mainDataModel, this, page, playbookUuid))))
     }
 
+    internal fun openReferencePlaybook(page: PlaybookPage = PlaybookPage.PLAYBOOK, subpage: Any? = null) {
+        navigate(NavigationAction.NavigateTo(NavigationDestination.Reference(ReferenceViewModel(mainDataModel, page, subpage))))
+    }
+
     internal fun updateCurrentTab(newTab: NavigationTabImpl) {
         backstack.clear()
         currentScreen = when (newTab) {

@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
@@ -22,10 +21,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.stilllynnthecloset.outsideusnothing.library.model.Playbook
 import com.stilllynnthecloset.outsideusnothing.PlaybookPage
+import com.stilllynnthecloset.outsideusnothing.WindowViewModel
 import com.stilllynnthecloset.outsideusnothing.compose
 import com.stilllynnthecloset.outsideusnothing.indentPadding
+import com.stilllynnthecloset.outsideusnothing.library.model.EventSpecification
+import com.stilllynnthecloset.outsideusnothing.library.model.PlaySheetSpecification
+import com.stilllynnthecloset.outsideusnothing.library.model.Playbook
+import com.stilllynnthecloset.outsideusnothing.library.model.PortOfCallSpecification
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -35,7 +38,7 @@ import kotlinx.coroutines.launch
  * Created by Lynn on 5/3/23
  */
 @Composable
-internal fun ReferenceScreen(dataModel: ReferenceViewModel) {
+internal fun ReferenceScreen(windowViewModel: WindowViewModel, dataModel: ReferenceViewModel) {
     val scrollState = rememberScrollState()
     val scope = rememberCoroutineScope { Dispatchers.Default }
     Column(
@@ -46,8 +49,7 @@ internal fun ReferenceScreen(dataModel: ReferenceViewModel) {
                     scrollState.scrollBy(-delta)
                 }
             }, orientation = Orientation.Vertical)
-            .verticalScroll(scrollState)
-            .padding(indentPadding),
+            .verticalScroll(scrollState),
     ) {
         Text(
             text = dataModel.currentPage.humanReadable,
@@ -57,38 +59,43 @@ internal fun ReferenceScreen(dataModel: ReferenceViewModel) {
                 .align(Alignment.CenterHorizontally)
                 .padding(bottom = 16.dp),
         )
-        when (dataModel.currentPage) {
-            PlaybookPage.PLAYBOOK -> tableOfContents(
-                dataModel,
-                dataModel.mainDataModel.mergedPlaybook
-            )
-            PlaybookPage.ALIEN -> alien(dataModel, dataModel.mainDataModel.mergedPlaybook)
-            PlaybookPage.BACKGROUND -> background(dataModel, dataModel.mainDataModel.mergedPlaybook)
-            PlaybookPage.ROLE -> role(dataModel, dataModel.mainDataModel.mergedPlaybook)
-            PlaybookPage.PORT -> port(dataModel, dataModel.mainDataModel.mergedPlaybook)
-            PlaybookPage.EVENT -> event(dataModel, dataModel.mainDataModel.mergedPlaybook)
-            PlaybookPage.CONTRACT_ITEM -> contractItem(
-                dataModel,
-                dataModel.mainDataModel.mergedPlaybook
-            )
-            PlaybookPage.USEFUL_ITEM -> usefulItem(
-                dataModel,
-                dataModel.mainDataModel.mergedPlaybook
-            )
-            PlaybookPage.BASTARD -> bastard(dataModel, dataModel.mainDataModel.mergedPlaybook)
-            PlaybookPage.THREAT -> threat(dataModel, dataModel.mainDataModel.mergedPlaybook)
-            PlaybookPage.PORT_NAME -> portName(dataModel, dataModel.mainDataModel.mergedPlaybook)
-            PlaybookPage.NPC_LABEL -> npcLabel(dataModel, dataModel.mainDataModel.mergedPlaybook)
-            PlaybookPage.FLAVOR_TEXT -> flavorText(
-                dataModel,
-                dataModel.mainDataModel.mergedPlaybook
-            )
+        if (dataModel.subpage == null) {
+            when (dataModel.currentPage) {
+                PlaybookPage.PLAYBOOK -> tableOfContents(windowViewModel)
+                PlaybookPage.ALIEN -> alien(windowViewModel, dataModel.mainDataModel.mergedPlaybook)
+                PlaybookPage.BACKGROUND -> background(
+                    windowViewModel,
+                    dataModel.mainDataModel.mergedPlaybook
+                )
+
+                PlaybookPage.ROLE -> role(windowViewModel, dataModel.mainDataModel.mergedPlaybook)
+                PlaybookPage.PORT -> port(windowViewModel, dataModel.mainDataModel.mergedPlaybook)
+                PlaybookPage.EVENT -> event(windowViewModel, dataModel.mainDataModel.mergedPlaybook)
+                PlaybookPage.CONTRACT_ITEM -> contractItem(dataModel.mainDataModel.mergedPlaybook)
+                PlaybookPage.USEFUL_ITEM -> usefulItem(dataModel.mainDataModel.mergedPlaybook)
+                PlaybookPage.BASTARD -> bastard(dataModel.mainDataModel.mergedPlaybook)
+                PlaybookPage.THREAT -> threat(dataModel.mainDataModel.mergedPlaybook)
+                PlaybookPage.PORT_NAME -> portName(dataModel.mainDataModel.mergedPlaybook)
+                PlaybookPage.NPC_LABEL -> npcLabel(dataModel.mainDataModel.mergedPlaybook)
+                PlaybookPage.FLAVOR_TEXT -> flavorText(dataModel.mainDataModel.mergedPlaybook)
+            }
+        } else {
+            when (dataModel.currentPage) {
+                PlaybookPage.ALIEN -> alienSpecific(dataModel.subpage as PlaySheetSpecification)
+                PlaybookPage.BACKGROUND -> backgroundSpecific(dataModel.subpage as PlaySheetSpecification)
+                PlaybookPage.ROLE -> roleSpecific(dataModel.subpage as PlaySheetSpecification)
+                PlaybookPage.PORT -> portSpecific(dataModel.subpage as PortOfCallSpecification)
+                PlaybookPage.EVENT -> eventSpecific(dataModel.subpage as EventSpecification)
+                else -> {
+                    throw IllegalArgumentException("${dataModel.currentPage} does not support subpages, but subpage is ${dataModel.subpage}")
+                }
+            }
         }
     }
 }
 
 @Composable
-private fun ColumnScope.tableOfContents(dataModel: ReferenceViewModel, playbook: Playbook) {
+private fun ColumnScope.tableOfContents(windowViewModel: WindowViewModel) {
     PlaybookPage.entries.forEach {
         if (it != PlaybookPage.PLAYBOOK) {
             Text(
@@ -97,7 +104,7 @@ private fun ColumnScope.tableOfContents(dataModel: ReferenceViewModel, playbook:
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally)
                     .clickable {
-                        dataModel.setPage(it)
+                        windowViewModel.openReferencePlaybook(it)
                     },
             )
         }
@@ -105,94 +112,117 @@ private fun ColumnScope.tableOfContents(dataModel: ReferenceViewModel, playbook:
 }
 
 @Composable
-private fun alien(dataModel: ReferenceViewModel, playbook: Playbook) {
-    Button(
-        onClick = { dataModel.setPage(PlaybookPage.PLAYBOOK) },
-    ) {
-        Text(
-            text = "Back",
-        )
-    }
+private fun ColumnScope.alien(windowViewModel: WindowViewModel, playbook: Playbook) {
     playbook.aliens.forEach {
-        SelectionContainer {
-            it.value.compose(Modifier.padding(start = indentPadding))
-        }
+        Text(
+            text = it.value.name,
+            fontSize = 32.sp,
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally)
+                .clickable {
+                    windowViewModel.openReferencePlaybook(PlaybookPage.ALIEN, it.value)
+                },
+        )
     }
 }
 
 @Composable
-private fun background(dataModel: ReferenceViewModel, playbook: Playbook) {
-    Button(
-        onClick = { dataModel.setPage(PlaybookPage.PLAYBOOK) },
-    ) {
-        Text(
-            text = "Back",
-        )
+private fun ColumnScope.alienSpecific(subPage: PlaySheetSpecification) {
+    SelectionContainer {
+        subPage.compose(Modifier.padding(start = indentPadding))
     }
+}
+
+@Composable
+private fun ColumnScope.background(windowViewModel: WindowViewModel, playbook: Playbook) {
     playbook.backgrounds.forEach {
-        SelectionContainer {
-            it.value.compose(Modifier.padding(start = indentPadding))
-        }
+        Text(
+            text = it.value.name,
+            fontSize = 32.sp,
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally)
+                .clickable {
+                    windowViewModel.openReferencePlaybook(PlaybookPage.BACKGROUND, it.value)
+                },
+        )
     }
 }
 
 @Composable
-private fun role(dataModel: ReferenceViewModel, playbook: Playbook) {
-    Button(
-        onClick = { dataModel.setPage(PlaybookPage.PLAYBOOK) },
-    ) {
-        Text(
-            text = "Back",
-        )
+private fun ColumnScope.backgroundSpecific(subPage: PlaySheetSpecification) {
+    SelectionContainer {
+        subPage.compose(Modifier.padding(start = indentPadding))
     }
+}
+
+@Composable
+private fun ColumnScope.role(windowViewModel: WindowViewModel, playbook: Playbook) {
     playbook.roles.forEach {
-        SelectionContainer {
-            it.value.compose(Modifier.padding(start = indentPadding))
-        }
+        Text(
+            text = it.value.name,
+            fontSize = 32.sp,
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally)
+                .clickable {
+                    windowViewModel.openReferencePlaybook(PlaybookPage.ROLE, it.value)
+                },
+        )
     }
 }
 
 @Composable
-private fun port(dataModel: ReferenceViewModel, playbook: Playbook) {
-    Button(
-        onClick = { dataModel.setPage(PlaybookPage.PLAYBOOK) },
-    ) {
-        Text(
-            text = "Back",
-        )
+private fun ColumnScope.roleSpecific(subPage: PlaySheetSpecification) {
+    SelectionContainer {
+        subPage.compose(Modifier.padding(start = indentPadding))
     }
+}
+
+@Composable
+private fun ColumnScope.port(windowViewModel: WindowViewModel, playbook: Playbook) {
     playbook.ports.forEach {
-        SelectionContainer {
-            it.value.compose(Modifier.padding(start = indentPadding))
-        }
+        Text(
+            text = it.value.name,
+            fontSize = 32.sp,
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally)
+                .clickable {
+                    windowViewModel.openReferencePlaybook(PlaybookPage.PORT, it.value)
+                },
+        )
     }
 }
 
 @Composable
-private fun event(dataModel: ReferenceViewModel, playbook: Playbook) {
-    Button(
-        onClick = { dataModel.setPage(PlaybookPage.PLAYBOOK) },
-    ) {
-        Text(
-            text = "Back",
-        )
+private fun ColumnScope.portSpecific(subPage: PortOfCallSpecification) {
+    SelectionContainer {
+        subPage.compose(Modifier.padding(start = indentPadding))
     }
+}
+
+@Composable
+private fun ColumnScope.event(windowViewModel: WindowViewModel, playbook: Playbook) {
     playbook.events.forEach {
-        SelectionContainer {
-            it.value.compose(Modifier.padding(start = indentPadding))
-        }
+        Text(
+            text = it.value.name,
+            fontSize = 32.sp,
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally)
+                .clickable {
+                    windowViewModel.openReferencePlaybook(PlaybookPage.EVENT, it.value)
+                },
+        )
     }
 }
 
 @Composable
-private fun contractItem(dataModel: ReferenceViewModel, playbook: Playbook) {
-    Button(
-        onClick = { dataModel.setPage(PlaybookPage.PLAYBOOK) },
-    ) {
-        Text(
-            text = "Back",
-        )
+private fun ColumnScope.eventSpecific(subPage: EventSpecification) {
+    SelectionContainer {
+        subPage.compose(Modifier.padding(start = indentPadding))
     }
+}
+
+@Composable
+private fun ColumnScope.contractItem(playbook: Playbook) {
     Row {
         Column(
             modifier = Modifier.weight(1f),
@@ -222,14 +252,7 @@ private fun contractItem(dataModel: ReferenceViewModel, playbook: Playbook) {
 }
 
 @Composable
-private fun usefulItem(dataModel: ReferenceViewModel, playbook: Playbook) {
-    Button(
-        onClick = { dataModel.setPage(PlaybookPage.PLAYBOOK) },
-    ) {
-        Text(
-            text = "Back",
-        )
-    }
+private fun ColumnScope.usefulItem(playbook: Playbook) {
     playbook.usefulItems.forEach {
         SelectionContainer {
             it.value.compose(Modifier.padding(start = indentPadding))
@@ -238,14 +261,7 @@ private fun usefulItem(dataModel: ReferenceViewModel, playbook: Playbook) {
 }
 
 @Composable
-private fun bastard(dataModel: ReferenceViewModel, playbook: Playbook) {
-    Button(
-        onClick = { dataModel.setPage(PlaybookPage.PLAYBOOK) },
-    ) {
-        Text(
-            text = "Back",
-        )
-    }
+private fun ColumnScope.bastard(playbook: Playbook) {
     playbook.bastards.forEach {
         SelectionContainer {
             it.value.compose(Modifier.padding(start = indentPadding))
@@ -254,14 +270,7 @@ private fun bastard(dataModel: ReferenceViewModel, playbook: Playbook) {
 }
 
 @Composable
-private fun threat(dataModel: ReferenceViewModel, playbook: Playbook) {
-    Button(
-        onClick = { dataModel.setPage(PlaybookPage.PLAYBOOK) },
-    ) {
-        Text(
-            text = "Back",
-        )
-    }
+private fun ColumnScope.threat(playbook: Playbook) {
     playbook.threats.forEach {
         SelectionContainer {
             it.value.compose(Modifier.padding(start = indentPadding))
@@ -270,20 +279,13 @@ private fun threat(dataModel: ReferenceViewModel, playbook: Playbook) {
 }
 
 @Composable
-private fun portName(dataModel: ReferenceViewModel, playbook: Playbook) {
-    Button(
-        onClick = { dataModel.setPage(PlaybookPage.PLAYBOOK) },
-    ) {
-        Text(
-            text = "Back",
-        )
-    }
+private fun ColumnScope.portName(playbook: Playbook) {
     Row {
         Column(
             modifier = Modifier.weight(1f),
         ) {
             Text(
-                text = "Deliver this:",
+                text = "Adjective:",
             )
             playbook.portAdjectives.forEach {
                 SelectionContainer {
@@ -298,7 +300,7 @@ private fun portName(dataModel: ReferenceViewModel, playbook: Playbook) {
             modifier = Modifier.weight(1f),
         ) {
             Text(
-                text = "here:",
+                text = "Noun:",
             )
             playbook.portNouns.forEach {
                 SelectionContainer {
@@ -313,20 +315,13 @@ private fun portName(dataModel: ReferenceViewModel, playbook: Playbook) {
 }
 
 @Composable
-private fun npcLabel(dataModel: ReferenceViewModel, playbook: Playbook) {
-    Button(
-        onClick = { dataModel.setPage(PlaybookPage.PLAYBOOK) },
-    ) {
-        Text(
-            text = "Back",
-        )
-    }
+private fun ColumnScope.npcLabel(playbook: Playbook) {
     Row {
         Column(
             modifier = Modifier.weight(1f),
         ) {
             Text(
-                text = "Deliver this:",
+                text = "Adjective:",
             )
             playbook.npcAdjectives.forEach {
                 SelectionContainer {
@@ -341,7 +336,7 @@ private fun npcLabel(dataModel: ReferenceViewModel, playbook: Playbook) {
             modifier = Modifier.weight(1f),
         ) {
             Text(
-                text = "here:",
+                text = "Noun:",
             )
             playbook.npcNouns.forEach {
                 SelectionContainer {
@@ -356,14 +351,7 @@ private fun npcLabel(dataModel: ReferenceViewModel, playbook: Playbook) {
 }
 
 @Composable
-private fun flavorText(dataModel: ReferenceViewModel, playbook: Playbook) {
-    Button(
-        onClick = { dataModel.setPage(PlaybookPage.PLAYBOOK) },
-    ) {
-        Text(
-            text = "Back",
-        )
-    }
+private fun ColumnScope.flavorText(playbook: Playbook) {
     playbook.flavorTexts.forEach {
         SelectionContainer {
             it.value.compose(Modifier.padding(start = indentPadding))

@@ -65,6 +65,7 @@ public fun applicationContents(
                 )
 
                 is NavigationDestination.Reference -> ReferenceScreen(
+                    windowViewModel = windowViewModel,
                     dataModel = currentScreen.dataModel,
                 )
 
