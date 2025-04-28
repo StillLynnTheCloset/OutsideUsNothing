@@ -1,6 +1,8 @@
 package com.stilllynnthecloset.hexgridcompose
 
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.gestures.rememberTransformableState
+import androidx.compose.foundation.gestures.transformable
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -77,6 +79,11 @@ public fun <T : HexGridNode> hexGrid(
     val placeholderColor = MaterialTheme.colorScheme.outlineVariant
     val unitDistance = (nodeSize + nodeSpacing) * scale
 
+    val state = rememberTransformableState { zoomChange, offsetChange, rotationChange ->
+        val newScale = (scale * zoomChange).coerceIn(0.1f..5f)
+        onScaleChanged(newScale)
+    }
+
     Canvas(
         modifier = modifier
             // web scroll changes by 138 per step
@@ -125,6 +132,7 @@ public fun <T : HexGridNode> hexGrid(
                     }
                 }
             }
+            .transformable(state)
             .clipToBounds(),
     ) {
         edges.forEach {
